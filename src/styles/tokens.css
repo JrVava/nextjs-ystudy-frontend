@@ -1,0 +1,29 @@
+/**
+ * YStudy design tokens — populated during CSS migration from HTML_WEBSITE.
+ * Import in root layout after globals.css when legacy styles are added.
+ */
+
+:root {
+  --o-deep: #e05000;
+  --o: #f08000;
+  --b: #0a52d6;
+  --b-deep: #00308c;
+  --ink: #071126;
+  --muted: #46566f;
+  --line: #dbe8f7;
+  --soft: #f7fbff;
+  --site: 1680px;
+  --mobile-gutter: 12px;
+}
+
+.ys-theme-wash {
+  --page-accent: var(--soft);
+}
+
+.ys-theme-sunset {
+  --page-accent: #fff8ef;
+}
+
+.ys-theme-split {
+  --page-accent: #f6f9fc;
+}

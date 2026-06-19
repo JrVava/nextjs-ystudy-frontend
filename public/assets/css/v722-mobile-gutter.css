@@ -1,0 +1,143 @@
+/* v722 Global Mobile Gutter Audit + Fix
+   Goal: every page uses a consistent 12px outer mobile gutter without changing desktop layouts.
+*/
+@media (max-width: 768px){
+  :root{--mobile-gutter:12px;--page-gutter:12px;--container-gutter:12px;}
+  html,body{max-width:100%;overflow-x:hidden;}
+  *,*::before,*::after{box-sizing:border-box;}
+
+  /* Primary page-width wrappers */
+  .container,
+  .section-inner,
+  .section-wrap,
+  .page-shell,
+  .content-shell,
+  .shell,
+  .wrap,
+  .inner,
+  .site-inner,
+  .nav,
+  .topbar .container,
+  .footer-grid,
+  .hero-inner,
+  .hero-content,
+  .title-row,
+  .search-shell,
+  .course-detail-inner,
+  .course-shell,
+  .tool-shell,
+  .tool-wrap,
+  .tool-page,
+  .builder-shell,
+  .builder-layout,
+  .simple-apply-grid,
+  .workflow-grid,
+  .dashboard-shell,
+  .dashboard-grid,
+  .guide-shell,
+  .guide-grid,
+  .career-shell,
+  .career-grid,
+  .qualification-shell,
+  .funding-shell,
+  .funding-grid,
+  .subject-shell,
+  .subject-grid,
+  .layout,
+  .split,
+  .two-col,
+  .two-column,
+  .three-col,
+  .main-content,
+  main > .grid,
+  main > .section,
+  main > section > .grid{
+    width:100% !important;
+    max-width:100% !important;
+    margin-left:auto !important;
+    margin-right:auto !important;
+    padding-left:12px !important;
+    padding-right:12px !important;
+  }
+
+  /* Full-width bands remain full bleed; their internal wrappers above carry the gutter. */
+  .hero,
+  .section,
+  .page-section,
+  section,
+  main,
+  footer,
+  header{
+    max-width:100% !important;
+    overflow-x:clip;
+  }
+
+  /* Prevent cards, forms, wheels, and previews from overflowing the 12px page gutter. */
+  .card,
+  .tool-card,
+  .form-card,
+  .workflow-card,
+  .guide-card,
+  .course-card,
+  .result-card,
+  .preview-card,
+  .builder-preview,
+  .wizard-wrap,
+  .journey,
+  .journey-panel,
+  .journey-wheel,
+  .finance-wheel,
+  .mega-menu,
+  .mobile-menu-panel,
+  .ystudy-search-panel{
+    max-width:100% !important;
+  }
+
+  img,svg,video,iframe,canvas{max-width:100%;height:auto;}
+}
+
+@media (max-width: 480px){
+  :root{--mobile-gutter:12px;--page-gutter:12px;--container-gutter:12px;}
+}
+
+/* v723 Search Degrees mobile result gutter fix
+   The course-result wrappers had multiple nested 12px paddings, making the
+   visible mobile gutter look closer to 24–36px. Keep only one outer 12px gutter.
+*/
+@media (max-width: 768px){
+  body:has(.degree-results-main) .results-section-compact{
+    padding-left:0 !important;
+    padding-right:0 !important;
+  }
+  body:has(.degree-results-main) .results-section-compact > .container{
+    width:100% !important;
+    max-width:100% !important;
+    padding-left:12px !important;
+    padding-right:12px !important;
+    margin-left:auto !important;
+    margin-right:auto !important;
+  }
+  body:has(.degree-results-main) .degree-results-main,
+  body:has(.degree-results-main) .degree-results-main main,
+  body:has(.degree-results-main) .degree-results-main .search-card-grid{
+    width:100% !important;
+    max-width:100% !important;
+    padding-left:0 !important;
+    padding-right:0 !important;
+    margin-left:0 !important;
+    margin-right:0 !important;
+  }
+  body:has(.degree-results-main) .grid-result-card{
+    width:100% !important;
+    max-width:100% !important;
+    margin-left:0 !important;
+    margin-right:0 !important;
+  }
+  body:has(.degree-results-main) .dsx-viewall,
+  body:has(.degree-results-main) .compare-bar{
+    width:100% !important;
+    max-width:100% !important;
+    margin-left:0 !important;
+    margin-right:0 !important;
+  }
+}

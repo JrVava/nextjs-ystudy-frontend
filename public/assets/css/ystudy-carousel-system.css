@@ -1,0 +1,254 @@
+
+/* YStudy v733 carousel system
+   Desktop: preserve existing card/grid layouts.
+   Mobile: compact swipe rows, 12px gutter, no outer box-in-box spacing.
+*/
+:root{
+  --ys-blue:#115fe8;
+  --ys-orange:#f26a00;
+  --ys-navy:#071426;
+  --ys-line:#dce7f5;
+  --ys-muted:#4c5b73;
+}
+
+/* Generic mobile carousel behaviour */
+@media(max-width:680px){
+  .ys-carousel,
+  .sdx-row,
+  .course-carousel,
+  .story-carousel,
+  .guide-carousel,
+  .card-carousel,
+  .jcards{
+    display:flex!important;
+    gap:12px!important;
+    overflow-x:auto!important;
+    scroll-snap-type:x mandatory!important;
+    padding:2px 12px 14px 0!important;
+    margin-right:-12px!important;
+    -webkit-overflow-scrolling:touch!important;
+  }
+  .ys-carousel::-webkit-scrollbar,
+  .sdx-row::-webkit-scrollbar,
+  .course-carousel::-webkit-scrollbar,
+  .story-carousel::-webkit-scrollbar,
+  .guide-carousel::-webkit-scrollbar,
+  .card-carousel::-webkit-scrollbar,
+  .jcards::-webkit-scrollbar{display:none!important}
+
+  .ys-carousel > *,
+  .sdx-row > *,
+  .course-carousel > *,
+  .story-carousel > *,
+  .guide-carousel > *,
+  .card-carousel > *,
+  .jcards > *{
+    scroll-snap-align:start!important;
+  }
+
+  /* Course cards: compact, photo-led, one card + part of next visible */
+  .grid-result-card,
+  .course-card,
+  .course-result-card,
+  .ys-course-card{
+    flex:0 0 84%!important;
+    max-width:84%!important;
+    border-radius:22px!important;
+    overflow:hidden!important;
+  }
+  .grid-result-card .grid-result-img,
+  .course-card .course-img,
+  .course-result-card .course-img,
+  .ys-course-card .course-img{
+    height:140px!important;
+    min-height:140px!important;
+    max-height:140px!important;
+  }
+  .grid-result-card .grid-result-body,
+  .course-card .course-body,
+  .course-result-card .course-body,
+  .ys-course-card .course-body{
+    padding:13px!important;
+  }
+  .grid-result-card h3,
+  .course-card h3,
+  .course-result-card h3,
+  .ys-course-card h3{
+    font-size:20px!important;
+    line-height:1.08!important;
+    letter-spacing:-.035em!important;
+    margin-bottom:7px!important;
+  }
+  .grid-result-card p,
+  .course-card p,
+  .course-result-card p,
+  .ys-course-card p{
+    font-size:14px!important;
+    line-height:1.32!important;
+    margin-bottom:11px!important;
+  }
+  .grid-result-card .two-metrics,
+  .course-card .two-metrics,
+  .grid-result-card .meta-grid,
+  .course-card .meta-grid{
+    display:grid!important;
+    grid-template-columns:1fr 1fr!important;
+    gap:6px!important;
+  }
+  .grid-result-card .small-metric,
+  .course-card .meta,
+  .ys-course-card .meta{
+    padding:7px 8px!important;
+    border-radius:12px!important;
+    font-size:11px!important;
+  }
+  .grid-result-card .pills,
+  .course-card .pills{
+    gap:5px!important;
+    margin-bottom:10px!important;
+  }
+  .grid-result-card .pill,
+  .course-card .pill{
+    padding:5px 7px!important;
+    font-size:10.5px!important;
+  }
+  .grid-result-card .btnrow,
+  .course-card .btnrow,
+  .ys-course-card .btnrow{
+    display:grid!important;
+    grid-template-columns:1fr 1fr!important;
+    gap:8px!important;
+  }
+  .grid-result-card .btn,
+  .course-card .btn,
+  .ys-course-card .btn{
+    height:42px!important;
+    min-height:42px!important;
+    padding:0 10px!important;
+    border-radius:13px!important;
+    font-size:14px!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+  }
+
+  /* Other browse cards: current style but smaller and better aligned */
+  .sdx-card,
+  .browse-card,
+  .subject-card,
+  .location-card-mini,
+  .qualification-card,
+  .tool-preview-card{
+    flex:0 0 78%!important;
+    max-width:78%!important;
+    border-radius:18px!important;
+    overflow:hidden!important;
+  }
+  .sdx-photo,
+  .browse-photo,
+  .subject-card .card-photo,
+  .location-card-mini .card-photo,
+  .qualification-card .card-photo{
+    height:116px!important;
+    min-height:116px!important;
+  }
+  .sdx-body,
+  .browse-body,
+  .subject-card .card-body,
+  .location-card-mini .card-body,
+  .qualification-card .card-body{
+    padding:12px!important;
+  }
+  .sdx-body h3,
+  .browse-body h3,
+  .subject-card h3,
+  .location-card-mini h3,
+  .qualification-card h3{
+    font-size:18px!important;
+    line-height:1.08!important;
+    letter-spacing:-.03em!important;
+    margin-bottom:6px!important;
+  }
+  .sdx-body p,
+  .browse-body p,
+  .subject-card p,
+  .location-card-mini p,
+  .qualification-card p{
+    font-size:13px!important;
+    line-height:1.34!important;
+    margin-bottom:10px!important;
+  }
+  .sdx-meta span,
+  .browse-tags span{
+    font-size:10.5px!important;
+    padding:5px 7px!important;
+  }
+
+  /* Guide / news cards: editorial, less boxed on mobile */
+  .gcard,
+  .article-card,
+  .guide-card,
+  .news-card{
+    flex:0 0 82%!important;
+    max-width:82%!important;
+  }
+  .gcard .gph,
+  .article-img,
+  .guide-card .guide-img,
+  .news-card .news-img{
+    height:138px!important;
+    border-radius:18px!important;
+    aspect-ratio:auto!important;
+  }
+  .gcard .gtitle,
+  .article-body h3,
+  .guide-card h3,
+  .news-card h3{
+    font-size:19px!important;
+    line-height:1.1!important;
+    letter-spacing:-.03em!important;
+  }
+  .gcard .gdesc,
+  .article-body p,
+  .guide-card p,
+  .news-card p{
+    font-size:13.5px!important;
+    line-height:1.35!important;
+  }
+
+  /* Success stories */
+  .story-card,
+  .success-card{
+    flex:0 0 78%!important;
+    max-width:78%!important;
+    border-radius:20px!important;
+    overflow:hidden!important;
+  }
+  .story-card .story-img,
+  .success-card .story-img{
+    height:132px!important;
+  }
+
+  /* Not sure how to choose section: desktop keeps grid, mobile becomes carousel */
+  #journey .jcards{
+    grid-template-columns:none!important;
+  }
+  #journey .jcard{
+    flex:0 0 82%!important;
+    max-width:82%!important;
+    border-radius:16px!important;
+  }
+  #journey .jcard .jcph{
+    aspect-ratio:16/8.7!important;
+  }
+  #journey .jcard .jcb{
+    padding:12px!important;
+  }
+  #journey .jcard .jcb b{
+    font-size:17px!important;
+  }
+  #journey .jcard .jcb span{
+    font-size:13px!important;
+    line-height:1.35!important;
+  }
+}
