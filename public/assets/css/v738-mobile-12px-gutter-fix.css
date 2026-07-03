@@ -1,0 +1,31 @@
+
+/* v738 mobile 12px gutter enforcement */
+@media (max-width: 680px){
+  :root{--mobile-gutter:12px!important}
+  html,body{max-width:100%;overflow-x:hidden}
+  .container,.inner,.section .container,.hero .container,.nav-inner,.topbar .container,
+  .footer .container,.footer-grid,.ys-container,.ys-wrap,.page-container,.content-container,
+  .dsx-in,.dsx-in2,.v734-section .container,.v735-section .container,.v735-hero .container,.v734-hero .container{
+    width:calc(100% - 24px)!important;
+    max-width:calc(100% - 24px)!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+  }
+  section,.section,.soft,.white,.results-section-compact{
+    padding-left:0!important;
+    padding-right:0!important;
+  }
+  .course-carousel,.ys-course-carousel,.v735-course-carousel,.card-carousel,.guide-carousel,.story-carousel,
+  .sdx-row,#journey .jcards,.v735-float-grid,.v734-float-grid,.v735-card-grid,.v734-card-grid,.v735-course-row,.v734-course-row{
+    padding-left:0!important;
+    padding-right:12px!important;
+    margin-left:0!important;
+    margin-right:-12px!important;
+    max-width:none!important;
+  }
+  .search-shell,.finder,.search-panel,.location-card,.v735-tabs-and-carousel,.v734-tabs-and-carousel{
+    max-width:100%!important;
+  }
+  form,.form-card,.tool-card,.wizard-card,.calculator-card,.quiz-card{max-width:100%}
+  table{max-width:100%}
+}
