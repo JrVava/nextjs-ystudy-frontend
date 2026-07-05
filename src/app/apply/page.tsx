@@ -5,7 +5,7 @@ export default function Page() {
     <SiteLayout>
       <div className="sec soft">
         <div className="wrap">
-          <h1 className="h1">Contact Adviser</h1>
+          <h1 className="h1">Apply to YStudy</h1>
           <p className="lead" style={{ marginTop: "12px" }}>Under construction.</p>
         </div>
       </div>

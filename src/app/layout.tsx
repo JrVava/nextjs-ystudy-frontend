@@ -14,6 +14,8 @@ import "../../public/assets/css/v719-interactive-funding.css";
 import "../../public/assets/css/v722-mobile-gutter.css";
 import "../../public/assets/css/v731-carousel-system.css";
 import "../../public/assets/css/ystudy-carousel-system.css";
+import "../../public/assets/css/v737-desktop-carousel-polish.css";
+import "../../public/assets/css/v738-mobile-12px-gutter-fix.css";
 
 
 const montserrat = Montserrat({
@@ -61,6 +63,7 @@ export default function RootLayout({
         <Script src="/assets/js/v731-carousel-system.js" strategy="lazyOnload" />
         <Script src="/assets/js/ystudy-carousel-system.js" strategy="lazyOnload" />
         <Script src="/assets/js/ystudy-v718-launch-polish.js" strategy="lazyOnload" />
+        <Script src="/assets/js/v737-desktop-carousel-polish.js" strategy="lazyOnload" />
       </body>
     </html>
   );
