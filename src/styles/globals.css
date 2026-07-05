@@ -342,3 +342,184 @@ img{display:block;max-width:100%}a{text-decoration:none;color:inherit}
 .home-journey-note.is-changing{opacity:.15;transform:translateY(6px);}
 @media(max-width:900px){.orbit-deco{width:340px!important;height:340px!important;transform:scale(.9)!important}.orbit-deco>div:not(:last-child){width:78px!important;height:78px!important;border-radius:20px!important}.orbit-deco>div:not(:last-child) b{font-size:12px!important}.orbit-deco>div:not(:last-child) span{font-size:8px!important}.orbit-deco>div:last-child{width:128px!important;height:128px!important}}
 
+/* Custom layouts for Dynamic Banner Card */
+.hcards-container {
+  display: flex;
+  justify-content: flex-end;
+}
+@media (max-width: 920px) {
+  .hcards-container {
+    justify-content: stretch;
+    width: 100%;
+  }
+}
+
+.banner-card {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 24px;
+  width: min(380px, 100%);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-sizing: border-box;
+}
+
+.banner-card .card-title {
+  font-family: var(--display-font, Inter);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 1.25rem 0;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+.banner-card .card-description {
+  font-size: 0.9rem;
+  color: #475569;
+  margin-top: -0.75rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.4;
+}
+
+/* Stacked cards layout */
+.layout-stacked-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.stacked-card-item {
+  color: #0f172a;
+}
+.stacked-card-item .item-subtitle {
+  font-size: 11px;
+  font-weight: 800;
+  color: #f97316;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+}
+.stacked-card-item .item-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin-bottom: 6px;
+  line-height: 1.2;
+  color: #0f172a;
+}
+.stacked-card-item .item-desc {
+  font-size: 0.85rem;
+  color: #475569;
+  line-height: 1.4;
+}
+
+/* Grid 2x2 layout */
+.layout-grid-2x2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.layout-grid-2x2 .grid-item {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  padding: 12px;
+  border-radius: 10px;
+  color: #0f172a;
+}
+.layout-grid-2x2 .grid-item-title {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #4f46e5;
+  margin-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.layout-grid-2x2 .grid-item-value {
+  font-size: 0.75rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+/* List Items layout */
+.layout-list-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.list-item-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  color: #0f172a;
+  align-items: center;
+}
+.list-item-left {
+  display: flex;
+  flex-direction: column;
+}
+.list-item-title {
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+.list-item-subtitle {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+.list-item-value {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #f97316;
+}
+
+/* Stats Highlight layout */
+.layout-stats-highlight {
+  text-align: center;
+  padding: 1.25rem;
+  background: linear-gradient(180deg, #fff7ed 0%, #ffffff 100%);
+  border: 1px solid #ffedd5;
+  border-radius: 12px;
+}
+.layout-stats-highlight .stats-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #ea580c;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.layout-stats-highlight .stats-value {
+  font-size: 2.25rem;
+  font-weight: 900;
+  color: #0f172a;
+  margin-bottom: 1rem;
+  letter-spacing: -0.5px;
+}
+.layout-stats-highlight .stats-subgrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  text-align: left;
+}
+.layout-stats-highlight .stats-subitem {
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #f1f5f9;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.layout-stats-highlight .stats-subitem-val {
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: #0f172a;
+  margin-bottom: 2px;
+}
+.layout-stats-highlight .stats-subitem-lbl {
+  font-size: 0.7rem;
+  color: #64748b;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
