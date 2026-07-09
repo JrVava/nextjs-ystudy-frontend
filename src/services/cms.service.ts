@@ -1,13 +1,22 @@
-import "server-only";
-import { decrypt } from "@/lib/crypto";
+import { encrypt, decrypt } from "@/lib/crypto";
 import { CMSPageData } from "@/types/cms";
-import fallbackHome from "@/content/fallback-cms-home.json";
+import fallbackHome from "@/content/fallbacks/home.json";
+import fallbackDegrees from "@/content/fallbacks/degrees.json";
+import fallbackStudyLocations from "@/content/fallbacks/study-locations.json";
+import fallbackFoundationYear from "@/content/fallbacks/qualifications/foundation-year.json";
+import fallbackHND from "@/content/fallbacks/qualifications/hnd.json";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/api";
 
 export async function getCMSPageContent(pageName: string): Promise<CMSPageData | null> {
   try {
-    const res = await fetch(`${API_URL}/public/cms-pages/page/${pageName}`, {
+    const encryptedBody = encrypt({ slug: pageName });
+    const res = await fetch(`${API_URL}/frontend/cms`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ data: encryptedBody }),
       next: { revalidate: 3600 }, // Cache on CDN / server for 1 hour
     });
 
@@ -40,5 +49,18 @@ function getFallbackData(pageName: string): CMSPageData | null {
   if (pageName === "home") {
     return fallbackHome as unknown as CMSPageData;
   }
+  if (pageName === "degrees") {
+    return fallbackDegrees as unknown as CMSPageData;
+  }
+  if (pageName === "study-locations") {
+    return fallbackStudyLocations as unknown as CMSPageData;
+  }
+  if (pageName === "foundation-year") {
+    return fallbackFoundationYear as unknown as CMSPageData;
+  }
+  if (pageName === "hnd") {
+    return fallbackHND as unknown as CMSPageData;
+  }
   return null;
 }
+

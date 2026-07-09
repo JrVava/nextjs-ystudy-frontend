@@ -1,6 +1,7 @@
 import { SiteLayout } from "@/components/layout";
 import { getCMSPageContent } from "@/services/cms.service";
 import { Banner } from "@/components/ui/Banner";
+import EligibilityWidget from "@/components/widgets/EligibilityWidget";
 
 export default async function Home() {
   const data = await getCMSPageContent("home");
@@ -37,43 +38,11 @@ export default async function Home() {
           <div className="wrap">
             <div className="g2" style={{ alignItems: "center", gap: "clamp(30px,4vw,60px)" }}>
               <div>
-                <span className="eyebrow o" style={{ marginBottom: "16px" }}>{data?.section_2?.badge || "⚡ 10-second check"}</span>
-                <h2 className="h1" style={{ marginBottom: "14px" }}>{data?.section_2?.title || "Could you get funding?"}</h2>
-                <p className="lead">{data?.section_2?.description || "Answer three quick questions..."}</p>
+                <span className="eyebrow o" style={{ marginBottom: "16px" }}>{data?.section_2?.badge}</span>
+                <h2 className="h1" style={{ marginBottom: "14px" }}>{data?.section_2?.title}</h2>
+                <p className="lead">{data?.section_2?.description}</p>
               </div>
-              <div className="widget" data-ysf-scope="home">
-                <div className="field">
-                  <label>Your age</label>
-                  <select className="ysf-quick-select" data-ysf="age">
-                    <option value="25-40">25–40</option>
-                    <option value="41-50">41–50</option>
-                    <option value="50plus">50+</option>
-                  </select>
-                </div>
-                <div className="field">
-                  <label>UK residency</label>
-                  <select className="ysf-quick-select" data-ysf="residency">
-                    <option value="3plus">3+ years</option>
-                    <option value="settled">Settled / ILR</option>
-                    <option value="under3">Under 3 years</option>
-                    <option value="notsure">Not sure</option>
-                  </select>
-                </div>
-                <div className="field">
-                  <label>Previous higher education</label>
-                  <select className="ysf-quick-select" data-ysf="previous">
-                    <option value="none">None / incomplete</option>
-                    <option value="some">Some previous study</option>
-                    <option value="complete">Completed degree</option>
-                    <option value="notsure">Not sure</option>
-                  </select>
-                </div>
-                <button className="btn orange ysf-quick-button" style={{ width: "100%" }} type="button">Check eligibility →</button>
-                <div className="result">
-                  <div className="lbl">You're likely eligible for</div>
-                  <div className="big">£14,135 + tuition</div>
-                </div>
-              </div>
+              <EligibilityWidget />
             </div>
           </div>
         </section>
@@ -111,8 +80,8 @@ export default async function Home() {
               <img className="bg" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=2000&q=85" alt="" />
               <div className="sc sc-blue"></div>
               <div className="inner wide">
-                <span className="eyebrow glass" style={{ marginBottom: "18px" }}>{data?.section_3?.badge || "Why YStudy works"}</span>
-                <h2 className="h1" style={{ color: "#fff", marginBottom: "8px" }}>{data?.section_3?.title || "Thousands have found their route."}</h2>
+                <span className="eyebrow glass" style={{ marginBottom: "18px" }}>{data?.section_3?.badge}</span>
+                <h2 className="h1" style={{ color: "#fff", marginBottom: "8px" }}>{data?.section_3?.title}</h2>
                 <div className="impact" style={{ gridTemplateColumns: "repeat(4,auto)", justifyContent: "start", textAlign: "left", gap: "clamp(20px,3vw,48px)", marginTop: "28px" }}>
                   {data?.section_3?.statistics ? (
                     data.section_3.statistics.map((stat: any, idx: number) => (
@@ -139,81 +108,39 @@ export default async function Home() {
           <div className="wrap">
             <div className="shead row">
               <div>
-                <span className="eyebrow o">{data?.section_4?.badge || "Popular degrees"}</span>
-                <h2 className="h1" style={{ marginTop: "16px" }}>{data?.section_4?.title || "Degrees that fit real life."}</h2>
+                <span className="eyebrow o">{data?.section_4?.badge}</span>
+                <h2 className="h1" style={{ marginTop: "16px" }}>{data?.section_4?.title}</h2>
               </div>
               <a className="btn outline" href="/degrees">Browse all degrees →</a>
             </div>
             <div className="g3 ys-carousel-mobile">
-              <article className="c-wrap">
-                <div className="img">
-                  <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80" alt="" />
-                  <button className="csave" type="button" aria-pressed="false" aria-label="Save course" title="Save">
-                    <span className="ho">♡</span><span className="hi">♥</span>
-                  </button>
-                  <span className="tag">Business</span>
-                </div>
-                <div className="body">
-                  <h3 className="h3">BA (Hons) Business Management</h3>
-                  <p className="desc">Flexible degree for management, operations and analyst roles.</p>
-                  <div className="pills">
-                    <span className="pill">Blended</span><span className="pill o">SFE eligible</span>
+              {data?.section_4?.cards?.map((c: any, idx: number) => (
+                <article key={idx} className="c-wrap">
+                  <div className="img">
+                    <img src={c.image} alt="" />
+                    <button className="csave" type="button" aria-pressed="false" aria-label="Save course" title="Save">
+                      <span className="ho">♡</span><span className="hi">♥</span>
+                    </button>
+                    <span className="tag">{c.tag}</span>
                   </div>
-                  <div className="metric">
-                    <span>Salary range</span><b>£24k–£55k+</b>
+                  <div className="body">
+                    <h3 className="h3">{c.title}</h3>
+                    <p className="desc">{c.description}</p>
+                    <div className="pills">
+                      {c.pills?.map((p: string, pIdx: number) => (
+                        <span key={pIdx} className={`pill ${p === "SFE eligible" ? "o" : ""}`}>{p}</span>
+                      ))}
+                    </div>
+                    <div className="metric">
+                      <span>{c.salaryLabel}</span><b>{c.salaryValue}</b>
+                    </div>
+                    <div className="pills" style={{ marginTop: "16px" }}>
+                      <a className="btn blue sm" href={c.courseLink}>View course</a>
+                      <a className="btn orange sm" href="/apply">Apply</a>
+                    </div>
                   </div>
-                  <div className="pills" style={{ marginTop: "16px" }}>
-                    <a className="btn blue sm" href="/degrees/business">View course</a>
-                    <a className="btn orange sm" href="/apply">Apply</a>
-                  </div>
-                </div>
-              </article>
-              <article className="c-wrap">
-                <div className="img">
-                  <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80" alt="" />
-                  <button className="csave" type="button" aria-pressed="false" aria-label="Save course" title="Save">
-                    <span className="ho">♡</span><span className="hi">♥</span>
-                  </button>
-                  <span className="tag">Computing</span>
-                </div>
-                <div className="body">
-                  <h3 className="h3">BSc Computing &amp; Cybersecurity</h3>
-                  <p className="desc">Technical skills for cyber, data and digital careers.</p>
-                  <div className="pills">
-                    <span className="pill">Blended</span><span className="pill o">SFE eligible</span>
-                  </div>
-                  <div className="metric">
-                    <span>Salary range</span><b>£28k–£65k+</b>
-                  </div>
-                  <div className="pills" style={{ marginTop: "16px" }}>
-                    <a className="btn blue sm" href="/degrees/computing">View course</a>
-                    <a className="btn orange sm" href="/apply">Apply</a>
-                  </div>
-                </div>
-              </article>
-              <article className="c-wrap">
-                <div className="img">
-                  <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80" alt="" />
-                  <button className="csave" type="button" aria-pressed="false" aria-label="Save course" title="Save">
-                    <span className="ho">♡</span><span className="hi">♥</span>
-                  </button>
-                  <span className="tag">Health</span>
-                </div>
-                <div className="body">
-                  <h3 className="h3">BA Health &amp; Social Care</h3>
-                  <p className="desc">Care, support and health-sector leadership routes.</p>
-                  <div className="pills">
-                    <span className="pill">Blended</span><span className="pill o">SFE eligible</span>
-                  </div>
-                  <div className="metric">
-                    <span>Salary range</span><b>£23k–£48k+</b>
-                  </div>
-                  <div className="pills" style={{ marginTop: "16px" }}>
-                    <a className="btn blue sm" href="/degrees/health">View course</a>
-                    <a className="btn orange sm" href="/apply">Apply</a>
-                  </div>
-                </div>
-              </article>
+                </article>
+              ))}
             </div>
           </div>
         </section>
@@ -225,9 +152,9 @@ export default async function Home() {
           <div className="wrap">
             <div className="g2" style={{ alignItems: "center", gap: "clamp(30px,4vw,60px)" }}>
               <div>
-                <span className="eyebrow b" style={{ marginBottom: "16px" }}>{data?.section_5?.badge || "🎯 Find your match in 60 seconds"}</span>
-                <h2 className="h1" style={{ marginBottom: "14px" }}>{data?.section_5?.title || "Not sure which degree?"}</h2>
-                <p className="lead" style={{ marginBottom: "22px" }}>{data?.section_5?.description || "Start the quiz..."}</p>
+                <span className="eyebrow b" style={{ marginBottom: "16px" }}>{data?.section_5?.badge}</span>
+                <h2 className="h1" style={{ marginBottom: "14px" }}>{data?.section_5?.title}</h2>
+                <p className="lead" style={{ marginBottom: "22px" }}>{data?.section_5?.description}</p>
                 <div className="pills">
                   {data?.section_5?.badges ? (
                     data.section_5.badges.map((b: any, idx: number) => (
@@ -263,18 +190,21 @@ export default async function Home() {
           <div className="wrap">
             <div className="shead row">
               <div>
-                <span className="eyebrow b">{data?.section_6?.badge || "Browse by subject"}</span>
-                <h2 className="h1" style={{ marginTop: "16px" }}>{data?.section_6?.title || "Find your field."}</h2>
+                <span className="eyebrow b">{data?.section_6?.badge}</span>
+                <h2 className="h1" style={{ marginTop: "16px" }}>{data?.section_6?.title}</h2>
               </div>
               <a className="btn outline" href="/degrees/subjects">All subjects →</a>
             </div>
             <div className="g3 ys-carousel-mobile">
-              <article className="subj"><img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80" alt="" /><div className="lab"><b>Business &amp; Management</b><span>18 courses</span></div></article>
-              <article className="subj"><img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80" alt="" /><div className="lab"><b>Health &amp; Social Care</b><span>12 courses</span></div></article>
-              <article className="subj"><img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80" alt="" /><div className="lab"><b>Computing &amp; IT</b><span>15 courses</span></div></article>
-              <article className="subj"><img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80" alt="" /><div className="lab"><b>Psychology</b><span>9 courses</span></div></article>
-              <article className="subj"><img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80" alt="" /><div className="lab"><b>Construction</b><span>7 courses</span></div></article>
-              <article className="subj"><img src="https://images.unsplash.com/photo-1589391886645-d51941baf7fb?auto=format&fit=crop&w=800&q=80" alt="" /><div className="lab"><b>Law</b><span>6 courses</span></div></article>
+              {data?.section_6?.subjects?.map((s: any, idx: number) => (
+                <article key={idx} className="subj">
+                  <img src={s.image} alt="" />
+                  <div className="lab">
+                    <b>{s.title}</b>
+                    <span>{s.count}</span>
+                  </div>
+                </article>
+              ))}
             </div>
           </div>
         </section>
@@ -286,28 +216,22 @@ export default async function Home() {
           <div className="wrap">
             <div className="shead row">
               <div>
-                <span className="eyebrow o">{data?.section_7?.badge || "Free tools"}</span>
-                <h2 className="h1" style={{ marginTop: "16px" }}>{data?.section_7?.title || "Plan your route with free tools."}</h2>
+                <span className="eyebrow o">{data?.section_7?.badge}</span>
+                <h2 className="h1" style={{ marginTop: "16px" }}>{data?.section_7?.title}</h2>
               </div>
               <a className="btn outline" href="/tools">All tools →</a>
             </div>
             <div className="g4 ys-carousel-mobile">
-              <article className="c-wrap tool">
-                <div className="img"><img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=700&q=80" alt="" /><span className="tag">Quiz</span></div>
-                <div className="body"><h3 className="h3">Degree Match</h3><p className="desc">Answer a few questions, get one recommended route.</p><a className="btn orange sm" href="/tools/degree-match">Start quiz →</a></div>
-              </article>
-              <article className="c-wrap tool">
-                <div className="img"><img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=700&q=80" alt="" /><span className="tag">Calculator</span></div>
-                <div className="body"><h3 className="h3">Finance Calculator</h3><p className="desc">Estimate tuition and maintenance support fast.</p><a className="btn orange sm" href="/tools/finance-calculator">Calculate →</a></div>
-              </article>
-              <article className="c-wrap tool">
-                <div className="img"><img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=700&q=80" alt="" /><span className="tag">Checker</span></div>
-                <div className="body"><h3 className="h3">Salary Checker</h3><p className="desc">Compare salary ranges by subject and stage.</p><a className="btn orange sm" href="/tools/eligibility-checker">Check →</a></div>
-              </article>
-              <article className="c-wrap tool">
-                <div className="img"><img src="https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?auto=format&fit=crop&w=700&q=80" alt="" /><span className="tag">English</span></div>
-                <div className="body"><h3 className="h3">English Checker</h3><p className="desc">Check your English level before you apply.</p><a className="btn orange sm" href="/tools/english-level-checker">Start test →</a></div>
-              </article>
+              {data?.section_7?.tools?.map((t: any, idx: number) => (
+                <article key={idx} className="c-wrap tool">
+                  <div className="img"><img src={t.image} alt="" /><span className="tag">{t.tag}</span></div>
+                  <div className="body">
+                    <h3 className="h3">{t.title}</h3>
+                    <p className="desc">{t.description}</p>
+                    <a className="btn orange sm" href={t.link}>{t.btnLabel}</a>
+                  </div>
+                </article>
+              ))}
             </div>
           </div>
         </section>
@@ -361,9 +285,9 @@ export default async function Home() {
               <div className="sc sc-orange"></div>
               <div className="inner wide" style={{ maxWidth: "100%", display: "grid", gridTemplateColumns: "1.15fr .85fr", gap: "clamp(28px,3.5vw,56px)", alignItems: "center", width: "100%" }}>
                 <div>
-                  <span className="eyebrow glass" style={{ marginBottom: "16px" }}>{data?.section_9?.badge || "Student Finance Hub"}</span>
-                  <h2 className="h2" style={{ color: "#fff", marginBottom: "14px" }}>{data?.section_9?.title || "How much could you get?"}</h2>
-                  <p className="lead" style={{ color: "#fff", opacity: 0.92, marginBottom: "24px", maxWidth: "460px" }}>{data?.section_9?.description || "Understand tuition loans..."}</p>
+                  <span className="eyebrow glass" style={{ marginBottom: "16px" }}>{data?.section_9?.badge}</span>
+                  <h2 className="h2" style={{ color: "#fff", marginBottom: "14px" }}>{data?.section_9?.title}</h2>
+                  <p className="lead" style={{ color: "#fff", opacity: 0.92, marginBottom: "24px", maxWidth: "460px" }}>{data?.section_9?.description}</p>
                   <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
                     <a className="btn black lg" href="/tools/finance-calculator">Open calculator →</a>
                     <a className="btn white lg" href="/funding">Read funding guide</a>
@@ -390,12 +314,12 @@ export default async function Home() {
           <div className="wrap">
             <div className="g2" style={{ alignItems: "start", gap: "clamp(28px,3.5vw,56px)" }}>
               <div>
-                <span className="eyebrow gold" style={{ marginBottom: "16px" }}>{data?.section_10?.badge || "Residency status check"}</span>
-                <h2 className="h1" style={{ color: "#fff", marginBottom: "14px" }}>{data?.section_10?.title || "Student finance eligibility by immigration status."}</h2>
-                <p className="lead" style={{ color: "#aebed6", marginBottom: "20px" }}>{data?.section_10?.description || "Use this before you choose..."}</p>
+                <span className="eyebrow gold" style={{ marginBottom: "16px" }}>{data?.section_10?.badge}</span>
+                <h2 className="h1" style={{ color: "#fff", marginBottom: "14px" }}>{data?.section_10?.title}</h2>
+                <p className="lead" style={{ color: "#aebed6", marginBottom: "20px" }}>{data?.section_10?.description}</p>
                 <div className="note-box">
-                  <b>{data?.section_10?.important_box?.title || "Important"}</b>
-                  <p>{data?.section_10?.important_box?.text || "Eligibility still depends on..."}</p>
+                  <b>{data?.section_10?.important_box?.title}</b>
+                  <p>{data?.section_10?.important_box?.text}</p>
                 </div>
               </div>
               <div className="imm-grid">
@@ -429,7 +353,7 @@ export default async function Home() {
                 )}
               </div>
             </div>
-            <p className="small" style={{ color: "#7e90ad", marginTop: "24px" }}>{data?.section_10?.disclaimer || "Guidance based on GOV.UK..."}</p>
+            <p className="small" style={{ color: "#7e90ad", marginTop: "24px" }}>{data?.section_10?.disclaimer}</p>
           </div>
         </section>
       )}
@@ -440,10 +364,10 @@ export default async function Home() {
           <div className="wrap">
             <div className="shead row">
               <div>
-                <span className="eyebrow o">{data?.section_11?.badge || "Salary projection"}</span>
-                <h2 className="h1" style={{ marginTop: "16px" }}>{data?.section_11?.title || "What could your route look like?"}</h2>
+                <span className="eyebrow o">{data?.section_11?.badge}</span>
+                <h2 className="h1" style={{ marginTop: "16px" }}>{data?.section_11?.title}</h2>
               </div>
-              <p className="lead">{data?.section_11?.description || "Salary cards create a stronger decision signal..."}</p>
+              <p className="lead">{data?.section_11?.description}</p>
             </div>
             <div className="sal-grid" style={{ marginBottom: "30px" }}>
               {data?.section_11?.projection_cards ? (
@@ -483,9 +407,9 @@ export default async function Home() {
           <div className="wrap">
             <div className="g2" style={{ alignItems: "center", gap: "clamp(28px,3.5vw,56px)" }}>
               <div>
-                <span className="eyebrow gold" style={{ marginBottom: "16px" }}>{data?.section_12?.badge || "The honest truth about Student Finance"}</span>
-                <h2 className="h1" style={{ color: "#fff", marginBottom: "14px" }}>{data?.section_12?.title || "It's a loan — but a fair one."}</h2>
-                <p className="lead" style={{ color: "#aebed6", marginBottom: "24px" }}>{data?.section_12?.description || "Student Finance is often misunderstood..."}</p>
+                <span className="eyebrow gold" style={{ marginBottom: "16px" }}>{data?.section_12?.badge}</span>
+                <h2 className="h1" style={{ color: "#fff", marginBottom: "14px" }}>{data?.section_12?.title}</h2>
+                <p className="lead" style={{ color: "#aebed6", marginBottom: "24px" }}>{data?.section_12?.description}</p>
                 <a className="btn white lg" href="/funding/maintenance-loan">See full repayment details →</a>
               </div>
               <div style={{ display: "grid", gap: "14px" }}>
@@ -530,8 +454,8 @@ export default async function Home() {
           <div className="wrap">
             <div className="shead row">
               <div>
-                <span className="eyebrow o">{data?.section_13?.badge || "Success stories"}</span>
-                <h2 className="h1" style={{ marginTop: "16px" }}>{data?.section_13?.title || "Real people. Real routes."}</h2>
+                <span className="eyebrow o">{data?.section_13?.badge}</span>
+                <h2 className="h1" style={{ marginTop: "16px" }}>{data?.section_13?.title}</h2>
               </div>
               <a className="btn outline" href="/success-stories">More stories →</a>
             </div>
@@ -601,8 +525,8 @@ export default async function Home() {
           <div className="wrap">
             <div className="shead row">
               <div>
-                <span className="eyebrow o">{data?.section_14?.badge || "Guides & news"}</span>
-                <h2 className="h1" style={{ marginTop: "16px" }}>{data?.section_14?.title || "Read before you decide."}</h2>
+                <span className="eyebrow o">{data?.section_14?.badge}</span>
+                <h2 className="h1" style={{ marginTop: "16px" }}>{data?.section_14?.title}</h2>
               </div>
               <a className="btn outline" href="/guides">All guides →</a>
             </div>
@@ -676,9 +600,9 @@ export default async function Home() {
           <div className="wrap">
             <div className="g2" style={{ alignItems: "center", gap: "clamp(28px,3.5vw,56px)" }}>
               <div>
-                <span className="eyebrow gold" style={{ marginBottom: "16px" }}>{data?.section_15?.badge || "Student journey"}</span>
-                <h2 className="h1" style={{ color: "#fff", marginBottom: "14px" }}>{data?.section_15?.title || "How YStudy supports you."}</h2>
-                <p className="lead" style={{ color: "#aebed6", marginBottom: "24px" }}>{data?.section_15?.description || "One guided path — not a maze..."}</p>
+                <span className="eyebrow gold" style={{ marginBottom: "16px" }}>{data?.section_15?.badge}</span>
+                <h2 className="h1" style={{ color: "#fff", marginBottom: "14px" }}>{data?.section_15?.title}</h2>
+                <p className="lead" style={{ color: "#aebed6", marginBottom: "24px" }}>{data?.section_15?.description}</p>
                 <div className="note-box home-journey-note" style={{ marginBottom: "22px" }}>
                   <b style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                     <span className="home-journey-num" style={{ width: "30px", height: "30px", borderRadius: "9px", background: "var(--b)", display: "grid", placeItems: "center", fontSize: "14px" }}>1</span>

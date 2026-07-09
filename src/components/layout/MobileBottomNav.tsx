@@ -9,12 +9,12 @@ export function MobileBottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav aria-label="Quick mobile navigation" className="mobile-bottom-nav">
+    <nav aria-label="Quick mobile navigation" className="mobile-bottom-nav mnav">
       {BOTTOM_NAV.map((item) => (
         <Link
           key={item.href}
           href={item.href}
-          className={cn(isActivePath(pathname, item.href) && "is-active")}
+          className={cn(isActivePath(pathname || "", item.href) && "is-active")}
         >
           <span>{item.icon}</span>
           {item.label}

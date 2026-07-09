@@ -1,0 +1,226 @@
+{
+  "page": "degrees",
+  "featured_courses": [
+    {
+      "title": "BA (Hons) Business Management",
+      "description": "Flexible business degree for adults aiming for management and analyst roles.",
+      "pills": ["2 days/week", "Blended", "SFE eligible"],
+      "metrics": [
+        { "label": "Salary range", "value": "£24k–£55k+" },
+        { "label": "Flexibility", "value": "95%" }
+      ],
+      "link": "/degrees/course/business-management-ba",
+      "image": "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=85",
+      "match": 96,
+      "tag": "Business"
+    },
+    {
+      "title": "BSc Computing & Cybersecurity",
+      "description": "Practical computing route for digital, cybersecurity and IT careers.",
+      "pills": ["Cybersecurity", "Blended", "SFE eligible"],
+      "metrics": [
+        { "label": "Salary range", "value": "£28k–£75k+" },
+        { "label": "Value", "value": "91%" }
+      ],
+      "link": "/degrees/course/computing-cybersecurity-bsc",
+      "image": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=85",
+      "match": 93,
+      "tag": "Computing"
+    },
+    {
+      "title": "BSc Health & Social Care",
+      "description": "Care, community and wellbeing-focused degree for adult learners.",
+      "pills": ["Health", "Community", "Flexible"],
+      "metrics": [
+        { "label": "Pathway", "value": "NHS" },
+        { "label": "Flexibility", "value": "90%" }
+      ],
+      "link": "/degrees/course/health-social-care-ba",
+      "image": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=85",
+      "match": 89,
+      "tag": "Health"
+    }
+  ],
+  "section_3": {
+    "title": "Ready to shortlist?",
+    "description": "Save the strongest degree routes, then ask an adviser to check funding, entry route and interview fit before you apply.",
+    "compare_tags": ["Business Management", "Computing & Cybersecurity"],
+    "status": true
+  },
+  "section_4": {
+    "title": "Courses available by subject",
+    "description": "Start with what you want to study, then compare flexible routes, funding and locations.",
+    "subjects": [
+      {
+        "badge": "Business",
+        "title": "Business & Management",
+        "description": "Leadership, operations, marketing and project management routes.",
+        "meta": ["20+ courses", "London", "Flexible"],
+        "link": "/degrees/business",
+        "image": "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80"
+      },
+      {
+        "badge": "Health",
+        "title": "Health & Social Care",
+        "description": "Care, wellbeing, public health and community-focused routes.",
+        "meta": ["Foundation", "Weekend", "SFE"],
+        "link": "/degrees/health",
+        "image": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=900&q=80"
+      },
+      {
+        "badge": "Construction",
+        "title": "Construction",
+        "description": "Construction management, planning and built environment routes.",
+        "meta": ["Foundation", "Career change"],
+        "link": "/degrees/construction",
+        "image": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=900&q=80"
+      },
+      {
+        "badge": "Tech",
+        "title": "Computing & Data",
+        "description": "Data, cybersecurity, software and digital career pathways.",
+        "meta": ["Data", "AI", "Digital"],
+        "link": "/degrees/computing",
+        "image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80"
+      }
+    ],
+    "status": true
+  },
+  "section_5": {
+    "title": "Courses available by qualification",
+    "description": "Choose the right entry route: first year, foundation year, advanced entry or postgraduate.",
+    "qualifications": [
+      {
+        "badge": "Foundation",
+        "title": "Foundation Year",
+        "description": "Best if you do not meet standard entry requirements.",
+        "meta": ["4 years", "SFE route", "Mature students"],
+        "link": "/degrees/qualifications/foundation-year",
+        "image": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=80"
+      },
+      {
+        "badge": "CertHE",
+        "title": "Certificate of HE",
+        "description": "A one-year Level 4 route that can lead to degree progression.",
+        "meta": ["1 year", "Level 4"],
+        "link": "/degrees/qualifications/certhe",
+        "image": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=900&q=80"
+      },
+      {
+        "badge": "HNC",
+        "title": "HNC",
+        "description": "Practical higher education route with progression options.",
+        "meta": ["Level 4", "Practical"],
+        "link": "/degrees/qualifications/hnc",
+        "image": "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=900&q=80"
+      },
+      {
+        "badge": "HND",
+        "title": "HND",
+        "description": "Two-year higher education pathway with top-up options.",
+        "meta": ["Level 5", "Top-up"],
+        "link": "/degrees/qualifications/hnd",
+        "image": "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=900&q=80"
+      }
+    ],
+    "status": true
+  },
+  "section_6": {
+    "title": "Courses available by location",
+    "description": "Browse where you can realistically travel, then compare subjects and timetable options.",
+    "locations": [
+      {
+        "badge": "London",
+        "title": "Study in London",
+        "description": "Largest course choice with flexible study and strong transport links.",
+        "meta": ["20+ courses", "Evening/weekend"],
+        "link": "/degrees/locations#london",
+        "image": "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=900&q=80"
+      },
+      {
+        "badge": "Birmingham",
+        "title": "Study in Birmingham",
+        "description": "Central England option popular with working adult learners.",
+        "meta": ["Business", "Health", "Construction"],
+        "link": "/degrees/locations#birmingham",
+        "image": "https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=900&q=80"
+      },
+      {
+        "badge": "Manchester",
+        "title": "Study in Manchester",
+        "description": "Northern study hub with flexible and career-focused routes.",
+        "meta": ["Blended", "Data", "Business"],
+        "link": "/degrees/locations#manchester",
+        "image": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80"
+      },
+      {
+        "badge": "Leeds",
+        "title": "Study in Leeds",
+        "description": "Growing Northern hub for business, finance and digital routes.",
+        "meta": ["Finance", "Digital", "Lower costs"],
+        "link": "/degrees/locations#leeds",
+        "image": "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=900&q=80"
+      }
+    ],
+    "status": true
+  },
+  "section_7": {
+    "badge": "Not sure how to choose?",
+    "title": "Feeling unsure is normal. We'll guide you.",
+    "description": "Most adult learners don't know exactly what to study at first. That's fine — here's a simple, free path from \"I'm not sure\" to \"I've applied,\" with real tools and a human adviser at every step.",
+    "status": true
+  },
+  "section_8": {
+    "steps": [
+      {
+        "title": "Choose your subject",
+        "description": "Start with what interests you. Browse the strongest routes for adult learners.",
+        "cards": [
+          { "href": "/degrees/business", "img": "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80", "title": "Business", "desc": "Management, operations, analyst routes." },
+          { "href": "#results", "img": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80", "title": "Computing", "desc": "Cybersecurity, software, networking." },
+          { "href": "#results", "img": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80", "title": "Health & Care", "desc": "Care, social work, NHS routes." }
+        ]
+      },
+      {
+        "title": "Use our free tools",
+        "description": "Make sure you're eligible for funding and see where each route could take your salary.",
+        "cards": [
+          { "href": "/tools/eligibility-checker", "img": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=80", "title": "Eligibility checker", "desc": "Confirm your Student Finance entitlement in 2 minutes.", "icon": "✓" },
+          { "href": "/tools/finance-calculator", "img": "https://images.unsplash.com/photo-1579621970795-87facc2f976d?auto=format&fit=crop&w=800&q=80", "title": "Funding calculator", "desc": "Estimate your tuition and maintenance support.", "icon": "💷" },
+          { "href": "/tools/salary-checker", "img": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80", "title": "Salary checker", "desc": "See realistic salary ranges for each career route.", "icon": "📈" }
+        ]
+      },
+      {
+        "title": "Read our guides",
+        "description": "Still have questions? Our plain-English guides often hold the answer — funding, applying and career routes explained.",
+        "cards": [
+          { "href": "/funding/maintenance-loan", "img": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=80", "title": "Maintenance Loan explained", "desc": "Plain-English guide to living-cost support.", "isGuide": true, "tag": "Funding", "readTime": "5 min read" },
+          { "href": "/tools/personal-statement-calculator", "img": "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&q=80", "title": "Personal statement structure", "desc": "Four sections that admissions teams expect.", "isGuide": true, "tag": "Applying", "readTime": "7 min read" },
+          { "href": "/guides/careers-salaries", "img": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80", "title": "Finance career routes", "desc": "Roles, salaries and the degrees behind them.", "isGuide": true, "tag": "Careers", "readTime": "6 min read" }
+        ]
+      },
+      {
+        "title": "Free application kit",
+        "description": "Our students get free tools and adviser support to build a confident application.",
+        "cards": [
+          { "href": "/tools/cv-builder", "img": "https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=800&q=80", "title": "CV builder", "desc": "A university-ready CV for mature students.", "icon": "📄" },
+          { "href": "/tools/personal-statement-calculator", "img": "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&q=80", "title": "Personal statement", "desc": "Guided writing that admissions teams understand.", "icon": "✍️" },
+          { "href": "/dashboard", "img": "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80", "title": "Student dashboard", "desc": "Save courses and message your adviser in one place.", "icon": "📊" }
+        ]
+      }
+    ],
+    "status": true
+  },
+  "section_9": {
+    "badge": "★ We're with you all the way",
+    "title": "We're always here to help you.",
+    "description": "Your success is our success. Talk it through with a real adviser, or start your application whenever you're ready — free, supportive, no pressure.",
+    "status": true
+  },
+  "section_10": {
+    "badge": "Not ready to apply yet?",
+    "title": "Save your shortlist for later.",
+    "description": "Create a free account to save the courses you liked, track applications and pick up where you left off — no pressure to apply.",
+    "status": true
+  }
+}

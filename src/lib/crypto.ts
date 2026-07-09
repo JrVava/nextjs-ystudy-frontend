@@ -1,8 +1,10 @@
 import CryptoJS from "crypto-js";
 
-const SECRET_KEY = CryptoJS.enc.Hex.parse(
-  process.env.NEXT_PUBLIC_CRYPTO_SECRET_KEY || "ec58f5c9a843040750dd2e951bbc021724744468e3fc951f110a3ae8eaa93196"
-);
+const keyStr = process.env.NEXT_PUBLIC_CRYPTO_SECRET_KEY;
+if (!keyStr) {
+  throw new Error("Critical Configuration Error: NEXT_PUBLIC_CRYPTO_SECRET_KEY is undefined in environment variables.");
+}
+const SECRET_KEY = CryptoJS.enc.Hex.parse(keyStr);
 const IV = CryptoJS.lib.WordArray.create(new Uint8Array(16) as any); // 16 bytes of 0s
 
 export const decrypt = (encryptedDataBase64: string): any => {

@@ -57,16 +57,6 @@ export default function RootLayout({
         <AppProviders>
           {children}
         </AppProviders>
-        
-        {/* Scripts for original interactive elements */}
-        <Script src="/assets/js/ystudy-mobile-nav.js" strategy="lazyOnload" />
-        <Script src="/assets/js/ystudy-tool-operational.js" strategy="lazyOnload" />
-        <Script src="/assets/js/ystudy-ui-fixes.js" strategy="lazyOnload" />
-        <Script src="/assets/js/v719-interactive-funding.js" strategy="lazyOnload" />
-        <Script src="/assets/js/v731-carousel-system.js" strategy="lazyOnload" />
-        <Script src="/assets/js/ystudy-carousel-system.js" strategy="lazyOnload" />
-        <Script src="/assets/js/ystudy-v718-launch-polish.js" strategy="lazyOnload" />
-        <Script src="/assets/js/v737-desktop-carousel-polish.js" strategy="lazyOnload" />
       </body>
     </html>
   );

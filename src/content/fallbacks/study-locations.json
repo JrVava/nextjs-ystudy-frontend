@@ -1,0 +1,320 @@
+{
+  "page": "study-locations",
+  "cities": [
+    {
+      "id": "london",
+      "name": "London",
+      "floatDescription": "Largest choice · flexible routes · foundation year options",
+      "gridDescription": "Broad course choice, strong transport links and popular flexible study options.",
+      "badges": ["20+ courses", "Foundation routes", "Funding available"],
+      "image": "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=900&q=80",
+      "gridImage": "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1100&q=82",
+      "buttonText": "Explore London courses"
+    },
+    {
+      "id": "birmingham",
+      "name": "Birmingham",
+      "floatDescription": "Central location · mature student friendly · practical courses",
+      "gridDescription": "A practical Midlands hub for adult learners looking for flexible degree routes.",
+      "badges": ["15+ courses", "Evening/weekend", "Central England"],
+      "image": "https://images.unsplash.com/photo-1543946207-39bd91e70ca7?auto=format&fit=crop&w=900&q=80",
+      "gridImage": "https://images.unsplash.com/photo-1543946207-39bd91e70ca7?auto=format&fit=crop&w=1100&q=82",
+      "buttonText": "Explore Birmingham courses"
+    },
+    {
+      "id": "manchester",
+      "name": "Manchester",
+      "floatDescription": "Weekend & blended routes · career-focused subjects",
+      "gridDescription": "Popular with working adults interested in business, health and technology routes.",
+      "badges": ["12+ courses", "Blended options", "Career-focused"],
+      "image": "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=900&q=80",
+      "gridImage": "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1100&q=82",
+      "buttonText": "Explore Manchester courses"
+    },
+    {
+      "id": "leeds",
+      "name": "Leeds",
+      "floatDescription": "Growing city · business and career routes · lower living costs",
+      "gridDescription": "A strong Northern city for business, finance, digital and career-focused study routes.",
+      "badges": ["Growing hub", "Business routes", "Funding available"],
+      "image": "https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?auto=format&fit=crop&w=900&q=80",
+      "gridImage": "https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?auto=format&fit=crop&w=1100&q=82",
+      "buttonText": "Explore Leeds courses"
+    }
+  ],
+  "courses_data": {
+    "london": [
+      {
+        "subject": "Business",
+        "title": "Business Management BA (Hons)",
+        "desc": "3 years · daytime or evening/weekend options · leadership, marketing and business decision-making.",
+        "img": "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80",
+        "loc": "London",
+        "funding": "SFE eligible",
+        "time": "Flexible timetable",
+        "salary": "£24k–£55k+"
+      },
+      {
+        "subject": "Health",
+        "title": "Health & Social Care BSc",
+        "desc": "3 years or foundation route · care, community support, wellbeing and service leadership.",
+        "img": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=900&q=80",
+        "loc": "London",
+        "funding": "Funding available",
+        "time": "Day/evening",
+        "salary": "NHS pathway"
+      },
+      {
+        "subject": "Tech",
+        "title": "Computing & Cybersecurity BSc",
+        "desc": "3 years · blended/weekend options · coding from scratch, database, networking and cyber defense.",
+        "img": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=900&q=80",
+        "loc": "London",
+        "funding": "SFE check",
+        "time": "Blended study",
+        "salary": "£28k–£65k+"
+      }
+    ],
+    "birmingham": [
+      {
+        "subject": "Business",
+        "title": "Business Management BA (Hons)",
+        "desc": "3 years · flexible timetables designed for mature students balancing family commitments.",
+        "img": "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80",
+        "loc": "Birmingham",
+        "funding": "SFE eligible",
+        "time": "2 days / week",
+        "salary": "£24k–£55k+"
+      },
+      {
+        "subject": "Health",
+        "title": "Health & Social Care BA",
+        "desc": "Care, community support and healthcare leadership options with strong regional placement links.",
+        "img": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=900&q=80",
+        "loc": "Birmingham",
+        "funding": "Funding check",
+        "time": "Blended options",
+        "salary": "Healthcare support"
+      },
+      {
+        "subject": "Construction",
+        "title": "Construction Management BSc",
+        "desc": "Build planning, built environment and project management routes with regional contractor connections.",
+        "img": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=900&q=80",
+        "loc": "Birmingham",
+        "funding": "SFE eligible",
+        "time": "Weekend study",
+        "salary": "£28k–£60k+"
+      }
+    ],
+    "manchester": [
+      {
+        "subject": "Business",
+        "title": "Business Management BA (Hons)",
+        "desc": "3 years · blended/weekend timetables designed for northern working adult learners.",
+        "img": "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80",
+        "loc": "Manchester",
+        "funding": "SFE check",
+        "time": "Blended study",
+        "salary": "£24k–£55k+"
+      },
+      {
+        "subject": "Tech",
+        "title": "Computing & Data BSc",
+        "desc": "Practical software design, cybersecurity and data analytics pathways for career changers.",
+        "img": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=900&q=80",
+        "loc": "Manchester",
+        "funding": "SFE eligible",
+        "time": "Blended options",
+        "salary": "£28k–£65k+"
+      },
+      {
+        "subject": "Health",
+        "title": "Health & Social Care BA",
+        "desc": "Flexible care, support and healthcare administration courses for adult learners in Greater Manchester.",
+        "img": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=900&q=80",
+        "loc": "Manchester",
+        "funding": "SFE check",
+        "time": "Day/evening",
+        "salary": "NHS Band 5–7"
+      }
+    ],
+    "leeds": [
+      {
+        "subject": "Business",
+        "title": "Business Management BA (Hons)",
+        "desc": "3 years · blended/weekend study designed for adults returning to education in Yorkshire.",
+        "img": "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80",
+        "loc": "Leeds",
+        "funding": "SFE eligible",
+        "time": "Blended study",
+        "salary": "£24k–£55k+"
+      },
+      {
+        "subject": "Tech",
+        "title": "Computing & IT BSc",
+        "desc": "Practical network design, cyber defence and database systems for career transition.",
+        "img": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=900&q=80",
+        "loc": "Leeds",
+        "funding": "SFE check",
+        "time": "Blended options",
+        "salary": "£28k–£65k+"
+      },
+      {
+        "subject": "Health",
+        "title": "Health & Social Care BA",
+        "desc": "Care, community, well-being and health administration courses with flexible regional options.",
+        "img": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=900&q=80",
+        "loc": "Leeds",
+        "funding": "Funding available",
+        "time": "Day/evening",
+        "salary": "Healthcare routes"
+      }
+    ]
+  },
+  "section_2": {
+    "badge": "Study by city",
+    "title": "Start with the place you can actually attend.",
+    "description": "Location is not a detail for mature students. It decides your commute, timetable, costs and whether the course is realistic around work and family.",
+    "status": true
+  },
+  "section_3": {
+    "badge": "Choose subject",
+    "title": "Then choose the subject that fits your future.",
+    "description": "Use these subject groups as simple entry points into course results. No extra submenu, no duplicated pathways — just city, subject and relevant courses.",
+    "subjects": [
+      {
+        "title": "Business",
+        "description": "Management, marketing, leadership",
+        "image": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=700&q=80"
+      },
+      {
+        "title": "Health & Care",
+        "description": "Care, wellbeing, leadership",
+        "image": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=700&q=80"
+      },
+      {
+        "title": "Construction",
+        "description": "Site, project and built environment",
+        "image": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=700&q=80"
+      },
+      {
+        "title": "Computing & Data",
+        "description": "Data, AI, cyber, digital",
+        "image": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=700&q=80"
+      },
+      {
+        "title": "Accounting",
+        "description": "Finance and business decisions",
+        "image": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=700&q=80"
+      },
+      {
+        "title": "Law",
+        "description": "Legal, compliance and business",
+        "image": "https://images.unsplash.com/photo-1589391886645-d51941baf7fb?auto=format&fit=crop&w=700&q=80"
+      }
+    ],
+    "status": true
+  },
+  "section_4": {
+    "badge": "Course results",
+    "title": "Available courses by location.",
+    "description": "Use these as quick entry points into the full Search Degrees page. Each card uses the same course-card logic: photo, location, timetable, funding, value and clear action buttons.",
+    "status": true
+  },
+  "section_5": {
+    "badge": "Compare",
+    "title": "Compare locations quickly.",
+    "description": "One clean comparison only — no repeated city content. This helps students decide where to focus before speaking to an adviser.",
+    "comparison_table": {
+      "headers": ["What matters", "London", "Birmingham", "Manchester", "Leeds"],
+      "rows": [
+        {
+          "matter": "Daytime / blended options",
+          "london": "✓ Broad choice",
+          "birmingham": "✓ Available",
+          "manchester": "✓ Available",
+          "leeds": "✓ Available"
+        },
+        {
+          "matter": "Evening / weekend options",
+          "london": "✓ High",
+          "birmingham": "Limited",
+          "manchester": "Limited",
+          "leeds": "Adviser check"
+        },
+        {
+          "matter": "Average commute stress",
+          "london": "Medium–High",
+          "birmingham": "Low–Medium",
+          "manchester": "Low–Medium",
+          "leeds": "Low"
+        },
+        {
+          "matter": "Living support loan weight",
+          "london": "✓ Up to £14,135",
+          "birmingham": "Up to £10,830",
+          "manchester": "Up to £10,830",
+          "leeds": "Up to £10,830"
+        },
+        {
+          "matter": "Local employment density",
+          "london": "✓ Maximum",
+          "birmingham": "High",
+          "manchester": "High",
+          "leeds": "Medium–High"
+        }
+      ]
+    },
+    "status": true
+  },
+  "section_6": {
+    "title": "Funding may be available wherever you study.",
+    "description": "Eligible students may be able to access Tuition Fee Loan and Maintenance Loan support. YStudy can help you check your route before you apply.",
+    "card": [
+      {
+        "title": "Tuition Fee Loan",
+        "cost": "£9,790"
+      },
+      {
+        "title": "Maintenance Loan",
+        "cost": "Up to £14,135"
+      }
+    ],
+    "status": true
+  },
+  "section_7": {
+    "badge": "Student stories",
+    "title": "Adult learners choose locations for real-life reasons.",
+    "description": "Short, location-based stories help students imagine how study could fit around work, family and travel.",
+    "stories": [
+      {
+        "quote": "I study in London after school runs.",
+        "text": "Travelling in twice a week was tough at first, but blending it with online modules let me study Business Management while looking after my three kids.",
+        "author": "Priya K.",
+        "location": "London",
+        "image": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        "quote": "Birmingham weekend study changed everything.",
+        "text": "I couldn't leave my full-time factory job, so the Saturday timetable option for Computing let me gain skills without missing a single shift's pay.",
+        "author": "Marcus T.",
+        "location": "Birmingham",
+        "image": "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        "quote": "Manchester blended learning fits my health career.",
+        "text": "As a clinical assistant, my shifts change every month. Having course materials available termly let me map lectures around my work plan.",
+        "author": "Amina R.",
+        "location": "Manchester",
+        "image": "https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=800&q=80"
+      }
+    ],
+    "status": true
+  },
+  "section_8": {
+    "title": "Ready to choose your location?",
+    "description": "Search degrees, check funding and apply with free YStudy guidance.",
+    "status": true
+  }
+}
