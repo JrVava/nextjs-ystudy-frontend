@@ -6,56 +6,126 @@
    ============================================================ */
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&display=swap");
 
-:root{
+:root {
   /* brand — orange */
-  --o-deep:#e05000; --o:#f08000; --o-amber:#f0a000; --o-gold:#f0b000;
+  --o-deep: #e05000;
+  --o: #f08000;
+  --o-amber: #f0a000;
+  --o-gold: #f0b000;
   /* brand — blue */
-  --b-bright:#2f6fe0; --b:#0a52d6; --b-deep:#00308c; --b-navy:#001f5c;
+  --b-bright: #2f6fe0;
+  --b: #0a52d6;
+  --b-deep: #00308c;
+  --b-navy: #001f5c;
   /* neutrals */
-  --ink:#071126; --muted:#46566f; --line:#dbe8f7; --soft:#f7fbff;
+  --ink: #071126;
+  --muted: #46566f;
+  --line: #dbe8f7;
+  --soft: #f7fbff;
   /* display font + alias used by injected sections */
-  --display-font:"Montserrat",Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-  --df:var(--display-font);
+  --display-font: "Montserrat", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --df: var(--display-font);
   /* shadows */
-  --shadow:0 18px 48px rgba(15,23,42,.10);
-  --shadow-lg:0 30px 90px rgba(15,23,42,.16);
+  --shadow: 0 18px 48px rgba(15, 23, 42, .10);
+  --shadow-lg: 0 30px 90px rgba(15, 23, 42, .16);
   /* layout */
-  --gut:clamp(10px,3.4vw,72px); --maxw:1680px;
+  --gut: clamp(10px, 3.4vw, 72px);
+  --maxw: 1680px;
   /* ===== EDITORIAL TYPE SCALE (used everywhere) ===== */
-  --fs-display:clamp(67px,7.2vw,86px);  /* hero h1 only */
-  --fs-h1:clamp(58px,5.5vw,72px);        /* section big headings */
-  --fs-h2:clamp(43px,3.85vw,53px);        /* sub-section / card-group heads */
-  --fs-h3:clamp(29px,2.15vw,34px);        /* card titles */
-  --fs-lead:clamp(24px,1.62vw,26px);      /* intros under headings */
-  --fs-body:clamp(19px,1.2vw,20px);     /* body copy */
-  --fs-small:clamp(15.5px,1.02vw,17px);   /* labels, meta */
-  --lh-tight:0.94; --lh-snug:1.12; --lh-body:1.6;
+  --fs-display: clamp(67px, 7.2vw, 86px);
+  /* hero h1 only */
+  --fs-h1: clamp(58px, 5.5vw, 72px);
+  /* section big headings */
+  --fs-h2: clamp(43px, 3.85vw, 53px);
+  /* sub-section / card-group heads */
+  --fs-h3: clamp(29px, 2.15vw, 34px);
+  /* card titles */
+  --fs-lead: clamp(24px, 1.62vw, 26px);
+  /* intros under headings */
+  --fs-body: clamp(19px, 1.2vw, 20px);
+  /* body copy */
+  --fs-small: clamp(15.5px, 1.02vw, 17px);
+  /* labels, meta */
+  --lh-tight: 0.94;
+  --lh-snug: 1.12;
+  --lh-body: 1.6;
 }
 
 /* ===== BASE HEADING RULES (match reference pages) =====
    Scoped so they don't fight page-specific hero rules that set
    their own colour/size, but give every unstyled heading the
    correct Montserrat weight + tracking + scale by default. */
-.ys-unified h1,.ys-unified h2,.ys-unified h3{font-family:var(--display-font)}
-.ys-unified h1{font-size:var(--fs-h1);font-weight:900;letter-spacing:-.04em;line-height:var(--lh-tight)}
-.ys-unified h2{font-size:var(--fs-h2);font-weight:900;letter-spacing:-.035em;line-height:var(--lh-snug)}
-.ys-unified h3{font-size:var(--fs-h3);font-weight:900;letter-spacing:-.02em;line-height:var(--lh-snug)}
+.ys-unified h1,
+.ys-unified h2,
+.ys-unified h3 {
+  font-family: var(--display-font)
+}
+
+.ys-unified h1 {
+  font-size: var(--fs-h1);
+  font-weight: 900;
+  letter-spacing: -.04em;
+  line-height: var(--lh-tight)
+}
+
+.ys-unified h2 {
+  font-size: var(--fs-h2);
+  font-weight: 900;
+  letter-spacing: -.035em;
+  line-height: var(--lh-snug)
+}
+
+.ys-unified h3 {
+  font-size: var(--fs-h3);
+  font-weight: 900;
+  letter-spacing: -.02em;
+  line-height: var(--lh-snug)
+}
 
 /* ============================================================
    HEADER ACTIONS — style B (icon-only chips, bigger thick icons)
    ============================================================ */
-button.nav-icon-btn.ic-chip,a.signin-icon{
-  width:46px!important;height:46px!important;border-radius:12px!important;
-  background:var(--soft)!important;border:1px solid var(--line)!important;
-  box-shadow:none!important;font-size:0!important;transform:none!important;
-  display:inline-grid!important;place-items:center!important;color:#3a4d6b!important;
-  cursor:pointer;transition:background .15s,color .15s,border-color .15s;padding:0!important
+button.nav-icon-btn.ic-chip,
+a.signin-icon {
+  width: 46px !important;
+  height: 46px !important;
+  border-radius: 12px !important;
+  background: var(--soft) !important;
+  border: 1px solid var(--line) !important;
+  box-shadow: none !important;
+  font-size: 0 !important;
+  transform: none !important;
+  display: inline-grid !important;
+  place-items: center !important;
+  color: #3a4d6b !important;
+  cursor: pointer;
+  transition: background .15s, color .15s, border-color .15s;
+  padding: 0 !important
 }
-button.nav-icon-btn.ic-chip:hover,a.signin-icon:hover{background:#e9f1ff!important;border-color:#cfe0fb!important;color:var(--b)!important;transform:none!important}
-button.nav-icon-btn.ic-chip svg,a.signin-icon svg{width:25px!important;height:25px!important;display:block}
+
+button.nav-icon-btn.ic-chip:hover,
+a.signin-icon:hover {
+  background: #e9f1ff !important;
+  border-color: #cfe0fb !important;
+  color: var(--b) !important;
+  transform: none !important
+}
+
+button.nav-icon-btn.ic-chip svg,
+a.signin-icon svg {
+  width: 25px !important;
+  height: 25px !important;
+  display: block
+}
 
 /* kill the old CSS-drawn magnifier pseudo-elements when using the SVG chip */
-.nav-search-big.ic-chip::before,.nav-search-big.ic-chip::after{content:none!important;display:none!important;border:0!important;background:none!important}
+.nav-search-big.ic-chip::before,
+.nav-search-big.ic-chip::after {
+  content: none !important;
+  display: none !important;
+  border: 0 !important;
+  background: none !important
+}
 
 
 /* ============================================================
@@ -63,43 +133,163 @@ button.nav-icon-btn.ic-chip svg,a.signin-icon svg{width:25px!important;height:25
    Global standard: home page + course detail scale everywhere, increased by ~20%.
    Mobile edge gutter is exactly 12px (24px total).
    ============================================================ */
-:root{
-  --fs-display:clamp(67px,7.2vw,86px);
-  --fs-h1:clamp(58px,5.5vw,72px);
-  --fs-h2:clamp(43px,3.85vw,53px);
-  --fs-h3:clamp(29px,2.15vw,34px);
-  --fs-lead:clamp(24px,1.62vw,26px);
-  --fs-body:clamp(19px,1.2vw,20px);
-  --fs-small:clamp(15.5px,1.02vw,17px);
-  --site:1680px;
-  --shell:min(var(--site),calc(100% - 56px));
-  --mobile-gutter:12px;
+:root {
+  --fs-display: clamp(67px, 7.2vw, 86px);
+  --fs-h1: clamp(58px, 5.5vw, 72px);
+  --fs-h2: clamp(43px, 3.85vw, 53px);
+  --fs-h3: clamp(29px, 2.15vw, 34px);
+  --fs-lead: clamp(24px, 1.62vw, 26px);
+  --fs-body: clamp(19px, 1.2vw, 20px);
+  --fs-small: clamp(15.5px, 1.02vw, 17px);
+  --site: 1680px;
+  --shell: min(var(--site), calc(100% - 56px));
+  --mobile-gutter: 12px;
 }
-html{font-size:16px}
-body{font-size:var(--fs-body);line-height:1.6}
-h1,.h1,.yds-hero h1,.tool-hero h1,.degree-search-hero h1{font-size:var(--fs-h1)!important;line-height:.95!important;letter-spacing:-.055em!important;font-family:var(--display-font,Montserrat,Inter,Arial,sans-serif)!important;font-weight:900!important}
-.display,.hero h1,.gg-hero h1,.yst-hero-system h1{font-size:var(--fs-display)!important;line-height:.94!important;letter-spacing:-.055em!important;font-family:var(--display-font,Montserrat,Inter,Arial,sans-serif)!important;font-weight:900!important}
-h2,.h2,.section h2,.title-row h2{font-size:var(--fs-h2)!important;line-height:1.04!important;letter-spacing:-.04em!important;font-family:var(--display-font,Montserrat,Inter,Arial,sans-serif)!important;font-weight:900!important}
-h3,.h3,.card h3,.info-card h3,.course-card h3,.c-wrap h3{font-size:var(--fs-h3)!important;line-height:1.12!important;letter-spacing:-.025em!important;font-family:var(--display-font,Montserrat,Inter,Arial,sans-serif)!important;font-weight:900!important}
-p,.desc,.body-copy,li{font-size:var(--fs-body);line-height:1.6}.lead,.hero-copy>p,.yds-hero p,.tool-hero p{font-size:var(--fs-lead)!important;line-height:1.5!important}.small,.kicker,.tag,.eyebrow,.pill{font-size:var(--fs-small)!important}
-.container,.footer-grid,.fb-inner{width:var(--shell)!important;max-width:var(--site)!important;margin-inline:auto!important}.wrap{width:min(var(--maxw,1680px),calc(100% - 56px))!important;margin-inline:auto!important}
-@media(max-width:760px){
-  :root{
-    --fs-display:clamp(41px,12.6vw,48px);
-    --fs-h1:clamp(41px,12vw,50px);
-    --fs-h2:clamp(34px,9.6vw,38px);
-    --fs-h3:clamp(24px,7.2vw,26px);
-    --fs-lead:21.5px;
-    --fs-body:19px;
-    --fs-small:15.5px;
-    --shell:calc(100% - 24px)!important;
-    --ds-mobile-edge:12px!important;
-    --ds-mobile-shell:calc(100% - 24px)!important;
+
+html {
+  font-size: 16px
+}
+
+body {
+  font-size: var(--fs-body);
+  line-height: 1.6
+}
+
+h1,
+.h1,
+.yds-hero h1,
+.tool-hero h1,
+.degree-search-hero h1 {
+  font-size: var(--fs-h1) !important;
+  line-height: .95 !important;
+  letter-spacing: -.055em !important;
+  font-family: var(--display-font, Montserrat, Inter, Arial, sans-serif) !important;
+  font-weight: 900 !important
+}
+
+.display,
+.hero h1,
+.gg-hero h1,
+.yst-hero-system h1 {
+  font-size: var(--fs-display) !important;
+  line-height: .94 !important;
+  letter-spacing: -.055em !important;
+  font-family: var(--display-font, Montserrat, Inter, Arial, sans-serif) !important;
+  font-weight: 900 !important
+}
+
+h2,
+.h2,
+.section h2,
+.title-row h2 {
+  font-size: var(--fs-h2) !important;
+  line-height: 1.04 !important;
+  letter-spacing: -.04em !important;
+  font-family: var(--display-font, Montserrat, Inter, Arial, sans-serif) !important;
+  font-weight: 900 !important
+}
+
+h3,
+.h3,
+.card h3,
+.info-card h3,
+.course-card h3,
+.c-wrap h3 {
+  font-size: var(--fs-h3) !important;
+  line-height: 1.12 !important;
+  letter-spacing: -.025em !important;
+  font-family: var(--display-font, Montserrat, Inter, Arial, sans-serif) !important;
+  font-weight: 900 !important
+}
+
+p,
+.desc,
+.body-copy,
+li {
+  font-size: var(--fs-body);
+  line-height: 1.6
+}
+
+.lead,
+.hero-copy>p,
+.yds-hero p,
+.tool-hero p {
+  font-size: var(--fs-lead) !important;
+  line-height: 1.5 !important
+}
+
+.small,
+.kicker,
+.tag,
+.eyebrow,
+.pill {
+  font-size: var(--fs-small) !important
+}
+
+.container,
+.footer-grid,
+.fb-inner {
+  width: var(--shell) !important;
+  max-width: var(--site) !important;
+  margin-inline: auto !important
+}
+
+.wrap {
+  width: min(var(--maxw, 1680px), calc(100% - 56px)) !important;
+  margin-inline: auto !important
+}
+
+@media(max-width:760px) {
+  :root {
+    --fs-display: clamp(41px, 12.6vw, 48px);
+    --fs-h1: clamp(41px, 12vw, 50px);
+    --fs-h2: clamp(34px, 9.6vw, 38px);
+    --fs-h3: clamp(24px, 7.2vw, 26px);
+    --fs-lead: 21.5px;
+    --fs-body: 19px;
+    --fs-small: 15.5px;
+    --shell: calc(100% - 24px) !important;
+    --ds-mobile-edge: 12px !important;
+    --ds-mobile-shell: calc(100% - 24px) !important;
   }
-  .container,.footer-grid,.fb-inner,.nav,.topbar .container,.wrap,.golden-page .container,.yst-hero-system .container,.search-degree-focus .container{width:calc(100% - 24px)!important;max-width:none!important;margin-inline:auto!important;padding-left:0!important;padding-right:0!important}
-  .yds-hero,.degree-search-hero,.golden-page .gg-hero,.yst-hero-system .container,.search-degree-focus .container{width:calc(100% - 24px)!important;max-width:none!important;margin-inline:auto!important}
-  .bottom-nav,.mobile-bottom-nav{left:12px!important;right:12px!important;width:auto!important}
-  .section{padding-left:0!important;padding-right:0!important}
+
+  .container,
+  .footer-grid,
+  .fb-inner,
+  .nav,
+  .topbar .container,
+  .wrap,
+  .golden-page .container,
+  .yst-hero-system .container,
+  .search-degree-focus .container {
+    width: calc(100% - 24px) !important;
+    max-width: none !important;
+    margin-inline: auto !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important
+  }
+
+  .yds-hero,
+  .degree-search-hero,
+  .golden-page .gg-hero,
+  .yst-hero-system .container,
+  .search-degree-focus .container {
+    width: calc(100% - 24px) !important;
+    max-width: none !important;
+    margin-inline: auto !important
+  }
+
+  .bottom-nav,
+  .mobile-bottom-nav {
+    left: 12px !important;
+    right: 12px !important;
+    width: auto !important
+  }
+
+  .section {
+    padding-left: 0 !important;
+    padding-right: 0 !important
+  }
 }
 
 
@@ -109,55 +299,248 @@ p,.desc,.body-copy,li{font-size:var(--fs-body);line-height:1.6}.lead,.hero-copy>
    - Desktop and mobile typography increased roughly 10% over v701
    - Mobile gutter remains exactly 12px
    ============================================================ */
-:root{
-  --fs-display:clamp(74px,7.95vw,95px)!important;
-  --fs-h1:clamp(64px,6.05vw,79px)!important;
-  --fs-h2:clamp(47px,4.25vw,58px)!important;
-  --fs-h3:clamp(32px,2.4vw,37px)!important;
-  --fs-lead:clamp(26px,1.8vw,29px)!important;
-  --fs-body:clamp(21px,1.32vw,22px)!important;
-  --fs-small:clamp(17px,1.13vw,19px)!important;
-  --mobile-gutter:12px!important;
+:root {
+  --fs-display: clamp(74px, 7.95vw, 95px) !important;
+  --fs-h1: clamp(64px, 6.05vw, 79px) !important;
+  --fs-h2: clamp(47px, 4.25vw, 58px) !important;
+  --fs-h3: clamp(32px, 2.4vw, 37px) !important;
+  --fs-lead: clamp(26px, 1.8vw, 29px) !important;
+  --fs-body: clamp(21px, 1.32vw, 22px) !important;
+  --fs-small: clamp(17px, 1.13vw, 19px) !important;
+  --mobile-gutter: 12px !important;
 }
-body{font-size:var(--fs-body)!important;line-height:1.6!important}
-h1,.h1,.yds-hero h1,.tool-hero h1,.degree-search-hero h1,.fdh h1{font-size:var(--fs-h1)!important;line-height:.95!important;letter-spacing:-.055em!important;font-family:var(--display-font,Montserrat,Inter,Arial,sans-serif)!important;font-weight:900!important}
-.display,.hero h1,.gg-hero h1,.yst-hero-system h1,.hhero .hcopy h1{font-size:var(--fs-display)!important;line-height:.94!important;letter-spacing:-.055em!important;font-family:var(--display-font,Montserrat,Inter,Arial,sans-serif)!important;font-weight:900!important}
-h2,.h2,.section h2,.title-row h2{font-size:var(--fs-h2)!important;line-height:1.04!important;letter-spacing:-.04em!important}
-h3,.h3,.card h3,.info-card h3,.course-card h3,.c-wrap h3{font-size:var(--fs-h3)!important;line-height:1.12!important;letter-spacing:-.025em!important}
-p,.desc,.body-copy,li{font-size:var(--fs-body)!important;line-height:1.6!important}
-.lead,.hero-copy>p,.yds-hero p,.tool-hero p,.fdh .fdhlead,.hhero .hcopy .lead{font-size:var(--fs-lead)!important;line-height:1.5!important}
-.small,.kicker,.tag,.eyebrow,.pill,.fdh .fdhk{font-size:var(--fs-small)!important}
-.header{position:sticky!important;top:0!important;z-index:1000!important;background:rgba(255,255,255,.96)!important;border-bottom:1px solid var(--line)!important;backdrop-filter:blur(16px)!important}
-.header .nav{height:92px!important;display:flex!important;align-items:center!important;gap:28px!important}
-.logo{font-size:30px!important;font-weight:950!important;letter-spacing:-.035em!important;display:flex!important;align-items:center!important;gap:12px!important;white-space:nowrap!important}
-.logo img{height:58px!important;width:auto!important;object-fit:contain!important}
-.main-nav{display:flex!important;align-items:center!important;gap:14px!important;overflow:visible!important}
-.main-nav-link{font-size:18px!important;font-weight:950!important;padding:16px 20px!important;border-radius:999px!important;line-height:1!important}
-.main-nav-item .ds-mega.simple-hover-card{top:calc(100% + 12px)!important;z-index:7000!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important;transform:translateX(-50%) translateY(8px)!important}
-.main-nav-item:hover .ds-mega.simple-hover-card,.main-nav-item:focus-within .ds-mega.simple-hover-card,.main-nav-item.is-open .ds-mega.simple-hover-card,.ds-mega.simple-hover-card:hover{opacity:1!important;visibility:visible!important;pointer-events:auto!important;transform:translateX(-50%) translateY(0)!important}
-.simple-menu-link{font-size:16px!important;font-weight:900!important;padding:13px 15px!important}
-.nav-actions-v626 .btn,.header .actions .btn{min-height:56px!important;padding:0 24px!important;font-size:16px!important;font-weight:950!important}
-button.nav-icon-btn.ic-chip,a.signin-icon{width:54px!important;height:54px!important;border-radius:14px!important}
-button.nav-icon-btn.ic-chip svg,a.signin-icon svg{width:28px!important;height:28px!important}
-@media(max-width:1100px){
-  .header .nav{height:76px!important;width:calc(100% - 24px)!important;max-width:none!important;margin-inline:auto!important;padding-left:0!important;padding-right:0!important}
-  .main-nav,.header .actions{display:none!important}
-  .mobile-head-actions,.mobile-nav-toggle{display:flex!important}
-  .logo{font-size:26px!important}.logo img{height:50px!important}
+
+body {
+  font-size: var(--fs-body) !important;
+  line-height: 1.6 !important
 }
-@media(max-width:760px){
-  :root{
-    --fs-display:clamp(45px,13.9vw,53px)!important;
-    --fs-h1:clamp(45px,13.2vw,55px)!important;
-    --fs-h2:clamp(37px,10.6vw,42px)!important;
-    --fs-h3:clamp(26px,7.9vw,29px)!important;
-    --fs-lead:23.5px!important;
-    --fs-body:21px!important;
-    --fs-small:17px!important;
-    --shell:calc(100% - 24px)!important;
-    --ds-mobile-edge:12px!important;
-    --ds-mobile-shell:calc(100% - 24px)!important;
+
+h1,
+.h1,
+.yds-hero h1,
+.tool-hero h1,
+.degree-search-hero h1,
+.fdh h1 {
+  font-size: var(--fs-h1) !important;
+  line-height: .95 !important;
+  letter-spacing: -.055em !important;
+  font-family: var(--display-font, Montserrat, Inter, Arial, sans-serif) !important;
+  font-weight: 900 !important
+}
+
+.display,
+.hero h1,
+.gg-hero h1,
+.yst-hero-system h1,
+.hhero .hcopy h1 {
+  font-size: var(--fs-display) !important;
+  line-height: .94 !important;
+  letter-spacing: -.055em !important;
+  font-family: var(--display-font, Montserrat, Inter, Arial, sans-serif) !important;
+  font-weight: 900 !important
+}
+
+h2,
+.h2,
+.section h2,
+.title-row h2 {
+  font-size: var(--fs-h2) !important;
+  line-height: 1.04 !important;
+  letter-spacing: -.04em !important
+}
+
+h3,
+.h3,
+.card h3,
+.info-card h3,
+.course-card h3,
+.c-wrap h3 {
+  font-size: var(--fs-h3) !important;
+  line-height: 1.12 !important;
+  letter-spacing: -.025em !important
+}
+
+p,
+.desc,
+.body-copy,
+li {
+  font-size: var(--fs-body) !important;
+  line-height: 1.6 !important
+}
+
+.lead,
+.hero-copy>p,
+.yds-hero p,
+.tool-hero p,
+.fdh .fdhlead,
+.hhero .hcopy .lead {
+  font-size: var(--fs-lead) !important;
+  line-height: 1.5 !important
+}
+
+.small,
+.kicker,
+.tag,
+.eyebrow,
+.pill,
+.fdh .fdhk {
+  font-size: var(--fs-small) !important
+}
+
+.header {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1000 !important;
+  background: rgba(255, 255, 255, .96) !important;
+  border-bottom: 1px solid var(--line) !important;
+  backdrop-filter: blur(16px) !important
+}
+
+.header .nav {
+  height: 92px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 28px !important
+}
+
+.logo {
+  font-size: 30px !important;
+  font-weight: 950 !important;
+  letter-spacing: -.035em !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  white-space: nowrap !important
+}
+
+.logo img {
+  height: 58px !important;
+  width: auto !important;
+  object-fit: contain !important
+}
+
+.main-nav {
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  overflow: visible !important
+}
+
+.main-nav-link {
+  font-size: 18px !important;
+  font-weight: 950 !important;
+  padding: 16px 20px !important;
+  border-radius: 999px !important;
+  line-height: 1 !important
+}
+
+.main-nav-item .ds-mega.simple-hover-card {
+  top: calc(100% + 12px) !important;
+  z-index: 7000 !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: translateX(-50%) translateY(8px) !important
+}
+
+.main-nav-item:hover .ds-mega.simple-hover-card,
+.main-nav-item:focus-within .ds-mega.simple-hover-card,
+.main-nav-item.is-open .ds-mega.simple-hover-card,
+.ds-mega.simple-hover-card:hover {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  transform: translateX(-50%) translateY(0) !important
+}
+
+.simple-menu-link {
+  font-size: 16px !important;
+  font-weight: 900 !important;
+  padding: 13px 15px !important
+}
+
+.nav-actions-v626 .btn,
+.header .actions .btn {
+  min-height: 56px !important;
+  padding: 0 24px !important;
+  font-size: 16px !important;
+  font-weight: 950 !important
+}
+
+button.nav-icon-btn.ic-chip,
+a.signin-icon {
+  width: 54px !important;
+  height: 54px !important;
+  border-radius: 14px !important
+}
+
+button.nav-icon-btn.ic-chip svg,
+a.signin-icon svg {
+  width: 28px !important;
+  height: 28px !important
+}
+
+@media(max-width:1100px) {
+  .header .nav {
+    height: 76px !important;
+    width: calc(100% - 24px) !important;
+    max-width: none !important;
+    margin-inline: auto !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important
   }
-  .container,.footer-grid,.fb-inner,.nav,.topbar .container,.wrap,.golden-page .container,.yst-hero-system .container,.search-degree-focus .container{width:calc(100% - 24px)!important;max-width:none!important;margin-inline:auto!important;padding-left:0!important;padding-right:0!important}
-  .section{padding-left:0!important;padding-right:0!important}
+
+  .main-nav,
+  .header .actions {
+    display: none !important
+  }
+
+  .mobile-head-actions,
+  .mobile-nav-toggle {
+    display: flex !important
+  }
+
+  .logo {
+    font-size: 26px !important
+  }
+
+  .logo img {
+    height: 40px !important
+  }
+}
+
+@media(max-width:760px) {
+  :root {
+    --fs-display: clamp(45px, 13.9vw, 53px) !important;
+    --fs-h1: clamp(45px, 13.2vw, 55px) !important;
+    --fs-h2: clamp(37px, 10.6vw, 42px) !important;
+    --fs-h3: clamp(26px, 7.9vw, 29px) !important;
+    --fs-lead: 23.5px !important;
+    --fs-body: 21px !important;
+    --fs-small: 17px !important;
+    --shell: calc(100% - 24px) !important;
+    --ds-mobile-edge: 12px !important;
+    --ds-mobile-shell: calc(100% - 24px) !important;
+  }
+
+  .container,
+  .footer-grid,
+  .fb-inner,
+  .nav,
+  .topbar .container,
+  .wrap,
+  .golden-page .container,
+  .yst-hero-system .container,
+  .search-degree-focus .container {
+    width: calc(100% - 24px) !important;
+    max-width: none !important;
+    margin-inline: auto !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important
+  }
+
+  .section {
+    padding-left: 0 !important;
+    padding-right: 0 !important
+  }
 }

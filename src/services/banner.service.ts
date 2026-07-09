@@ -1,3 +1,5 @@
+import { encrypt, decrypt } from "@/lib/crypto";
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/api";
 
 export interface BannerItem {
@@ -22,7 +24,7 @@ export interface BannerData {
     footerItems?: Array<{ label: string; value: string }>;
   };
   rightCard: {
-    layoutType: 'stacked-cards' | 'stats-highlight' | 'grid-2x2' | 'list-items';
+    layoutType: 'stacked-cards' | 'stats-highlight' | 'grid-2x2' | 'list-items' | 'none';
     title?: string;
     description?: string;
     mainValue?: string;
@@ -34,9 +36,13 @@ export interface BannerData {
 
 export async function getBannerBySlug(slug: string): Promise<BannerData | null> {
   try {
-    console.log('api ===========>', `${API_URL}/frontend/banners/${slug}`);
-
-    const res = await fetch(`${API_URL}/frontend/banners/${slug}`, {
+    const encryptedBody = encrypt({ slug });
+    const res = await fetch(`${API_URL}/frontend/banners`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ data: encryptedBody }),
       next: { revalidate: 3600 } // Cache for 1 hour
     });
 
@@ -46,10 +52,15 @@ export async function getBannerBySlug(slug: string): Promise<BannerData | null> 
     }
 
     const json = await res.json();
-    if (json && json.success && json.data) {
-      console.log('json.data =>', json.data);
+    if (!json.data) {
+      console.warn(`[banner.service] Banner API returned empty data for slug '${slug}'.`);
+      return null;
+    }
 
-      return json.data;
+    const decrypted = decrypt(json.data);
+    if (decrypted && decrypted.success && decrypted.data) {
+      console.log('decrypted banner data =>', decrypted.data);
+      return decrypted.data;
     }
 
     console.warn(`[banner.service] Banner API returned unsuccessful status for slug '${slug}'.`);
