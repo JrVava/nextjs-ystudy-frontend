@@ -641,7 +641,7 @@ export default async function Home() {
                   <span style={{ fontSize: "10px", fontWeight: 900, opacity: 0.85, textTransform: "uppercase", letterSpacing: ".05em" }}>Step 8</span><b style={{ fontSize: "16px", fontWeight: 900 }}>Success</b>
                 </div>
                 <div style={{ position: "absolute", left: "300px", top: "300px", transform: "translate(-50%,-50%)", width: "190px", height: "190px", borderRadius: "50%", background: "#fff", boxShadow: "0 10px 40px rgba(0,0,0,.15)", border: "1.5px solid #eef2f6", display: "grid", placeItems: "center", padding: "18px", boxSizing: "border-box" }}>
-                  <img src="/ystudy-logo.png" alt="Y Study Logo" style={{ width: "94px", height: "94px", objectFit: "contain", filter: "drop-shadow(0 8px 16px rgba(0,0,0,.08))" }} />
+                  <img src="/assets/ystudy-logo.png" alt="Y Study Logo" style={{ width: "94px", height: "94px", objectFit: "contain", filter: "drop-shadow(0 8px 16px rgba(0,0,0,.08))" }} />
                 </div>
               </div>
             </div>

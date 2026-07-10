@@ -24,7 +24,7 @@ export function SiteFooter({ minimal = false }: { minimal?: boolean }) {
           <Link className="logo" href="/">
             <Image
               className="logo-img"
-              src="/ystudy-logo.png"
+              src="/assets/ystudy-logo.png"
               alt="YStudy"
               width={48}
               height={48}
