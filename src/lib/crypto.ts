@@ -1,6 +1,7 @@
 import CryptoJS from "crypto-js";
+import config from "./config";
 
-const keyStr = process.env.NEXT_PUBLIC_CRYPTO_SECRET_KEY;
+const keyStr = config.cryptoKey;
 if (!keyStr) {
   throw new Error("Critical Configuration Error: NEXT_PUBLIC_CRYPTO_SECRET_KEY is undefined in environment variables.");
 }

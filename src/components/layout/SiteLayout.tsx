@@ -7,6 +7,7 @@ import { useSearchModal } from "@/hooks/use-search-modal";
 import { cn, getThemeClass } from "@/lib/utils";
 import type { SiteTheme } from "@/types";
 import { decrypt } from "@/lib/crypto";
+import api from "@/lib/api";
 import { MobileBottomNav } from "./MobileBottomNav";
 import { MobileNav } from "./MobileNav";
 import { SearchModal } from "./SearchModal";
@@ -32,14 +33,12 @@ export function SiteLayout({
   const searchModal = useSearchModal();
   const [navigation, setNavigation] = useState<any[]>([]);
 
+
   useEffect(() => {
     const fetchNavigation = async () => {
       try {
-        const apiBase = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/api";
-        const res = await fetch(`${apiBase}/frontend/navigations`);
-        if (!res.ok) throw new Error("Failed to fetch navigations");
-        
-        const json = await res.json();
+        const res = await api.get("/frontend/navigations");
+        const json = res.data;
         if (json && json.data) {
           const decrypted = decrypt(json.data);
           if (decrypted && decrypted.success && decrypted.data) {

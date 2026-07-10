@@ -1,8 +1,29 @@
 import { getCMSPageContent } from "@/services/cms.service";
 import { Banner } from "@/components/ui/Banner";
+import {
+  getSubjects,
+  getQualifications,
+  getModes,
+  getDurations,
+  getFundings
+} from "@/services/filters.service";
 
 export default async function Degrees() {
-  const data = await getCMSPageContent("degrees");
+  const [
+    data,
+    subjects,
+    qualifications,
+    modes,
+    durations,
+    fundings
+  ] = await Promise.all([
+    getCMSPageContent("degrees"),
+    getSubjects(),
+    getQualifications(),
+    getModes(),
+    getDurations(),
+    getFundings()
+  ]);
 
   return (
     <div className="degrees-page-content">
@@ -29,42 +50,27 @@ export default async function Degrees() {
               <label>Subject</label>
               <select>
                 <option>Any subject</option>
-                <option>Business</option>
-                <option>Computing</option>
-                <option>Health &amp; Social Care</option>
-                <option>Psychology</option>
-                <option>Construction</option>
-                <option>Law</option>
-                <option>Marketing</option>
-                <option>Project Management</option>
+                {subjects.map((item) => (
+                  <option key={item._id} value={item.title}>{item.title}</option>
+                ))}
               </select>
             </div>
             <div className="dsx-fsel">
               <label>Qualification</label>
               <select>
                 <option>Any qualification</option>
-                <option>BA</option>
-                <option>BSc</option>
-                <option>HND</option>
-                <option>HNC</option>
-                <option>CertHE</option>
-                <option>Foundation Year</option>
-                <option>Top-Up</option>
-                <option>MBA</option>
-                <option>MSc</option>
+                {qualifications.map((item) => (
+                  <option key={item._id} value={item.title}>{item.title}</option>
+                ))}
               </select>
             </div>
             <div className="dsx-fsel">
               <label>Mode</label>
               <select>
                 <option>Any mode</option>
-                <option>Blended</option>
-                <option>Campus</option>
-                <option>2 days/week</option>
-                <option>Part-time</option>
-                <option>Weekend</option>
-                <option>Online</option>
-                <option>Distance learning</option>
+                {modes.map((item) => (
+                  <option key={item._id} value={item.title}>{item.title}</option>
+                ))}
               </select>
             </div>
             <div className="dsx-fsel">
@@ -82,21 +88,18 @@ export default async function Degrees() {
               <label>Duration</label>
               <select>
                 <option>Any duration</option>
-                <option>1 year</option>
-                <option>1–2 years</option>
-                <option>2 years</option>
-                <option>3 years</option>
-                <option>4 years with foundation</option>
+                {durations.map((item) => (
+                  <option key={item._id} value={item.title}>{item.title}</option>
+                ))}
               </select>
             </div>
             <div className="dsx-fsel">
               <label>Funding</label>
               <select>
                 <option>Any funding</option>
-                <option>SFE eligible</option>
-                <option>Maintenance Loan likely</option>
-                <option>Tuition Fee Loan</option>
-                <option>Funding check needed</option>
+                {fundings.map((item) => (
+                  <option key={item._id} value={item.title}>{item.title}</option>
+                ))}
               </select>
             </div>
           </div>

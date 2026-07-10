@@ -6,6 +6,8 @@
  * @param fullImageUrl An optional fallback absolute URL (e.g. background.fullImageUrl)
  * @returns The resolved absolute URL string, or an empty string if no path is provided
  */
+import config from "../config";
+
 export function getMediaUrl(
   path?: string | null,
   fullImageUrl?: string | null
@@ -23,7 +25,7 @@ export function getMediaUrl(
   }
 
   // Dynamically extract host from environment variables (Next.js config or fallback)
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/api";
+  const apiUrl = config.apiUrl;
   const hostUrl = apiUrl.replace(/\/api$/, "");
 
   const cleanPath = path.replace(/^\/+/, "");

@@ -5,28 +5,15 @@ import fallbackDegrees from "@/content/fallbacks/degrees.json";
 import fallbackStudyLocations from "@/content/fallbacks/study-locations.json";
 import fallbackFoundationYear from "@/content/fallbacks/qualifications/foundation-year.json";
 import fallbackHND from "@/content/fallbacks/qualifications/hnd.json";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/api";
+import api from "@/lib/api";
 
 export async function getCMSPageContent(pageName: string): Promise<CMSPageData | null> {
   try {
     const encryptedBody = encrypt({ slug: pageName });
-    const res = await fetch(`${API_URL}/frontend/cms`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ data: encryptedBody }),
-      next: { revalidate: 3600 }, // Cache on CDN / server for 1 hour
-    });
+    const res = await api.post("/frontend/cms", { data: encryptedBody });
 
-    if (!res.ok) {
-      console.warn(`[cms.service] Failed to fetch CMS page '${pageName}' from backend. Status: ${res.status}`);
-      return getFallbackData(pageName);
-    }
-
-    const json = await res.json();
-    if (!json.data) {
+    const json = res.data;
+    if (!json || !json.data) {
       console.warn(`[cms.service] CMS page '${pageName}' returned empty data.`);
       return getFallbackData(pageName);
     }
@@ -38,8 +25,12 @@ export async function getCMSPageContent(pageName: string): Promise<CMSPageData |
 
     console.warn(`[cms.service] CMS decryption failed or returned unsuccessful status.`);
     return getFallbackData(pageName);
-  } catch (error) {
-    console.error(`[cms.service] Error calling CMS API for page '${pageName}':`, error);
+  } catch (error: any) {
+    if (error.response && error.response.status === 404) {
+      console.warn(`[cms.service] CMS page not found for pageName '${pageName}' (Status: 404).`);
+    } else {
+      console.error(`[cms.service] Error calling CMS API for page '${pageName}':`, error.message || error);
+    }
     return getFallbackData(pageName);
   }
 }

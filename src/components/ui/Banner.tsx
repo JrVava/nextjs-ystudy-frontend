@@ -53,7 +53,7 @@ export async function Banner({
     return (
       <section className={`hhero${(!hasLeft && !hasRight) ? ' only-bg' : ''}${hasLeft && !hasRight ? ' only-left' : ''}`}>
         <img className="hbg" src={bgImage} alt="" />
-        <div className="hscrim"></div>
+        <div className="hscrim" ></div>
         <div className="hinner">
           {hasLeft && (
             <div className="hcopy">
@@ -176,7 +176,12 @@ export async function Banner({
       {bgUrl && (
         <img className="hbg" src={bgUrl} alt="" />
       )}
-      <div className="hscrim"></div>
+      <div
+        className="hscrim"
+        style={{
+          background: background?.bgColor || undefined
+        }}
+      ></div>
       <div className="hinner">
         {/* Left Column (Main Copy & Page Specific controls/widgets) */}
         {hasLeft && (
