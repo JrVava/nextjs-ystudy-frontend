@@ -8,39 +8,37 @@ export default async function FoundationYear() {
   return (
     <div className="qualification-page foundation-year-page">
       {/* HERO SECTION DYNAMIZED WITH BANNER MODULE */}
-      {data?.section_2?.status !== false && (
-        <Banner
-          slug="foundation-year"
-          fallbackTitle={data?.section_2?.title}
-          fallbackDescription={data?.section_2?.description}
-          fallbackBadgeText={data?.section_2?.badge || "Foundation Year · Year 0 · 2026/27"}
-          fallbackBgImage="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=2200&q=80"
-        >
-          <div style={{ textAlign: "left", width: "100%" }}>
-            <p className="bc" style={{ margin: "0 0 16px", color: "rgba(255,255,255,0.8)", fontSize: "13px" }}>
-              <a href="/" style={{ color: "#fff", textDecoration: "none" }}>Home</a> ›{" "}
-              <a href="/degrees" style={{ color: "#fff", textDecoration: "none" }}>Degrees</a> ›{" "}
-              <a href="/degrees" style={{ color: "#fff", textDecoration: "none" }}>Qualifications</a> › Foundation Year
-            </p>
-            
-            <div className="statrow" style={{ display: "flex", gap: "24px", flexWrap: "wrap", marginTop: "16px" }}>
-              {data?.section_2?.foundationTimeLine && (
-                data.section_2.foundationTimeLine.map((st: any, idx: number) => (
-                  <div className="st" key={idx}>
-                    <b style={{ fontSize: "1.75rem", color: "#fff", display: "block" }}>{st.title}</b>
-                    <span style={{ fontSize: "13px", color: "rgba(255,255,255,0.8)" }}>{st.description}</span>
-                  </div>
-                ))
-              )}
-            </div>
-
-            <div className="btnrow" style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginTop: "24px" }}>
-              <a className="btn orange" href="/tools/eligibility-checker">Check eligibility →</a>
-              <a className="btn ghost" href="/degrees#results">Browse matching courses</a>
-            </div>
+      <Banner
+        slug="foundation-year"
+        fallbackTitle="Foundation Year (Year 0) Route"
+        fallbackDescription="Learn how an integrated Foundation Year (Year 0) works as a standard funding-supported entry route for mature students."
+        fallbackBadgeText="Foundation Year · Year 0 · 2026/27"
+        fallbackBgImage="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=2200&q=80"
+      >
+        <div style={{ textAlign: "left", width: "100%" }}>
+          <p className="bc" style={{ margin: "0 0 16px", color: "rgba(255,255,255,0.8)", fontSize: "13px" }}>
+            <a href="/" style={{ color: "#fff", textDecoration: "none" }}>Home</a> ›{" "}
+            <a href="/degrees" style={{ color: "#fff", textDecoration: "none" }}>Degrees</a> ›{" "}
+            <a href="/degrees" style={{ color: "#fff", textDecoration: "none" }}>Qualifications</a> › Foundation Year
+          </p>
+          
+          <div className="statrow" style={{ display: "flex", gap: "24px", flexWrap: "wrap", marginTop: "16px" }}>
+            {data?.section_2?.foundationTimeLine && (
+              data.section_2.foundationTimeLine.map((st: any, idx: number) => (
+                <div className="st" key={idx}>
+                  <b style={{ fontSize: "1.75rem", color: "#fff", display: "block" }}>{st.title}</b>
+                  <span style={{ fontSize: "13px", color: "rgba(255,255,255,0.8)" }}>{st.description}</span>
+                </div>
+              ))
+            )}
           </div>
-        </Banner>
-      )}
+
+          <div className="btnrow" style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginTop: "24px" }}>
+            <a className="btn orange" href="/tools/eligibility-checker">Check eligibility →</a>
+            <a className="btn ghost" href="/degrees#results">Browse matching courses</a>
+          </div>
+        </div>
+      </Banner>
 
       {/* WHAT IT IS SECTION */}
       {data?.section_3?.status !== false && (

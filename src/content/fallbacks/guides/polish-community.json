@@ -1,0 +1,97 @@
+{
+  "page": "polish-community",
+  "hero": {
+    "kicker": "From Polish Matura to a UK degree",
+    "title": "Understand Student Finance, Matura recognition and flexible degree routes in plain English.",
+    "description": "If you are a Polish citizen living in the UK, higher education is closer than you think. Learn how mature entry, residency rules, and language tests work for adult learners."
+  },
+  "challenges": [
+    {
+      "num": 1,
+      "title": "Residency documentation",
+      "description": "Gather official UK evidence early: council tax, bills, GP records, payslips, P60s and Home Office status evidence."
+    },
+    {
+      "num": 2,
+      "title": "Academic English",
+      "description": "Everyday English and academic writing are different. The best route depends on provider, course and interview expectations."
+    },
+    {
+      "num": 3,
+      "title": "Polish qualification recognition",
+      "description": "Matura, Licencjat and Magister routes may be understood differently depending on course level. Get evidence early."
+    },
+    {
+      "num": 4,
+      "title": "Work and family balance",
+      "description": "Many adults need flexible study patterns around shifts, childcare, rent and family responsibilities."
+    },
+    {
+      "num": 5,
+      "title": "Pre-settled to settled timing",
+      "description": "If you can upgrade, plan early. It may help reduce uncertainty before starting the course."
+    }
+  ],
+  "stories": [
+    {
+      "author": "Tomasz",
+      "location": "Birmingham",
+      "path": ["Trade work", "BSc Construction Management", "Project management route"],
+      "image": "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      "author": "Magda",
+      "location": "London",
+      "path": ["Care assistant", "Health & Social Care", "Healthcare leadership"],
+      "image": "https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      "author": "Kamil",
+      "location": "Manchester",
+      "path": ["Warehouse work", "Computing route", "IT career change"],
+      "image": "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=600&q=80"
+    }
+  ],
+  "faqs": [
+    {
+      "q": "Can Polish citizens get Student Finance in England?",
+      "a": "Possibly, depending on status, residency, previous study and course rules. Settled status, eligible pre-settled status, ILR and British citizenship are common routes."
+    },
+    {
+      "q": "Is Polish Matura accepted by UK universities?",
+      "a": "Often yes, but requirements vary by provider, subject and grades. Some providers may request ENIC comparison evidence."
+    },
+    {
+      "q": "Can I study without A-levels?",
+      "a": "Yes, some adults use Foundation Year, CertHE or mature-entry routes where work experience and motivation are considered."
+    },
+    {
+      "q": "Can I apply with pre-settled status?",
+      "a": "Many students can, but the full funding and residency rules need checking. Prepare evidence of your UK residence."
+    },
+    {
+      "q": "Is Licencjat recognised in the UK?",
+      "a": "A Polish Licencjat can support UK postgraduate or career-change routes, but each provider assesses the qualification and subject relevance."
+    },
+    {
+      "q": "Can I work while studying?",
+      "a": "Many adult learners work while studying. The safest option is to look for flexible, blended, weekend or part-time-compatible routes."
+    },
+    {
+      "q": "Do I need IELTS?",
+      "a": "Not always. Some providers accept GCSE English, previous study evidence or their own interview/assessment. Requirements vary."
+    },
+    {
+      "q": "Can parents get extra support?",
+      "a": "Some eligible parents may access Childcare Grant or Parents’ Learning Allowance. Amounts depend on circumstances and official assessment."
+    },
+    {
+      "q": "What if I missed the EUSS deadline?",
+      "a": "Late applications may be possible in some situations, but this needs specialist advice. Without eligible status, international fees may apply."
+    },
+    {
+      "q": "What should I do first?",
+      "a": "Start with Eligibility Checker or book an adviser call. Do not assume you are not suitable before checking status, funding and course routes."
+    }
+  ]
+}
