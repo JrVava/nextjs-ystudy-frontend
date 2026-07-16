@@ -1,0 +1,82 @@
+{
+  "page": "study-routes",
+  "section_1": {
+    "badge": "Study Routes & Qualifications",
+    "title": "Choose the right qualification route.",
+    "description": "Compare Foundation Year, CertHE, HNC, HND, Bachelor’s, Top-Up and Master’s routes, then view real course options.",
+    "status": true
+  },
+  "section_2": {
+    "cards": [
+      {
+        "title": "Foundation Year",
+        "subtitle": "Supported start into degree study",
+        "image": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=900&q=80"
+      },
+      {
+        "title": "Bachelor’s",
+        "subtitle": "Standard BA/BSc route",
+        "image": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80"
+      },
+      {
+        "title": "Advanced Entry",
+        "subtitle": "Use previous Level 4/5 study",
+        "image": "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=900&q=80"
+      }
+    ],
+    "status": true
+  },
+  "section_3": {
+    "badge": "Course results",
+    "title": "Available courses by qualification.",
+    "description": "Choose a qualification route, then compare courses with photo cards, locations, timetable and funding signals.",
+    "status": true
+  },
+  "section_4": {
+    "cards": [
+      {
+        "title": "Foundation Year",
+        "description": "Best if you need a supported start or do not meet standard entry.",
+        "badge": "Foundation",
+        "image": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=900&q=80"
+      },
+      {
+        "title": "CertHE",
+        "description": "One-year Level 4 route that may support progression.",
+        "badge": "CertHE",
+        "image": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=80"
+      },
+      {
+        "title": "HNC / HND",
+        "description": "Practical higher education routes with top-up options.",
+        "badge": "HND",
+        "image": "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=900&q=80"
+      },
+      {
+        "title": "Master's Degree",
+        "description": "Postgraduate route for graduates and professionals.",
+        "badge": "Master's",
+        "image": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=900&q=80"
+      }
+    ],
+    "status": true
+  },
+  "section_5": {
+    "comparison_table": {
+      "headers": ["Route", "Usually suits", "Typical duration", "Funding"],
+      "rows": [
+        { "route": "Foundation Year", "suits": "Returning learners / lower entry route", "duration": "4 years", "funding": "Often eligible" },
+        { "route": "CertHE", "suits": "Step-by-step start", "duration": "1 year", "funding": "Check course" },
+        { "route": "Bachelor’s", "suits": "Standard undergraduate route", "duration": "3 years", "funding": "Often eligible" },
+        { "route": "Advanced Entry", "suits": "Relevant Level 4/5 previous study", "duration": "1–2 years", "funding": "Check previous study" },
+        { "route": "Master’s", "suits": "Graduates and professionals", "duration": "1–2 years", "funding": "PG loan may apply" }
+      ]
+    },
+    "status": true
+  },
+  "section_6": {
+    "title": "Not sure which route is right?",
+    "description": "Tell us your previous study and career goal. We’ll help you choose a realistic route.",
+    "status": true
+  }
+}

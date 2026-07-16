@@ -1,0 +1,216 @@
+{
+  "page": "computing-cybersecurity-bsc",
+  "title": "BSc (Hons) Computing & Cybersecurity",
+  "description": "A flexible BSc Computing & Cybersecurity degree for working adults. Compare salary, Student Finance support, study modes and entry routes before you apply.",
+  "kicker": "High Demand",
+  "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=2000&q=80",
+  "snapshot": {
+    "match": "98% match",
+    "salary": "£32k – £75k+",
+    "duration": "3 yrs",
+    "mode": "Blended",
+    "maintenance": "£14k+",
+    "funding": "SFE"
+  },
+  "section_3": {
+    "badge": "Course overview",
+    "title": "A hands-on, high-paying tech route.",
+    "description": "Designed for mature students looking to enter cybersecurity, network engineering, and systems security. Study while maintaining your weekly schedule.",
+    "cards": [
+      {
+        "icon": "🎯",
+        "title": "Who it suits",
+        "description": "Tech enthusiasts, career changers looking for a future-proof job, and professionals in IT looking to certify their skills. Blends theory with hands-on virtual lab training."
+      },
+      {
+        "icon": "📚",
+        "title": "What you'll learn",
+        "description": "System architecture, penetration testing, database management, network security, ethical hacking, threat analysis, and Python scripting."
+      },
+      {
+        "icon": "📝",
+        "title": "Assessment style",
+        "description": "Primarily project-based assessments and practical lab simulations with few traditional memory-based exams. Highly focused on building real portfolios."
+      }
+    ],
+    "tiles": [
+      { "value": "98%", "label": "Match score" },
+      { "value": "92%", "label": "Flexibility" },
+      { "value": "91%", "label": "Value" },
+      { "value": "12–20", "label": "Seminar group size" }
+    ],
+    "status": true
+  },
+  "section_4": {
+    "badge": "Career outcomes",
+    "title": "What jobs can this degree lead to?",
+    "description": "Compare career routes and average UK software/security salaries.",
+    "cards": [
+      {
+        "role": "Cybersecurity Analyst",
+        "pay": "£32k–£50k",
+        "description": "Protect systems and networks from digital threats.",
+        "image": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=900&q=80",
+        "link": "/tools/salary-checker"
+      },
+      {
+        "role": "Network Engineer",
+        "pay": "£30k–£48k",
+        "description": "Design and manage robust corporate networks.",
+        "image": "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=900&q=80",
+        "link": "/tools/salary-checker"
+      },
+      {
+        "role": "Penetration Tester",
+        "pay": "£40k–£75k",
+        "description": "Legally hack systems to discover security vulnerabilities.",
+        "image": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=900&q=80",
+        "link": "/tools/salary-checker"
+      },
+      {
+        "role": "Security Consultant",
+        "pay": "£50k–£90k+",
+        "description": "Consult organizations on system defense strategies.",
+        "image": "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=900&q=80",
+        "link": "/tools/salary-checker"
+      }
+    ],
+    "status": true
+  },
+  "section_5": {
+    "badge": "Student Finance",
+    "title": "Estimate support before applying.",
+    "description": "Final entitlement depends on SFE rules, continuous residence, and household income.",
+    "totalSupport": "£23,925",
+    "tiles": [
+      { "value": "£9,790", "label": "Tuition Fee Loan" },
+      { "value": "£14,135", "label": "Maintenance Loan" },
+      { "value": "Extra grants", "label": "Check eligibility" }
+    ],
+    "status": true
+  },
+  "section_6": {
+    "badge": "Why this course",
+    "title": "Why choose Computing & Cybersecurity?",
+    "description": "UK tech sector skills shortage makes this a highly secure career shift.",
+    "cards": [
+      { "icon": "💻", "title": "Skills shortage", "description": "High demand for cybersecurity specialists in both public and private sectors." },
+      { "icon": "⏱", "title": "Blended options", "description": "Classes structured to fit around your work routines." },
+      { "icon": "💷", "title": "Funding eligible", "description": "Full Student Finance eligibility covers course fees and living support." },
+      { "icon": "🤝", "title": "Hands-on labs", "description": "Access fully-featured cloud security sandbox labs." },
+      { "icon": "📈", "title": "High pay", "description": "Excellent starter salaries and clear scale opportunities." },
+      { "icon": "🎓", "title": "Accredited routes", "description": "Prepares you for top certifications like CompTIA Sec+, CEH, and CISSP." }
+    ],
+    "status": true
+  },
+  "section_7": {
+    "badge": "Study structure",
+    "title": "What you could study.",
+    "description": "Clear year-by-year cards are easier to scan than long module tables.",
+    "cards": [
+      {
+        "year": "1",
+        "title": "Year 1: Foundations",
+        "subtitle": "Get confident in computing basics and networking foundations.",
+        "modules": ["Computing Principles", "Introduction to Networks", "Academic & Business Skills", "Database Systems"]
+      },
+      {
+        "year": "2",
+        "title": "Year 2: Applied Tech",
+        "subtitle": "Dive into security protocols, programming and scripting.",
+        "modules": ["Cybersecurity Essentials", "Network Infrastructure & Routing", "Systems Analysis", "Python Scripting"]
+      },
+      {
+        "year": "3",
+        "title": "Year 3: Defensive Ops",
+        "subtitle": "Ethical hacking and advanced defense systems.",
+        "modules": ["Ethical Hacking & Pentesting", "Information Security Governance", "Incident Response", "Final Security Project"]
+      }
+    ],
+    "status": true
+  },
+  "section_8": {
+    "badge": "Study modes",
+    "title": "Choose the safest route for your life.",
+    "description": "Study mode affects timetable, flexibility and sometimes Maintenance Loan eligibility.",
+    "cards": [
+      { "tag": "Best for support", "title": "Blended / campus", "description": "Clear support options with interactive labs.", "attendance": "Weekly", "maintenance": "Usually stronger", "networking": "High" },
+      { "tag": "Check carefully", "title": "Weekend-only", "description": "Flexible but requires confirmation for maintenance loans.", "attendance": "Weekend", "maintenance": "Risk", "networking": "Medium" },
+      { "tag": "Most remote", "title": "Online / distance", "description": "High flexibility, best for distance learners.", "attendance": "Remote", "maintenance": "No / risk", "networking": "Low" }
+    ],
+    "status": true
+  },
+  "section_9": {
+    "badge": "Student stories",
+    "title": "People like you choose this route.",
+    "description": "Real journeys from adult learners — not a generic university brochure.",
+    "cards": [
+      { "name": "Kamil, 31", "badge": "Career changer", "quote": "I was working in retail and wanted a tech job. Blended study made it possible.", "status": "Cybersecurity · now in year 3", "image": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=900&q=80" },
+      { "name": "Sarah, 27", "badge": "Working adult", "quote": "The laboratory labs were amazing. I managed to get a junior security analyst job in year 2.", "status": "Tech support · year 2", "image": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=900&q=80" }
+    ],
+    "status": true
+  },
+  "section_10": {
+    "badge": "Entry requirements",
+    "title": "Not sure if you qualify?",
+    "description": "Simple criteria tailored for adult students returning to learning.",
+    "rows": [
+      { "label": "A Levels", "desc": "Standard entry route." },
+      { "label": "Work Experience", "desc": "Highly valued in lieu of qualifications." },
+      { "label": "IT Experience", "desc": "Considered for credit mapping." },
+      { "label": "Not sure?", "desc": "Speak with an adviser first." }
+    ],
+    "status": true
+  },
+  "section_11": {
+    "badge": "Upcoming intakes",
+    "title": "Choose your start date.",
+    "description": "Multiple intakes a year mean you don't have to wait for September.",
+    "cards": [
+      { "month": "Jan", "year": "2027", "title": "Computing BSc", "desc": "Applications open.", "link": "/apply" },
+      { "month": "Apr", "year": "2027", "title": "Computing BSc", "desc": "Adviser check recommended.", "link": "/lead/adviser-call" },
+      { "month": "Sep", "year": "2027", "title": "Computing BSc", "desc": "Main intake route.", "link": "/apply" }
+    ],
+    "status": true
+  },
+  "section_12": {
+    "badge": "Application toolkit",
+    "title": "Need a CV and personal statement?",
+    "description": "Create a professional CV, build a strong personal statement and get free adviser guidance.",
+    "cards": [
+      { "icon": "📄", "title": "CV Builder", "desc": "A university-ready CV for mature students and career changers.", "link": "/tools/cv-builder" },
+      { "icon": "✍️", "title": "Personal Statement", "desc": "Explain your motivation and experience clearly.", "link": "/tools/personal-statement-calculator" },
+      { "icon": "🎓", "title": "Free Academic Review", "desc": "Advisers review your documents and suggest improvements.", "link": "/lead/adviser-call" },
+      { "icon": "🤝", "title": "Speak to an Adviser", "desc": "Help with course choice, funding and application steps.", "link": "/lead/adviser-call" }
+    ],
+    "status": true
+  },
+  "section_13": {
+    "title": "BSc Computing & Cybersecurity",
+    "subtitle": "£32k–£75k+ salary · up to £14k+ maintenance signal · 98 match",
+    "status": true
+  },
+  "section_14": {
+    "badge": "Not sure this is for you?",
+    "title": "Try a different direction.",
+    "description": "Four very different paths — each Student Finance eligible and open to non-traditional entry.",
+    "cards": [
+      { "role": "Business Management", "pay": "£24k–£55k", "description": "Lead teams, operations and commercial structures.", "image": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=900&q=80", "link": "/degrees/course/business-management-ba" },
+      { "role": "Health & Social Care", "pay": "£24k–£42k", "description": "Help people directly — care work, social services and NHS roles.", "image": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=900&q=80", "link": "/degrees/course/health-social-care-ba" },
+      { "role": "Psychology", "pay": "£24k–£55k", "description": "People, behaviour and the mind — therapy, UX research, HR.", "image": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=900&q=80", "link": "/degrees/course/psychology-bsc" },
+      { "role": "Construction Management", "pay": "£32k–£70k", "description": "Practical, well-paid, strong UK-wide demand.", "image": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=900&q=80", "link": "/degrees/course/construction-management-bsc" }
+    ],
+    "status": true
+  },
+  "section_15": {
+    "badge": "FAQ",
+    "title": "Questions before applying.",
+    "description": "Clear answers reduce uncertainty before you apply.",
+    "faqs": [
+      { "question": "Do I need coding experience?", "answer": "No. The course begins with computing principles and coding basics from scratch." },
+      { "question": "Can I get Student Finance?", "answer": "Yes, if you meet the personal eligibility criteria, both tuition fees and maintenance loans are available." },
+      { "question": "Are there many practical exams?", "answer": "The assessments focus mostly on building configurations, threat analysis reports, and network designs rather than memorised exams." }
+    ],
+    "status": true
+  }
+}

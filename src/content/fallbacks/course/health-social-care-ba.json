@@ -1,0 +1,216 @@
+{
+  "page": "health-social-care-ba",
+  "title": "BA (Hons) Health & Social Care",
+  "description": "A flexible BA Health & Social Care degree for working adults. Compare salary, Student Finance support, study modes and entry routes before you apply.",
+  "kicker": "High Demand",
+  "image": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=2000&q=80",
+  "snapshot": {
+    "match": "94% match",
+    "salary": "£24k – £45k+",
+    "duration": "3 yrs",
+    "mode": "Blended",
+    "maintenance": "£14k+",
+    "funding": "SFE"
+  },
+  "section_3": {
+    "badge": "Course overview",
+    "title": "A degree dedicated to caring for others.",
+    "description": "Gain the skills to lead care services, manage NHS administration projects, and coordinate healthcare systems in local government.",
+    "cards": [
+      {
+        "icon": "🎯",
+        "title": "Who it suits",
+        "description": "Individuals with a strong empathy for others, support workers looking to step up into management, and adult learners wanting to work in the public sector or NHS."
+      },
+      {
+        "icon": "📚",
+        "title": "What you'll learn",
+        "description": "Communication in care, safeguarding legislation, social policy, community health, service management, and public health policies."
+      },
+      {
+        "icon": "📝",
+        "title": "Assessment style",
+        "description": "Primarily reports, presentations, and reflective journals tracking personal growth and care compliance, with minimal written hall exams."
+      }
+    ],
+    "tiles": [
+      { "value": "94%", "label": "Match score" },
+      { "value": "96%", "label": "Flexibility" },
+      { "value": "89%", "label": "Value" },
+      { "value": "15–30", "label": "Seminar group size" }
+    ],
+    "status": true
+  },
+  "section_4": {
+    "badge": "Career outcomes",
+    "title": "What jobs can this degree lead to?",
+    "description": "Explore roles in community health, social services, and care compliance.",
+    "cards": [
+      {
+        "role": "Care Coordinator",
+        "pay": "£24k–£35k",
+        "description": "Coordinate social care plans and manage clinical support schedules.",
+        "image": "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=900&q=80",
+        "link": "/tools/salary-checker"
+      },
+      {
+        "role": "Support Worker Leader",
+        "pay": "£22k–£30k",
+        "description": "Supervise residential support teams and community outreach.",
+        "image": "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&w=900&q=80",
+        "link": "/tools/salary-checker"
+      },
+      {
+        "role": "Health Service Manager",
+        "pay": "£35k–£55k",
+        "description": "Manage operations in healthcare facilities or clinical departments.",
+        "image": "https://images.unsplash.com/photo-1573497019236-17f8177b81e8?auto=format&fit=crop&w=900&q=80",
+        "link": "/tools/salary-checker"
+      },
+      {
+        "role": "Social Care Adviser",
+        "pay": "£28k–£40k",
+        "description": "Advise local councils or housing associations on social care policy.",
+        "image": "https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&w=900&q=80",
+        "link": "/tools/salary-checker"
+      }
+    ],
+    "status": true
+  },
+  "section_5": {
+    "badge": "Student Finance",
+    "title": "Estimate support before applying.",
+    "description": "Health & Social Care courses are fully designated for tuition fee loans and maintenance grants.",
+    "totalSupport": "£23,925",
+    "tiles": [
+      { "value": "£9,790", "label": "Tuition Fee Loan" },
+      { "value": "£14,135", "label": "Maintenance Loan" },
+      { "value": "Extra grants", "label": "Check eligibility" }
+    ],
+    "status": true
+  },
+  "section_6": {
+    "badge": "Why this course",
+    "title": "Why choose Health & Social Care?",
+    "description": "Develop skills to lead care services, manage NHS projects and help your community.",
+    "cards": [
+      { "icon": "❤️", "title": "Rewarding career", "description": "Make a positive difference in people's lives every single day." },
+      { "icon": "⏱", "title": "Blended lectures", "description": "Attend lectures structured specifically to support adult students." },
+      { "icon": "💷", "title": "Tuition covered", "description": "Tuition fee loan covers 100% of your course fees if eligible." },
+      { "icon": "🤝", "title": "Reflective practice", "description": "Learn to evaluate care strategies to improve system quality." },
+      { "icon": "📈", "title": "NHS & Council jobs", "description": "Excellent entry paths to professional administration routes." },
+      { "icon": "🎓", "title": "Further study", "description": "Pathway to professional Master's in Social Work or nursing." }
+    ],
+    "status": true
+  },
+  "section_7": {
+    "badge": "Study structure",
+    "title": "What you could study.",
+    "description": "Clear year-by-year cards are easier to scan than long module tables.",
+    "cards": [
+      {
+        "year": "1",
+        "title": "Year 1: Foundations",
+        "subtitle": "Introduction to the social care landscape and core communication.",
+        "modules": ["Social Care in Context", "Communication in Care Settings", "Safeguarding Legislation", "Reflective Practice"]
+      },
+      {
+        "year": "2",
+        "title": "Year 2: Care Systems",
+        "subtitle": "Explore health promotion strategies and mental health principles.",
+        "modules": ["Health Promotion & Wellness", "Mental Health Principles", "Care Planning & Assessment", "Sociological Perspectives"]
+      },
+      {
+        "year": "3",
+        "title": "Year 3: Leadership",
+        "subtitle": "Management principles in social and clinical settings.",
+        "modules": ["Leadership in Health & Care", "Health Policy & Economics", "Research Project", "Managing Care Services"]
+      }
+    ],
+    "status": true
+  },
+  "section_8": {
+    "badge": "Study modes",
+    "title": "Choose the safest route for your life.",
+    "description": "Study mode affects timetable, flexibility and sometimes Maintenance Loan eligibility.",
+    "cards": [
+      { "tag": "Best for support", "title": "Blended / campus", "description": "Full student support, direct discussions.", "attendance": "Weekly", "maintenance": "Usually stronger", "networking": "High" },
+      { "tag": "Check carefully", "title": "Weekend slots", "description": "Suits working adults but requires check for SFE status.", "attendance": "Weekend", "maintenance": "Risk", "networking": "High" },
+      { "tag": "Most remote", "title": "Online study", "description": "High flexibility, best for distance learners.", "attendance": "Remote", "maintenance": "No / risk", "networking": "Low" }
+    ],
+    "status": true
+  },
+  "section_9": {
+    "badge": "Student stories",
+    "title": "People like you choose this route.",
+    "description": "Real journeys from adult learners — not a generic university brochure.",
+    "cards": [
+      { "name": "Elena, 41", "badge": "Support Worker", "quote": "I worked as a carer for 10 years and wanted to move into management. This degree changed everything.", "status": "Care Lead · graduated 2025", "image": "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=900&q=80" },
+      { "name": "Marcus, 32", "badge": "Career changer", "quote": "The flexible blended model was the only way I could afford to study while keeping my job.", "status": "Housing officer · year 2", "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=80" }
+    ],
+    "status": true
+  },
+  "section_10": {
+    "badge": "Entry requirements",
+    "title": "Not sure if you qualify?",
+    "description": "Simple criteria tailored for adult students returning to learning.",
+    "rows": [
+      { "label": "A Levels", "desc": "Accepted entry route." },
+      { "label": "Work Experience", "desc": "Care work experience highly valued." },
+      { "label": "NVQ/BTEC", "desc": "NVQ Level 3 and relevant diplomas accepted." },
+      { "label": "Not sure?", "desc": "Ask adviser first." }
+    ],
+    "status": true
+  },
+  "section_11": {
+    "badge": "Upcoming intakes",
+    "title": "Choose your start date.",
+    "description": "Multiple intakes a year mean you don't have to wait for September.",
+    "cards": [
+      { "month": "Jan", "year": "2027", "title": "Health BA", "desc": "Applications open.", "link": "/apply" },
+      { "month": "Apr", "year": "2027", "title": "Health BA", "desc": "Adviser check recommended.", "link": "/lead/adviser-call" },
+      { "month": "Sep", "year": "2027", "title": "Health BA", "desc": "Main intake route.", "link": "/apply" }
+    ],
+    "status": true
+  },
+  "section_12": {
+    "badge": "Application toolkit",
+    "title": "Need a CV and personal statement?",
+    "description": "Create a professional CV, build a strong personal statement and get free adviser guidance.",
+    "cards": [
+      { "icon": "📄", "title": "CV Builder", "desc": "A university-ready CV for mature students and career changers.", "link": "/tools/cv-builder" },
+      { "icon": "✍️", "title": "Personal Statement", "desc": "Explain your motivation and experience clearly.", "link": "/tools/personal-statement-calculator" },
+      { "icon": "🎓", "title": "Free Academic Review", "desc": "Advisers review your documents and suggest improvements.", "link": "/lead/adviser-call" },
+      { "icon": "🤝", "title": "Speak to an Adviser", "desc": "Help with course choice, funding and application steps.", "link": "/lead/adviser-call" }
+    ],
+    "status": true
+  },
+  "section_13": {
+    "title": "BA Health & Social Care",
+    "subtitle": "£24k–£45k+ salary · up to £14k+ maintenance signal · 94 match",
+    "status": true
+  },
+  "section_14": {
+    "badge": "Not sure this is for you?",
+    "title": "Try a different direction.",
+    "description": "Four very different paths — each Student Finance eligible and open to non-traditional entry.",
+    "cards": [
+      { "role": "Business Management", "pay": "£24k–£55k", "description": "Lead teams, operations and commercial structures.", "image": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=900&q=80", "link": "/degrees/course/business-management-ba" },
+      { "role": "Computing & Cybersecurity", "pay": "£35k–£90k+", "description": "Hands-on, technical, one of the highest-paid graduate routes.", "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80", "link": "/degrees/course/computing-cybersecurity-bsc" },
+      { "role": "Psychology", "pay": "£24k–£55k", "description": "People, behaviour and the mind — therapy, UX research, HR.", "image": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=900&q=80", "link": "/degrees/course/psychology-bsc" },
+      { "role": "Construction Management", "pay": "£32k–£70k", "description": "Practical, well-paid, strong UK-wide demand.", "image": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=900&q=80", "link": "/degrees/course/construction-management-bsc" }
+    ],
+    "status": true
+  },
+  "section_15": {
+    "badge": "FAQ",
+    "title": "Questions before applying.",
+    "description": "Clear answers reduce uncertainty before you apply.",
+    "faqs": [
+      { "question": "Can I study part-time?", "answer": "The course is full-time designated but structured on a blended model, so attendance is only required 2 days a week." },
+      { "question": "Are there placement hours?", "answer": "Yes. Most Health & Social Care pathways recommend local placement projects to verify your competence." },
+      { "question": "Can I progress to social work?", "answer": "Yes, this degree builds the exact academic foundation to join a certified Master's in Social Work." }
+    ],
+    "status": true
+  }
+}
