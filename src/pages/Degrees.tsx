@@ -8,6 +8,8 @@ import {
   getFundings
 } from "@/services/filters.service";
 
+import { DegreesPageNav } from "@/components/layout/DegreesPageNav";
+
 export default async function Degrees() {
   const [
     data,
@@ -27,6 +29,7 @@ export default async function Degrees() {
 
   return (
     <div className="degrees-page-content">
+      <DegreesPageNav activeTab="search" />
       {/* HERO SECTION DYNAMIZED WITH BANNER MODULE */}
       <Banner
         slug="degrees"
