@@ -1,262 +1,187 @@
 import { getCMSPageContent } from "@/services/cms.service";
-import { getSubjects } from "@/services/filters.service";
-import "@/app/degrees/qualifications/qualifications.css";
-import { Banner } from "@/components/ui/Banner";
+import "@/app/degrees/v735.css";
+import { QBanner } from "@/components/ui/QBanner";
+import { SubjectsTabsCarousel } from "@/components/degrees/SubjectsTabsCarousel";
+import Link from "next/link";
+import React from "react";
+
+import { DegreesPageNav } from "@/components/layout/DegreesPageNav";
 
 export default async function Subjects() {
-  const [data, subjects] = await Promise.all([
-    getCMSPageContent("study-subjects"),
-    getSubjects()
-  ]);
+  const data = await getCMSPageContent("study-subjects");
 
   if (!data) {
     return (
       <div style={{ padding: "4rem", textAlign: "center", color: "var(--muted)" }}>
         <h2>Subjects Page Not Found</h2>
-        <a href="/degrees" className="btn btn-blue" style={{ marginTop: "1rem" }}>Browse Degrees</a>
+        <Link href="/degrees" className="btn btn-blue" style={{ marginTop: "1rem" }}>
+          Browse Degrees
+        </Link>
       </div>
     );
   }
-  console.log('subjects', subjects);
 
   return (
     <div className="qualification-page subjects-index-page">
-      {/* HERO SECTION DYNAMIZED WITH BANNER MODULE */}
-      <Banner
+      <DegreesPageNav activeTab="subjects" />
+      {/* HERO SECTION DYNAMIZED WITH QBANNER */}
+      <QBanner
         slug="study-subjects"
-        fallbackTitle="Study Subjects"
-        fallbackDescription="Explore flexible degree subjects for adult learners. Compare business, computing, health, law and construction routes."
-        fallbackBadgeText="YStudy Resource"
+        layoutType="v735-hero"
+        fallbackTitle="Explore courses by subject."
+        fallbackDescription="Start with the area you’re interested in, then compare real course options, check funding eligibility and speak to an adviser."
+        fallbackBadgeText="Study Subjects"
         fallbackBgImage="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=2200&q=80"
-      >
-        <div style={{ textAlign: "left", width: "100%" }}>
-          <p className="bc" style={{ margin: "0 0 16px", color: "rgba(255,255,255,0.8)", fontSize: "13px" }}>
-            <a href="/" style={{ color: "#fff", textDecoration: "none" }}>Home</a> ›{" "}
-            <a href="/degrees" style={{ color: "#fff", textDecoration: "none" }}>Degrees</a> › Subjects
-          </p>
-          <div className="btnrow" style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginTop: "24px" }}>
-            <a className="btn orange" href="#browse-subjects">Explore subjects ↓</a>
-            <a className="btn ghost" href="/tools/degree-match">Find matching degree</a>
+      />
+
+      {/* FLOAT GRID OVERLAY SECTION */}
+      <section className="v735-float">
+        <div className="container">
+          <div className="v735-float-grid">
+            <a className="v735-float-card" href="#browse-by-qualification">
+              <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80" alt="" />
+              <div>
+                <b>Business &amp; Management</b>
+                <span>20+ SFE courses →</span>
+              </div>
+            </a>
+            <a className="v735-float-card" href="#browse-by-qualification">
+              <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=600&q=80" alt="" />
+              <div>
+                <b>Health &amp; Social Care</b>
+                <span>Supported community routes →</span>
+              </div>
+            </a>
+            <a className="v735-float-card" href="#browse-by-qualification">
+              <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80" alt="" />
+              <div>
+                <b>Computing &amp; Data</b>
+                <span>Cyber, AI &amp; programming →</span>
+              </div>
+            </a>
           </div>
         </div>
-      </Banner>
+      </section>
 
-      {/* NEED HELP BANNER */}
-      {data.section_4?.status !== false && (
-        <section className="qf-sec" style={{ background: "var(--soft)", padding: "2rem 0" }}>
-          <div className="qf" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem" }}>
-            <div style={{ textAlign: "left" }}>
-              <h3 style={{ margin: 0, fontSize: "19px", color: "var(--ink)", fontWeight: 800 }}>{data.section_4.title}</h3>
-              <p style={{ margin: "4px 0 0", color: "var(--muted)", fontWeight: 600 }}>{data.section_4.description}</p>
-            </div>
-            <a className="btn btn-orange" href="/tools/degree-match">Degree Match Finder →</a>
-          </div>
-        </section>
-      )}
+      {/* TABS AND COURSE CAROUSEL CLIENT COMPONENT */}
+      <section className="v735-section" id="subject-courses" style={{ padding: "0 0 clamp(42px, 5vw, 72px) 0" }}>
+        <div className="container">
+          <SubjectsTabsCarousel />
+        </div>
+      </section>
 
-      {/* MATRIX TABLE OF RECOMMENDED ROUTES */}
-      {data.section_8?.status !== false && (
-        <section className="qf-sec">
-          <div className="qf" style={{ textAlign: "left" }}>
-            <div className="qf-head">
-              <span className="kicker">{data.section_8.badge}</span>
-              <h2>{data.section_8.title}</h2>
-              <p>{data.section_8.description}</p>
-            </div>
-
-            <table className="elig-table" style={{ marginTop: "20px" }}>
-              <thead>
-                <tr>
-                  <th>{data.section_8.headers?.degree_header}</th>
-                  <th>{data.section_8.headers?.best_header}</th>
-                  <th>{data.section_8.headers?.funding_header}</th>
-                  <th>{data.section_8.headers?.flexible_header}</th>
-                  <th>{data.section_8.headers?.salary_header}</th>
-                  <th>{data.section_8.headers?.verdict_header}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.section_8.rows?.map((row: any, idx: number) => (
-                  <tr key={idx}>
-                    <td className="who">{row.degree}</td>
-                    <td>{row.best}</td>
-                    <td style={{ color: row.funding === "✓" ? "#1d9e75" : "inherit", fontWeight: 800 }}>{row.funding}</td>
-                    <td style={{ color: row.flexible === "✓" ? "#1d9e75" : "#e05000", fontWeight: 800 }}>{row.flexible}</td>
-                    <td>{row.salary}</td>
-                    <td>
-                      <span className="pill" style={{ background: "rgba(10, 82, 214, 0.1)", color: "var(--b)", marginTop: 0 }}>
-                        {row.verdict}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-      )}
-
-      {/* RANKINGS PANEL */}
-      {data.section_9?.status !== false && (
-        <section className="qf-sec" style={{ background: "var(--soft)" }}>
-          <div className="qf" style={{ textAlign: "left" }}>
-            <div className="qf-head">
-              <span className="kicker">{data.section_9.badge}</span>
-              <h2>{data.section_9.title}</h2>
-              <p>{data.section_9.description}</p>
-            </div>
-
-            <div className="qf-grid4">
-              {data.section_9.cards?.map((card: any, idx: number) => (
-                <div className="fcard" key={idx}>
-                  <div className="n" style={{ background: "var(--o)", color: "#fff" }}>{card.position_number}</div>
-                  <h3>{card.title}</h3>
-                  <p>{card.description}</p>
-                  <div style={{ marginTop: "12px", fontSize: "12px", color: "var(--muted)", fontWeight: 700 }}>
-                    Score: <span style={{ color: "var(--b)", fontSize: "16px", fontWeight: 900 }}>{card.top_number}%</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* EXPLORE SUBJECTS GRID (DYNAMIC COVERS) */}
-      {data.section_10?.status !== false && (
-        <section className="qf-sec" id="browse-subjects">
-          <div className="qf" style={{ textAlign: "left" }}>
-            <div className="qf-head">
-              <span className="kicker">{data.section_10.badge}</span>
-              <h2>{data.section_10.title}</h2>
-              <p>{data.section_10.description}</p>
-            </div>
-
-            <div className="qf-courses">
-              {subjects.map((sub: any, idx: number) => {
-                // Determine clean link slug matching nextjs subjects route config
-                const linkSlug = sub.title?.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-');
-                return (
-                  <article className="qcard" key={idx}>
-                    <div className="ph" style={{ aspectRatio: "16/10" }}>
-                      {sub.fullImageUrl ? (
-                        <img src={sub.fullImageUrl} alt={sub.title} />
-                      ) : (
-                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=700&q=80" alt={sub.title} />
-                      )}
-                      {sub.badge && (
-                        <div className="tags" style={{ bottom: "unset", top: "12px" }}>
-                          <span style={{ background: "rgba(240, 128, 0, 0.9)" }}>{sub.badge}</span>
-                        </div>
-                      )}
-                    </div>
-                    <div className="cb" style={{ display: "flex", flexDirection: "column", flex: 1, padding: "1.25rem" }}>
-                      <h3 style={{ margin: "0 0 8px", fontSize: "19px", fontWeight: 900 }}>{sub.title}</h3>
-                      <p style={{ fontSize: "14px", color: "var(--muted)", flex: 1 }}>{sub.description || "Explore study requirements, career outcomes, and SFE funding options in this subject area."}</p>
-
-                      {/* Render Repeater tags array if present */}
-                      {sub.tags && sub.tags.length > 0 && (
-                        <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", margin: "10px 0" }}>
-                          {sub.tags.map((tagStr: string, tIdx: number) => (
-                            <span key={tIdx} style={{ fontSize: "11px", background: "rgba(7, 17, 38, 0.05)", color: "var(--ink)", padding: "4px 8px", borderRadius: "4px", fontWeight: 600 }}>
-                              #{tagStr}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-
-                      <div className="row" style={{ marginTop: "14px" }}>
-                        <a className="v" href={`/degrees/${linkSlug}`} style={{ width: "100%" }}>
-                          Explore {sub.title} Degrees →
-                        </a>
-                      </div>
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* IMPORTANT FUNDING RULE WARNING BAND */}
-      {data.section_14?.status !== false && (
-        <section className="qf-sec" style={{ background: "rgba(240, 80, 0, 0.05)", borderTop: "1px solid rgba(240, 80, 0, 0.15)", borderBottom: "1px solid rgba(240, 80, 0, 0.15)" }}>
-          <div className="qf" style={{ textAlign: "left" }}>
-            <span className="kicker" style={{ color: "var(--o-deep)" }}>⚠️ {data.section_14.badge}</span>
-            <h2 style={{ fontSize: "24px", fontWeight: 900, margin: "8px 0" }}>{data.section_14.title}</h2>
-            <p style={{ color: "var(--muted)", fontWeight: 600, margin: 0 }}>{data.section_14.description}</p>
-          </div>
-        </section>
-      )}
-
-      {/* COMPARISON OF FUNDING ROUTES */}
-      {data.section_15?.status !== false && (
-        <section className="qf-sec">
-          <div className="qf" style={{ textAlign: "left" }}>
-            <div className="qf-head">
-              <span className="kicker">{data.section_15.badge}</span>
-              <h2>{data.section_15.title}</h2>
-              <p>{data.section_15.description}</p>
-            </div>
-
-            <table className="elig-table" style={{ marginTop: "20px" }}>
-              <thead>
-                <tr>
-                  <th>{data.section_15.headers?.route_header}</th>
-                  <th>{data.section_15.headers?.funding_header}</th>
-                  <th>{data.section_15.headers?.maintenance_header}</th>
-                  <th>{data.section_15.headers?.best_header}</th>
-                  <th>{data.section_15.headers?.verdict_header}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.section_15.rows?.map((row: any, idx: number) => (
-                  <tr key={idx}>
-                    <td className="who">{row.route}</td>
-                    <td>{row.funding}</td>
-                    <td>{row.maintenance}</td>
-                    <td>{row.best}</td>
-                    <td>
-                      <span className="pill check" style={{ marginTop: 0 }}>
-                        {row.verdict}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-      )}
-
-      {/* USEFUL NEXT STEPS FOOTER WIDGET */}
-      {data.section_7?.status !== false && (
-        <section className="ys-crosslinks" aria-label="Useful links">
-          <div className="inner" style={{ textAlign: "left" }}>
+      {/* COURSES AVAILABLE BY QUALIFICATION */}
+      <section className="v735-section soft" id="browse-by-qualification">
+        <div className="container" style={{ textAlign: "left" }}>
+          <div className="v735-head">
             <div>
-              <h2>{data.section_7.title}</h2>
-              <p>{data.section_7.description}</p>
-            </div>
-            <div className="ys-link-grid">
-              {data.section_7.cards?.map((c: any, idx: number) => {
-                let href = "/degrees";
-                if (idx === 1) href = "/funding";
-                else if (idx === 2) href = "/careers";
-                else if (idx === 3) href = "/tools/degree-match";
-                else if (idx === 4) href = "/tools/salary-checker";
-                else if (idx === 5) href = "/guides";
-
-                return (
-                  <a href={href} key={idx}>
-                    {c.title}
-                  </a>
-                );
-              })}
+              <h2>Courses available by qualification</h2>
+              <p>Start with the level of study that suits your background, then browse specific courses.</p>
             </div>
           </div>
-        </section>
-      )}
+          <div className="v735-card-grid">
+            <article className="v735-card">
+              <div className="v734-photo">
+                <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=600&q=80" alt="" />
+                <span className="v734-badge">Foundation</span>
+              </div>
+              <div className="v734-body">
+                <h3>Foundation Year</h3>
+                <p>An integrated start (Year 0) that builds academic skills before you progress to Year 1. Ideal if you do not have traditional qualifications.</p>
+                <Link className="v734-link" href="/degrees/qualifications/foundation-year">
+                  Explore route →
+                </Link>
+              </div>
+            </article>
+            <article className="v735-card">
+              <div className="v734-photo">
+                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=600&q=80" alt="" />
+                <span className="v734-badge">CertHE</span>
+              </div>
+              <div className="v734-body">
+                <h3>Certificate of HE</h3>
+                <p>A 1-year Level 4 higher education certificate equal to Year 1 of a degree. Perfect for a quick, recognised exit award or step up.</p>
+                <Link className="v734-link" href="/degrees/qualifications/certhe">
+                  Explore route →
+                </Link>
+              </div>
+            </article>
+            <article className="v735-card">
+              <div className="v734-photo">
+                <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=600&q=80" alt="" />
+                <span className="v734-badge">HND</span>
+              </div>
+              <div className="v734-body">
+                <h3>HND / Advanced Entry</h3>
+                <p>Practical 2-year Level 5 qualifications with top-up options. Move directly into the final year of a Bachelor's degree afterwards.</p>
+                <Link className="v734-link" href="/degrees/qualifications/hnd">
+                  Explore route →
+                </Link>
+              </div>
+            </article>
+            <article className="v735-card">
+              <div className="v734-photo">
+                <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80" alt="" />
+                <span className="v734-badge">Master's</span>
+              </div>
+              <div className="v734-body">
+                <h3>Master's Degree</h3>
+                <p>Level 7 postgraduate programs (MA / MSc / MBA) for degree graduates or professionals wanting advanced leadership skills.</p>
+                <Link className="v734-link" href="/degrees/qualifications/masters">
+                  Explore route →
+                </Link>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      {/* FINAL CALL TO ACTION */}
+      <section className="v735-section">
+        <div className="container">
+          <div className="v735-final">
+            <div style={{ textAlign: "left" }}>
+              <h2>Not sure what you want to study?</h2>
+              <p>Compare different subjects, career potential and SFE living-cost support with professional advice.</p>
+            </div>
+            <div className="v734-actions">
+              <Link className="v734-btn orange" href="/tools/degree-match">
+                Find My Degree Match
+              </Link>
+              <Link className="v734-btn white" href="/lead/adviser-call">
+                Book free adviser call
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CONVERSION BAR */}
+      <section className="ys-conversion-system" aria-label="YStudy next steps" style={{ marginTop: "40px" }}>
+        <div className="ys-conversion-wrap">
+          <Link className="ys-conversion-card blue" href="/tools/eligibility-checker">
+            <div style={{ textAlign: "left" }}>
+              <h2>Check if you can get funded.</h2>
+              <p>Quickly understand if you may qualify for Student Finance, grants and flexible university routes.</p>
+            </div>
+            <span>Check eligibility</span>
+          </Link>
+          <Link className="ys-conversion-card orange" href="/apply">
+            <div style={{ textAlign: "left" }}>
+              <h2>Apply with YStudy.</h2>
+              <p>Send us your details and we’ll help you choose the right course, prepare documents and move forward.</p>
+            </div>
+            <span>Start application</span>
+          </Link>
+          <Link className="ys-conversion-card dark" href="/lead/adviser-call">
+            <div style={{ textAlign: "left" }}>
+              <h2>Speak with an adviser.</h2>
+              <p>Not sure what to study, what you can get or which documents you need? Book a free call.</p>
+            </div>
+            <span>Book free call</span>
+          </Link>
+        </div>
+      </section>
     </div>
   );
 }

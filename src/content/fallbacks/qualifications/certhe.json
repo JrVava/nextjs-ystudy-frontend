@@ -1,0 +1,191 @@
+{
+  "page": "certhe",
+  "section_2": {
+    "badge": "Degree Year 1",
+    "title": "CertHE — Certificate of Higher Education",
+    "description": "A Level 4 higher education qualification equal to the first year of a degree. Useful if you want a shorter recognised university route.",
+    "hndTimeLine": [
+      {
+        "title": "1 year",
+        "description": "Typical duration"
+      },
+      {
+        "title": "Level 4",
+        "description": "Qualification level"
+      },
+      {
+        "title": "Funding",
+        "description": "Check SFE route"
+      }
+    ],
+    "status": true
+  },
+  "section_3": {
+    "badge": "Quick explanation",
+    "title": "What is CertHE?",
+    "description": "This page follows the Foundation Year structure: clear, practical and focused on what students need before applying.",
+    "cards": [
+      {
+        "number": "1",
+        "title": "What you study",
+        "description": "Subject-focused modules that build academic knowledge, practical skills and confidence for your next step."
+      },
+      {
+        "number": "2",
+        "title": "Who it suits",
+        "description": "Mature students, career changers and learners who want a recognised route without overcomplicating the decision."
+      },
+      {
+        "number": "3",
+        "title": "What you receive",
+        "description": "Certificate of Higher Education when you complete the course, depending on provider rules and successful completion."
+      },
+      {
+        "number": "4",
+        "title": "Next step",
+        "description": "Use the qualification to progress academically, apply for work or top up where the route allows."
+      }
+    ],
+    "status": true
+  },
+  "section_4": {
+    "badge": "Before you apply",
+    "title": "Entry requirements and progression.",
+    "description": "Most adult learners need a simple answer: can I enter, can I fund it, and where can it take me?",
+    "cards": [
+      {
+        "badge": "Entry requirements",
+        "title": "What universities usually check",
+        "points": [
+          "Usually Level 3 or mature entry route",
+          "Strong personal statement helps",
+          "Some providers assess English and academic writing"
+        ]
+      },
+      {
+        "badge": "Progression",
+        "title": "Where this route can lead",
+        "points": [
+          "Progress into Year 2 of a degree where accepted",
+          "Use it as an exit award",
+          "Return later to continue study"
+        ]
+      },
+      {
+        "badge": "Career options",
+        "title": "Possible outcomes",
+        "points": [
+          "Team leader",
+          "Care coordinator",
+          "Admin officer",
+          "Junior business role"
+        ]
+      },
+      {
+        "badge": "Important",
+        "title": "Check before committing",
+        "points": [
+          "Previous higher education study can affect funding.",
+          "Part-time, online and weekend routes may be assessed differently.",
+          "Use the eligibility checker before applying."
+        ]
+      }
+    ],
+    "status": true
+  },
+  "section_5": {
+    "badge": "Funding check",
+    "title": "Can Student Finance support this route?",
+    "cards": [
+      {
+        "title": "Tuition",
+        "description": "May be covered if the course is designated."
+      },
+      {
+        "title": "Living costs",
+        "description": "Depends on mode, intensity, residence and course type."
+      },
+      {
+        "title": "Previous study",
+        "description": "Must be checked before applying."
+      },
+      {
+        "title": "Adviser",
+        "description": "Free eligibility review before submission."
+      }
+    ],
+    "status": true
+  },
+  "section_6": {
+    "badge": "FAQ",
+    "title": "CertHE FAQ.",
+    "faqs": [
+      {
+        "question": "Is this suitable for mature students?",
+        "answer": "Yes. Many providers assess adults through qualifications, work experience, motivation and English level."
+      },
+      {
+        "question": "Can YStudy help me choose between this and a degree?",
+        "answer": "Yes. We compare the route against Foundation Year, HND, Top-Up and full Bachelor’s options."
+      },
+      {
+        "question": "Should I apply before checking funding?",
+        "answer": "No. Check eligibility first, especially if you studied before or need maintenance support."
+      }
+    ],
+    "status": true
+  },
+  "section_7": {
+    "title": "Not sure if this is your best route?",
+    "description": "Speak with YStudy before applying. We can check your qualification, funding route and course options.",
+    "status": true
+  },
+  "section_8": {
+    "cards": [
+      {
+        "title": "Check if you can get funded.",
+        "description": "Quickly understand if you may qualify for Student Finance, grants and flexible university routes."
+      },
+      {
+        "title": "Apply with YStudy.",
+        "description": "Send us your details and we’ll help you choose the right course, prepare documents and move forward."
+      },
+      {
+        "title": "Speak with an adviser.",
+        "description": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      }
+    ],
+    "status": true
+  },
+  "section_9": {
+    "title": "Useful next steps",
+    "description": "Move from information to action. Compare degrees, check funding, explore careers and apply with support.",
+    "cards": [
+      {
+        "title": "Find degrees",
+        "link": "Quickly understand if you may qualify for Student Finance, grants and flexible university routes."
+      },
+      {
+        "title": "Funding hub",
+        "link": "Send us your details and we’ll help you choose the right course, prepare documents and move forward."
+      },
+      {
+        "title": "Careers & salaries",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      },
+      {
+        "title": "Degree Match",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      },
+      {
+        "title": "Salary Checker",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      },
+      {
+        "title": "Student guides",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      }
+    ],
+    "status": true
+  }
+}

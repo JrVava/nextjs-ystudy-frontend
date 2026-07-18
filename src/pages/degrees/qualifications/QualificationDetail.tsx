@@ -1,6 +1,8 @@
 import { getCMSPageContent } from "@/services/cms.service";
 import "@/app/degrees/qualifications/qualifications.css";
-import { Banner } from "@/components/ui/Banner";
+import { QBanner } from "@/components/ui/QBanner";
+import Link from "next/link";
+import React from "react";
 
 interface QualificationDetailProps {
   slug: string;
@@ -14,7 +16,9 @@ export default async function QualificationDetail({ slug }: QualificationDetailP
       <div style={{ padding: "4rem", textAlign: "center", color: "var(--muted)" }}>
         <h2>Qualification Route Not Found</h2>
         <p>We couldn't retrieve the qualification details for "{slug}".</p>
-        <a href="/degrees" className="btn btn-blue" style={{ marginTop: "1rem" }}>Browse Degrees</a>
+        <Link href="/degrees" className="btn btn-blue" style={{ marginTop: "1rem" }}>
+          Browse Degrees
+        </Link>
       </div>
     );
   }
@@ -22,41 +26,36 @@ export default async function QualificationDetail({ slug }: QualificationDetailP
   // Format title for fallback
   const title = (slug || "").replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
 
+  // Determine fallback statistics based on slug
+  let fallbackDuration = "1 year";
+  let fallbackLevel = "Level 4";
+  if (slug === "hnd" || slug === "foundation-degree") {
+    fallbackDuration = "2 years";
+    fallbackLevel = "Level 5";
+  } else if (slug === "masters-degree" || slug === "masters") {
+    fallbackDuration = "1 yr FT / 2 yr PT";
+    fallbackLevel = "Level 7";
+  } else if (slug === "top-up-degree") {
+    fallbackDuration = "1 year";
+    fallbackLevel = "Level 6";
+  }
+
   return (
     <div className="qualification-page qualification-detail-page">
-      {/* HERO SECTION DYNAMIZED WITH BANNER MODULE */}
-      <Banner
+      {/* HERO SECTION DYNAMIZED WITH QBANNER */}
+      <QBanner
         slug={slug}
-        fallbackTitle={`${title} Qualification`}
-        fallbackDescription={`Learn how an integrated ${title} works as a standard funding-supported entry route for mature students.`}
-        fallbackBadgeText="Qualification Guide"
-        fallbackBgImage="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=2200&q=80"
-      >
-        <div style={{ textAlign: "left", width: "100%" }}>
-          <p className="bc" style={{ margin: "0 0 16px", color: "rgba(255,255,255,0.8)", fontSize: "13px" }}>
-            <a href="/" style={{ color: "#fff", textDecoration: "none" }}>Home</a> ›{" "}
-            <a href="/degrees" style={{ color: "#fff", textDecoration: "none" }}>Degrees</a> ›{" "}
-            <a href="/degrees" style={{ color: "#fff", textDecoration: "none" }}>Qualifications</a> › {title}
-          </p>
-          
-          <div className="statrow" style={{ display: "flex", gap: "24px", flexWrap: "wrap", marginTop: "16px" }}>
-            {/* Support both hndTimeLine and foundationTimeLine */}
-            {(data.section_2?.hndTimeLine || data.section_2?.foundationTimeLine)?.map((st: any, idx: number) => (
-              <div className="st" key={idx}>
-                <b style={{ fontSize: "1.75rem", color: "#fff", display: "block" }}>{st.title}</b>
-                <span style={{ fontSize: "13px", color: "rgba(255,255,255,0.8)" }}>{st.description}</span>
-              </div>
-            ))}
-          </div>
+        layoutType="qhero"
+        fallbackTitle={data.section_2?.title || `${title} Qualification`}
+        fallbackDescription={data.section_2?.description || `Learn how an integrated ${title} works as a standard funding-supported entry route for mature students.`}
+        fallbackBadgeText="YStudy qualification guide"
+        fallbackEyebrow={data.section_2?.badge || "Qualification Guide"}
+        fallbackBgImage="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=2000&q=85"
+        fallbackDuration={fallbackDuration}
+        fallbackLevel={fallbackLevel}
+      />
 
-          <div className="btnrow" style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginTop: "24px" }}>
-            <a className="btn orange" href="/tools/eligibility-checker">Check eligibility →</a>
-            <a className="btn ghost" href="/degrees#results">Browse matching courses</a>
-          </div>
-        </div>
-      </Banner>
-
-      {/* WHAT IT IS SECTION */}
+      {/* QUICK EXPLANATION / STEP CARDS */}
       {data.section_3?.status !== false && (
         <section className="qf-sec">
           <div className="qf" style={{ textAlign: "left" }}>
@@ -68,7 +67,7 @@ export default async function QualificationDetail({ slug }: QualificationDetailP
             <div className="qf-grid4">
               {data.section_3?.cards?.map((card: any, idx: number) => (
                 <div className="fcard" key={idx}>
-                  {card.number && <div className="n">{card.number}</div>}
+                  <div className="n">{card.number || (idx + 1)}</div>
                   <h3>{card.title}</h3>
                   <p>{card.description}</p>
                 </div>
@@ -78,9 +77,9 @@ export default async function QualificationDetail({ slug }: QualificationDetailP
         </section>
       )}
 
-      {/* COURSES OR REQUIREMENTS SECTION */}
+      {/* ENTRY REQUIREMENTS AND PROGRESSION */}
       {data.section_4?.status !== false && (
-        <section className="qf-sec" id="courses" style={{ background: "var(--soft)", textAlign: "left" }}>
+        <section className="qf-sec" style={{ background: "var(--soft)", textAlign: "left" }}>
           <div className="qf">
             <div className="qf-head">
               <span className="kicker">{data.section_4?.badge || "Before you apply"}</span>
@@ -88,34 +87,7 @@ export default async function QualificationDetail({ slug }: QualificationDetailP
               <p>{data.section_4?.description}</p>
             </div>
 
-            {/* If it's a course list (like Foundation Year) */}
-            {data.section_4?.courses && (
-              <div className="qf-courses">
-                {data.section_4.courses.map((c: any, idx: number) => (
-                  <article key={idx} className="qcard">
-                    <div className="ph">
-                      <div className="tags">
-                        {c.tags?.map((t: string, tIdx: number) => (
-                          <span key={tIdx}>{t}</span>
-                        ))}
-                      </div>
-                      <img src={c.image} alt="" />
-                    </div>
-                    <div className="cb">
-                      <h3>{c.title}</h3>
-                      <p>{c.description}</p>
-                      <div className="out">{c.outcome}</div>
-                      <div className="row">
-                        <a className="v" href={c.link}>View</a>
-                        <a className="a" href="/apply">Apply</a>
-                      </div>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            )}
-
-            {/* If it's a card grid of requirements (like HND/CertHE) */}
+            {/* Render a card grid of requirements */}
             {data.section_4?.cards && (
               <div className="elig-routes">
                 {data.section_4.cards.map((c: any, idx: number) => {
@@ -138,64 +110,29 @@ export default async function QualificationDetail({ slug }: QualificationDetailP
         </section>
       )}
 
-      {/* STEPS OR FUNDING INFORMATION */}
+      {/* SFE FUNDING CHECK */}
       {data.section_5?.status !== false && (
-        <>
-          {/* Steps layout (like Foundation Year) */}
-          {data.section_5?.cards && !data.section_5?.cards[0]?.description && (
-            <section className="qf-fund">
-              <div className="qf-fund-in" style={{ textAlign: "left" }}>
+        <section className="qf-sec">
+          <div className="qf">
+            <div className="qf-fund" style={{ textAlign: "left" }}>
+              <div className="qf-fund-in">
                 <span className="kicker">{data.section_5?.badge || "Funding check"}</span>
                 <h2>{data.section_5?.title || "Can Student Finance support this route?"}</h2>
                 <div className="qf-fund-grid">
-                  {data.section_5.cards.map((c: any, idx: number) => (
+                  {data.section_5?.cards?.map((card: any, idx: number) => (
                     <div className="fundc" key={idx}>
-                      <b>{c.title}</b>
-                      <span>{c.description || "Details checked at application."}</span>
+                      <b>{card.title}</b>
+                      <span>{card.description}</span>
                     </div>
                   ))}
                 </div>
-                <a className="fbtn" href="/tools/finance-calculator">Estimate funding →</a>
+                <Link className="fbtn" href="/tools/finance-calculator">
+                  Estimate funding →
+                </Link>
               </div>
-            </section>
-          )}
-
-          {/* Regular steps timeline (like Foundation Year section_5) */}
-          {data.section_5?.cards && data.section_5?.cards[0]?.description && (
-            <section className="qf-help">
-              <div className="qf-help-in">
-                <span className="kicker">{data.section_5.badge}</span>
-                <h2>{data.section_5.title}</h2>
-                <p className="sub">{data.section_5.description}</p>
-                <div className="steps">
-                  {data.section_5.cards.map((card: any, idx: number) => {
-                    let href = "/apply";
-                    let btnLabel = "Start applying →";
-                    if (idx === 0) {
-                      href = "/tools/eligibility-checker";
-                      btnLabel = "Check eligibility →";
-                    } else if (idx === 1) {
-                      href = "#courses";
-                      btnLabel = "Browse courses →";
-                    } else if (idx === 2) {
-                      href = "/tools/personal-statement-calculator";
-                      btnLabel = "Open the tools →";
-                    }
-                    return (
-                      <a className="stepc" href={href} key={idx}>
-                        <div className="num">{card.numbers || (idx + 1)}</div>
-                        {idx < 3 && <span className="line"></span>}
-                        <h3>{card.title}</h3>
-                        <p>{card.description}</p>
-                        <span className="go">{btnLabel}</span>
-                      </a>
-                    );
-                  })}
-                </div>
-              </div>
-            </section>
-          )}
-        </>
+            </div>
+          </div>
+        </section>
       )}
 
       {/* FAQS SECTION */}
@@ -218,7 +155,7 @@ export default async function QualificationDetail({ slug }: QualificationDetailP
         </section>
       )}
 
-      {/* FINAL CALL TO ACTION */}
+      {/* FINAL CALL TO ACTION / CTA PANEL */}
       {data.section_7?.status !== false && (
         <section className="qf-sec">
           <div className="qf">
@@ -226,9 +163,77 @@ export default async function QualificationDetail({ slug }: QualificationDetailP
               <h2>{data.section_7.title || "Not sure if this is your best route?"}</h2>
               <p>{data.section_7.description || `Speak with YStudy before applying. We can check your qualification, funding route and course options.`}</p>
               <div className="btnrow" style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap", marginTop: "24px" }}>
-                <a className="btn btn-blue" href="/tools/degree-match">Find my route</a>
-                <a className="btn btn-orange" href="/apply">Apply with YStudy</a>
+                <Link className="btn btn-blue" href="/tools/degree-match">
+                  Find my route
+                </Link>
+                <Link className="btn btn-orange" href="/apply">
+                  Apply with YStudy
+                </Link>
               </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* THREE LINK CARDS CONVERSION SYSTEM */}
+      {data.section_8?.status !== false && (
+        <section className="ys-conversion-system" aria-label="YStudy next steps">
+          <div className="ys-conversion-wrap">
+            {(data.section_8?.cards || [
+              {
+                title: "Check if you can get funded.",
+                description: "Quickly understand if you may qualify for Student Finance, grants and flexible university routes."
+              },
+              {
+                title: "Apply with YStudy.",
+                description: "Send us your details and we’ll help you choose the right course, prepare documents and move forward."
+              },
+              {
+                title: "Speak with an adviser.",
+                description: "Not sure what to study, what you can get or which documents you need? Book a free call."
+              }
+            ]).map((c: any, idx: number) => {
+              let theme = "dark";
+              let btnLabel = "Book free call";
+              let href = "/lead/adviser-call";
+              if (idx === 0) {
+                theme = "blue";
+                btnLabel = "Check eligibility";
+                href = "/tools/eligibility-checker";
+              } else if (idx === 1) {
+                theme = "orange";
+                btnLabel = "Start application";
+                href = "/apply";
+              }
+              return (
+                <Link className={`ys-conversion-card ${theme}`} href={href} key={idx}>
+                  <div style={{ textAlign: "left" }}>
+                    <h2>{c.title}</h2>
+                    <p>{c.description}</p>
+                  </div>
+                  <span>{btnLabel}</span>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      {/* CROSSLINKS SECTION */}
+      {data.section_9?.status !== false && (
+        <section className="ys-crosslinks" aria-label="Useful links">
+          <div className="inner" style={{ textAlign: "left" }}>
+            <div>
+              <h2>{data.section_9?.title || "Useful next steps"}</h2>
+              <p>{data.section_9?.description || "Move from information to action. Compare degrees, check funding, explore careers and apply with support."}</p>
+            </div>
+            <div className="ys-link-grid">
+              <Link href="/degrees">Find degrees</Link>
+              <Link href="/funding">Funding hub</Link>
+              <Link href="/careers">Careers &amp; salaries</Link>
+              <Link href="/tools/degree-match">Degree Match</Link>
+              <Link href="/tools/salary-checker">Salary Checker</Link>
+              <Link href="/guides">Student guides</Link>
             </div>
           </div>
         </section>

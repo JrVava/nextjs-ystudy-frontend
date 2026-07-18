@@ -1,43 +1,24 @@
 import { getCMSPageContent } from "@/services/cms.service";
 import "@/app/degrees/qualifications/qualifications.css";
-import { Banner } from "@/components/ui/Banner";
+import { QBanner } from "@/components/ui/QBanner";
+import Link from "next/link";
 
 export default async function Hnd() {
   const data = await getCMSPageContent("hnd");
 
   return (
     <div className="qualification-page hnd-page">
-      {/* HERO SECTION DYNAMIZED WITH BANNER MODULE */}
-      <Banner
+      <QBanner
         slug="hnd"
-        fallbackTitle="Higher National Diploma (HND)"
-        fallbackDescription="Find out if a Higher National Diploma (HND) is the right flexible study route for you."
-        fallbackBadgeText="HND · Level 5"
+        layoutType="qhero"
+        fallbackTitle="HND — Higher National Diploma"
+        fallbackDescription="A two-year Level 5 qualification focused on practical higher education, often used as a stepping stone into the final year of a degree."
+        fallbackBadgeText="YStudy qualification guide"
+        fallbackEyebrow="Degree Year 1 & 2"
         fallbackBgImage="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=2000&q=85"
-      >
-        <div style={{ textAlign: "left", width: "100%" }}>
-          <p className="bc" style={{ margin: "0 0 16px", color: "rgba(255,255,255,0.8)", fontSize: "13px" }}>
-            <a href="/" style={{ color: "#fff", textDecoration: "none" }}>Home</a> /{" "}
-            <a href="/degrees" style={{ color: "#fff", textDecoration: "none" }}>Degrees</a> / Qualifications
-          </p>
-          
-          <div className="statrow" style={{ display: "flex", gap: "24px", flexWrap: "wrap", marginTop: "16px" }}>
-            {data?.section_2?.hndTimeLine && (
-              data.section_2.hndTimeLine.map((st: any, idx: number) => (
-                <div className="st" key={idx}>
-                  <b style={{ fontSize: "1.75rem", color: "#fff", display: "block" }}>{st.title}</b>
-                  <span style={{ fontSize: "13px", color: "rgba(255,255,255,0.8)" }}>{st.description}</span>
-                </div>
-              ))
-            )}
-          </div>
-
-          <div className="btnrow" style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginTop: "24px" }}>
-            <a className="btn orange" href="/apply">Apply with YStudy</a>
-            <a className="btn blue" href="/tools/eligibility-checker">Check eligibility</a>
-          </div>
-        </div>
-      </Banner>
+        fallbackDuration="2 years"
+        fallbackLevel="Level 5"
+      />
 
       {/* QUICK EXPLANATION / STEP CARDS */}
       {data?.section_3?.status !== false && (

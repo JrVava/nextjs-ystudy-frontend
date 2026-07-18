@@ -1,6 +1,11 @@
 import { getCMSPageContent } from "@/services/cms.service";
-import "@/app/degrees/qualifications/qualifications.css";
-import { Banner } from "@/components/ui/Banner";
+import "@/app/degrees/v735.css";
+import { QBanner } from "@/components/ui/QBanner";
+import { RoutesTabsCarousel } from "@/components/degrees/RoutesTabsCarousel";
+import Link from "next/link";
+import React from "react";
+
+import { DegreesPageNav } from "@/components/layout/DegreesPageNav";
 
 export default async function StudyRoutes() {
   const data = await getCMSPageContent("study-routes");
@@ -9,172 +14,228 @@ export default async function StudyRoutes() {
     return (
       <div style={{ padding: "4rem", textAlign: "center", color: "var(--muted)" }}>
         <h2>Study Routes Page Not Found</h2>
-        <a href="/degrees" className="btn btn-blue" style={{ marginTop: "1rem" }}>Browse Degrees</a>
+        <Link href="/degrees" className="btn btn-blue" style={{ marginTop: "1rem" }}>
+          Browse Degrees
+        </Link>
       </div>
     );
   }
 
   return (
     <div className="qualification-page study-routes-index-page">
-      {/* HERO SECTION DYNAMIZED WITH BANNER MODULE */}
-      <Banner
+      <DegreesPageNav activeTab="routes" />
+      {/* HERO SECTION DYNAMIZED WITH QBANNER IN v735-hero LAYOUT */}
+      <QBanner
         slug="study-routes"
+        layoutType="v735-hero"
         fallbackTitle="Choose the right qualification route."
         fallbackDescription="Compare higher education qualification routes in the UK. Find the right option between Foundation Year, CertHE, HND, and Bachelor's degrees."
-        fallbackBadgeText="Qualification Guide"
+        fallbackBadgeText="Study Routes & Qualifications"
         fallbackBgImage="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=2200&q=80"
-      >
-        <div style={{ textAlign: "left", width: "100%" }}>
-          <p className="bc" style={{ margin: "0 0 16px", color: "rgba(255,255,255,0.8)", fontSize: "13px" }}>
-            <a href="/" style={{ color: "#fff", textDecoration: "none" }}>Home</a> ›{" "}
-            <a href="/degrees" style={{ color: "#fff", textDecoration: "none" }}>Degrees</a> › Study Routes
-          </p>
-          <div className="btnrow" style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginTop: "24px" }}>
-            <a className="btn orange" href="#compare-routes">Compare routes ↓</a>
-            <a className="btn ghost" href="/tools/degree-match">Match my degree</a>
+      />
+
+      {/* FLOAT GRID OVERLAY SECTION */}
+      <section className="v735-float">
+        <div className="container">
+          <div className="v735-float-grid">
+            <Link className="v735-float-card" href="/degrees/qualifications/foundation-year">
+              <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=600&q=80" alt="" />
+              <div>
+                <b>Foundation Year</b>
+                <span>Supported start (Year 0) →</span>
+              </div>
+            </Link>
+            <Link className="v735-float-card" href="/degrees/qualifications/hnd">
+              <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=600&q=80" alt="" />
+              <div>
+                <b>HNC / HND</b>
+                <span>Practical Level 4/5 route →</span>
+              </div>
+            </Link>
+            <Link className="v735-float-card" href="/degrees/qualifications/masters">
+              <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80" alt="" />
+              <div>
+                <b>Master's Degree</b>
+                <span>Postgraduate Level 7 →</span>
+              </div>
+            </Link>
           </div>
         </div>
-      </Banner>
+      </section>
 
-      {/* FLOAT GRID CARDS */}
-      {data.section_2 && data.section_2.status !== false && data.section_2.cards && (
-        <section className="qf-sec">
-          <div className="qf">
-            <div className="qf-grid3">
-              {data.section_2.cards.map((c: any, idx: number) => {
-                const routeLink = `/degrees/qualifications/${c.title.toLowerCase().replace(/ /g, '-')}`;
-                return (
-                  <a href={routeLink} className="routec" key={idx} style={{ textAlign: "left" }}>
-                    <div className="rph" style={{ aspectRatio: "16/10" }}>
-                      <img src={c.image} alt={c.title} />
-                    </div>
-                    <div className="rb">
-                      <h3>{c.title}</h3>
-                      <p>{c.subtitle}</p>
-                      <span className="go">Explore route →</span>
-                    </div>
-                  </a>
-                );
-              })}
+      {/* TABS AND COURSE CAROUSEL CLIENT COMPONENT */}
+      <section className="v735-section" id="qualification-courses" style={{ padding: "0 0 clamp(42px, 5vw, 72px) 0" }}>
+        <div className="container">
+          <RoutesTabsCarousel />
+        </div>
+      </section>
+
+      {/* QUALIFICATIONS EXPLANATION DETAIL CARDS */}
+      <section className="v735-section soft" id="route-details">
+        <div className="container" style={{ textAlign: "left" }}>
+          <div className="v735-head">
+            <div>
+              <h2>Qualification types explained</h2>
+              <p>Understand how long each route takes, what you'll study and what you receive.</p>
             </div>
           </div>
-        </section>
-      )}
+          <div className="v735-card-grid">
+            <article className="v735-card">
+              <div className="v734-photo">
+                <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=600&q=80" alt="" />
+                <span className="v734-badge">Foundation</span>
+              </div>
+              <div className="v734-body">
+                <h3>Foundation Year</h3>
+                <p>An integrated 1-year start (Year 0) that prepares you for full degree study. Best if you don’t meet regular entry requirements.</p>
+                <Link className="v734-link" href="/degrees/qualifications/foundation-year">
+                  Explore route →
+                </Link>
+              </div>
+            </article>
+            <article className="v735-card">
+              <div className="v734-photo">
+                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=600&q=80" alt="" />
+                <span className="v734-badge">CertHE</span>
+              </div>
+              <div className="v734-body">
+                <h3>CertHE</h3>
+                <p>Certificate of Higher Education. A 1-year Level 4 qualification equal to Year 1 of a degree. Great exit award or stepping stone.</p>
+                <Link className="v734-link" href="/degrees/qualifications/certhe">
+                  Explore route →
+                </Link>
+              </div>
+            </article>
+            <article className="v735-card">
+              <div className="v734-photo">
+                <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=600&q=80" alt="" />
+                <span className="v734-badge">HND</span>
+              </div>
+              <div className="v734-body">
+                <h3>HNC / HND</h3>
+                <p>Practical Level 4 (HNC) and Level 5 (HND) qualifications focused on work skills, with direct top-up routes to a full degree.</p>
+                <Link className="v734-link" href="/degrees/qualifications/hnd">
+                  Explore route →
+                </Link>
+              </div>
+            </article>
+            <article className="v735-card">
+              <div className="v734-photo">
+                <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80" alt="" />
+                <span className="v734-badge">Master's</span>
+              </div>
+              <div className="v734-body">
+                <h3>Master's Degree</h3>
+                <p>Level 7 postgraduate study for degree graduates or professionals wanting specialised skills or management promotion.</p>
+                <Link className="v734-link" href="/degrees/qualifications/masters">
+                  Explore route →
+                </Link>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
 
       {/* COMPARISON MATRIX TABLE */}
-      {data.section_5 && data.section_5.status !== false && data.section_5.comparison_table && (
-        <section className="qf-sec" id="compare-routes" style={{ background: "var(--soft)" }}>
-          <div className="qf" style={{ textAlign: "left" }}>
-            <div className="qf-head">
-              <span className="kicker">Compare qualifications</span>
-              <h2>Which route is right for you?</h2>
-              <p>Duration, level and funding options at a glance.</p>
+      <section className="v735-section" id="route-matrix">
+        <div className="container" style={{ textAlign: "left" }}>
+          <div className="v735-head">
+            <div>
+              <h2>Route comparison at a glance</h2>
+              <p>Check typical duration, entry levels and standard student funding options side by side.</p>
             </div>
-
-            <table className="elig-table" style={{ marginTop: "20px" }}>
+          </div>
+          <div className="v735-compare">
+            <table>
               <thead>
                 <tr>
-                  {data.section_5.comparison_table.headers?.map((header: string, idx: number) => (
-                    <th key={idx}>{header}</th>
-                  ))}
+                  <th>Route</th>
+                  <th>Usually suits</th>
+                  <th>Typical duration</th>
+                  <th>Funding</th>
                 </tr>
               </thead>
               <tbody>
-                {data.section_5.comparison_table.rows?.map((row: any, idx: number) => (
-                  <tr key={idx}>
-                    <td className="who">{row.route}</td>
-                    <td>{row.suits}</td>
-                    <td>{row.duration}</td>
-                    <td>
-                      <span className="pill check" style={{ marginTop: 0 }}>
-                        {row.funding}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
+                <tr>
+                  <td>Foundation Year</td>
+                  <td>Adults returning to study or missing entry requirements</td>
+                  <td>4 years (with degree)</td>
+                  <td>SFE Tuition &amp; Maintenance <span className="v734-check">✓</span></td>
+                </tr>
+                <tr>
+                  <td>CertHE</td>
+                  <td>Students wanting a 1-year Level 4 recognised start</td>
+                  <td>1 year</td>
+                  <td>SFE Tuition &amp; Maintenance <span className="v734-check">✓</span></td>
+                </tr>
+                <tr>
+                  <td>Bachelor's Degree</td>
+                  <td>Standard university route for professional careers</td>
+                  <td>3 years</td>
+                  <td>SFE Tuition &amp; Maintenance <span className="v734-check">✓</span></td>
+                </tr>
+                <tr>
+                  <td>Advanced Entry</td>
+                  <td>Students with previous higher education or matching credits</td>
+                  <td>1–2 years</td>
+                  <td>Check remaining SFE years <span className="v734-check">✓</span></td>
+                </tr>
+                <tr>
+                  <td>Master's Degree</td>
+                  <td>Graduates or experienced managers aiming for promotion</td>
+                  <td>1–2 years</td>
+                  <td>Postgraduate Loan <span className="v734-check">✓</span></td>
+                </tr>
               </tbody>
             </table>
           </div>
-        </section>
-      )}
-
-      {/* QUALIFICATIONS EXPLANATION DETAIL CARDS */}
-      {data.section_4 && data.section_4.status !== false && data.section_4.cards && (
-        <section className="qf-sec">
-          <div className="qf" style={{ textAlign: "left" }}>
-            <div className="qf-head">
-              <span className="kicker">Qualification types explained</span>
-              <h2>Understand what you'll study.</h2>
-            </div>
-
-            <div className="qf-courses">
-              {data.section_4.cards.map((c: any, idx: number) => {
-                const routeLink = `/degrees/qualifications/${c.title.toLowerCase().replace(/ \/ /g, '-').replace(/ /g, '-')}`;
-                return (
-                  <article className="qcard" key={idx}>
-                    <div className="ph" style={{ aspectRatio: "16/10" }}>
-                      <img src={c.image} alt={c.title} />
-                      <div className="tags">
-                        <span>{c.badge}</span>
-                      </div>
-                    </div>
-                    <div className="cb" style={{ display: "flex", flexDirection: "column", flex: 1, padding: "1.25rem" }}>
-                      <h3 style={{ margin: "0 0 8px", fontSize: "19px", fontWeight: 900 }}>{c.title}</h3>
-                      <p style={{ fontSize: "14px", color: "var(--muted)", flex: 1 }}>{c.description}</p>
-                      <div className="row" style={{ marginTop: "14px" }}>
-                        <a className="v" href={routeLink} style={{ width: "100%" }}>
-                          Explore Route →
-                        </a>
-                      </div>
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-      )}
+        </div>
+      </section>
 
       {/* FINAL CALL TO ACTION */}
-      {data.section_6 && data.section_6.status !== false && (
-        <section className="qf-sec" style={{ background: "var(--soft)" }}>
-          <div className="qf">
-            <div className="cta-panel" style={{ textAlign: "center" }}>
-              <h2>{data.section_6.title || "Not sure which route is right?"}</h2>
-              <p>{data.section_6.description || "Tell us your previous study and career goal. We’ll help you choose a realistic route."}</p>
-              <div className="btnrow" style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap", marginTop: "24px" }}>
-                <a className="btn btn-blue" href="/tools/degree-match">Find my route</a>
-                <a className="btn btn-orange" href="/apply">Apply with YStudy</a>
-              </div>
+      <section className="v735-section soft">
+        <div className="container">
+          <div className="v735-final">
+            <div style={{ textAlign: "left" }}>
+              <h2>Not sure which route fits your life?</h2>
+              <p>Tell us your previous qualifications and work experience. We will help you select the most realistic path.</p>
+            </div>
+            <div className="v734-actions">
+              <Link className="v734-btn orange" href="/tools/degree-match">
+                Run Degree Match Finder
+              </Link>
+              <Link className="v734-btn white" href="/lead/adviser-call">
+                Book free adviser call
+              </Link>
             </div>
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
       {/* CONVERSION BAR */}
       <section className="ys-conversion-system" aria-label="YStudy next steps" style={{ marginTop: "40px" }}>
         <div className="ys-conversion-wrap">
-          <a className="ys-conversion-card blue" href="/tools/eligibility-checker">
-            <div>
+          <Link className="ys-conversion-card blue" href="/tools/eligibility-checker">
+            <div style={{ textAlign: "left" }}>
               <h2>Check if you can get funded.</h2>
               <p>Quickly understand if you may qualify for Student Finance, grants and flexible university routes.</p>
             </div>
             <span>Check eligibility</span>
-          </a>
-          <a className="ys-conversion-card orange" href="/apply">
-            <div>
+          </Link>
+          <Link className="ys-conversion-card orange" href="/apply">
+            <div style={{ textAlign: "left" }}>
               <h2>Apply with YStudy.</h2>
               <p>Send us your details and we’ll help you choose the right course, prepare documents and move forward.</p>
             </div>
             <span>Start application</span>
-          </a>
-          <a className="ys-conversion-card dark" href="/lead/adviser-call">
-            <div>
+          </Link>
+          <Link className="ys-conversion-card dark" href="/lead/adviser-call">
+            <div style={{ textAlign: "left" }}>
               <h2>Speak with an adviser.</h2>
               <p>Not sure what to study, what you can get or which documents you need? Book a free call.</p>
             </div>
             <span>Book free call</span>
-          </a>
+          </Link>
         </div>
       </section>
     </div>
