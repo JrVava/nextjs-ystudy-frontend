@@ -1,9 +1,11 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { getAllCourses } from "@/services/course.service";
+import { BackendCourse } from "@/types/course";
 
-interface CourseCard {
+interface CourseCardData {
   image: string;
   tag: string;
   title: string;
@@ -17,10 +19,10 @@ interface TabData {
   heading: string;
   description: string;
   buttonLink: string;
-  courses: CourseCard[];
+  courses: CourseCardData[];
 }
 
-const studyRoutesData: TabData[] = [
+const FALLBACK_STUDY_ROUTES: TabData[] = [
   {
     tabName: "Foundation Year",
     heading: "Foundation Year routes",
@@ -41,14 +43,6 @@ const studyRoutesData: TabData[] = [
         title: "Construction Management with Foundation Year",
         description: "Build academic skills alongside construction principles.",
         metas: ["📍 London", "🎓 Foundation", "📅 Evening/Weekend", "💷 SFE route"],
-        viewLink: "/degrees",
-      },
-      {
-        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80",
-        tag: "Foundation",
-        title: "Data Science with Foundation Year",
-        description: "Supported entry route into data, programming and analytics.",
-        metas: ["📍 London + more", "🎓 Foundation", "📅 Blended", "💷 SFE route"],
         viewLink: "/degrees",
       },
       {
@@ -83,14 +77,6 @@ const studyRoutesData: TabData[] = [
         metas: ["📍 London", "🎓 CertHE (Level 4)", "📅 Blended", "💷 SFE route"],
         viewLink: "/degrees",
       },
-      {
-        image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80",
-        tag: "CertHE",
-        title: "Computing CertHE",
-        description: "Learn software basics, data modeling, and web architectures.",
-        metas: ["📍 London + Online", "🎓 CertHE (Level 4)", "📅 Flexible", "💷 SFE route"],
-        viewLink: "/degrees",
-      },
     ],
   },
   {
@@ -115,14 +101,6 @@ const studyRoutesData: TabData[] = [
         metas: ["📍 London + Birmingham", "🎓 BSc (Hons) Level 6", "📅 Blended", "💷 SFE eligible"],
         viewLink: "/degrees/course/computing-cybersecurity-bsc",
       },
-      {
-        image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=900&q=80",
-        tag: "Bachelor's",
-        title: "Health & Social Care BA (Hons)",
-        description: "Wellbeing and community-focused pathway for healthcare professionals.",
-        metas: ["📍 London + Manchester", "🎓 BA (Hons) Level 6", "📅 Flexible", "💷 SFE eligible"],
-        viewLink: "/degrees/course/health-social-care-ba",
-      },
     ],
   },
   {
@@ -137,14 +115,6 @@ const studyRoutesData: TabData[] = [
         title: "Accounting & Finance BSc (Advanced Entry)",
         description: "Allows entry directly to Year 2 or 3 using previous qualifications.",
         metas: ["📍 London", "🎓 BSc (Hons)", "📅 Blended", "💷 SFE eligible"],
-        viewLink: "/degrees",
-      },
-      {
-        image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80",
-        tag: "Advanced Entry",
-        title: "Business Management (Advanced Entry)",
-        description: "Jump straight into senior business coursework with prior credits.",
-        metas: ["📍 London + Online", "🎓 BA (Hons)", "📅 Flexible", "💷 SFE eligible"],
         viewLink: "/degrees",
       },
     ],
@@ -163,14 +133,6 @@ const studyRoutesData: TabData[] = [
         metas: ["📍 London + Birmingham", "🎓 BSc (Hons) Level 6", "📅 1 year", "💷 SFE eligible"],
         viewLink: "/degrees",
       },
-      {
-        image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80",
-        tag: "Top-Up",
-        title: "Computing BSc (Top-Up)",
-        description: "Upgrade your Level 5 computing credentials to a full honours degree.",
-        metas: ["📍 London + Manchester", "🎓 BSc (Hons) Level 6", "📅 1 year", "💷 SFE eligible"],
-        viewLink: "/degrees",
-      },
     ],
   },
   {
@@ -187,23 +149,55 @@ const studyRoutesData: TabData[] = [
         metas: ["📍 London + more", "🎓 MSc (Level 7)", "📅 Flexible", "💷 SFE eligible"],
         viewLink: "/degrees",
       },
-      {
-        image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=900&q=80",
-        tag: "Master's",
-        title: "Cybersecurity & Data Science MSc",
-        description: "Advanced study focusing on threat mitigation, AI, and big data analysis.",
-        metas: ["📍 London + Online", "🎓 MSc (Level 7)", "📅 Part-time", "💷 SFE eligible"],
-        viewLink: "/degrees",
-      },
     ],
   },
 ];
 
 export function RoutesTabsCarousel() {
   const [activeTabIdx, setActiveTabIdx] = useState(0);
+  const [routesData, setRoutesData] = useState<TabData[]>(FALLBACK_STUDY_ROUTES);
   const carouselRef = useRef<HTMLDivElement>(null);
 
-  const activeTab = studyRoutesData[activeTabIdx];
+  useEffect(() => {
+    async function loadApiCourses() {
+      const apiCourses: BackendCourse[] = await getAllCourses();
+      if (!apiCourses || apiCourses.length === 0) return;
+
+      const updatedRoutes = FALLBACK_STUDY_ROUTES.map((tab) => {
+        const tabLower = tab.tabName.toLowerCase();
+        const matching = apiCourses.filter((c) => {
+          const qualName = (c.qualification?.name || c.qualification?.slug || "").toLowerCase();
+          const titleName = c.title.toLowerCase();
+          return qualName.includes(tabLower) || titleName.includes(tabLower);
+        });
+
+        if (matching.length > 0) {
+          const formattedCourses: CourseCardData[] = matching.map((c) => ({
+            image: c.fullImageUrl || c.image || "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80",
+            tag: tab.tabName,
+            title: c.title,
+            description: c.shortDescription || c.description || "Flexible degree route.",
+            metas: [
+              `📍 ${Array.isArray(c.locations) && c.locations.length > 0 ? c.locations.map((l: any) => (typeof l === 'string' ? l : l.name || l.title || l.city || '')).filter(Boolean).join(", ") || "London & UK" : "London & UK"}`,
+              `🎓 ${tab.tabName}`,
+              "📅 Flexible",
+              "💷 SFE eligible",
+            ],
+            viewLink: `/degrees/course/${c.slug}`,
+          }));
+
+          return { ...tab, courses: formattedCourses };
+        }
+        return tab;
+      });
+
+      setRoutesData(updatedRoutes);
+    }
+
+    loadApiCourses();
+  }, []);
+
+  const activeTab = routesData[activeTabIdx] || routesData[0];
 
   const handleScroll = (direction: "left" | "right") => {
     if (!carouselRef.current) return;
@@ -218,13 +212,13 @@ export function RoutesTabsCarousel() {
     <div className="v735-tabs-and-carousel">
       {/* Left Tabs Selection */}
       <div className="v735-tabs">
-        {studyRoutesData.map((tab, idx) => (
+        {routesData.map((tab, idx) => (
           <button
             key={idx}
             className={`v735-tab ${activeTabIdx === idx ? "active" : ""}`}
+            type="button"
             onClick={() => {
               setActiveTabIdx(idx);
-              // Reset carousel scroll on tab switch
               if (carouselRef.current) {
                 carouselRef.current.scrollTo({ left: 0 });
               }
@@ -247,10 +241,10 @@ export function RoutesTabsCarousel() {
               View details →
             </Link>
             <div className="v735-controls">
-              <button className="v735-ctrl" onClick={() => handleScroll("left")}>
+              <button type="button" className="v735-ctrl" onClick={() => handleScroll("left")}>
                 ‹
               </button>
-              <button className="v735-ctrl" onClick={() => handleScroll("right")}>
+              <button type="button" className="v735-ctrl" onClick={() => handleScroll("right")}>
                 ›
               </button>
             </div>

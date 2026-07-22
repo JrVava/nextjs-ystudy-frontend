@@ -1,0 +1,81 @@
+{
+  "page": "cv-builder",
+  "section_2": {
+    "title": "Build your CV step by step.",
+    "description": "Complete the tabs. Your preview and score update automatically.",
+    "status": true
+  },
+  "section_3": {
+    "cards": [
+      {
+        "title": "University application CV",
+        "description": "Built for mature students, not just job applications. It highlights work history, responsibility and transferable skills.",
+        "link": ""
+      },
+      {
+        "title": "Send to adviser",
+        "description": "When ready, send the CV context before a call so the adviser can recommend suitable degree routes.",
+        "link": ""
+      },
+      {
+        "title": "Next step",
+        "description": "Use your CV to support your personal statement and course interview preparation.",
+        "link": ""
+      }
+    ],
+    "status": true
+  },
+  "section_4": {
+    "title": "Want an adviser to review your CV?",
+    "description": "Save your CV and book a call. YStudy can help connect your experience to a realistic course, funding route and application plan.",
+    "status": true
+  },
+  "section_5": {
+    "cards": [
+      {
+        "title": "Check if you can get funded.",
+        "description": "Quickly understand if you may qualify for Student Finance, grants and flexible university routes."
+      },
+      {
+        "title": "Apply with YStudy.",
+        "description": "Send us your details and we’ll help you choose the right course, prepare documents and move forward."
+      },
+      {
+        "title": "Speak with an adviser.",
+        "description": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      }
+    ],
+    "status": true
+  },
+  "section_6": {
+    "title": "Useful next steps",
+    "description": "Move from information to action. Compare degrees, check funding, explore careers and apply with support.",
+    "cards": [
+      {
+        "title": "Find degrees",
+        "link": "Quickly understand if you may qualify for Student Finance, grants and flexible university routes."
+      },
+      {
+        "title": "Funding hub",
+        "link": "Send us your details and we’ll help you choose the right course, prepare documents and move forward."
+      },
+      {
+        "title": "Careers & salaries",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      },
+      {
+        "title": "Degree Match",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      },
+      {
+        "title": "Salary Checker",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      },
+      {
+        "title": "Student guides",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      }
+    ],
+    "status": true
+  }
+}

@@ -1,6 +1,6 @@
 import { getCMSPageContent } from "@/services/cms.service";
 import "@/app/degrees/v735.css";
-import { QBanner } from "@/components/ui/QBanner";
+import { HeroBanner } from "@/components/ui/HeroBanner";
 import { SubjectsTabsCarousel } from "@/components/degrees/SubjectsTabsCarousel";
 import Link from "next/link";
 import React from "react";
@@ -24,15 +24,21 @@ export default async function Subjects() {
   return (
     <div className="qualification-page subjects-index-page">
       <DegreesPageNav activeTab="subjects" />
-      {/* HERO SECTION DYNAMIZED WITH QBANNER */}
-      <QBanner
+      {/* HERO SECTION DYNAMIZED WITH HERO BANNER */}
+      <HeroBanner
         slug="study-subjects"
-        layoutType="v735-hero"
+        layoutType="overview"
         fallbackTitle="Explore courses by subject."
         fallbackDescription="Start with the area you’re interested in, then compare real course options, check funding eligibility and speak to an adviser."
         fallbackBadgeText="Study Subjects"
         fallbackBgImage="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=2200&q=80"
-      />
+      >
+        <div className="v735-actions">
+          <a className="v735-btn blue" href="#browse-by-category">Browse subjects</a>
+          <Link className="v735-btn orange" href="/apply">Apply with YStudy</Link>
+          <Link className="v735-btn white" href="/lead/adviser-call">Book free call</Link>
+        </div>
+      </HeroBanner>
 
       {/* FLOAT GRID OVERLAY SECTION */}
       <section className="v735-float">

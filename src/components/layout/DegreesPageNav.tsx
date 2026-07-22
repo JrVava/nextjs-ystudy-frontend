@@ -18,35 +18,29 @@ export function DegreesPageNav({ activeTab }: DegreesPageNavProps) {
         </Link>
       </div>
       <div className="page-nav-tabs">
-        <Link className={activeTab === "search" ? "active" : ""} href="/degrees">
+        <Link className={activeTab === "search" ? "active" : ""} href="/degrees/#results">
           Search degrees
         </Link>
-        <Link className={activeTab === "business" ? "active" : ""} href="/degrees/business">
+        <Link className={activeTab === "business" ? "active" : ""} href="/degrees/#results">
           Business
         </Link>
-        <Link className={activeTab === "computing" ? "active" : ""} href="/degrees/computing">
+        <Link className={activeTab === "computing" ? "active" : ""} href="/degrees/#results">
           Computing
         </Link>
-        <Link className={activeTab === "psychology" ? "active" : ""} href="/degrees/psychology">
+        <Link className={activeTab === "psychology" ? "active" : ""} href="/degrees/#results">
           Psychology
         </Link>
-        <Link className={activeTab === "health" ? "active" : ""} href="/degrees/health-social-care">
+        <Link className={activeTab === "health" ? "active" : ""} href="/degrees/#results">
           Health &amp; Social Care
         </Link>
-        <Link className={activeTab === "construction" ? "active" : ""} href="/degrees/construction">
+        <Link className={activeTab === "construction" ? "active" : ""} href="/degrees/#results">
           Construction
         </Link>
-        <Link className={activeTab === "law" ? "active" : ""} href="/degrees/law">
+        <Link className={activeTab === "law" ? "active" : ""} href="/degrees/#results">
           Law
         </Link>
-        <Link className={activeTab === "subjects" ? "active" : ""} href="/degrees/subjects">
-          Study subjects
-        </Link>
-        <Link className={activeTab === "routes" ? "active" : ""} href="/degrees/study-routes">
-          Study routes
-        </Link>
-        <Link className={activeTab === "locations" ? "active" : ""} href="/degrees/locations">
-          Study locations
+        <Link className={activeTab === "subjects" ? "active" : ""} href="/degrees/#results">
+          Check courses
         </Link>
       </div>
     </div>

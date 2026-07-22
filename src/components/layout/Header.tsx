@@ -20,8 +20,10 @@ const SLUG_TO_URL_MAP: Record<string, string> = {
   "hnd": "/degrees/qualifications/hnd",
   "foundation-degree": "/degrees/qualifications/foundation-degree",
   "certificate-of-higher-education": "/degrees/qualifications/certhe",
+  "certhe": "/degrees/qualifications/certhe",
   "top-up-degree": "/degrees/qualifications/top-up-degree",
   "masters-degree": "/degrees/qualifications/masters",
+  "masters": "/degrees/qualifications/masters",
 
   // Funding sublinks
   "funding-hub": "/funding",
@@ -87,12 +89,12 @@ const getUnifiedNav = (navigationProp?: any[]): any[] => {
   }
   
   // Fallback: Map static MAIN_NAV to unified structure
-  return MAIN_NAV.map((section) => ({
-    _id: section.id,
+  return MAIN_NAV.map((section, sIdx) => ({
+    _id: section.id || `section-${sIdx}`,
     slug: section.id,
     pageName: section.label,
-    children: section.links.map((link) => ({
-      _id: link.href,
+    children: section.links.map((link, lIdx) => ({
+      _id: `${link.href}-${lIdx}`,
       slug: link.href.startsWith("/") ? link.href.split("/").pop() || "" : link.href,
       pageName: link.label,
       directHref: link.href,
@@ -116,10 +118,10 @@ export default function Header({ navigation }: HeaderProps) {
         </Link>
         
         <nav aria-label="Main navigation" className="main-nav">
-          {navItems.map((section: any) => {
+          {navItems.map((section: any, sIdx: number) => {
             const sectionUrl = getNavigationUrl(section);
             return (
-              <div key={section._id || section.slug} className="main-nav-item simple-nav-item">
+              <div key={section._id || section.slug || `sec-${sIdx}`} className="main-nav-item simple-nav-item">
                 <Link className="main-nav-link" href={sectionUrl}>
                   {section.pageName} <span className="nav-caret">⌄</span>
                 </Link>
@@ -128,10 +130,11 @@ export default function Header({ navigation }: HeaderProps) {
                     <div className="simple-menu-grid">
                       {section.children
                         .sort((a: any, b: any) => (a.position || 0) - (b.position || 0))
-                        .map((link: any) => {
+                        .map((link: any, lIdx: number) => {
                           const linkUrl = getNavigationUrl(link, section.slug);
+                          const linkKey = `${link._id || link.slug || 'link'}-${link.pageName || ''}-${lIdx}`;
                           return (
-                            <Link key={link._id || link.slug} className="simple-menu-link" href={linkUrl}>
+                            <Link key={linkKey} className="simple-menu-link" href={linkUrl}>
                               {link.pageName}
                             </Link>
                           );

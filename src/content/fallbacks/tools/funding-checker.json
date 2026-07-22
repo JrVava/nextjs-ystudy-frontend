@@ -1,0 +1,88 @@
+{
+  "page": "funding-checker",
+  "section_2": {
+    "badge": "Funding profile",
+    "title": "Estimate student finance support",
+    "card": {
+      "title": "Important",
+      "description": "Pre-settled status, weekend-only attendance, distance learning, previous study and age can change the outcome. Do not rely on a calculator only."
+    },
+    "status": true
+  },
+  "section_3": {
+    "cards": [
+      {
+        "title": "Maintenance Loan",
+        "description": "Paid to you for living costs. Amount depends on location, income and living situation."
+      },
+      {
+        "title": "Tuition Fee Loan",
+        "description": "Usually paid directly to the university or provider, not to your bank account."
+      },
+      {
+        "title": "Funding risks",
+        "description": "Previous study, distance learning, residency and age can affect eligibility."
+      }
+    ],
+    "status": true
+  },
+  "section_4": {
+    "title": "Want help checking your funding?",
+    "description": "Send your result to YStudy and we’ll help you understand your best next step.",
+    "status": true
+  },
+  "section_5": {
+    "title": "Need help?",
+    "description": "Book a free adviser call. We can review this tool result and help you choose the next step.",
+    "badge": "This page result can be saved and shared with an adviser.",
+    "status": true
+  },
+  "section_6": {
+    "cards": [
+      {
+        "title": "Check if you can get funded.",
+        "description": "Quickly understand if you may qualify for Student Finance, grants and flexible university routes."
+      },
+      {
+        "title": "Apply with YStudy.",
+        "description": "Send us your details and we’ll help you choose the right course, prepare documents and move forward."
+      },
+      {
+        "title": "Speak with an adviser.",
+        "description": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      }
+    ],
+    "status": true
+  },
+  "section_7": {
+    "title": "Useful next steps",
+    "description": "Move from information to action. Compare degrees, check funding, explore careers and apply with support.",
+    "cards": [
+      {
+        "title": "Find degrees",
+        "link": "Quickly understand if you may qualify for Student Finance, grants and flexible university routes."
+      },
+      {
+        "title": "Funding hub",
+        "link": "Send us your details and we’ll help you choose the right course, prepare documents and move forward."
+      },
+      {
+        "title": "Careers & salaries",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      },
+      {
+        "title": "Degree Match",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      },
+      {
+        "title": "Salary Checker",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      },
+      {
+        "title": "Student guides",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      }
+    ],
+    "status": true
+  }
+}

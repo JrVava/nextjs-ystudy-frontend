@@ -16,6 +16,15 @@ import fallbackPolishCommunity from "@/content/fallbacks/guides/polish-community
 import fallbackBusinessCourse from "@/content/fallbacks/course/business-management-ba.json";
 import fallbackComputingCourse from "@/content/fallbacks/course/computing-cybersecurity-bsc.json";
 import fallbackHealthCourse from "@/content/fallbacks/course/health-social-care-ba.json";
+import fallbackTools from "@/content/fallbacks/tools/tools.json";
+import fallbackPersonalStatement from "@/content/fallbacks/tools/personal-statement.json";
+import fallbackSalaryChecker from "@/content/fallbacks/tools/salary-checker.json";
+import fallbackEligibilityChecker from "@/content/fallbacks/tools/eligibility-checker.json";
+import fallbackCareerQuiz from "@/content/fallbacks/tools/career-quiz.json";
+import fallbackCvBuilder from "@/content/fallbacks/tools/cv-builder.json";
+import fallbackFundingChecker from "@/content/fallbacks/tools/funding-checker.json";
+import fallbackEnglishTest from "@/content/fallbacks/tools/english-test.json";
+import fallbackDegreeMatchFinder from "@/content/fallbacks/tools/degree-match-finder.json";
 import api from "@/lib/api";
 
 export async function getCMSPageContent(pageName: string): Promise<CMSPageData | null> {
@@ -105,6 +114,34 @@ function getFallbackData(pageName: string): CMSPageData | null {
   if (slug === "health-social-care-ba") {
     return fallbackHealthCourse as unknown as CMSPageData;
   }
+  if (slug === "tools") {
+    return fallbackTools as unknown as CMSPageData;
+  }
+  if (slug === "personal-statement" || slug === "personal-statement-calculator") {
+    return fallbackPersonalStatement as unknown as CMSPageData;
+  }
+  if (slug === "salary-checker") {
+    return fallbackSalaryChecker as unknown as CMSPageData;
+  }
+  if (slug === "eligibility-checker") {
+    return fallbackEligibilityChecker as unknown as CMSPageData;
+  }
+  if (slug === "career-quiz") {
+    return fallbackCareerQuiz as unknown as CMSPageData;
+  }
+  if (slug === "cv-builder") {
+    return fallbackCvBuilder as unknown as CMSPageData;
+  }
+  if (slug === "funding-checker" || slug === "finance-calculator") {
+    return fallbackFundingChecker as unknown as CMSPageData;
+  }
+  if (slug === "english-test" || slug === "english-level-checker") {
+    return fallbackEnglishTest as unknown as CMSPageData;
+  }
+  if (slug === "degree-match-finder" || slug === "degree-match") {
+    return fallbackDegreeMatchFinder as unknown as CMSPageData;
+  }
 
   return null;
 }
+

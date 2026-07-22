@@ -2,8 +2,6 @@ import { getCMSPageContent } from "@/services/cms.service";
 import { Banner } from "@/components/ui/Banner";
 import LocationsBody from "@/components/locations/LocationsBody";
 
-import { DegreesPageNav } from "@/components/layout/DegreesPageNav";
-
 export default async function Locations() {
   const data = await getCMSPageContent("study-locations");
 
@@ -21,7 +19,6 @@ export default async function Locations() {
 
   return (
     <main className="locations-page">
-      <DegreesPageNav activeTab="locations" />
       {/* HERO SECTION DYNAMIZED WITH BANNER MODULE */}
       <Banner
         slug="locations"
