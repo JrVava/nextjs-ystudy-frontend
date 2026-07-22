@@ -16,6 +16,7 @@ import "../../public/assets/css/v731-carousel-system.css";
 import "../../public/assets/css/ystudy-carousel-system.css";
 import "../../public/assets/css/v737-desktop-carousel-polish.css";
 import "../../public/assets/css/v738-mobile-12px-gutter-fix.css";
+import "../../public/assets/css/tool-operational.css";
 
 
 const montserrat = Montserrat({
@@ -51,6 +52,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${montserrat.variable} ${inter.variable} h-full`}>
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
       </head>
       <body className="min-h-full antialiased" style={{ margin: 0, padding: 0 }}>

@@ -90,13 +90,13 @@ const getUnifiedMobileNav = (navigationProp?: any[]): any[] => {
   }
   
   // Fallback: Map static MOBILE_NAV to unified structure
-  return MOBILE_NAV.map((group) => ({
-    _id: group.id,
+  return MOBILE_NAV.map((group, gIdx) => ({
+    _id: group.id || `group-${gIdx}`,
     slug: group.id,
     pageName: group.label,
     defaultOpen: group.defaultOpen,
-    children: group.links.map((link) => ({
-      _id: link.href,
+    children: group.links.map((link, lIdx) => ({
+      _id: `${link.href}-${lIdx}`,
       slug: link.href.startsWith("/") ? link.href.split("/").pop() || "" : link.href,
       pageName: link.label,
       directHref: link.href,
@@ -142,18 +142,18 @@ export function MobileNav({
         </div>
 
         <div className="mobile-quick-actions">
-          {MOBILE_QUICK_ACTIONS.map((action) => (
-            <Link key={action.href} href={action.href} onClick={onClose}>
+          {MOBILE_QUICK_ACTIONS.map((action, aIdx) => (
+            <Link key={`${action.href}-${aIdx}`} href={action.href} onClick={onClose}>
               {action.label}
             </Link>
           ))}
         </div>
 
-        {navGroups.map((group) => {
+        {navGroups.map((group, gIdx) => {
           const defaultOpen = group.defaultOpen || group.slug === "degrees";
           return (
             <div
-              key={group._id || group.slug}
+              key={group._id || group.slug || `group-${gIdx}`}
               className={cn(
                 "mobile-nav-group",
                 defaultOpen && "mobile-nav-open"
@@ -163,10 +163,11 @@ export function MobileNav({
               <div className="mobile-nav-links">
                 {group.children && group.children
                   .sort((a: any, b: any) => (a.position || 0) - (b.position || 0))
-                  .map((link: any) => {
+                  .map((link: any, lIdx: number) => {
                     const linkUrl = getNavigationUrl(link, group.slug);
+                    const linkKey = `${link._id || link.slug || 'link'}-${link.pageName || ''}-${lIdx}`;
                     return (
-                      <Link key={link._id || link.slug} href={linkUrl} onClick={onClose}>
+                      <Link key={linkKey} href={linkUrl} onClick={onClose}>
                         {link.pageName}
                       </Link>
                     );

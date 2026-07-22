@@ -181,11 +181,14 @@ export function SiteLayout({
         text("#salGain"),
         text("#repay"),
         text("#cvScore"),
-        text("#psScore")
+        text("#psScore"),
+        text("#careerTitle"),
+        text("#careerText")
       ]
         .filter(Boolean)
         .join(" · ") || "Tool result saved.";
     };
+
 
     win.ystudySaveCurrentTool = () => {
       return win.ystudySaveToolResult(win.ystudyToolType(), document.title, win.ystudySummary());

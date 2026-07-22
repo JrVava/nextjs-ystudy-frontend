@@ -1,24 +1,36 @@
 import { getCMSPageContent } from "@/services/cms.service";
 import "@/app/degrees/qualifications/qualifications.css";
-import { QBanner } from "@/components/ui/QBanner";
-import Link from "next/link";
+import {
+  HeroBanner,
+  QualificationSection2,
+  QualificationConversionCards,
+  QualificationCrosslinks,
+} from "@/components/ui";
 
 export default async function FoundationYear() {
   const data = await getCMSPageContent("foundation-year");
 
   return (
     <div className="qualification-page foundation-year-page">
-      <QBanner
-        slug="foundation-year"
-        layoutType="qhero"
-        fallbackTitle="Foundation Year — Year 0"
-        fallbackDescription="Learn how an integrated Foundation Year (Year 0) works as a standard funding-supported entry route for mature students."
-        fallbackBadgeText="YStudy qualification guide"
-        fallbackEyebrow="Degree Year 0"
-        fallbackBgImage="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=2000&q=85"
-        fallbackDuration="1 year"
-        fallbackLevel="Level 3 / Year 0"
-      />
+      <section className="qhero">
+        <HeroBanner
+          slug="foundation-year"
+          layoutType="qualification"
+          fallbackBadgeText="YStudy qualification guide"
+          fallbackBgImage="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=2000&q=85"
+        />
+        <QualificationSection2
+          section2Data={data?.section_2}
+          fallbackBadge="Degree Year 0"
+          fallbackTitle="Foundation Year — Year 0"
+          fallbackDescription="Learn how an integrated Foundation Year (Year 0) works as a standard funding-supported entry route for mature students."
+          fallbackStats={[
+            { title: "1 year", description: "Typical duration" },
+            { title: "Level 3 / Year 0", description: "Qualification level" },
+            { title: "Funding", description: "Check SFE route" },
+          ]}
+        />
+      </section>
 
       {/* WHAT IT IS SECTION */}
       {data?.section_3?.status !== false && (
@@ -363,67 +375,14 @@ export default async function FoundationYear() {
       )}
 
       {/* CONVERSION WIDGETS */}
-      {data?.section_14?.status !== false && (
-        <section className="ys-conversion-system" aria-label="YStudy next steps">
-          <div className="ys-conversion-wrap">
-            {data?.section_14?.cards && (
-              data.section_14.cards.map((c: any, idx: number) => {
-                let theme = "dark";
-                let btnLabel = "Book free call";
-                let href = "/lead/adviser-call";
-                if (idx === 0) {
-                  theme = "blue";
-                  btnLabel = "Check eligibility";
-                  href = "/tools/eligibility-checker";
-                } else if (idx === 1) {
-                  theme = "orange";
-                  btnLabel = "Start application";
-                  href = "/apply";
-                }
-                return (
-                  <a className={`ys-conversion-card ${theme}`} href={href} key={idx}>
-                    <div style={{ textAlign: "left" }}>
-                      <h2>{c.title}</h2>
-                      <p>{c.description}</p>
-                    </div>
-                    <span>{btnLabel}</span>
-                  </a>
-                );
-              })
-            )}
-          </div>
-        </section>
-      )}
+      <QualificationConversionCards
+        sectionData={data?.section_14}
+      />
 
       {/* NEXT STEPS FOOTER */}
-      {data?.section_15?.status !== false && (
-        <section className="ys-crosslinks" aria-label="Useful links">
-          <div className="inner" style={{ textAlign: "left" }}>
-            <div>
-              <h2>{data?.section_15?.title}</h2>
-              <p>{data?.section_15?.description}</p>
-            </div>
-            <div className="ys-link-grid">
-              {data?.section_15?.cards && (
-                data.section_15.cards.map((c: any, idx: number) => {
-                  let href = "/degrees";
-                  if (idx === 1) href = "/funding";
-                  else if (idx === 2) href = "/careers";
-                  else if (idx === 3) href = "/tools/degree-match";
-                  else if (idx === 4) href = "/tools/salary-checker";
-                  else if (idx === 5) href = "/guides";
-
-                  return (
-                    <a href={href} key={idx}>
-                      {c.title}
-                    </a>
-                  );
-                })
-              )}
-            </div>
-          </div>
-        </section>
-      )}
+      <QualificationCrosslinks
+        sectionData={data?.section_15}
+      />
     </div>
   );
 }

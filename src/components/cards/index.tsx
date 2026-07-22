@@ -8,9 +8,8 @@ export function SubjectTile(_props: PropsWithChildren) {
   return null;
 }
 
-export function ToolCard(_props: PropsWithChildren) {
-  return null;
-}
+
+
 
 export function InfoCard(_props: PropsWithChildren) {
   return null;

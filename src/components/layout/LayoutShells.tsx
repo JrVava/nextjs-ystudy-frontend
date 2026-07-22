@@ -20,7 +20,7 @@ export function CourseDetailLayout({ children }: PropsWithChildren) {
 
 export function ToolLayout({ children }: PropsWithChildren) {
   return (
-    <div className="tool-shell ys-unified ys-theme-split">{children}</div>
+    <div className="ys-unified ys-theme-split">{children}</div>
   );
 }
 

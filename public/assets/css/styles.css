@@ -22,7 +22,7 @@
 
 body {
   margin: 0;
-  font-family: Inter, Arial, sans-serif;
+  font-family: var(--font-body, Inter), Inter, Arial, sans-serif;
   background: #f7fbff;
   color: var(--ink)
 }

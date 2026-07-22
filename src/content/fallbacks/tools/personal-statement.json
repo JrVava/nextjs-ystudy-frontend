@@ -1,0 +1,76 @@
+{
+  "page": "personal-statement",
+  "section_2": {
+    "cards": [
+      {
+        "title": "Course choice first",
+        "description": "A strong statement matches the course. Use Degree Match Finder if you are not sure yet.",
+        "link": ""
+      },
+      {
+        "title": "Adviser review",
+        "description": "Send the draft to an adviser before applying. They can check tone, structure and course fit.",
+        "link": ""
+      },
+      {
+        "title": "Build CV too",
+        "description": "Your CV and statement should tell the same story about your experience and goals.",
+        "link": ""
+      }
+    ],
+    "status": true
+  },
+  "section_3": {
+    "title": "Need help making it sound professional?",
+    "description": "YStudy can help you keep the statement honest, clear and suitable for the course you want.",
+    "status": true
+  },
+  "section_4": {
+    "cards": [
+      {
+        "title": "Check if you can get funded.",
+        "description": "Quickly understand if you may qualify for Student Finance, grants and flexible university routes."
+      },
+      {
+        "title": "Apply with YStudy.",
+        "description": "Send us your details and we’ll help you choose the right course, prepare documents and move forward."
+      },
+      {
+        "title": "Speak with an adviser.",
+        "description": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      }
+    ],
+    "status": true
+  },
+  "section_5": {
+    "title": "Useful next steps",
+    "description": "Move from information to action. Compare degrees, check funding, explore careers and apply with support.",
+    "cards": [
+      {
+        "title": "Find degrees",
+        "link": "Quickly understand if you may qualify for Student Finance, grants and flexible university routes."
+      },
+      {
+        "title": "Funding hub",
+        "link": "Send us your details and we’ll help you choose the right course, prepare documents and move forward."
+      },
+      {
+        "title": "Careers & salaries",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      },
+      {
+        "title": "Degree Match",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      },
+      {
+        "title": "Salary Checker",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      },
+      {
+        "title": "Student guides",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      }
+    ],
+    "status": true
+  }
+}

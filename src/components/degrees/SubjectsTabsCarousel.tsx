@@ -1,9 +1,12 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { getAllCourses } from "@/services/course.service";
+import { BackendCourse } from "@/types/course";
+import { formatSalaryRange } from "./CourseCard";
 
-interface CourseCard {
+interface CourseCardData {
   image: string;
   tag: string;
   title: string;
@@ -17,10 +20,10 @@ interface TabData {
   heading: string;
   description: string;
   buttonLink: string;
-  courses: CourseCard[];
+  courses: CourseCardData[];
 }
 
-const subjectsData: TabData[] = [
+const FALLBACK_SUBJECTS_DATA: TabData[] = [
   {
     tabName: "Business",
     heading: "Business courses",
@@ -43,22 +46,6 @@ const subjectsData: TabData[] = [
         metas: ["📍 London", "📅 Blended", "💷 SFE eligible", "💰 £28k–£60k+"],
         viewLink: "/degrees",
       },
-      {
-        image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80",
-        tag: "Business",
-        title: "Business Management CertHE",
-        description: "One-year introductory program equivalent to the first year of a Bachelor's degree.",
-        metas: ["📍 London + Birmingham", "📅 Flexible", "💷 SFE route", "💰 £22k–£40k"],
-        viewLink: "/degrees",
-      },
-      {
-        image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=900&q=80",
-        tag: "Business",
-        title: "MSc International Business Management",
-        description: "Postgraduate degree designed to build global operations and leadership skills.",
-        metas: ["📍 London + more", "📅 Flexible", "💷 PG loan route", "💰 £35k–£80k+"],
-        viewLink: "/degrees",
-      },
     ],
   },
   {
@@ -74,22 +61,6 @@ const subjectsData: TabData[] = [
         description: "Supported route into care, community and wellbeing-focused study.",
         metas: ["📍 London + more", "📅 Flexible", "💷 SFE route", "💰 NHS focus"],
         viewLink: "/degrees/course/health-social-care-ba",
-      },
-      {
-        image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=900&q=80",
-        tag: "Health",
-        title: "Health & Social Care BA (Hons)",
-        description: "Wellbeing and community-focused pathway for healthcare professionals.",
-        metas: ["📍 London + Manchester", "📅 Flexible", "💷 SFE eligible", "💰 NHS focus"],
-        viewLink: "/degrees/course/health-social-care-ba",
-      },
-      {
-        image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=900&q=80",
-        tag: "Health",
-        title: "Healthcare Practice CertHE",
-        description: "Practical introduction into care management, health and wellness.",
-        metas: ["📍 London", "📅 Blended", "💷 SFE route", "💰 Entry level"],
-        viewLink: "/degrees",
       },
     ],
   },
@@ -107,22 +78,6 @@ const subjectsData: TabData[] = [
         metas: ["📍 London + Birmingham", "📅 Blended", "💷 SFE eligible", "💰 £28k–£75k+"],
         viewLink: "/degrees/course/computing-cybersecurity-bsc",
       },
-      {
-        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80",
-        tag: "Computing",
-        title: "Data Science with Foundation Year",
-        description: "Supported entry route into data, programming and analytics.",
-        metas: ["📍 London + more", "📅 Blended", "💷 SFE route", "💰 £26k–£65k"],
-        viewLink: "/degrees",
-      },
-      {
-        image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=900&q=80",
-        tag: "Computing",
-        title: "Cybersecurity & Data Science MSc",
-        description: "Advanced study focusing on threat mitigation, AI, and big data analysis.",
-        metas: ["📍 London + Online", "📅 Part-time", "💷 SFE eligible", "💰 £40k–£90k+"],
-        viewLink: "/degrees",
-      },
     ],
   },
   {
@@ -137,14 +92,6 @@ const subjectsData: TabData[] = [
         title: "Construction Management with Foundation Year",
         description: "Build academic skills alongside construction principles.",
         metas: ["📍 London", "📅 Evening/Weekend", "💷 SFE route", "💰 £30k–£65k"],
-        viewLink: "/degrees",
-      },
-      {
-        image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=900&q=80",
-        tag: "Construction",
-        title: "Construction Management BSc (Hons)",
-        description: "Degree focusing on project planning, safety, budgeting and engineering.",
-        metas: ["📍 London + Birmingham", "📅 Blended", "💷 SFE eligible", "💰 £35k–£80k+"],
         viewLink: "/degrees",
       },
     ],
@@ -163,14 +110,6 @@ const subjectsData: TabData[] = [
         metas: ["📍 London + Online", "📅 Flexible", "💷 SFE eligible", "💰 £26k–£70k+"],
         viewLink: "/degrees",
       },
-      {
-        image: "https://images.unsplash.com/photo-1589391886645-d51941baf7fb?auto=format&fit=crop&w=900&q=80",
-        tag: "Law",
-        title: "Law LLB with Foundation Year",
-        description: "Supported entry pathway for students who do not meet traditional entry criteria.",
-        metas: ["📍 London", "📅 Evening/Weekend", "💷 SFE route", "💰 £24k–£50k"],
-        viewLink: "/degrees",
-      },
     ],
   },
   {
@@ -187,23 +126,58 @@ const subjectsData: TabData[] = [
         metas: ["📍 London + Manchester", "📅 Flexible", "💷 SFE eligible", "💰 £24k–£55k"],
         viewLink: "/degrees",
       },
-      {
-        image: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=900&q=80",
-        tag: "Psychology",
-        title: "Psychology with Foundation Year",
-        description: "A supported pathway designed to prepare you for degree-level psychology.",
-        metas: ["📍 London", "📅 Blended", "💷 SFE route", "💰 £22k–£45k"],
-        viewLink: "/degrees",
-      },
     ],
   },
 ];
 
 export function SubjectsTabsCarousel() {
   const [activeTabIdx, setActiveTabIdx] = useState(0);
+  const [subjectsData, setSubjectsData] = useState<TabData[]>(FALLBACK_SUBJECTS_DATA);
   const carouselRef = useRef<HTMLDivElement>(null);
 
-  const activeTab = subjectsData[activeTabIdx];
+  useEffect(() => {
+    async function loadApiCourses() {
+      const apiCourses: BackendCourse[] = await getAllCourses();
+      if (!apiCourses || apiCourses.length === 0) return;
+
+      const updatedSubjects = FALLBACK_SUBJECTS_DATA.map((tab) => {
+        const tabLower = tab.tabName.toLowerCase();
+        const matching = apiCourses.filter((c) => {
+          let subjName = "";
+          if (typeof c.subject === "string") subjName = c.subject;
+          else if (c.subject?.name) subjName = c.subject.name;
+          else if (Array.isArray(c.subject) && c.subject.length > 0) subjName = c.subject[0]?.name || c.subject[0];
+
+          return subjName.toLowerCase().includes(tabLower) || c.title.toLowerCase().includes(tabLower);
+        });
+
+        if (matching.length > 0) {
+          const formattedCourses: CourseCardData[] = matching.map((c) => ({
+            image: c.fullImageUrl || c.image || "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80",
+            tag: tab.tabName,
+            title: c.title,
+            description: c.shortDescription || c.description || "Flexible degree route.",
+            metas: [
+              `📍 ${Array.isArray(c.locations) && c.locations.length > 0 ? c.locations.map((l: any) => (typeof l === 'string' ? l : l.name || l.title || l.city || '')).filter(Boolean).join(", ") || "London & UK" : "London & UK"}`,
+              "📅 Flexible",
+              "💷 SFE eligible",
+              `💰 ${formatSalaryRange(c.salaryRange || (c as any).salary)}`,
+            ],
+            viewLink: `/degrees/course/${c.slug}`,
+          }));
+
+          return { ...tab, courses: formattedCourses };
+        }
+        return tab;
+      });
+
+      setSubjectsData(updatedSubjects);
+    }
+
+    loadApiCourses();
+  }, []);
+
+  const activeTab = subjectsData[activeTabIdx] || subjectsData[0];
 
   const handleScroll = (direction: "left" | "right") => {
     if (!carouselRef.current) return;
@@ -222,9 +196,9 @@ export function SubjectsTabsCarousel() {
           <button
             key={idx}
             className={`v735-tab ${activeTabIdx === idx ? "active" : ""}`}
+            type="button"
             onClick={() => {
               setActiveTabIdx(idx);
-              // Reset carousel scroll on tab switch
               if (carouselRef.current) {
                 carouselRef.current.scrollTo({ left: 0 });
               }
@@ -247,10 +221,10 @@ export function SubjectsTabsCarousel() {
               View all {activeTab.tabName.toLowerCase()} routes →
             </Link>
             <div className="v735-controls">
-              <button className="v735-ctrl" onClick={() => handleScroll("left")}>
+              <button type="button" className="v735-ctrl" onClick={() => handleScroll("left")}>
                 ‹
               </button>
-              <button className="v735-ctrl" onClick={() => handleScroll("right")}>
+              <button type="button" className="v735-ctrl" onClick={() => handleScroll("right")}>
                 ›
               </button>
             </div>
