@@ -1,4 +1,5 @@
 import Locations from "@/pages/degrees/Locations";
+import "./locations.css";
 
 export const metadata = {
   title: "YStudy — Study Locations",

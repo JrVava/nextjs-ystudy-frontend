@@ -1,6 +1,6 @@
 import { getCMSPageContent } from "@/services/cms.service";
 import "@/app/tools/tools.css";
-import { Banner, QualificationConversionCards, QualificationCrosslinks, ToolAdviserBand } from "@/components/ui";
+import { Banner, QualificationConversionCards, QualificationCrosslinks, ToolAdviserBand, ToolAdviserStrip } from "@/components/ui";
 import CvBuilderWidget from "@/components/tools/CvBuilderWidget";
 import Link from "next/link";
 import React from "react";
@@ -13,20 +13,20 @@ export default async function CvBuilder() {
       {/* HERO BANNER WITH CMS INTEGRATION */}
       <Banner
         slug="cv-builder"
-        fallbackBadgeText={data?.section_2?.badge || "★ Free for students"}
-        fallbackTitle={data?.section_2?.title || "A CV that fits a non-traditional path."}
-        fallbackDescription={
-          data?.section_2?.description ||
-          "Designed for adult learners, career changers and employment gaps — guided prompts, professional format, ready to download."
-        }
+        fallbackBadgeText="★ Free for students"
+        fallbackTitle="A CV that fits a non-traditional path."
+        fallbackDescription="Designed for adult learners, career changers and employment gaps — guided prompts, professional format, ready to download."
         fallbackBgImage="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=2000&q=85"
         fallbackRightCard={{
-          layoutType: "stats-highlight",
-          title: "CV Tool Highlights",
-          mainValue: "100%",
+          layoutType: "list-items",
+          title: "Three steps",
+          mainValue: "",
+          description: "",
           items: [
-            { value: "Free", subtitle: "University-ready format" },
-            { value: "Instant", subtitle: "Auto summary generator" },
+            { value: "1", subtitle: "Your details" },
+            { value: "2", subtitle: "Experience" },
+            { value: "3", subtitle: "Download" },
+            { value: "✓", subtitle: "Ready" },
           ],
         }}
       >
@@ -44,7 +44,7 @@ export default async function CvBuilder() {
       <CvBuilderWidget section2Data={data?.section_2} section3Data={data?.section_3} />
 
       {/* ADVISER BAND */}
-      <ToolAdviserBand sectionData={data?.section_4} />
+      <ToolAdviserStrip sectionData={data?.section_4} />
 
       {/* THREE LINK CARDS CONVERSION SYSTEM */}
       <QualificationConversionCards sectionData={data?.section_5} />
@@ -54,3 +54,4 @@ export default async function CvBuilder() {
     </div>
   );
 }
+

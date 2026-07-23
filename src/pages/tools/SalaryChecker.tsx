@@ -21,12 +21,13 @@ export default async function SalaryChecker() {
         }
         fallbackBgImage="https://images.unsplash.com/photo-1543286386-713bdd548da4?auto=format&fit=crop&w=2000&q=85"
         fallbackRightCard={{
-          layoutType: "stats-highlight",
-          title: "Sample Progression",
+          layoutType: "list-items",
+          title: "Sample route",
           mainValue: "£24k → £55k+",
+          description: "",
           items: [
-            { value: "£28k", subtitle: "Graduate start" },
-            { value: "£75k+", subtitle: "Senior role" },
+            { value: "£28k", subtitle: "Computing start" },
+            { value: "£75k+", subtitle: "Senior cyber" },
           ],
         }}
       >
