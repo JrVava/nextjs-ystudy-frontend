@@ -16,3 +16,9 @@ export { QualificationConversionCards } from "./QualificationConversionCards";
 export { QualificationCrosslinks } from "./QualificationCrosslinks";
 export { ToolAdviserBand } from "./ToolAdviserBand";
 export { ToolCard } from "./ToolCard";
+export { FundingRisksGrid } from "./FundingRisksGrid";
+export { DegreeMatchAdviserBand } from "./DegreeMatchAdviserBand";
+export { ToolAdviserStrip } from "./ToolAdviserStrip";
+
+
+

@@ -1,6 +1,6 @@
 import "@/app/tools/tools.css";
 import DegreeMatchWidget from "@/components/tools/DegreeMatchWidget";
-import { Banner, QualificationConversionCards, QualificationCrosslinks, ToolAdviserBand } from "@/components/ui";
+import { Banner, DegreeMatchAdviserBand, QualificationConversionCards, QualificationCrosslinks } from "@/components/ui";
 import { getCMSPageContent } from "@/services/cms.service";
 import Link from "next/link";
 
@@ -43,38 +43,7 @@ export default async function DegreeMatchFinder() {
       <DegreeMatchWidget sectionData={data?.section_2} />
 
       {/* ADVISER BAND */}
-      {data?.section_3?.status !== false && (
-        <footer className="section white">
-          <div className="container">
-            <div
-              className="final-cta"
-              style={{
-                background:
-                  'linear-gradient(135deg, rgba(6, 17, 38, 0.94), rgba(6, 17, 38, 0.55)), url("https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1800&q=85") center/cover',
-                padding: 'clamp(32px, 4.5vw, 64px)',
-                borderRadius: '42px',
-                gridTemplate: 'none',
-                gap: 0,
-              }}
-            >
-              <span className="kicker">{data?.section_3?.badge || "YStudy"}</span>
-              <h2>{data?.section_3?.title || "Not sure what to do next?"}</h2>
-              <p style={{ fontSize: 'var(--fs-body) !important' }}>
-                {data?.section_3?.description ||
-                  "Start with a quick route check, then speak to a YStudy adviser before you apply."}
-              </p>
-              <div className="btnrow">
-                <Link className="btn btn-orange" href="/tools/degree-match">
-                  Degree Match Finder
-                </Link>
-                <Link className="btn btn-white" href="/lead/adviser-call">
-                  Book Adviser Call
-                </Link>
-              </div>
-            </div>
-          </div>
-        </footer>
-      )}
+      <DegreeMatchAdviserBand sectionData={data?.section_3} />
 
       {/* THREE LINK CARDS CONVERSION SYSTEM */}
       <QualificationConversionCards sectionData={data?.section_4} />

@@ -1360,7 +1360,6 @@ body:has(.hero-copy .kicker:first-child) .hero img {
 }
 
 .advanced-filter-head {
-  display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 16px;

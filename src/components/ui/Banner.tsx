@@ -1,6 +1,5 @@
 import { getBannerBySlug } from "@/services/banner.service";
 import "@/app/degrees/degrees.css";
-import "@/app/degrees/locations/locations.css";
 
 import { getMediaUrl } from "@/lib/utils";
 import React from "react";
@@ -83,73 +82,75 @@ export async function Banner({
             </div>
           ) : (
             fallbackRightCard && fallbackRightCard.layoutType && fallbackRightCard.layoutType !== 'none' && (
-              <div className="hcards-container">
-                <div className="banner-card">
-                  {fallbackRightCard.title && (
-                    <h3 className="card-title">{fallbackRightCard.title}</h3>
-                  )}
-                  {fallbackRightCard.description && (
-                    <p className="card-description">{fallbackRightCard.description}</p>
-                  )}
-
-                  {fallbackRightCard.layoutType === 'stacked-cards' && fallbackRightCard.items && (
-                    <div className="layout-stacked-cards">
+              <div className={`${fallbackRightCard.layoutType === 'list-items' ? 'tlh' : 'hcards-container'}`}>
+                {fallbackRightCard.layoutType === 'list-items' && fallbackRightCard.items ? (
+                  <div className="loc-glass tlpanel">
+                    <div className="tph">{fallbackRightCard.title || 'Sample result'}</div>
+                    {fallbackRightCard.mainValue && <div className="big">{fallbackRightCard.mainValue}</div>}
+                    <div className="sub">{fallbackRightCard.description || 'BA Business Management · SFE eligible'}</div>
+                    <div className="tlgrid loc-mini-list">
                       {fallbackRightCard.items.map((item, idx) => (
-                        <div key={idx} className="stacked-card-item">
-                          {item.subtitle && (
-                            <div className="item-subtitle">{item.subtitle}</div>
-                          )}
-                          <div className="item-title">{item.title}</div>
-                          {item.description && (
-                            <div className="item-desc">{item.description}</div>
-                          )}
+                        <div className="c loc-mini" key={idx}>
+                          <b>{item.value || item.title || '0%'}</b>
+                          <span>{item.description || item.subtitle || item.title || ''}</span>
                         </div>
                       ))}
                     </div>
-                  )}
+                  </div>
+                ) : (
+                  <div className="banner-card">
+                    {fallbackRightCard.title && (
+                      <h3 className="card-title">{fallbackRightCard.title}</h3>
+                    )}
+                    {fallbackRightCard.description && (
+                      <p className="card-description">{fallbackRightCard.description}</p>
+                    )}
 
-                  {fallbackRightCard.layoutType === 'grid-2x2' && fallbackRightCard.items && (
-                    <div className="layout-grid-2x2">
-                      {fallbackRightCard.items.map((item, idx) => (
-                        <div key={idx} className="grid-item">
-                          <div className="grid-item-title">{item.title}</div>
-                          <div className="grid-item-value">{item.value || item.subtitle || '—'}</div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-
-                  {fallbackRightCard.layoutType === 'list-items' && fallbackRightCard.items && (
-                    <div className="layout-list-items">
-                      {fallbackRightCard.items.map((item, idx) => (
-                        <div key={idx} className="list-item-row">
-                          <div className="list-item-left">
-                            <div className="list-item-title">{item.title}</div>
-                            {item.subtitle && <div className="list-item-subtitle">{item.subtitle}</div>}
+                    {fallbackRightCard.layoutType === 'stacked-cards' && fallbackRightCard.items && (
+                      <div className="layout-stacked-cards">
+                        {fallbackRightCard.items.map((item, idx) => (
+                          <div key={idx} className="stacked-card-item">
+                            {item.subtitle && (
+                              <div className="item-subtitle">{item.subtitle}</div>
+                            )}
+                            <div className="item-title">{item.title}</div>
+                            {item.description && (
+                              <div className="item-desc">{item.description}</div>
+                            )}
                           </div>
-                          <div className="list-item-value">{item.value || ''}</div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
+                        ))}
+                      </div>
+                    )}
 
-                  {fallbackRightCard.layoutType === 'stats-highlight' && (
-                    <div className="layout-stats-highlight">
-                      <div className="stats-label">{fallbackRightCard.mainValue ? "Highlights" : ""}</div>
-                      <div className="stats-value">{fallbackRightCard.mainValue || '~£0'}</div>
-                      {fallbackRightCard.items && (
-                        <div className="stats-subgrid">
-                          {fallbackRightCard.items.map((item, idx) => (
-                            <div key={idx} className="stats-subitem">
-                              <div className="stats-subitem-val">{item.value || item.title || '£0'}</div>
-                              <div className="stats-subitem-lbl">{item.subtitle || item.description || 'Stat'}</div>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </div>
+                    {fallbackRightCard.layoutType === 'grid-2x2' && fallbackRightCard.items && (
+                      <div className="layout-grid-2x2">
+                        {fallbackRightCard.items.map((item, idx) => (
+                          <div key={idx} className="grid-item">
+                            <div className="grid-item-title">{item.title}</div>
+                            <div className="grid-item-value">{item.value || item.subtitle || '—'}</div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {fallbackRightCard.layoutType === 'stats-highlight' && (
+                      <div className="layout-stats-highlight">
+                        <div className="stats-label">{fallbackRightCard.mainValue ? "Highlights" : ""}</div>
+                        <div className="stats-value">{fallbackRightCard.mainValue || '~£0'}</div>
+                        {fallbackRightCard.items && (
+                          <div className="stats-subgrid">
+                            {fallbackRightCard.items.map((item, idx) => (
+                              <div key={idx} className="stats-subitem">
+                                <div className="stats-subitem-val">{item.value || item.title || '£0'}</div>
+                                <div className="stats-subitem-lbl">{item.subtitle || item.description || 'Stat'}</div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             )
           )}
@@ -221,20 +222,21 @@ export async function Banner({
             </div>
           ) : (
             rightCard && rightCard.layoutType && rightCard.layoutType !== 'none' && (
-              <div className="hcards-container">
+              <div className={`${rightCard.layoutType === 'list-items' ? 'tlh' : 'hcards-container'}`}>
                 {rightCard.layoutType === 'list-items' && rightCard.items ? (
-                  <aside className="loc-glass">
-                    {rightCard.title && <h3>{rightCard.title}</h3>}
-                    {rightCard.description && <p>{rightCard.description}</p>}
-                    <div className="loc-mini-list">
+                  <div className="loc-glass tlpanel">
+                    <div className="tph">{rightCard.title || 'Sample result'}</div>
+                    {rightCard.mainValue && <div className="big">{rightCard.mainValue}</div>}
+                    <div className="sub">{rightCard.description || 'BA Business Management · SFE eligible'}</div>
+                    <div className="tlgrid loc-mini-list">
                       {rightCard.items.map((item, idx) => (
-                        <div className="loc-mini" key={idx}>
-                          <span>{item.title}</span>
-                          <span>{item.description || item.description || ""}</span>
+                        <div className="c loc-mini" key={idx}>
+                          <b>{item.value || item.title || '0%'}</b>
+                          <span>{item.description || item.subtitle || item.title || ''}</span>
                         </div>
                       ))}
                     </div>
-                  </aside>
+                  </div>
                 ) : (
                   <div className="banner-card">
                     {rightCard.title && (

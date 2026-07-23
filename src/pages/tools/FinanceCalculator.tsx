@@ -1,12 +1,13 @@
 import { getCMSPageContent } from "@/services/cms.service";
 import "@/app/tools/tools.css";
-import { Banner, QualificationConversionCards, QualificationCrosslinks, ToolAdviserBand } from "@/components/ui";
+import { Banner, FundingRisksGrid, QualificationConversionCards, QualificationCrosslinks, ToolAdviserBand } from "@/components/ui";
 import FinanceCalculatorWidget from "@/components/tools/FinanceCalculatorWidget";
+
 import Link from "next/link";
 import React from "react";
 
 export default async function FinanceCalculator() {
-  const data = await getCMSPageContent("finance-calculator");
+  const data = await getCMSPageContent("funding-checker");
 
   return (
     <div className="tools-page finance-calculator-page">
@@ -42,6 +43,28 @@ export default async function FinanceCalculator() {
 
       {/* FINANCE CALCULATOR INTERACTIVE WIDGET */}
       <FinanceCalculatorWidget sectionData={data?.section_2} />
+
+      {/* FUNDING RISKS GRID */}
+      <FundingRisksGrid sectionData={data?.section_3} />
+
+      {data?.section_4?.status && (
+        <section className="section tight">
+          <div className="container">
+            <div className="cta-wide">
+              <div>
+                <h2>{data?.section_4?.title || "Want help checking your funding?"}</h2>
+                <p>
+                  {data?.section_4?.description ||
+                    "Send your result to YStudy and we’ll help you understand your best next step."}
+                </p>
+              </div>
+              <Link className="btn btn-orange" href="/lead/adviser-call">
+                Book free call →
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ADVISER BAND */}
       <ToolAdviserBand sectionData={data?.section_5} />

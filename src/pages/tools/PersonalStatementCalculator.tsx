@@ -1,31 +1,29 @@
 import { getCMSPageContent } from "@/services/cms.service";
 import "@/app/tools/tools.css";
-import { Banner, QualificationConversionCards, QualificationCrosslinks, ToolAdviserBand } from "@/components/ui";
+import { Banner, QualificationConversionCards, QualificationCrosslinks, ToolAdviserStrip } from "@/components/ui";
 import PersonalStatementWidget from "@/components/tools/PersonalStatementWidget";
 import Link from "next/link";
 import React from "react";
 
 export default async function PersonalStatementCalculator() {
-  const data = await getCMSPageContent("personal-statement-calculator");
+  const data = await getCMSPageContent("personal-statement");
 
   return (
     <div className="tools-page ps-calculator-page">
       {/* HERO BANNER WITH CMS INTEGRATION */}
       <Banner
         slug="personal-statement-calculator"
-        fallbackBadgeText={data?.section_2?.badge || "★ Free · guided"}
-        fallbackTitle={data?.section_2?.title || "Say why you, in your own words."}
-        fallbackDescription={
-          data?.section_2?.description ||
-          "Answer simple guided questions and we'll shape them into a clear, confident personal statement admissions teams get."
-        }
+        fallbackBadgeText="★ Free · guided"
+        fallbackTitle="Say why you, in your own words."
+        fallbackDescription="Answer simple guided questions and we’ll shape them into a clear, confident personal statement admissions teams get."
         fallbackBgImage="https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=2000&q=85"
         fallbackRightCard={{
-          layoutType: "stacked-cards",
-          title: "Statement Builder",
+          layoutType: "list-items",
+          title: "Draft progress",
+          mainValue: "4 of 5 done",
+          description: "Motivation · experience · goals",
           items: [
-            { subtitle: "Step 1", title: "Course & Motivation", description: "Name your goal & why this subject" },
-            { subtitle: "Step 2", title: "Experience & Skills", description: "Transferable skills & real examples" },
+            { value: "80%", subtitle: "Progress" }
           ],
         }}
       >
@@ -43,7 +41,7 @@ export default async function PersonalStatementCalculator() {
       <PersonalStatementWidget section2Data={data?.section_2} />
 
       {/* ADVISER BAND */}
-      <ToolAdviserBand sectionData={data?.section_3} />
+      <ToolAdviserStrip sectionData={data?.section_3} />
 
       {/* THREE LINK CARDS CONVERSION SYSTEM */}
       <QualificationConversionCards sectionData={data?.section_4} />
@@ -53,3 +51,4 @@ export default async function PersonalStatementCalculator() {
     </div>
   );
 }
+
