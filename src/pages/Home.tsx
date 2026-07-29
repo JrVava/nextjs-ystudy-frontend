@@ -2,9 +2,29 @@ import { SiteLayout } from "@/components/layout";
 import { getCMSPageContent } from "@/services/cms.service";
 import { Banner } from "@/components/ui/Banner";
 import EligibilityWidget from "@/components/widgets/EligibilityWidget";
+import { getAllCourses } from "@/services/course.service";
+import { getSubjects } from "@/services/filters.service";
+import { getFAQBySlug } from "@/services/faq.service";
+import HomeJourneyWidget from "@/components/widgets/HomeJourneyWidget";
+import { TrustBar, PhotoOverlayBand, ComparisonTable, FinalCta } from "@/components/sections";
+import { CourseCard } from "@/components/degrees/CourseCard";
+
+const getBadgeClass = (badge: string, code: string) => {
+  const b = badge.toLowerCase();
+  if (b.includes("full")) return "full";
+  if (b.includes("prot")) return "prot";
+  if (b.includes("part") || b.includes("adviser")) return "part";
+  if (code === "RF") return "prot";
+  return "full";
+};
 
 export default async function Home() {
-  const data = await getCMSPageContent("home");
+  const [data, allCourses, subjects, faqs] = await Promise.all([
+    getCMSPageContent("home"),
+    getAllCourses(3),
+    getSubjects(6),
+    getFAQBySlug("home")
+  ]);
 
   const renderCell = (val: string) => {
     if (val === "check" || val === "✓") return <span className="yes">✓</span>;
@@ -17,10 +37,10 @@ export default async function Home() {
     <SiteLayout>
       {/* SECTION 1: HERO (DYNAMIZED WITH BANNER MODULE) */}
       <Banner slug="home">
-        <div className="hsearch">
-          <input placeholder="Search subject, course or career…" />
-          <a className="btn black" href="/degrees">Search →</a>
-        </div>
+        <form action="/degrees" method="GET" className="hsearch">
+          <input name="search" placeholder="Search subject, course or career…" />
+          <button type="submit" className="btn black">Search →</button>
+        </form>
         <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginTop: "18px" }}>
           <a className="btn white lg" href="/tools/eligibility-checker">Check funding eligibility →</a>
           <a className="btn ghost lg" href="/tools">Try the free tools</a>
@@ -49,57 +69,30 @@ export default async function Home() {
       )}
 
       {/* TRUST STRIP (Section 2 sub-elements / Dot Points) */}
-      <section className="sec tight">
-        <div className="wrap">
-          <div className="trust">
-            {data?.section_2?.dot_points ? (
-              data.section_2.dot_points.map((pt: string, idx: number) => (
-                <span key={idx}>
-                  {idx > 0 && <span className="d"></span>}
-                  {pt}
-                </span>
-              ))
-            ) : (
-              <>
-                <span>Trusted by adult learners across the UK</span>
-                <span className="d"></span><span>✓ SFE eligible courses</span>
-                <span className="d"></span><span>✓ Free adviser guidance</span>
-                <span className="d"></span><span>✓ Flexible &amp; blended study</span>
-                <span className="d"></span><span>✓ UCAS-style search</span>
-              </>
-            )}
-          </div>
-        </div>
-      </section>
+      <TrustBar dotPoints={data?.section_2?.dot_points} status={data?.section_2?.status} />
 
       {/* SECTION 3: IMPACT & STATISTICS */}
       {data?.section_3?.status !== false && (
-        <section className="sec">
-          <div className="wrap">
-            <div className="povl bleed">
-              <img className="bg" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=2000&q=85" alt="" />
-              <div className="sc sc-blue"></div>
-              <div className="inner wide">
-                <span className="eyebrow glass" style={{ marginBottom: "18px" }}>{data?.section_3?.badge}</span>
-                <h2 className="h1" style={{ color: "#fff", marginBottom: "8px" }}>{data?.section_3?.title}</h2>
-                <div className="impact" style={{ gridTemplateColumns: "repeat(4,auto)", justifyContent: "start", textAlign: "left", gap: "clamp(20px,3vw,48px)", marginTop: "28px" }}>
-                  {data?.section_3?.statistics ? (
-                    data.section_3.statistics.map((stat: any, idx: number) => (
-                      <div key={idx} className="it"><b>{stat.value}</b><span>{stat.label}</span></div>
-                    ))
-                  ) : (
-                    <>
-                      <div className="it"><b>2,400+</b><span>courses compared</span></div>
-                      <div className="it"><b>12,000+</b><span>learners helped</span></div>
-                      <div className="it"><b>£14k+</b><span>avg support</span></div>
-                      <div className="it"><b>£0</b><span>always free</span></div>
-                    </>
-                  )}
-                </div>
-              </div>
+        <PhotoOverlayBand bgImage="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=2000&q=85" scrimColor="blue">
+          <div className="inner wide">
+            <span className="eyebrow glass" style={{ marginBottom: "18px" }}>{data?.section_3?.badge}</span>
+            <h2 className="h1" style={{ color: "#fff", marginBottom: "8px" }}>{data?.section_3?.title}</h2>
+            <div className="impact" style={{ gridTemplateColumns: "repeat(4,auto)", justifyContent: "start", textAlign: "left", gap: "clamp(20px,3vw,48px)", marginTop: "28px" }}>
+              {data?.section_3?.statistics ? (
+                data.section_3.statistics.map((stat: any, idx: number) => (
+                  <div key={idx} className="it"><b>{stat.value}</b><span>{stat.label}</span></div>
+                ))
+              ) : (
+                <>
+                  <div className="it"><b>2,400+</b><span>courses compared</span></div>
+                  <div className="it"><b>12,000+</b><span>learners helped</span></div>
+                  <div className="it"><b>£14k+</b><span>avg support</span></div>
+                  <div className="it"><b>£0</b><span>always free</span></div>
+                </>
+              )}
             </div>
           </div>
-        </section>
+        </PhotoOverlayBand>
       )}
 
       {/* SECTION 4: POPULAR DEGREES */}
@@ -114,33 +107,14 @@ export default async function Home() {
               <a className="btn outline" href="/degrees">Browse all degrees →</a>
             </div>
             <div className="g3 ys-carousel-mobile">
-              {data?.section_4?.cards?.map((c: any, idx: number) => (
-                <article key={idx} className="c-wrap">
-                  <div className="img">
-                    <img src={c.image} alt="" />
-                    <button className="csave" type="button" aria-pressed="false" aria-label="Save course" title="Save">
-                      <span className="ho">♡</span><span className="hi">♥</span>
-                    </button>
-                    <span className="tag">{c.tag}</span>
-                  </div>
-                  <div className="body">
-                    <h3 className="h3">{c.title}</h3>
-                    <p className="desc">{c.description}</p>
-                    <div className="pills">
-                      {c.pills?.map((p: string, pIdx: number) => (
-                        <span key={pIdx} className={`pill ${p === "SFE eligible" ? "o" : ""}`}>{p}</span>
-                      ))}
-                    </div>
-                    <div className="metric">
-                      <span>{c.salaryLabel}</span><b>{c.salaryValue}</b>
-                    </div>
-                    <div className="pills" style={{ marginTop: "16px" }}>
-                      <a className="btn blue sm" href={c.courseLink}>View course</a>
-                      <a className="btn orange sm" href="/apply">Apply</a>
-                    </div>
-                  </div>
-                </article>
-              ))}
+              {(() => {
+                const popularCourseSlugs = ["business-management-ba", "computing-cybersecurity-bsc", "health-social-care-ba"];
+                const popularCourses = allCourses.filter(c => popularCourseSlugs.includes(c.slug));
+                const displayCourses = (popularCourses.length > 0 ? popularCourses : allCourses).slice(0, 3);
+                return displayCourses.map((c) => (
+                  <CourseCard key={c._id} course={c} variant="grid" />
+                ));
+              })()}
             </div>
           </div>
         </section>
@@ -196,15 +170,36 @@ export default async function Home() {
               <a className="btn outline" href="/degrees/subjects">All subjects →</a>
             </div>
             <div className="g3 ys-carousel-mobile">
-              {data?.section_6?.subjects?.map((s: any, idx: number) => (
-                <article key={idx} className="subj">
-                  <img src={s.image} alt="" />
-                  <div className="lab">
-                    <b>{s.title}</b>
-                    <span>{s.count}</span>
-                  </div>
-                </article>
-              ))}
+              {(() => {
+                const displaySubjects = ((subjects || []) as any[]).map((sub) => {
+                  const title = sub.title || sub.name || "";
+                  let count = 0;
+                  allCourses.forEach((c) => {
+                    const cSub = c.subject || c.subjects;
+                    const subs = Array.isArray(cSub) ? cSub : cSub ? [cSub] : [];
+                    const match = subs.some((s) => {
+                      const sTitle = s?.title || s?.name || (typeof s === "string" ? s : "");
+                      return sTitle.toLowerCase().includes(title.toLowerCase()) || title.toLowerCase().includes(sTitle.toLowerCase());
+                    });
+                    if (match) count++;
+                  });
+                  return {
+                    title,
+                    count: `${count} course${count !== 1 ? "s" : ""}`,
+                    image: sub.fullImageUrl || sub.image || "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80",
+                    slug: sub.slug
+                  };
+                });
+                return displaySubjects.map((s, idx) => (
+                  <a key={idx} href={`/degrees?subject=${encodeURIComponent(s.title)}`} className="subj">
+                    <img src={s.image} alt="" />
+                    <div className="lab">
+                      <b>{s.title}</b>
+                      <span>{s.count}</span>
+                    </div>
+                  </a>
+                ));
+              })()}
             </div>
           </div>
         </section>
@@ -222,7 +217,40 @@ export default async function Home() {
               <a className="btn outline" href="/tools">All tools →</a>
             </div>
             <div className="g4 ys-carousel-mobile">
-              {data?.section_7?.tools?.map((t: any, idx: number) => (
+              {(data?.section_7?.tools || [
+                {
+                  title: "Degree Match",
+                  description: "Answer a few questions, get one recommended route.",
+                  link: "/tools/degree-match",
+                  btnLabel: "Start quiz →",
+                  image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=700&q=80",
+                  tag: "Quiz"
+                },
+                {
+                  title: "Finance Calculator",
+                  description: "Estimate tuition and maintenance support fast.",
+                  link: "/tools/finance-calculator",
+                  btnLabel: "Calculate →",
+                  image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=700&q=80",
+                  tag: "Calculator"
+                },
+                {
+                  title: "Salary Checker",
+                  description: "Compare salary ranges by subject and stage.",
+                  link: "/tools/salary-checker",
+                  btnLabel: "Check →",
+                  image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=700&q=80",
+                  tag: "Checker"
+                },
+                {
+                  title: "English Checker",
+                  description: "Check your English level before you apply.",
+                  link: "/tools/english-level-checker",
+                  btnLabel: "Start test →",
+                  image: "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?auto=format&fit=crop&w=700&q=80",
+                  tag: "English"
+                }
+              ]).map((t: any, idx: number) => (
                 <article key={idx} className="c-wrap tool">
                   <div className="img"><img src={t.image} alt="" /><span className="tag">{t.tag}</span></div>
                   <div className="body">
@@ -248,30 +276,23 @@ export default async function Home() {
               </div>
               <p className="lead">Free guidance and funding clarity you don't get going direct.</p>
             </div>
-            <div className="why">
-              <div className="r h">
-                <div>{data?.section_8?.headers?.feature_header || "What you get"}</div>
-                <div>{data?.section_8?.headers?.ystudy_header || "With YStudy"}</div>
-                <div>{data?.section_8?.headers?.direct_header || "Going direct"}</div>
-              </div>
-              {data?.section_8?.rows ? (
-                data.section_8.rows.map((row: any, idx: number) => (
-                  <div key={idx} className="r">
-                    <div>{row.feature}</div>
-                    <div>{renderCell(row.with_ystudy)}</div>
-                    <div>{renderCell(row.going_direct)}</div>
-                  </div>
-                ))
-              ) : (
-                <>
-                  <div className="r"><div>Free adviser guidance</div><div className="yes">✓</div><div className="no">✕</div></div>
-                  <div className="r"><div>Funding &amp; eligibility check</div><div className="yes">✓</div><div className="no">✕</div></div>
-                  <div className="r"><div>Compare flexible routes</div><div className="yes">✓</div><div className="no">Limited</div></div>
-                  <div className="r"><div>Application support</div><div className="yes">✓</div><div className="no">✕</div></div>
-                  <div className="r"><div>Always free</div><div className="yes">✓</div><div className="no">—</div></div>
-                </>
-              )}
-            </div>
+            <ComparisonTable
+              className="why"
+              variant="grid"
+              headers={[
+                data?.section_8?.headers?.feature_header || "What you get",
+                data?.section_8?.headers?.ystudy_header || "With YStudy",
+                data?.section_8?.headers?.direct_header || "Going direct"
+              ]}
+              rows={data?.section_8?.rows || [
+                { feature: "Free adviser guidance", with_ystudy: "✓", going_direct: "✕" },
+                { feature: "Funding & eligibility check", with_ystudy: "✓", going_direct: "✕" },
+                { feature: "Compare flexible routes", with_ystudy: "✓", going_direct: "Limited" },
+                { feature: "Application support", with_ystudy: "✓", going_direct: "✕" },
+                { feature: "Always free", with_ystudy: "✓", going_direct: "—" }
+              ]}
+              renderCell={(val) => renderCell(val)}
+            />
           </div>
         </section>
       )}
@@ -328,7 +349,7 @@ export default async function Home() {
                     <article key={idx} className="imm">
                       <div className="top">
                         <span className="code">{card.code}</span>
-                        <span className="badge full">{card.badge}</span>
+                        <span className={`badge ${getBadgeClass(card.badge, card.code)}`}>{card.badge}</span>
                       </div>
                       <p className="desc">{card.description}</p>
                     </article>
@@ -457,7 +478,7 @@ export default async function Home() {
                 <span className="eyebrow o">{data?.section_13?.badge}</span>
                 <h2 className="h1" style={{ marginTop: "16px" }}>{data?.section_13?.title}</h2>
               </div>
-              <a className="btn outline" href="/success-stories">More stories →</a>
+              <a className="btn outline" style={{ border: '2px solid var(--ink)' }} href="/success-stories">More stories →</a>
             </div>
             <div className="g3 ys-carousel-mobile">
               {data?.section_13?.card ? (
@@ -603,13 +624,7 @@ export default async function Home() {
                 <span className="eyebrow gold" style={{ marginBottom: "16px" }}>{data?.section_15?.badge}</span>
                 <h2 className="h1" style={{ color: "#fff", marginBottom: "14px" }}>{data?.section_15?.title}</h2>
                 <p className="lead" style={{ color: "#aebed6", marginBottom: "24px" }}>{data?.section_15?.description}</p>
-                <div className="note-box home-journey-note" style={{ marginBottom: "22px" }}>
-                  <b style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                    <span className="home-journey-num" style={{ width: "30px", height: "30px", borderRadius: "9px", background: "var(--b)", display: "grid", placeItems: "center", fontSize: "14px" }}>1</span>
-                    <span className="home-journey-title">Check if university fits your life</span>
-                  </b>
-                  <p className="home-journey-text">Start with your work pattern, family time, travel and study confidence.</p>
-                </div>
+                <HomeJourneyWidget changingCard={data?.section_15?.changing_card} />
                 <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
                   <a className="btn orange lg" href="/apply">Start my journey →</a>
                   <a className="btn white lg" href="/lead/adviser-call">Talk to adviser</a>
@@ -649,58 +664,49 @@ export default async function Home() {
         </section>
       )}
 
-      {/* SECTION 16: FLEXIBLE WORK / ADULT LEARNERS */}
+      {/* SECTION 16: BREAKER (QUOTE BAND) */}
       {data?.section_16?.status !== false && (
-        <section className="sec soft">
+        <section className="sec">
           <div className="wrap">
-            <div className="g2" style={{ alignItems: "center", gap: "clamp(30px,4vw,60px)" }}>
-              <div>
-                <span className="eyebrow o" style={{ marginBottom: "16px" }}>{data?.section_16?.badge || "Flexible work & study"}</span>
-                <h2 className="h1" style={{ marginBottom: "14px" }}>{data?.section_16?.title || "We support you every step of the way."}</h2>
-                <p className="lead" style={{ marginBottom: "20px" }}>{data?.section_16?.description || "Get a degree that matches your study level..."}</p>
-                <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-                  <a className="btn orange lg" href="/how-guidance-works">How guidance works →</a>
-                  <a className="btn outline lg" href="/why-ystudy">Read more</a>
-                </div>
-              </div>
-              <div className="feature-grid">
-                {data?.section_16?.features ? (
-                  data.section_16.features.map((feat: any, idx: number) => (
-                    <article key={idx} className="feat">
-                      <div className="ico">{feat.icon || "✓"}</div>
-                      <h4>{feat.title}</h4>
-                      <p>{feat.description}</p>
-                    </article>
-                  ))
-                ) : (
-                  <>
-                    <article className="feat"><div className="ico">📅</div><h4>Flexible study options</h4><p>Blended, online or evening routes that fit around work, childcare or other responsibilities.</p></article>
-                    <article className="feat"><div className="ico">💵</div><h4>Full funding guides</h4><p>Step-by-step guides to maintenance support, childcare grants and tuition fee loan applications.</p></article>
-                    <article className="feat"><div className="ico">☎</div><h4>1-on-1 expert support</h4><p>Our experienced advisers explain terms, check entry needs and support you throughout application.</p></article>
-                    <article className="feat"><div className="ico">💯</div><h4>Always 100% free</h4><p>No fees, no hidden costs. Our guidance and tools are completely free to all learners.</p></article>
-                  </>
-                )}
-              </div>
+            <div className="breaker">
+              <div className="mark">“</div>
+              <blockquote>{data?.section_16?.title || "You're not behind. You're exactly where your next step begins — and we'll walk it with you."}</blockquote>
+              <div className="by">{data?.section_16?.description || "— The YStudy promise to every adult learner"}</div>
             </div>
           </div>
         </section>
       )}
 
-      {/* SECTION 17: HOME FAQ */}
+      {/* SECTION 17: HOW IT WORKS (FOUR STEPS) */}
       {data?.section_17?.status !== false && (
         <section className="sec">
           <div className="wrap">
-            <div className="shead row">
-              <div>
-                <span className="eyebrow b">{data?.section_17?.badge || "Frequently asked questions"}</span>
-                <h2 className="h1" style={{ marginTop: "16px" }}>{data?.section_17?.title || "Got questions? We've got answers."}</h2>
-              </div>
-              <a className="btn outline" href="/faq">All FAQs →</a>
+            <div className="shead">
+              <span className="eyebrow b">{data?.section_17?.badge || "How it works"}</span>
+              <h2 className="h1" style={{ marginTop: "16px" }}>{data?.section_17?.title || "From unsure to enrolled, in four steps."}</h2>
             </div>
-            <div className="faq-grid">
-              {data?.section_17?.questions ? (
-                data.section_17.questions.map((q: any, idx: number) => (
-                  <div key={idx} className="q">
+            <div className="steps">
+              <div className="step"><div className="n">1</div><h3 className="h3">Find your route</h3><p className="desc">Use the match finder or search to shortlist degrees that fit your life.</p></div>
+              <div className="step"><div className="n">2</div><h3 className="h3">Check funding</h3><p className="desc">See your Student Finance support with the free calculator.</p></div>
+              <div className="step"><div className="n">3</div><h3 className="h3">Apply with support</h3><p className="desc">A free adviser helps with documents, choices and your application.</p></div>
+              <div className="step"><div className="n">4</div><h3 className="h3">Start studying</h3><p className="desc">Begin a flexible degree built around work and family.</p></div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* SECTION 18: FAQ */}
+      {data?.section_17?.status !== false && (
+        <section className="sec soft">
+          <div className="wrap">
+            <div className="shead" style={{ textAlign: "center" }}>
+              <span className="eyebrow o">FAQ</span>
+              <h2 className="h1" style={{ marginTop: "16px" }}>{data?.section_17?.faq?.[0]?.title || "Quick answers."}</h2>
+            </div>
+            <div className="faq">
+              {faqs && faqs.length > 0 ? (
+                faqs.map((q: any, idx: number) => (
+                  <div key={q._id || idx} className="q">
                     <h3 className="h3">{q.question}</h3>
                     <p className="desc">{q.answer}</p>
                   </div>
@@ -718,7 +724,7 @@ export default async function Home() {
         </section>
       )}
 
-      {/* SECTION 18: REFER A FRIEND */}
+      {/* SECTION 19: REFER A FRIEND */}
       {data?.section_18?.status !== false && (
         <section className="sec soft">
           <div className="wrap">
@@ -726,7 +732,7 @@ export default async function Home() {
               <div>
                 <span className="eyebrow o" style={{ marginBottom: "16px" }}>{data?.section_18?.badge || "Refer a friend"}</span>
                 <h2 className="h1" style={{ marginBottom: "14px" }}>{data?.section_18?.title || "Know someone who'd thrive at university?"}</h2>
-                <p className="lead" style={{ marginBottom: "24px" }}>{data?.section_18?.description || "Pass on their details, with permission..."}</p>
+                <p className="lead" style={{ marginBottom: "24px" }}>{data?.section_18?.description || "Pass on their details, with permission. We'll guide them for free, and we'll thank you when they enrol."}</p>
                 <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
                   <a className="btn blue lg" href="/partners/refer-a-friend">Read more &amp; refer someone →</a>
                   <a className="btn outline lg" href="/lead/adviser-call">Check adviser details →</a>
@@ -767,42 +773,23 @@ export default async function Home() {
         </section>
       )}
 
-      {/* SECTION 19: ADVISER CALL BANNER */}
+      {/* SECTION 20: ADVISER CALL BANNER */}
       {data?.section_19?.status !== false && (
-        <section className="sec">
-          <div className="wrap">
-            <div className="povl bleed" style={{ minHeight: "clamp(360px,32vw,460px)" }}>
-              <img className="bg" src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=2000&q=85" alt="" />
-              <div className="sc sc-blue"></div>
-              <div className="inner">
-                <span className="eyebrow gold" style={{ marginBottom: "16px" }}>{data?.section_19?.badge || "Free adviser support"}</span>
-                <h2 className="h1" style={{ color: "#fff", marginBottom: "14px" }}>{data?.section_19?.title || "Not sure what to choose?"}</h2>
-                <p className="lead" style={{ color: "#fff", opacity: 0.92, marginBottom: "26px", maxWidth: "480px" }}>{data?.section_19?.description || "Book a free call with a real adviser..."}</p>
-                <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-                  <a className="btn orange lg" href="/lead/adviser-call">Book a free call →</a>
-                  <a className="btn white lg" href="/lead/contact-adviser">WhatsApp us</a>
-                </div>
-              </div>
+        <PhotoOverlayBand bgImage="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=2000&q=85" scrimColor="blue" minHeight="clamp(360px,32vw,460px)">
+          <div className="inner">
+            <span className="eyebrow gold" style={{ marginBottom: "16px" }}>{data?.section_19?.badge || "Free adviser support"}</span>
+            <h2 className="h1" style={{ color: "#fff", marginBottom: "14px" }}>{data?.section_19?.title || "Not sure what to choose?"}</h2>
+            <p className="lead" style={{ color: "#fff", opacity: 0.92, marginBottom: "26px", maxWidth: "480px" }}>{data?.section_19?.description || "Book a free call with a real adviser. We'll talk through your goals, funding and the best route — no pressure, no cost."}</p>
+            <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+              <a className="btn orange lg" href="/lead/adviser-call">Book a free call →</a>
+              <a className="btn white lg" href="/lead/contact-adviser">WhatsApp us</a>
             </div>
           </div>
-        </section>
+        </PhotoOverlayBand>
       )}
 
-      {/* SECTION 20: FINAL CTA */}
-      {data?.section_20?.status !== false && (
-        <section className="sec">
-          <div className="wrap">
-            <div className="finalcta">
-              <h2 className="display" style={{ color: "#fff" }}>{data?.section_20?.title || "Your future starts with one step."}</h2>
-              <p className="lead">{data?.section_20?.description || "Find your degree, check your funding and apply..."}</p>
-              <div className="row">
-                <a className="btn black lg" href="/apply">Start your application →</a>
-                <a className="btn white lg" href="/lead/adviser-call">Book adviser call</a>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
+      {/* SECTION 21: FINAL CTA */}
+      <FinalCta title={data?.section_20?.title} description={data?.section_20?.description} status={data?.section_20?.status} />
     </SiteLayout>
   );
 }

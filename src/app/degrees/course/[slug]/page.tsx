@@ -1,4 +1,7 @@
 import CourseDetail from "@/pages/degrees/course/CourseDetail";
+import { getCMSPageContent } from "@/services/cms.service";
+import { getCourseBySlug } from "@/services/course.service";
+import { getFAQBySlug } from "@/services/faq.service";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -15,5 +18,9 @@ export async function generateMetadata({ params }: PageProps) {
 
 export default async function Page({ params }: PageProps) {
   const { slug } = await params;
-  return <CourseDetail slug={slug} />;
+  const cmsData = await getCMSPageContent(slug);
+  const backendCourse = await getCourseBySlug(slug);
+  const faqs = await getFAQBySlug(slug);
+
+  return <CourseDetail slug={slug} cmsData={cmsData} backendCourse={backendCourse} faqs={faqs || undefined} />;
 }

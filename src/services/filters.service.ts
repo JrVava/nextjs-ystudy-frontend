@@ -23,8 +23,9 @@ async function fetchAndDecryptFilter(endpoint: string): Promise<FilterItem[]> {
   }
 }
 
-export function getSubjects(): Promise<FilterItem[]> {
-  return fetchAndDecryptFilter("/frontend/subject");
+export function getSubjects(pageSize?: number): Promise<FilterItem[]> {
+  const url = pageSize ? `/frontend/subject?pageSize=${pageSize}` : "/frontend/subject";
+  return fetchAndDecryptFilter(url);
 }
 
 export function getQualifications(): Promise<FilterItem[]> {

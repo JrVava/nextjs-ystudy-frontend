@@ -227,42 +227,35 @@
     "title": "Compare locations quickly.",
     "description": "One clean comparison only — no repeated city content. This helps students decide where to focus before speaking to an adviser.",
     "comparison_table": {
-      "headers": ["What matters", "London", "Birmingham", "Manchester", "Leeds"],
+      "headers": ["Location", "Popular subjects", "Foundation routes", "Evening / weekend", "Best for"],
       "rows": [
         {
-          "matter": "Daytime / blended options",
-          "london": "✓ Broad choice",
-          "birmingham": "✓ Available",
-          "manchester": "✓ Available",
-          "leeds": "✓ Available"
+          "location": "London",
+          "subjects": "Business, Health, Data, Construction",
+          "foundation": "Yes",
+          "weekend": "Yes",
+          "best": "Largest course choice"
         },
         {
-          "matter": "Evening / weekend options",
-          "london": "✓ High",
-          "birmingham": "Limited",
-          "manchester": "Limited",
-          "leeds": "Adviser check"
+          "location": "Birmingham",
+          "subjects": "Business, Health, Construction",
+          "foundation": "Yes",
+          "weekend": "Yes",
+          "best": "Central England learners"
         },
         {
-          "matter": "Average commute stress",
-          "london": "Medium–High",
-          "birmingham": "Low–Medium",
-          "manchester": "Low–Medium",
-          "leeds": "Low"
+          "location": "Manchester",
+          "subjects": "Business, Health, Data",
+          "foundation": "Yes",
+          "weekend": "Yes",
+          "best": "Northern working adults"
         },
         {
-          "matter": "Living support loan weight",
-          "london": "✓ Up to £14,135",
-          "birmingham": "Up to £10,830",
-          "manchester": "Up to £10,830",
-          "leeds": "Up to £10,830"
-        },
-        {
-          "matter": "Local employment density",
-          "london": "✓ Maximum",
-          "birmingham": "High",
-          "manchester": "High",
-          "leeds": "Medium–High"
+          "location": "Leeds",
+          "subjects": "Business, Finance, Digital",
+          "foundation": "Yes",
+          "weekend": "Check route",
+          "best": "Business and finance-focused learners"
         }
       ]
     },
@@ -289,25 +282,22 @@
     "description": "Short, location-based stories help students imagine how study could fit around work, family and travel.",
     "stories": [
       {
-        "quote": "I study in London after school runs.",
-        "text": "Travelling in twice a week was tough at first, but blending it with online modules let me study Business Management while looking after my three kids.",
-        "author": "Priya K.",
+        "author": "Maria",
         "location": "London",
-        "image": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80"
+        "text": "Chose Health & Social Care because the location and timetable fitted around childcare and part-time work.",
+        "image": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=80"
       },
       {
-        "quote": "Birmingham weekend study changed everything.",
-        "text": "I couldn't leave my full-time factory job, so the Saturday timetable option for Computing let me gain skills without missing a single shift's pay.",
-        "author": "Marcus T.",
+        "author": "Ahmed",
         "location": "Birmingham",
-        "image": "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?auto=format&fit=crop&w=800&q=80"
+        "text": "Used practical construction experience as a starting point for a more management-focused direction.",
+        "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=80"
       },
       {
-        "quote": "Manchester blended learning fits my health career.",
-        "text": "As a clinical assistant, my shifts change every month. Having course materials available termly let me map lectures around my work plan.",
-        "author": "Amina R.",
+        "author": "David",
         "location": "Manchester",
-        "image": "https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=800&q=80"
+        "text": "Started with Business Management after looking for a location and schedule he could realistically attend.",
+        "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=900&q=80"
       }
     ],
     "status": true

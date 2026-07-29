@@ -8,6 +8,7 @@ import { BackendCourse } from "@/types/course";
 interface CityTab {
   id: string;
   name: string;
+  carouselDescription?: string;
 }
 
 interface LocationResultsCarouselProps {
@@ -56,7 +57,7 @@ export function LocationResultsCarousel({
           <div>
             <h3 style={{ textTransform: "capitalize" }}>{activeCity.name} courses</h3>
             <p>
-              Popular routes for mature students who can travel into {activeCity.name} for flexible or blended study.
+              {activeCity.carouselDescription || `Popular routes for mature students who can travel into ${activeCity.name} for flexible or blended study.`}
             </p>
           </div>
           <div className="carousel-controls">
