@@ -59,6 +59,7 @@ export async function Banner({
               {eyebrow && <span className={`${isHome ? 'eyebrow glass' : 'dsx-eyebrow'}`} style={{ marginBottom: "24px" }}>{eyebrow}</span>}
               {title && <h1>{title}</h1>}
               {description && <p className="lead">{description}</p>}
+              {isHome && children}
             </div>
           )}
 
@@ -155,7 +156,7 @@ export async function Banner({
             )
           )}
 
-          {children && (
+          {!isHome && children && (
             <div className="hfull-width">
               {children}
             </div>
@@ -196,7 +197,7 @@ export async function Banner({
             {leftContent.description && (
               <p className="lead">{leftContent.description}</p>
             )}
-
+            {isHome && children}
           </div>
         )}
 
@@ -296,7 +297,7 @@ export async function Banner({
           )}
         </div>
 
-        {children && (
+        {!isHome && children && (
           <div className="hfull-width">
             {children}
           </div>

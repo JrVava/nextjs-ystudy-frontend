@@ -64,7 +64,34 @@ export function DegreeCatalogProvider({
   const [selectedFunding, setSelectedFunding] = useState("Any funding");
   const [sortBy, setSortBy] = useState<"match" | "title">("match");
 
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const search = params.get("search") || params.get("q");
+      if (search) setSearchQuery(search);
+      const subject = params.get("subject");
+      if (subject) setSelectedSubject(subject);
+      const location = params.get("location");
+      if (location) setSelectedLocation(location);
+    }
+  }, []);
+
   const filteredCourses = useMemo(() => {
+    const getMatchScore = (course: any, query?: string) => {
+      if (course.matchScore) return course.matchScore;
+      let score = 85;
+      if (course._id) {
+        const hash = String(course._id).split('').reduce((acc: number, char: string) => acc + char.charCodeAt(0), 0);
+        score = 85 + (hash % 15);
+      }
+      if (query && query.trim()) {
+        const q = query.toLowerCase();
+        if (course.title?.toLowerCase().includes(q)) score += 5;
+        if ((course.shortDescription || course.description || "").toLowerCase().includes(q)) score += 3;
+      }
+      return Math.min(score, 99);
+    };
+
     return initialCourses
       .filter((course) => {
         // 1. Text Search Query
@@ -81,16 +108,48 @@ export function DegreeCatalogProvider({
 
         // 2. Subject Filter
         if (selectedSubject !== "Any subject") {
-          const sName = typeof course.subject === "string" ? course.subject : course.subject?.title || course.subject?.name || "";
-          if (!sName.toLowerCase().includes(selectedSubject.toLowerCase())) {
+          const subjList: any[] = [];
+          if (course.subject) {
+            if (Array.isArray(course.subject)) {
+              subjList.push(...course.subject);
+            } else {
+              subjList.push(course.subject);
+            }
+          }
+          if (course.subjects && Array.isArray(course.subjects)) {
+            subjList.push(...course.subjects);
+          }
+
+          const hasSubjMatch = subjList.some((s) => {
+            const name = typeof s === "string" ? s : s?.title || s?.name || "";
+            return name.toLowerCase().includes(selectedSubject.toLowerCase());
+          });
+
+          if (!hasSubjMatch) {
             return false;
           }
         }
 
         // 3. Qualification Filter
         if (selectedQualification !== "Any qualification") {
-          const qName = typeof course.qualification === "string" ? course.qualification : course.qualification?.title || course.qualification?.name || "";
-          if (!qName.toLowerCase().includes(selectedQualification.toLowerCase())) {
+          const qualList: any[] = [];
+          if (course.qualification) {
+            if (Array.isArray(course.qualification)) {
+              qualList.push(...course.qualification);
+            } else {
+              qualList.push(course.qualification);
+            }
+          }
+          if (course.qualifications && Array.isArray(course.qualifications)) {
+            qualList.push(...course.qualifications);
+          }
+
+          const hasQualMatch = qualList.some((q) => {
+            const name = typeof q === "string" ? q : q?.title || q?.name || "";
+            return name.toLowerCase().includes(selectedQualification.toLowerCase());
+          });
+
+          if (!hasQualMatch) {
             return false;
           }
         }
@@ -102,18 +161,81 @@ export function DegreeCatalogProvider({
             const lName = typeof l === "string" ? l : l?.name || l?.title || l?.city || "";
             return lName.toLowerCase().includes(selectedLocation.toLowerCase());
           });
-          if (locs.length > 0 && !locMatch) {
+          if (!locMatch) {
+            return false;
+          }
+        }
+
+        // 5. Mode Filter
+        if (selectedMode !== "Any mode") {
+          const modeList: any[] = [];
+          if (course.modeType && Array.isArray(course.modeType)) {
+            modeList.push(...course.modeType);
+          }
+          const hasModeMatch = modeList.some((m) => {
+            const name = typeof m === "string" ? m : m?.title || m?.name || m?.label || "";
+            return name.toLowerCase().includes(selectedMode.toLowerCase());
+          });
+          if (!hasModeMatch) {
+            return false;
+          }
+        }
+
+        // 6. Duration Filter
+        if (selectedDuration !== "Any duration") {
+          const durList: any[] = [];
+          if (course.duration) {
+            if (Array.isArray(course.duration)) {
+              durList.push(...course.duration);
+            } else {
+              durList.push(course.duration);
+            }
+          }
+          if (course.durations && Array.isArray(course.durations)) {
+            durList.push(...course.durations);
+          }
+          const hasDurMatch = durList.some((d) => {
+            const name = typeof d === "string" ? d : d?.duration || d?.label || d?.title || d?.name || "";
+            return name.toLowerCase().includes(selectedDuration.toLowerCase());
+          });
+          if (!hasDurMatch) {
+            return false;
+          }
+        }
+
+        // 7. Funding Filter
+        if (selectedFunding !== "Any funding") {
+          const fundList: any[] = [];
+          if (course.funding) {
+            if (Array.isArray(course.funding)) {
+              fundList.push(...course.funding);
+            } else {
+              fundList.push(course.funding);
+            }
+          }
+          if (course.fundings && Array.isArray(course.fundings)) {
+            fundList.push(...course.fundings);
+          }
+          const hasFundMatch = fundList.some((f) => {
+            const name = typeof f === "string" ? f : f?.name || f?.title || "";
+            return name.toLowerCase().includes(selectedFunding.toLowerCase());
+          });
+          if (!hasFundMatch) {
             return false;
           }
         }
 
         return true;
       })
+      .map((course) => ({
+        ...course,
+        matchScore: getMatchScore(course, searchQuery)
+      }))
       .sort((a, b) => {
         if (sortBy === "title") {
           return (a.title || "").localeCompare(b.title || "");
         }
-        return 0;
+        return (b.matchScore || 0) - (a.matchScore || 0);
       });
   }, [
     initialCourses,
@@ -285,8 +407,32 @@ export function DegreeResultsView() {
     setSortBy,
     filteredCourses,
     courseCount,
-    section3Data
+    section3Data,
+    searchQuery,
+    selectedSubject,
+    selectedQualification,
+    selectedMode,
+    selectedLocation,
+    selectedDuration,
+    selectedFunding
   } = useDegreeCatalog();
+
+  const [showAll, setShowAll] = useState(false);
+
+  // Collapse back to top 3 whenever search terms or filter constraints change
+  React.useEffect(() => {
+    setShowAll(false);
+  }, [
+    searchQuery,
+    selectedSubject,
+    selectedQualification,
+    selectedMode,
+    selectedLocation,
+    selectedDuration,
+    selectedFunding
+  ]);
+
+  const coursesToDisplay = showAll ? filteredCourses : filteredCourses.slice(0, 3);
 
   return (
     <>
@@ -330,13 +476,13 @@ export function DegreeResultsView() {
             <main style={{ float: "none", width: "100%", padding: 0 }}>
               {viewMode === "grid" ? (
                 <div className="search-card-grid course-carousel" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "18px" }}>
-                  {filteredCourses.map((c: any, idx: number) => (
+                  {coursesToDisplay.map((c: any, idx: number) => (
                     <CourseCard key={c._id || idx} course={c} variant="grid" />
                   ))}
                 </div>
               ) : (
                 <div className="search-card-list">
-                  {filteredCourses.map((c: any, idx: number) => (
+                  {coursesToDisplay.map((c: any, idx: number) => (
                     <CourseCard key={c._id || idx} course={c} variant="list" />
                   ))}
                 </div>
@@ -349,10 +495,23 @@ export function DegreeResultsView() {
                 </div>
               )}
 
-              <div className="dsx-viewall">
-                <a className="btn btn-blue" href="#results">View all {courseCount} courses →</a>
-                <span>Showing top matches</span>
-              </div>
+              {filteredCourses.length > 3 && !showAll ? (
+                <div className="dsx-viewall">
+                  <button
+                    className="btn btn-blue"
+                    onClick={() => setShowAll(true)}
+                    type="button"
+                    style={{ border: "none", cursor: "pointer" }}
+                  >
+                    View all {courseCount} courses →
+                  </button>
+                  <span>Showing top 3 matches</span>
+                </div>
+              ) : filteredCourses.length > 0 ? (
+                <div className="dsx-viewall">
+                  <span>Showing all matches</span>
+                </div>
+              ) : null}
 
               {/* SHORTLIST COMPARE BAR */}
               {section3Data?.status !== false && (

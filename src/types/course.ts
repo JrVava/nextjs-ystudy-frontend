@@ -73,11 +73,15 @@ export interface CourseCmsSection {
     link?: string;
     icon?: string;
   }>;
+  tiles?: Array<{ value?: string; label?: string }>;
+  totalSupport?: string;
   featured_course?: any;
 }
 
 export interface CourseCmsData {
   courseType?: "General" | "Social";
+  kicker?: string;
+  bannerStyle?: "blue" | "black" | "white";
   section_2?: CourseCmsSection;
   section_3?: CourseCmsSection;
   section_4?: CourseCmsSection;
@@ -89,6 +93,9 @@ export interface CourseCmsData {
   section_10?: CourseCmsSection;
   section_11?: CourseCmsSection;
   section_12?: CourseCmsSection;
+  section_13?: CourseCmsSection;
+  section_14?: CourseCmsSection;
+  section_15?: CourseCmsSection;
 }
 
 export interface BackendCourse {

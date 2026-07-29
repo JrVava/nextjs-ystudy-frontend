@@ -96,23 +96,23 @@ const FALLBACK_COURSES: BackendCourse[] = [
   }
 ];
 
-export async function getAllCourses(): Promise<BackendCourse[]> {
+export async function getAllCourses(pageSize?: number): Promise<BackendCourse[]> {
   try {
     // Try primary backend endpoint: GET /frontend/course/allcourses
     let res;
+    const url = pageSize ? `/frontend/course/allcourses?pageSize=${pageSize}` : "/frontend/course/allcourses";
     try {
-      res = await api.get("/frontend/course/allcourses");
+      res = await api.get(url);
     } catch (err: any) {
       // Fallback try: GET /frontend/course/degree
-      res = await api.get("/frontend/course/degree");
+      const fallbackUrl = pageSize ? `/frontend/course/degree?pageSize=${pageSize}` : "/frontend/course/degree";
+      res = await api.get(fallbackUrl);
     }
 
     const json = res?.data;
-    console.log('json', json);
 
     if (json && json.data) {
       const decrypted = decrypt(json.data);
-      console.log('decrypteddecrypted', decrypted);
 
       if (decrypted && decrypted.success && decrypted.data) {
         const courses = decrypted.data.courses || decrypted.data;

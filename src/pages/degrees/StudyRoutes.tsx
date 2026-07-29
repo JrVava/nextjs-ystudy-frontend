@@ -2,6 +2,17 @@ import { getCMSPageContent } from "@/services/cms.service";
 import "@/app/degrees/v735.css";
 import Link from "next/link";
 import React from "react";
+import {
+  ConversionStrip,
+  CrossLinks,
+  ComparisonTable,
+  FooterCta,
+  PromoBand,
+  TrustTestimonials,
+  FinanceHubStrip,
+  FinanceWarningBanner,
+  FloatingAdviser
+} from "@/components/sections";
 
 export default async function StudyRoutes() {
   const data = await getCMSPageContent("study-routes");
@@ -288,68 +299,10 @@ export default async function StudyRoutes() {
               )}
 
               {/* CONVERSION SYSTEM */}
-              {s5?.status !== false && (
-                <section className="ys-conversion-system" aria-label="YStudy next steps">
-                  <div className="ys-conversion-wrap">
-                    <Link className="ys-conversion-card blue" href="/tools/eligibility-checker">
-                      <div>
-                        <h2>{s5?.cards?.[0]?.title || "Check if you can get funded."}</h2>
-                        <p>{s5?.cards?.[0]?.description || "Quickly understand if you may qualify for Student Finance, grants and flexible university routes."}</p>
-                      </div>
-                      <span>Check eligibility</span>
-                    </Link>
-                    <Link className="ys-conversion-card orange" href="/apply">
-                      <div>
-                        <h2>{s5?.cards?.[1]?.title || "Apply with YStudy."}</h2>
-                        <p>{s5?.cards?.[1]?.description || "Send us your details and we’ll help you choose the right course, prepare documents and move forward."}</p>
-                      </div>
-                      <span>Start application</span>
-                    </Link>
-                    <Link className="ys-conversion-card dark" href="/lead/adviser-call">
-                      <div>
-                        <h2>{s5?.cards?.[2]?.title || "Speak with an adviser."}</h2>
-                        <p>{s5?.cards?.[2]?.description || "Not sure what to study, what you can get or which documents you need? Book a free call."}</p>
-                      </div>
-                      <span>Book free call</span>
-                    </Link>
-                  </div>
-                </section>
-              )}
+              <ConversionStrip cards={s5?.cards} status={s5?.status} />
 
               {/* CROSSLINKS */}
-              {s6?.status !== false && (
-                <section className="ys-crosslinks" aria-label="Useful links">
-                  <div className="inner">
-                    <div>
-                      <h2>{s6?.title || "Useful next steps"}</h2>
-                      <p>{s6?.description || "Move from information to action. Compare degrees, check funding, explore careers and apply with support."}</p>
-                    </div>
-                    <div className="ys-link-grid">
-                      {(s6?.cards || [
-                        { title: "Find degrees", link: "/degrees/" },
-                        { title: "Funding hub", link: "/funding/" },
-                        { title: "Careers & salaries", link: "/careers/" },
-                        { title: "Degree Match", link: "/tools/degree-match" },
-                        { title: "Salary Checker", link: "/tools/salary-checker" },
-                        { title: "Student guides", link: "/guides/" }
-                      ]).map((item: any, idx: number) => {
-                        const href =
-                          item.title === "Find degrees" ? "/degrees/" :
-                            item.title === "Funding hub" ? "/funding/" :
-                              item.title === "Careers & salaries" ? "/careers/" :
-                                item.title === "Degree Match" ? "/tools/degree-match" :
-                                  item.title === "Salary Checker" ? "/tools/salary-checker" :
-                                    item.title === "Student guides" ? "/guides/" : "/degrees/";
-                        return (
-                          <Link key={idx} href={href}>
-                            {item.title}
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  </div>
-                </section>
-              )}
+              <CrossLinks title={s6?.title} description={s6?.description} cards={s6?.cards} status={s6?.status} />
             </main>
           </div>
         </div>
@@ -368,37 +321,23 @@ export default async function StudyRoutes() {
                 {s7?.description || "Use these signals to shortlist a realistic degree route, then ask an adviser to check funding and entry fit."}
               </p>
             </div>
-            <div className="comp-table">
-              <table>
-                <thead>
-                  <tr>
-                    <th>{s7?.headers?.degree_header || "Degree route"}</th>
-                    <th>{s7?.headers?.best_header || "Best for"}</th>
-                    <th>{s7?.headers?.funding_header || "Funding"}</th>
-                    <th>{s7?.headers?.flexible_header || "Flexible study"}</th>
-                    <th>{s7?.headers?.salary_header || "Salary potential"}</th>
-                    <th>{s7?.headers?.verdict_header || "Verdict"}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {(s7?.rows || [
-                    { degree: "Business Management", best: "Career changers", funding: "✓", flexible: "✓", salary: "Medium–High", verdict: "Best overall" },
-                    { degree: "Cybersecurity", best: "Digital careers", funding: "✓", flexible: "✓", salary: "High", verdict: "Highest salary" },
-                    { degree: "Psychology", best: "People-focused careers", funding: "✓", flexible: "×", salary: "Medium", verdict: "Popular route" },
-                    { degree: "Online MSc", best: "Working adults", funding: "✓", flexible: "✓", salary: "Medium–High", verdict: "Most flexible" }
-                  ]).map((row: any, idx: number) => (
-                    <tr key={idx}>
-                      <td>{row.degree}</td>
-                      <td>{row.best}</td>
-                      <td>{row.funding}</td>
-                      <td>{row.flexible}</td>
-                      <td>{row.salary}</td>
-                      <td>{row.verdict}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            <ComparisonTable
+              className="comp-table"
+              headers={[
+                s7?.headers?.degree_header || "Degree route",
+                s7?.headers?.best_header || "Best for",
+                s7?.headers?.funding_header || "Funding",
+                s7?.headers?.flexible_header || "Flexible study",
+                s7?.headers?.salary_header || "Salary potential",
+                s7?.headers?.verdict_header || "Verdict"
+              ]}
+              rows={s7?.rows || [
+                { degree: "Business Management", best: "Career changers", funding: "✓", flexible: "✓", salary: "Medium–High", verdict: "Best overall" },
+                { degree: "Cybersecurity", best: "Digital careers", funding: "✓", flexible: "✓", salary: "High", verdict: "Highest salary" },
+                { degree: "Psychology", best: "People-focused careers", funding: "✓", flexible: "×", salary: "Medium", verdict: "Popular route" },
+                { degree: "Online MSc", best: "Working adults", funding: "✓", flexible: "✓", salary: "Medium–High", verdict: "Most flexible" }
+              ]}
+            />
           </div>
         </section>
       )}
@@ -489,154 +428,27 @@ export default async function StudyRoutes() {
       )}
 
       {/* PROMO BAND SECTION */}
-      {s10?.status !== false && (
-        <section className="section tight">
-          <section className="promo-band orange reverse">
-            <div className="promo-inner">
-              <div className="promo-figure">
-                <img
-                  alt="Starting university promo"
-                  src={s10?.fullImageUrl || "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1500&q=85"}
-                />
-              </div>
-              <div className="promo-copy">
-                <span className="promo-kicker">{s10?.badge || "Starting university"}</span>
-                <h2 className="promo-title">{s10?.title || "What to prepare before your course starts"}</h2>
-                <p className="promo-text">
-                  {s10?.description || "Not sure what you'll need for student life? Use a simple checklist to plan the essentials, avoid last-minute stress and feel ready before your first week."}
-                </p>
-                <Link className="btn promo-cta" href="/tools/degree-match">
-                  Build my preparation list
-                </Link>
-              </div>
-            </div>
-          </section>
-        </section>
-      )}
+      <PromoBand
+        badge={s10?.badge}
+        title={s10?.title}
+        description={s10?.description}
+        fullImageUrl={s10?.fullImageUrl}
+        status={s10?.status}
+      />
 
       {/* TRUST & TESTIMONIALS SECTION */}
-      {s11?.status !== false && (
-        <section className="section blue ds-added-trust">
-          <div className="container">
-            <div className="title-row">
-              <div style={{ textAlign: "left" }}>
-                <span className="kicker">{s11?.badge || "Student and community"}</span>
-                <h2>{s11?.title || "Trust and SEO card families."}</h2>
-              </div>
-              <p style={{ textAlign: "left" }}>
-                {s11?.description || "Use these for community guides, student stories, adviser trust and testimonials."}
-              </p>
-            </div>
-            <div className="story-grid story-carousel">
-              <article className="story-card">
-                <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=900&q=85" alt="Maria" />
-                <div className="body" style={{ textAlign: "left" }}>
-                  <h3>Maria, 38</h3>
-                  <p>“I needed to know if university could fit around my children and full-time work.”</p>
-                  <div className="stars">★★★★★</div>
-                  <div className="pills">
-                    <span className="pill">Mature student</span>
-                    <span className="pill">Health &amp; Social Care</span>
-                  </div>
-                </div>
-              </article>
-              <article className="story-card">
-                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=900&q=85" alt="Andrei" />
-                <div className="body" style={{ textAlign: "left" }}>
-                  <h3>Andrei, 34</h3>
-                  <p>“The adviser helped me shortlist the right business route and check finance before applying.”</p>
-                  <div className="stars">★★★★★</div>
-                  <div className="pills">
-                    <span className="pill">Career changer</span>
-                    <span className="pill">Business</span>
-                  </div>
-                </div>
-              </article>
-              <article className="story-card">
-                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=600&q=85" alt="Samira" />
-                <div className="body" style={{ textAlign: "left" }}>
-                  <h3>Samira, 29</h3>
-                  <p>“The career comparison showed exactly what roles I could target.”</p>
-                  <div className="stars">★★★★★</div>
-                  <div className="pills">
-                    <span className="pill">Computing</span>
-                    <span className="pill">Now studying</span>
-                  </div>
-                </div>
-              </article>
-            </div>
-            <div className="adviser-grid" style={{ marginTop: "22px" }}>
-              <article className="adviser-card">
-                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=85" alt="Student Adviser" />
-                <div style={{ textAlign: "left" }}>
-                  <h3>Student Adviser</h3>
-                  <p>Course and funding guidance.</p>
-                  <Link href="/lead/adviser-call">Book callback →</Link>
-                </div>
-              </article>
-              <article className="adviser-card">
-                <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=900&q=85" alt="Application Support" />
-                <div style={{ textAlign: "left" }}>
-                  <h3>Application Support</h3>
-                  <p>Documents, interview and next steps.</p>
-                  <Link href="/lead/adviser-call">Ask a question →</Link>
-                </div>
-              </article>
-              <article className="adviser-card">
-                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=600&q=85" alt="Finance Guidance" />
-                <div style={{ textAlign: "left" }}>
-                  <h3>Finance Guidance</h3>
-                  <p>SFE steps explained clearly.</p>
-                  <Link href="/tools/eligibility-checker">Check funding →</Link>
-                </div>
-              </article>
-            </div>
-          </div>
-        </section>
-      )}
+      <TrustTestimonials
+        badge={s11?.badge}
+        title={s11?.title}
+        description={s11?.description}
+        status={s11?.status}
+      />
 
       {/* FINANCE INTEGRATED SECTION 1: HUBS STRIP */}
-      {s12?.status !== false && (
-        <section className="section tight ds-finance-integrated">
-          <div className="container">
-            <div className="finance-hub-strip" style={{ textAlign: "left" }}>
-              <div>
-                <span className="kicker">{s12?.badge || "Student Finance"}</span>
-                <h2>{s12?.title || "Check funding before you choose a course."}</h2>
-                <p>{s12?.description || "Check Maintenance Loan, Tuition Fee Loan, grants, study mode risk and repayment basics before applying."}</p>
-              </div>
-              <div className="finance-strip-actions">
-                <Link className="btn btn-orange" href="/tools/student-finance-calculator">
-                  Open calculator
-                </Link>
-                <Link className="btn btn-white" href="/tools/eligibility-checker">
-                  Check eligibility
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
+      <FinanceHubStrip badge={s12?.badge} title={s12?.title} description={s12?.description} status={s12?.status} />
 
       {/* FINANCE INTEGRATED SECTION 2: WARNING BANNER */}
-      {s13?.status !== false && (
-        <section className="section tight ds-finance-integrated">
-          <div className="container">
-            <div className="finance-warning-banner" style={{ textAlign: "left" }}>
-              <div>
-                <span className="kicker">{s13?.badge || "Important funding rule"}</span>
-                <h2>{s13?.title || "Study mode can affect Maintenance Loan."}</h2>
-                <p>
-                  {s13?.description || "Online, distance-learning and weekend-only routes may not qualify for Maintenance Loan. Ask an adviser before choosing the course."}
-                </p>
-              </div>
-              <Link className="btn btn-orange" href="/tools/eligibility-checker">
-                Check study mode risk
-              </Link>
-            </div>
-          </div>
-        </section>
-      )}
+      <FinanceWarningBanner badge={s13?.badge} title={s13?.title} description={s13?.description} status={s13?.status} />
 
       {/* FINANCE INTEGRATED SECTION 3: COMPARISON TABLE */}
       {s14?.status !== false && (
@@ -651,74 +463,31 @@ export default async function StudyRoutes() {
                 {s14?.description || "Clear decision signals for course shortlist, university comparison and funding guide pages."}
               </p>
             </div>
-            <div className="finance-comparison-table">
-              <table>
-                <thead>
-                  <tr>
-                    <th>{s14?.headers?.route_header || "Route"}</th>
-                    <th>{s14?.headers?.funding_header || "Funding type"}</th>
-                    <th>{s14?.headers?.maintenance_header || "Maintenance Loan"}</th>
-                    <th>{s14?.headers?.best_header || "Best for"}</th>
-                    <th>{s14?.headers?.verdict_header || "Verdict"}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {(s14?.rows || [
-                    { route: "Campus / blended undergraduate", funding: "Tuition + maintenance", maintenance: "Usually stronger", best: "Students needing living-cost support", verdict: "Best overall route" },
-                    { route: "Weekend-only", funding: "Needs careful check", maintenance: "Risk area", best: "Working adults with limited time", verdict: "Ask adviser first" },
-                    { route: "Online / distance learning", funding: "Tuition may apply", maintenance: "Usually no maintenance", best: "Remote learners", verdict: "Good flexibility, less living-cost support" },
-                    { route: "Postgraduate Master’s", funding: "Postgraduate Loan", maintenance: "Different system", best: "Graduates and career changers", verdict: "Check loan cap and tuition" }
-                  ]).map((row: any, idx: number) => (
-                    <tr key={idx}>
-                      <td>{row.route}</td>
-                      <td>{row.funding}</td>
-                      <td>{row.maintenance}</td>
-                      <td>{row.best}</td>
-                      <td>{row.verdict}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            <ComparisonTable
+              className="finance-comparison-table"
+              headers={[
+                s14?.headers?.route_header || "Route",
+                s14?.headers?.funding_header || "Funding type",
+                s14?.headers?.maintenance_header || "Maintenance Loan",
+                s14?.headers?.best_header || "Best for",
+                s14?.headers?.verdict_header || "Verdict"
+              ]}
+              rows={s14?.rows || [
+                { route: "Campus / blended undergraduate", funding: "Tuition + maintenance", maintenance: "Usually stronger", best: "Students needing living-cost support", verdict: "Best overall route" },
+                { route: "Weekend-only", funding: "Needs careful check", maintenance: "Risk area", best: "Working adults with limited time", verdict: "Ask adviser first" },
+                { route: "Online / distance learning", funding: "Tuition may apply", maintenance: "Usually no maintenance", best: "Remote learners", verdict: "Good flexibility, less living-cost support" },
+                { route: "Postgraduate Master’s", funding: "Postgraduate Loan", maintenance: "Different system", best: "Graduates and career changers", verdict: "Check loan cap and tuition" }
+              ]}
+            />
           </div>
         </section>
       )}
 
       {/* FOOTER CTA */}
-      {s15?.status !== false && (
-        <div className="footer-cta" style={{ textAlign: "left" }}>
-          <div>
-            <span className="kicker">{s15?.badge || "Stay in touch"}</span>
-            <h2>{s15?.title || "Your next step should feel organised."}</h2>
-            <p>{s15?.description || "Create a free account to save progress, find your best degree and track applications."}</p>
-          </div>
-          <div className="btnrow">
-            <Link className="btn btn-white" href="/dashboard/">
-              Create account
-            </Link>
-            <Link className="btn btn-orange" href="/apply/">
-              Apply now
-            </Link>
-          </div>
-        </div>
-      )}
+      <FooterCta badge={s15?.badge} title={s15?.title} description={s15?.description} status={s15?.status} />
 
       {/* FLOATING ADVISER */}
-      <div className="floating-adviser" style={{ textAlign: "left" }}>
-        <span className="pill" style={{ background: "rgba(255,255,255,.12)", color: "#fff", borderColor: "rgba(255,255,255,.18)" }}>
-          Free adviser support
-        </span>
-        <h3>Not sure what to choose?</h3>
-        <p>Book a free adviser call before applying.</p>
-        <div className="btnrow">
-          <Link className="btn btn-orange" href="/lead/adviser-call">
-            Book call
-          </Link>
-          <Link className="btn btn-white" href="/lead/adviser-call">
-            WhatsApp
-          </Link>
-        </div>
-      </div>
+      <FloatingAdviser />
     </div>
   );
 }

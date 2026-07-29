@@ -1,4 +1,4 @@
-import { Banner } from "@/components/ui/Banner";
+import { DegreesBanner } from "@/components/degrees/DegreesBanner";
 import { getCMSPageContent } from "@/services/cms.service";
 import { getAllCourses } from "@/services/course.service";
 import {
@@ -13,7 +13,10 @@ import {
   DegreeSearchConsole,
   DegreeResultsView
 } from "@/components/degrees/DegreeCatalogManager";
+import { JourneyCard } from "@/components/degrees/JourneyCard";
+import { GuideCard } from "@/components/degrees/GuideCard";
 import { BackendCourse } from "@/types/course";
+import { FloatingAdviser } from "@/components";
 
 export default async function Degrees() {
   const [
@@ -33,7 +36,6 @@ export default async function Degrees() {
     getFundings(),
     getAllCourses()
   ]);
-  console.log('apiCourses', apiCourses);
 
   const coursesToRender: BackendCourse[] = apiCourses && apiCourses.length > 0 ? apiCourses : (data?.featured_courses || []);
   const courseCount = coursesToRender.length;
@@ -49,25 +51,16 @@ export default async function Degrees() {
         fundings={fundings}
         section3Data={data?.section_3}
       >
-        {/* HERO SECTION DYNAMIZED WITH BANNER MODULE */}
-        <Banner
+        {/* HERO SECTION DYNAMIZED WITH CUSTOM DEGREES BANNER */}
+        <DegreesBanner
           slug="degrees"
           fallbackTitle="Find a degree that fits your life."
           fallbackDescription="Set your filters, then search 200+ SFE-eligible courses built for working adults."
           fallbackBadgeText="Search all degrees"
           fallbackBgImage="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=2000&q=85"
-          fallbackRightCard={{
-            layoutType: 'stats-highlight' as const,
-            title: 'Snapshot',
-            mainValue: `${courseCount}+`,
-            items: [
-              { value: 'SFE', subtitle: 'Eligible courses' },
-              { value: '100%', subtitle: 'Free adviser support' }
-            ]
-          }}
         >
           <DegreeSearchConsole />
-        </Banner>
+        </DegreesBanner>
 
         <DegreeResultsView />
       </DegreeCatalogProvider>
@@ -217,6 +210,214 @@ export default async function Degrees() {
                 />
               </div>
             </div>
+
+            {/* SECTION 8: STEPS */}
+            {data?.section_8?.status !== false && (
+              <>
+                {/* Step 1 */}
+                <div className="jstep">
+                  <div className="jl">
+                    <span className="jnum">Step 1</span>
+                    <h3>{data?.section_8?.steps?.[0]?.title || "Choose your subject"}</h3>
+                    <p>{data?.section_8?.steps?.[0]?.description || "Start with what interests you. Browse the strongest routes for adult learners."}</p>
+                  </div>
+                  <div className="jcards">
+                    <JourneyCard
+                      href="/degrees/business"
+                      image="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80"
+                      title="Business"
+                      description="Management, operations, analyst routes."
+                    />
+                    <JourneyCard
+                      href="/degrees#results"
+                      image="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80"
+                      title="Computing"
+                      description="Cybersecurity, software, networking."
+                    />
+                    <JourneyCard
+                      href="/degrees#results"
+                      image="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80"
+                      title="Health &amp; Social Care"
+                      description="Care, social work, NHS routes."
+                    />
+                    <JourneyCard
+                      href="/degrees#results"
+                      image="https://images.unsplash.com/photo-1589391886645-d51941baf7fb?auto=format&fit=crop&w=800&q=80"
+                      title="Law &amp; more"
+                      description="Psychology, construction, marketing."
+                    />
+                    <JourneyCard
+                      href="/tools/degree-match"
+                      image="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80"
+                      title="Still not sure?"
+                      description="Take the 2-min Degree Match quiz."
+                      ctaText="Take quiz →"
+                      icon="🎯"
+                    />
+                    <JourneyCard
+                      href="/degrees#results"
+                      image="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80"
+                      title="Browse all 200+"
+                      description="Filter by mode, funding and location."
+                      ctaText="Search →"
+                    />
+                  </div>
+                </div>
+
+                {/* Step 2 */}
+                <div className="jstep">
+                  <div className="jl">
+                    <span className="jnum">Step 2</span>
+                    <h3>{data?.section_8?.steps?.[1]?.title || "Use our free tools"}</h3>
+                    <p>{data?.section_8?.steps?.[1]?.description || "Make sure you're eligible for funding and see where each route could take your salary."}</p>
+                  </div>
+                  <div className="jcards">
+                    <JourneyCard
+                      href="/tools/eligibility-checker"
+                      image="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=80"
+                      title="Eligibility checker"
+                      description="Confirm your Student Finance entitlement in 2 minutes."
+                      ctaText="Check now →"
+                      icon="✓"
+                    />
+                    <JourneyCard
+                      href="/tools/finance-calculator"
+                      image="https://images.unsplash.com/photo-1579621970795-87facc2f976d?auto=format&fit=crop&w=800&q=80"
+                      title="Funding calculator"
+                      description="Estimate your tuition and maintenance support."
+                      ctaText="Calculate →"
+                      icon="💷"
+                    />
+                    <JourneyCard
+                      href="/tools/salary-checker"
+                      image="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80"
+                      title="Salary checker"
+                      description="See realistic salary ranges for each career route."
+                      ctaText="See salaries →"
+                      icon="📈"
+                    />
+                  </div>
+                </div>
+
+                {/* Step 3 */}
+                <div className="jstep">
+                  <div className="jl">
+                    <span className="jnum">Step 3</span>
+                    <h3>{data?.section_8?.steps?.[2]?.title || "Read our guides"}</h3>
+                    <p>{data?.section_8?.steps?.[2]?.description || "Still have questions? Our plain-English guides often hold the answer — funding, applying and career routes explained."}</p>
+                  </div>
+                  <div className="jcards" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "14px" }}>
+                    <GuideCard
+                      href="/funding/maintenance-loan"
+                      category="Funding"
+                      image="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=80"
+                      title="Maintenance Loan explained"
+                      description="Plain-English guide to living-cost support."
+                      readTime="5 min read"
+                    />
+                    <GuideCard
+                      href="/tools/personal-statement-calculator"
+                      category="Applying"
+                      image="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&q=80"
+                      title="Personal statement structure"
+                      description="Four sections that admissions teams expect."
+                      readTime="7 min read"
+                    />
+                    <GuideCard
+                      href="/guides/careers-salaries"
+                      category="Careers"
+                      image="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80"
+                      title="Finance career routes"
+                      description="Roles, salaries and the degrees behind them."
+                      readTime="6 min read"
+                    />
+                    <GuideCard
+                      href="/guides/student-finance"
+                      category="Funding"
+                      image="https://images.unsplash.com/photo-1579621970795-87facc2f976d?auto=format&fit=crop&w=800&q=80"
+                      title="Student Finance, step by step"
+                      description="How tuition and maintenance loans actually work."
+                      readTime="8 min read"
+                    />
+                    <GuideCard
+                      href="/guides/career-change"
+                      category="Career change"
+                      image="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=800&q=80"
+                      title="Going back to study as an adult"
+                      description="Balancing work, family and a degree."
+                      readTime="6 min read"
+                    />
+                    <GuideCard
+                      href="/guides/university-routes"
+                      category="Routes"
+                      image="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=800&q=80"
+                      title="Foundation, HND &amp; top-up routes"
+                      description="No A-levels? Here's how adults get in."
+                      readTime="7 min read"
+                    />
+                  </div>
+                </div>
+
+                {/* Step 4 */}
+                <div className="jstep">
+                  <div className="jl">
+                    <span className="jnum">Step 4</span>
+                    <h3>{data?.section_8?.steps?.[3]?.title || "Free application kit"}</h3>
+                    <p>{data?.section_8?.steps?.[3]?.description || "Our students get free tools and adviser support to build a confident application."}</p>
+                  </div>
+                  <div className="jcards">
+                    <JourneyCard
+                      href="/tools/cv-builder"
+                      image="https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=800&q=80"
+                      title="CV builder"
+                      description="A university-ready CV for mature students."
+                      ctaText="Build CV →"
+                      icon="📄"
+                    />
+                    <JourneyCard
+                      href="/tools/personal-statement-calculator"
+                      image="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&q=80"
+                      title="Personal statement"
+                      description="Guided writing that admissions teams understand."
+                      ctaText="Start draft →"
+                      icon="✍️"
+                    />
+                    <JourneyCard
+                      href="/dashboard"
+                      image="https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80"
+                      title="Student dashboard"
+                      description="Save courses and message your adviser in one place."
+                      ctaText="Open dashboard →"
+                      icon="📊"
+                    />
+                    <JourneyCard
+                      href="/dashboard/applications"
+                      image="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80"
+                      title="Application tracker"
+                      description="Track deadlines and progress across applications."
+                      ctaText="Track now →"
+                      icon="🗂️"
+                    />
+                    <JourneyCard
+                      href="/lead/adviser-call"
+                      image="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=800&q=80"
+                      title="Free academic review"
+                      description="An adviser checks your documents before you submit."
+                      ctaText="Request review →"
+                      icon="🤝"
+                    />
+                    <JourneyCard
+                      href="/lead/adviser-call"
+                      image="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80"
+                      title="Speak to an adviser"
+                      description="Free call for course choice, funding and applying."
+                      ctaText="Book call →"
+                      icon="📞"
+                    />
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </section>
       )}
@@ -241,6 +442,24 @@ export default async function Degrees() {
           </div>
         </section>
       )}
+
+      {/* SHORTLIST FOOTER CTA */}
+      {data?.section_10?.status !== false && (
+        <div className="footer-cta" style={{ marginTop: "34px" }}>
+          <div>
+            <span className="kicker">{data?.section_10?.badge || "Not ready to apply yet?"}</span>
+            <h2>{data?.section_10?.title || "Save your shortlist for later."}</h2>
+            <p>{data?.section_10?.description || "Create a free account to save the courses you liked, track applications and pick up where you left off — no pressure to apply."}</p>
+          </div>
+          <div className="btnrow">
+            <a className="btn btn-white" href="/dashboard">Create account</a>
+            <a className="btn btn-orange" href="/apply">Apply now</a>
+          </div>
+        </div>
+      )}
+
+      {/* FLOATING ADVISER */}
+      <FloatingAdviser />
     </div>
   );
 }

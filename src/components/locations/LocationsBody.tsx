@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { LocationResultsCarousel } from "@/components/locations/LocationResultsCarousel";
 import { getAllCourses } from "@/services/course.service";
+import { getSubjects } from "@/services/filters.service";
 import { BackendCourse } from "@/types/course";
 
 interface LocationsBodyProps {
@@ -13,6 +14,7 @@ interface LocationsBodyProps {
 export default function LocationsBody({ data }: LocationsBodyProps) {
   const [activeTab, setActiveTab] = useState<string>("london");
   const [apiCourses, setApiCourses] = useState<BackendCourse[]>([]);
+  const [dynamicSubjects, setDynamicSubjects] = useState<any[]>([]);
 
   useEffect(() => {
     async function fetchCourses() {
@@ -22,12 +24,27 @@ export default function LocationsBody({ data }: LocationsBodyProps) {
     fetchCourses();
   }, []);
 
+  useEffect(() => {
+    async function fetchSubjects() {
+      try {
+        const subjects = await getSubjects(6);
+        if (subjects && subjects.length > 0) {
+          setDynamicSubjects(subjects);
+        }
+      } catch (error) {
+        console.error("Error loading subjects:", error);
+      }
+    }
+    fetchSubjects();
+  }, []);
+
   const cities = data?.cities || [
     {
       id: "london",
       name: "London",
       floatDescription: "Largest choice · flexible routes · foundation year options",
       gridDescription: "Broad course choice, strong transport links and popular flexible study options.",
+      carouselDescription: "Popular routes for mature students who can travel into London for flexible or blended study.",
       badges: ["20+ courses", "Foundation routes", "Funding available"],
       image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=900&q=80",
       gridImage: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1100&q=82",
@@ -38,6 +55,7 @@ export default function LocationsBody({ data }: LocationsBodyProps) {
       name: "Birmingham",
       floatDescription: "Central location · mature student friendly · practical courses",
       gridDescription: "A practical Midlands hub for adult learners looking for flexible degree routes.",
+      carouselDescription: "Central England options for adults balancing work, family and study.",
       badges: ["15+ courses", "Evening/weekend", "Central England"],
       image: "https://images.unsplash.com/photo-1543946207-39bd91e70ca7?auto=format&fit=crop&w=900&q=80",
       gridImage: "https://images.unsplash.com/photo-1543946207-39bd91e70ca7?auto=format&fit=crop&w=1100&q=82",
@@ -48,6 +66,7 @@ export default function LocationsBody({ data }: LocationsBodyProps) {
       name: "Manchester",
       floatDescription: "Weekend & blended routes · career-focused subjects",
       gridDescription: "Popular with working adults interested in business, health and technology routes.",
+      carouselDescription: "Career-focused routes for working adults in business, care, computing and technology.",
       badges: ["12+ courses", "Blended options", "Career-focused"],
       image: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=900&q=80",
       gridImage: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1100&q=82",
@@ -58,6 +77,7 @@ export default function LocationsBody({ data }: LocationsBodyProps) {
       name: "Leeds",
       floatDescription: "Growing city · business and career routes · lower living costs",
       gridDescription: "A strong Northern city for business, finance, digital and career-focused study routes.",
+      carouselDescription: "A growing Northern option for business, finance, digital and career-focused study planning.",
       badges: ["Growing hub", "Business routes", "Funding available"],
       image: "https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?auto=format&fit=crop&w=900&q=80",
       gridImage: "https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?auto=format&fit=crop&w=1100&q=82",
@@ -66,7 +86,7 @@ export default function LocationsBody({ data }: LocationsBodyProps) {
   ];
 
   // Group dynamic API courses by city location
-  const formattedCoursesData: Record<string, BackendCourse[]> = { ... (data?.courses_data || {}) };
+  const formattedCoursesData: Record<string, BackendCourse[]> = { ...(data?.courses_data || {}) };
 
   if (apiCourses && apiCourses.length > 0) {
     cities.forEach((city: any) => {
@@ -83,6 +103,15 @@ export default function LocationsBody({ data }: LocationsBodyProps) {
       }
     });
   }
+
+  const subjectsToRender = data?.section_3?.subjects || (dynamicSubjects.length > 0 ? dynamicSubjects : [
+    { title: "Business", description: "Management, marketing, leadership", image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=700&q=80" },
+    { title: "Health & Care", description: "Care, wellbeing, leadership", image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=700&q=80" },
+    { title: "Construction", description: "Site, project and built environment", image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=700&q=80" },
+    { title: "Computing & Data", description: "Data, AI, cyber, digital", image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=700&q=80" },
+    { title: "Accounting", description: "Finance and business decisions", image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=700&q=80" },
+    { title: "Law", description: "Legal, compliance and business", image: "https://images.unsplash.com/photo-1589391886645-d51941baf7fb?auto=format&fit=crop&w=700&q=80" }
+  ]);
 
   return (
     <>
@@ -164,19 +193,12 @@ export default function LocationsBody({ data }: LocationsBodyProps) {
               <p>{data?.section_3?.description || "Use these subject groups as simple entry points into course results. No extra submenu, no duplicated pathways — just city, subject and relevant courses."}</p>
             </div>
             <div className="subject-grid ys-carousel-mobile">
-              {(data?.section_3?.subjects || [
-                { title: "Business", description: "Management, marketing, leadership", image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=700&q=80" },
-                { title: "Health & Care", description: "Care, wellbeing, leadership", image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=700&q=80" },
-                { title: "Construction", description: "Site, project and built environment", image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=700&q=80" },
-                { title: "Computing & Data", description: "Data, AI, cyber, digital", image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=700&q=80" },
-                { title: "Accounting", description: "Finance and business decisions", image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=700&q=80" },
-                { title: "Law", description: "Legal, compliance and business", image: "https://images.unsplash.com/photo-1589391886645-d51941baf7fb?auto=format&fit=crop&w=700&q=80" }
-              ]).map((s: any, idx: number) => (
+              {subjectsToRender.map((s: any, idx: number) => (
                 <a key={idx} className="subject-card" href="#courses" onClick={(e) => {
                   e.preventDefault();
                   document.getElementById("courses")?.scrollIntoView({ behavior: "smooth" });
                 }}>
-                  <img src={s.image} alt={s.title} />
+                  <img src={s.fullImageUrl || s.image} alt={s.title} />
                   <div className="in">
                     <b>{s.title}</b>
                     <span>{s.description}</span>
@@ -211,7 +233,7 @@ export default function LocationsBody({ data }: LocationsBodyProps) {
 
       {/* QUICK LOCATION COMPARISON MATRIX */}
       {data?.section_5?.status !== false && (
-        <section className="loc-section soft" id="compare">
+        <section className="loc-section soft" id="compare-locations">
           <div className="wrap">
             <div className="loc-head">
               <div>
@@ -224,32 +246,41 @@ export default function LocationsBody({ data }: LocationsBodyProps) {
               <table>
                 <thead>
                   <tr>
-                    {(data?.section_5?.comparison_table?.headers || ["What matters", "London", "Birmingham", "Manchester", "Leeds"]).map((h: string, idx: number) => (
+                    {(data?.section_5?.comparison_table?.headers || ["Location", "Popular subjects", "Foundation routes", "Evening / weekend", "Best for"]).map((h: string, idx: number) => (
                       <th key={idx}>{h}</th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
                   {(data?.section_5?.comparison_table?.rows || [
-                    { matter: "Daytime / blended options", london: "✓ Broad choice", birmingham: "✓ Available", manchester: "✓ Available", leeds: "✓ Available" },
-                    { matter: "Evening / weekend options", london: "✓ High", birmingham: "Limited", manchester: "Limited", leeds: "Adviser check" },
-                    { matter: "Average commute stress", london: "Medium–High", birmingham: "Low–Medium", manchester: "Low–Medium", leeds: "Low" },
-                    { matter: "Living support loan weight", london: "✓ Up to £14,135", birmingham: "Up to £10,830", manchester: "Up to £10,830", leeds: "Up to £10,830" },
-                    { matter: "Local employment density", london: "✓ Maximum", birmingham: "High", manchester: "High", leeds: "Medium–High" }
+                    { location: "London", subjects: "Business, Health, Data, Construction", foundation: "Yes", weekend: "Yes", best: "Largest course choice" },
+                    { location: "Birmingham", subjects: "Business, Health, Construction", foundation: "Yes", weekend: "Yes", best: "Central England learners" },
+                    { location: "Manchester", subjects: "Business, Health, Data", foundation: "Yes", weekend: "Yes", best: "Northern working adults" },
+                    { location: "Leeds", subjects: "Business, Finance, Digital", foundation: "Yes", weekend: "Check route", best: "Business and finance-focused learners" }
                   ]).map((row: any, idx: number) => {
-                    const renderCell = (val: string) => {
-                      if (val?.startsWith("✓")) {
-                        return <td key={val} className="yes">{val}</td>;
+                    const renderCell = (val: string, k: string) => {
+                      if (val === "Yes" || val?.startsWith("✓")) {
+                        return <td key={k} className="yes">{val}</td>;
                       }
-                      return <td key={val}>{val}</td>;
+                      return <td key={k}>{val}</td>;
                     };
+                    const cells = [];
+                    if (row.location !== undefined) {
+                      cells.push(<td key="loc">{row.location}</td>);
+                      cells.push(<td key="sub">{row.subjects}</td>);
+                      cells.push(renderCell(row.foundation, "found"));
+                      cells.push(renderCell(row.weekend, "week"));
+                      cells.push(<td key="best">{row.best}</td>);
+                    } else {
+                      cells.push(<td key="matter">{row.matter}</td>);
+                      cells.push(renderCell(row.london, "lon"));
+                      cells.push(renderCell(row.birmingham, "bir"));
+                      cells.push(renderCell(row.manchester, "man"));
+                      cells.push(renderCell(row.leeds, "lee"));
+                    }
                     return (
                       <tr key={idx}>
-                        <td>{row.matter}</td>
-                        {renderCell(row.london)}
-                        {renderCell(row.birmingham)}
-                        {renderCell(row.manchester)}
-                        {renderCell(row.leeds)}
+                        {cells}
                       </tr>
                     );
                   })}
@@ -262,15 +293,20 @@ export default function LocationsBody({ data }: LocationsBodyProps) {
 
       {/* SFE ENTITLEMENT DETAILS BAND */}
       {data?.section_6?.status !== false && (
-        <section className="loc-section">
+        <section className="loc-section" id="funding">
           <div className="wrap">
             <div className="funding-band" style={{ textAlign: "left" }}>
               <div>
                 <h2>{data?.section_6?.title || "Funding may be available wherever you study."}</h2>
                 <p>{data?.section_6?.description || "Eligible students may be able to access Tuition Fee Loan and Maintenance Loan support. YStudy can help you check your route before you apply."}</p>
-                <Link className="loc-btn white" href="/tools/finance-calculator">
-                  Estimate your funding →
-                </Link>
+                <div className="loc-actions">
+                  <Link className="loc-btn orange" href="/tools/eligibility-checker">
+                    Check eligibility
+                  </Link>
+                  <Link className="loc-btn white" href="/funding">
+                    Funding guide
+                  </Link>
+                </div>
               </div>
               <div className="funding-cards">
                 {(data?.section_6?.card || [
@@ -299,20 +335,29 @@ export default function LocationsBody({ data }: LocationsBodyProps) {
               </div>
               <p>{data?.section_7?.description || "Short, location-based stories help students imagine how study could fit around work, family and travel."}</p>
             </div>
-            <div className="story-grid">
+            <div className="story-grid story-carousel">
               {(data?.section_7?.stories || [
-                { quote: "I study in London after school runs.", text: "Travelling in twice a week was tough at first, but blending it with online modules let me study Business Management while looking after my three kids.", author: "Priya K.", location: "London", image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80" },
-                { quote: "Birmingham weekend study changed everything.", text: "I couldn't leave my full-time factory job, so the Saturday timetable option for Computing let me gain skills without missing a single shift's pay.", author: "Marcus T.", location: "Birmingham", image: "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?auto=format&fit=crop&w=800&q=80" },
-                { quote: "Manchester blended learning fits my health career.", text: "As a clinical assistant, my shifts change every month. Having course materials available termly let me map lectures around my work plan.", author: "Amina R.", location: "Manchester", image: "https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=800&q=80" }
+                { author: "Maria", location: "London", text: "Chose Health & Social Care because the location and timetable fitted around childcare and part-time work.", image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=80" },
+                { author: "Ahmed", location: "Birmingham", text: "Used practical construction experience as a starting point for a more management-focused direction.", image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=80" },
+                { author: "David", location: "Manchester", text: "Started with Business Management after looking for a location and schedule he could realistically attend.", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=900&q=80" }
               ]).map((s: any, idx: number) => (
                 <article key={idx} className="story-card" style={{ textAlign: "left" }}>
-                  <img src={s.image} alt={s.author} />
+                  <img src={s.image} alt={s.author || s.name} />
                   <div className="body">
-                    <h3>"{s.quote}"</h3>
-                    <p>"{s.text}"</p>
-                    <b style={{ display: "block", marginTop: "12px", fontSize: "13.5px" }}>
-                      — {s.author}, {s.location}
-                    </b>
+                    {s.quote ? (
+                      <>
+                        <h3>"{s.quote}"</h3>
+                        <p>"{s.text || s.description}"</p>
+                        <b style={{ display: "block", marginTop: "12px", fontSize: "13.5px" }}>
+                          — {s.author || s.name}, {s.location || s.year}
+                        </b>
+                      </>
+                    ) : (
+                      <>
+                        <h3>{s.author || s.name}, {s.location || s.year}</h3>
+                        <p>{s.text || s.description}</p>
+                      </>
+                    )}
                   </div>
                 </article>
               ))}
@@ -331,11 +376,14 @@ export default function LocationsBody({ data }: LocationsBodyProps) {
                 <p>{data?.section_8?.description || "Search degrees, check funding and apply with free YStudy guidance."}</p>
               </div>
               <div className="final-actions">
-                <Link className="loc-btn white" href="/lead/adviser-call">
-                  Book a free call →
+                <Link className="loc-btn blue" href="/degrees#results">
+                  Search degrees
                 </Link>
                 <Link className="loc-btn orange" href="/apply">
                   Apply with YStudy
+                </Link>
+                <Link className="loc-btn navy" href="/lead/adviser-call">
+                  Book adviser
                 </Link>
               </div>
             </div>
