@@ -96,6 +96,13 @@ export interface CourseCmsData {
   section_13?: CourseCmsSection;
   section_14?: CourseCmsSection;
   section_15?: CourseCmsSection;
+  overview?: any;
+  salary?: any;
+  funding?: any;
+  study?: any;
+  reviews?: any;
+  Entry?: any;
+  FAQ?: any;
 }
 
 export interface BackendCourse {

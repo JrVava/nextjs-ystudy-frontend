@@ -116,20 +116,166 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs }: Cou
     setCalcResult(`£${(fee + maintenance).toLocaleString()}`);
   };
 
+  let customSec3 = backendCourse?.courseCms?.section_3;
+  let customSec4 = backendCourse?.courseCms?.section_4;
+  let customSec5 = backendCourse?.courseCms?.section_5;
+  let customSec6 = backendCourse?.courseCms?.section_6;
+  let customSec7 = backendCourse?.courseCms?.section_7;
+  let customSec8 = backendCourse?.courseCms?.section_8;
+  let customSec9 = backendCourse?.courseCms?.section_9;
+  let customSec10 = backendCourse?.courseCms?.section_10;
+  let customSec11 = backendCourse?.courseCms?.section_11;
+  let customSec12 = backendCourse?.courseCms?.section_12;
+  let customSec13 = backendCourse?.courseCms?.section_13;
+  let customSec14 = backendCourse?.courseCms?.section_14;
+  let customSec15 = backendCourse?.courseCms?.section_15;
+
+  if (backendCourse?.courseType === "Social" && backendCourse?.courseCms) {
+    const socialCms = backendCourse.courseCms;
+    customSec3 = {
+      badge: socialCms.overview?.badge,
+      title: socialCms.overview?.title,
+      description: socialCms.overview?.description,
+      cards: socialCms.overview?.cards,
+      tiles: socialCms.overview?.statsCards?.map((sc: any) => ({
+        value: sc.title,
+        label: sc.description
+      })),
+      status: socialCms.overview?.status
+    };
+
+    customSec4 = {
+      badge: socialCms.salary?.badge,
+      title: socialCms.salary?.title,
+      description: socialCms.salary?.description,
+      cards: socialCms.salary?.cards?.map((c: any) => ({
+        ...c,
+        role: c.title
+      })),
+      status: socialCms.salary?.status
+    };
+
+    customSec5 = {
+      badge: socialCms.funding?.section_1?.badge,
+      title: socialCms.funding?.section_1?.title,
+      description: socialCms.funding?.section_1?.description,
+      totalSupport: socialCms.funding?.section_1?.cardDescription,
+      tiles: socialCms.funding?.section_1?.cards?.map((c: any) => ({
+        value: c.title,
+        label: c.description,
+        link: c.link
+      })),
+      status: socialCms.funding?.section_1?.status
+    };
+
+    customSec6 = {
+      badge: socialCms.funding?.section_2?.badge,
+      title: socialCms.funding?.section_2?.title,
+      description: socialCms.funding?.section_2?.description,
+      cards: socialCms.funding?.section_2?.cards,
+      status: socialCms.funding?.section_2?.status
+    };
+
+    customSec7 = {
+      badge: socialCms.study?.section_1?.badge,
+      title: socialCms.study?.section_1?.title,
+      description: socialCms.study?.section_1?.description,
+      cards: socialCms.study?.section_1?.cards?.map((c: any) => ({
+        year: c.number || c.icon,
+        title: c.title,
+        subtitle: c.description,
+        modules: c.points
+      })),
+      status: socialCms.study?.section_1?.status
+    };
+
+    customSec8 = {
+      badge: socialCms.study?.section_2?.badge,
+      title: socialCms.study?.section_2?.title,
+      description: socialCms.study?.section_2?.description,
+      status: socialCms.study?.section_2?.status
+    };
+
+    customSec9 = {
+      badge: socialCms.reviews?.badge,
+      title: socialCms.reviews?.title,
+      description: socialCms.reviews?.description,
+      status: socialCms.reviews?.status
+    };
+
+    customSec10 = {
+      badge: socialCms.Entry?.section_1?.badge,
+      title: socialCms.Entry?.section_1?.title,
+      description: socialCms.Entry?.section_1?.description,
+      rows: socialCms.Entry?.section_1?.cards?.map((c: any) => ({
+        parentClass: c.parentClass,
+        icon: c.icon,
+        label: c.title,
+        desc: c.description
+      })),
+      status: socialCms.Entry?.section_1?.status
+    };
+
+    customSec11 = {
+      badge: socialCms.Entry?.section_2?.badge,
+      title: socialCms.Entry?.section_2?.title,
+      description: socialCms.Entry?.section_2?.description,
+      status: socialCms.Entry?.section_2?.status
+    };
+
+    customSec12 = {
+      badge: socialCms.Entry?.section_3?.badge,
+      title: socialCms.Entry?.section_3?.title,
+      description: socialCms.Entry?.section_3?.description,
+      cards: socialCms.Entry?.section_3?.cards?.map((c: any) => ({
+        icon: c.icons,
+        title: c.title,
+        desc: c.description,
+        btnName: c.btnName,
+        link: c.link
+      })),
+      status: socialCms.Entry?.section_3?.status
+    };
+
+    customSec13 = {
+      title: socialCms.Entry?.section_4?.title,
+      subtitle: socialCms.Entry?.section_4?.description,
+      status: socialCms.Entry?.section_4?.status
+    };
+
+    customSec14 = {
+      badge: socialCms.Entry?.section_5?.badge,
+      title: socialCms.Entry?.section_5?.title,
+      description: socialCms.Entry?.section_5?.description,
+      status: socialCms.Entry?.section_5?.status
+    };
+
+    customSec15 = {
+      badge: socialCms.FAQ?.section_1?.badge,
+      title: socialCms.FAQ?.section_1?.title,
+      description: socialCms.FAQ?.section_1?.description,
+      faqs: socialCms.FAQ?.section_3?.cards?.map((c: any) => ({
+        question: c.title,
+        answer: c.description
+      })),
+      status: socialCms.FAQ?.section_1?.status
+    };
+  }
+
   // Section data fallback maps (completely dynamic)
-  const sec3 = getSectionWithFallback(cmsData?.section_3, backendCourse?.courseCms?.section_3, defaultCourseData?.section_3);
-  const sec4 = getSectionWithFallback(cmsData?.section_4, backendCourse?.courseCms?.section_4, defaultCourseData?.section_4);
-  const sec5 = getSectionWithFallback(cmsData?.section_5, backendCourse?.courseCms?.section_5, defaultCourseData?.section_5);
-  const sec6 = getSectionWithFallback(cmsData?.section_6, backendCourse?.courseCms?.section_6, defaultCourseData?.section_6);
-  const sec7 = getSectionWithFallback(cmsData?.section_7, backendCourse?.courseCms?.section_7, defaultCourseData?.section_7);
-  const sec8 = getSectionWithFallback(cmsData?.section_8, backendCourse?.courseCms?.section_8, defaultCourseData?.section_8);
-  const sec9 = getSectionWithFallback(cmsData?.section_9, backendCourse?.courseCms?.section_9, defaultCourseData?.section_9);
-  const sec10 = getSectionWithFallback(cmsData?.section_10, backendCourse?.courseCms?.section_10, defaultCourseData?.section_10);
-  const sec11 = getSectionWithFallback(cmsData?.section_11, backendCourse?.courseCms?.section_11, defaultCourseData?.section_11);
-  const sec12 = getSectionWithFallback(cmsData?.section_12, backendCourse?.courseCms?.section_12, defaultCourseData?.section_12);
-  const sec13 = getSectionWithFallback(cmsData?.section_13, backendCourse?.courseCms?.section_13, defaultCourseData?.section_13);
-  const sec14 = getSectionWithFallback(cmsData?.section_14, backendCourse?.courseCms?.section_14, defaultCourseData?.section_14);
-  const sec15 = getSectionWithFallback(cmsData?.section_15, backendCourse?.courseCms?.section_15, defaultCourseData?.section_15);
+  const sec3 = getSectionWithFallback(cmsData?.section_3, customSec3, defaultCourseData?.section_3);
+  const sec4 = getSectionWithFallback(cmsData?.section_4, customSec4, defaultCourseData?.section_4);
+  const sec5 = getSectionWithFallback(cmsData?.section_5, customSec5, defaultCourseData?.section_5);
+  const sec6 = getSectionWithFallback(cmsData?.section_6, customSec6, defaultCourseData?.section_6);
+  const sec7 = getSectionWithFallback(cmsData?.section_7, customSec7, defaultCourseData?.section_7);
+  const sec8 = getSectionWithFallback(cmsData?.section_8, customSec8, defaultCourseData?.section_8);
+  const sec9 = getSectionWithFallback(cmsData?.section_9, customSec9, defaultCourseData?.section_9);
+  const sec10 = getSectionWithFallback(cmsData?.section_10, customSec10, defaultCourseData?.section_10);
+  const sec11 = getSectionWithFallback(cmsData?.section_11, customSec11, defaultCourseData?.section_11);
+  const sec12 = getSectionWithFallback(cmsData?.section_12, customSec12, defaultCourseData?.section_12);
+  const sec13 = getSectionWithFallback(cmsData?.section_13, customSec13, defaultCourseData?.section_13);
+  const sec14 = getSectionWithFallback(cmsData?.section_14, customSec14, defaultCourseData?.section_14);
+  const sec15 = getSectionWithFallback(cmsData?.section_15, customSec15, defaultCourseData?.section_15);
 
   const displayFaqs = (faqs && faqs.length > 0) ? faqs : (sec15.faqs || []);
 
