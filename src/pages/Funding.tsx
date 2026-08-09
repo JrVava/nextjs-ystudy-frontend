@@ -2,6 +2,21 @@ import React from "react";
 import { getCMSPageContent } from "@/services/cms.service";
 import { Banner } from "@/components/ui/Banner";
 import FinanceStepper from "@/components/widgets/FinanceStepper";
+import FundingBottomSections from "@/components/widgets/FundingBottomSections";
+import { ComparisonTable } from "@/components/sections";
+
+const renderFundingCell = (val: any, colKey: string) => {
+  if (colKey === "maintainance" || colKey === "maintenance") {
+    return <span style={{ color: "var(--o)", fontWeight: 700 }}>{val}</span>;
+  }
+  if (colKey === "verdict") {
+    return <span style={{ color: "var(--b)", fontWeight: 700 }}>{val}</span>;
+  }
+  if (colKey === "route" || colKey === "option" || colKey === "degree") {
+    return <span style={{ fontWeight: 700 }}>{val}</span>;
+  }
+  return val;
+};
 
 export default async function Funding() {
   const data = await getCMSPageContent("funding");
@@ -157,30 +172,18 @@ export default async function Funding() {
                 {s5.description || "Clear decision signals for course comparison, university comparison and funding guide pages."}
               </p>
             </div>
-            <div className="finance-comparison-table" style={{ width: "100%", overflowX: "auto", border: "1px solid var(--border)", borderRadius: "12px" }}>
-              <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left", fontSize: "15px" }}>
-                <thead>
-                  <tr style={{ background: "var(--soft)", borderBottom: "1px solid var(--border)" }}>
-                    <th style={{ padding: "16px" }}>{s5.headers?.route_header || "Route"}</th>
-                    <th style={{ padding: "16px" }}>{s5.headers?.funding_header || "Funding type"}</th>
-                    <th style={{ padding: "16px" }}>{s5.headers?.maintainance_header || "Maintenance Loan"}</th>
-                    <th style={{ padding: "16px" }}>{s5.headers?.best_header || "Best for"}</th>
-                    <th style={{ padding: "16px" }}>{s5.headers?.verdict_header || "Verdict"}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {(s5.rows || []).map((row: any, idx: number) => (
-                    <tr key={idx} style={{ borderBottom: idx < s5.rows.length - 1 ? "1px solid var(--border)" : "none" }}>
-                      <td style={{ padding: "16px", fontWeight: 700 }}>{row.route}</td>
-                      <td style={{ padding: "16px" }}>{row.funding}</td>
-                      <td style={{ padding: "16px", color: "var(--o)", fontWeight: 700 }}>{row.maintainance}</td>
-                      <td style={{ padding: "16px" }}>{row.best}</td>
-                      <td style={{ padding: "16px", fontWeight: 700, color: "var(--b)" }}>{row.verdict}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            <ComparisonTable
+              className="finance-comparison-table"
+              headers={[
+                s5.headers?.route_header || "Route",
+                s5.headers?.funding_header || "Funding type",
+                s5.headers?.maintainance_header || "Maintenance Loan",
+                s5.headers?.best_header || "Best for",
+                s5.headers?.verdict_header || "Verdict"
+              ]}
+              rows={s5.rows || []}
+              renderCell={renderFundingCell}
+            />
           </div>
         </section>
       )}
@@ -245,129 +248,13 @@ export default async function Funding() {
         </section>
       )}
 
-      {/* SECTION 8: ELIGIBILITY SNAPSHOT */}
-      {s8.status !== false && (
-        <section className="section white ds-finance-integrated ystudy-phase4-funding">
-          <div className="container">
-            <div className="title-row" style={{ textAlign: "left", marginBottom: "2rem" }}>
-              <div>
-                <span className="kicker">{s8.badge || "Eligibility snapshot"}</span>
-                <h2>{s8.title || "Who usually needs a funding check?"}</h2>
-              </div>
-              <p style={{ color: "var(--muted)", margin: "8px 0 0" }}>{s8.description}</p>
-            </div>
-            <div className="finance-visual-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "20px" }}>
-              {(s8.cards || []).map((card: any, idx: number) => (
-                <article className="finance-visual-card" key={idx} style={{ background: "#fff", border: "1px solid var(--border)", borderRadius: "12px", padding: "1.5rem", textAlign: "left", display: "flex", flexDirection: "column" }}>
-                  <div className="finance-visual-card-body" style={{ display: "flex", flexDirection: "column", flex: 1 }}>
-                    <h3 style={{ fontSize: "19px", fontWeight: 800, margin: "0 0 4px" }}>{card.title}</h3>
-                    <strong style={{ fontSize: "16px", color: "var(--o)", display: "block", margin: "4px 0 8px" }}>{card.subTitle}</strong>
-                    <p style={{ fontSize: "14px", color: "var(--muted)", margin: "0 0 16px", flex: 1 }}>{card.description}</p>
-                    <a href={card.link || "/tools/eligibility-checker"} style={{ fontWeight: 700, color: "var(--b)", textDecoration: "none", fontSize: "14px" }}>
-                      {card.linkBtnName || "Check →"}
-                    </a>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* SECTION 9: FUNDING JOURNEY */}
-      {s9.status !== false && (
-        <section className="section white ds-finance-integrated">
-          <div className="container">
-            <div className="title-row" style={{ textAlign: "left", marginBottom: "2rem" }}>
-              <div>
-                <span className="kicker">{s9.badge || "Funding journey"}</span>
-                <h2>{s9.title || "From eligibility to repayment."}</h2>
-              </div>
-              <p style={{ color: "var(--muted)", margin: "8px 0 0" }}>{s9.description}</p>
-            </div>
-            <div className="card-grid four" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "20px" }}>
-              {(s9.cards || []).map((card: any, idx: number) => (
-                <article className="card" key={idx} style={{ background: "var(--soft)", border: "1px solid var(--border)", borderRadius: "12px", padding: "1.5rem", textAlign: "left" }}>
-                  <h3 style={{ fontSize: "18px", fontWeight: 800, margin: "0 0 8px", color: "var(--b)" }}>{card.title}</h3>
-                  <p style={{ fontSize: "14px", color: "var(--muted)", margin: 0, lineHeight: 1.4 }}>{card.description}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* SECTION 10: COMMON MYTHS */}
-      {s10.status !== false && (
-        <section className="section white ds-finance-integrated">
-          <div className="container">
-            <div className="title-row" style={{ textAlign: "left", marginBottom: "2rem" }}>
-              <div>
-                <span className="kicker">{s10.badge || "Common myths"}</span>
-                <h2>{s10.title || "Finance explained without panic."}</h2>
-              </div>
-              <p style={{ color: "var(--muted)", margin: "8px 0 0" }}>{s10.description}</p>
-            </div>
-            <div className="finance-comparison-table" style={{ width: "100%", overflowX: "auto", border: "1px solid var(--border)", borderRadius: "12px" }}>
-              <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left", fontSize: "15px" }}>
-                <thead>
-                  <tr style={{ background: "var(--soft)", borderBottom: "1px solid var(--border)" }}>
-                    <th style={{ padding: "16px", width: "30%" }}>{s10.headers?.myth_header || "Myth"}</th>
-                    <th style={{ padding: "16px", width: "50%" }}>{s10.headers?.reality_header || "Reality"}</th>
-                    <th style={{ padding: "16px", width: "20%" }}>{s10.headers?.best_header || "Best next step"}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {(s10.rows || []).map((row: any, idx: number) => (
-                    <tr key={idx} style={{ borderBottom: idx < s10.rows.length - 1 ? "1px solid var(--border)" : "none" }}>
-                      <td style={{ padding: "16px", fontWeight: 700, color: "#d93838" }}>{row.myth}</td>
-                      <td style={{ padding: "16px", lineHeight: 1.4 }}>{row.reality}</td>
-                      <td style={{ padding: "16px", fontWeight: 700, color: "var(--b)" }}>{row.best}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            {/* ADVISER CTA PANEL */}
-            <div className="cta-panel" style={{ marginTop: '28px' }}>
-              <div>
-                <h2 >{s11.title || "Need certainty before you apply?"}</h2>
-                <p >
-                  {s11.description || "YStudy can check your status, previous study and course type before you submit your application."}
-                </p>
-              </div>
-              <div className="btnrow">
-                <a className="btn btn-blue" href="/tools/eligibility-checker">
-                  Check eligibility
-                </a>
-                <a className="btn btn-orange" href="/apply">
-                  Apply with YStudy
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* FOOTER CTA */}
-      <section className="footer-cta" >
-        <div className="container" >
-          <span className="kicker">Stay in touch</span>
-          <h2>Your next step should feel organised.</h2>
-          <p >
-            Create a free account to save progress, find your best degree and track applications.
-          </p>
-          <div className="btnrow" >
-            <a className="btn btn-white" href="/dashboard">
-              Create account
-            </a>
-            <a className="btn btn-orange" href="/apply">
-              Apply now
-            </a>
-          </div>
-        </div>
-      </section>
+      {/* SHARED BOTTOM SECTIONS */}
+      <FundingBottomSections
+        snapshot={s8}
+        journey={s9}
+        myths={s10}
+        certainty={s11}
+      />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { getCMSPageContent } from "@/services/cms.service";
 import "@/app/degrees/qualifications/qualifications.css";
 import { Banner } from "@/components/ui/Banner";
+import { QualificationConversionCards } from "@/components/ui";
 
 interface GuideDetailProps {
   slug: string;
@@ -155,31 +156,7 @@ export default async function GuideDetail({ slug }: GuideDetailProps) {
       })}
 
       {/* CONVERSION PANEL */}
-      <section className="ys-conversion-system" aria-label="YStudy next steps" style={{ marginTop: "40px" }}>
-        <div className="ys-conversion-wrap">
-          <a className="ys-conversion-card blue" href="/tools/eligibility-checker">
-            <div>
-              <h2>Check if you can get funded.</h2>
-              <p>Quickly understand if you may qualify for Student Finance, grants and flexible university routes.</p>
-            </div>
-            <span>Check eligibility</span>
-          </a>
-          <a className="ys-conversion-card orange" href="/apply">
-            <div>
-              <h2>Apply with YStudy.</h2>
-              <p>Send us your details and we’ll help you choose the right course, prepare documents and move forward.</p>
-            </div>
-            <span>Start application</span>
-          </a>
-          <a className="ys-conversion-card dark" href="/lead/adviser-call">
-            <div>
-              <h2>Speak with an adviser.</h2>
-              <p>Not sure what to study, what you can get or which documents you need? Book a free call.</p>
-            </div>
-            <span>Book free call</span>
-          </a>
-        </div>
-      </section>
+      <QualificationConversionCards />
     </div>
   );
 }

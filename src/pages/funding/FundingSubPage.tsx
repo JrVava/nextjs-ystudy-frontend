@@ -1,6 +1,7 @@
 import React from "react";
 import { getCMSPageContent } from "@/services/cms.service";
 import { Banner } from "@/components/ui/Banner";
+import FundingBottomSections from "@/components/widgets/FundingBottomSections";
 
 interface FundingSubPageProps {
   slug: string;
@@ -178,123 +179,8 @@ export default async function FundingSubPage({ slug }: FundingSubPageProps) {
         </section>
       )}
 
-      {/* SHARED BOTTOM SECTION: ELIGIBILITY SNAPSHOT */}
-      <section className="section white ds-finance-integrated ystudy-phase4-funding" style={{ borderTop: "1px solid var(--border)" }}>
-        <div className="container">
-          <div className="title-row" style={{ textAlign: "left", marginBottom: "2rem" }}>
-            <div>
-              <span className="kicker">Eligibility snapshot</span>
-              <h2>{sharedSnapshot.title}</h2>
-            </div>
-            <p style={{ color: "var(--muted)", margin: "8px 0 0" }}>{sharedSnapshot.description}</p>
-          </div>
-          <div className="finance-visual-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "20px" }}>
-            {sharedSnapshot.cards.map((card, idx) => (
-              <article className="finance-visual-card" key={idx} style={{ background: "#fff", border: "1px solid var(--border)", borderRadius: "12px", padding: "1.5rem", textAlign: "left", display: "flex", flexDirection: "column" }}>
-                <div className="finance-visual-card-body" style={{ display: "flex", flexDirection: "column", flex: 1 }}>
-                  <h3 style={{ fontSize: "19px", fontWeight: 800, margin: "0 0 4px" }}>{card.title}</h3>
-                  <strong style={{ fontSize: "16px", color: "var(--o)", display: "block", margin: "4px 0 8px" }}>{card.subTitle}</strong>
-                  <p style={{ fontSize: "14px", color: "var(--muted)", margin: "0 0 16px", flex: 1 }}>{card.description}</p>
-                  <a href={card.link} style={{ fontWeight: 700, color: "var(--b)", textDecoration: "none", fontSize: "14px" }}>
-                    {card.linkBtnName}
-                  </a>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* SHARED BOTTOM SECTION: JOURNEY */}
-      <section className="section white ds-finance-integrated" style={{ borderTop: "1px solid var(--border)" }}>
-        <div className="container">
-          <div className="title-row" style={{ textAlign: "left", marginBottom: "2rem" }}>
-            <div>
-              <span className="kicker">Funding journey</span>
-              <h2>{sharedJourney.title}</h2>
-            </div>
-            <p style={{ color: "var(--muted)", margin: "8px 0 0" }}>{sharedJourney.description}</p>
-          </div>
-          <div className="card-grid four" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "20px" }}>
-            {sharedJourney.cards.map((card, idx) => (
-              <article className="card" key={idx} style={{ background: "var(--soft)", border: "1px solid var(--border)", borderRadius: "12px", padding: "1.5rem", textAlign: "left" }}>
-                <h3 style={{ fontSize: "18px", fontWeight: 800, margin: "0 0 8px", color: "var(--b)" }}>{card.title}</h3>
-                <p style={{ fontSize: "14px", color: "var(--muted)", margin: 0, lineHeight: 1.4 }}>{card.description}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* SHARED BOTTOM SECTION: MYTHS */}
-      <section className="section white ds-finance-integrated" style={{ borderTop: "1px solid var(--border)" }}>
-        <div className="container">
-          <div className="title-row" style={{ textAlign: "left", marginBottom: "2rem" }}>
-            <div>
-              <span className="kicker">Common myths</span>
-              <h2>{sharedMyths.title}</h2>
-            </div>
-            <p style={{ color: "var(--muted)", margin: "8px 0 0" }}>{sharedMyths.description}</p>
-          </div>
-          <div className="finance-comparison-table" style={{ width: "100%", overflowX: "auto", border: "1px solid var(--border)", borderRadius: "12px" }}>
-            <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left", fontSize: "15px" }}>
-              <thead>
-                <tr style={{ background: "var(--soft)", borderBottom: "1px solid var(--border)" }}>
-                  <th style={{ padding: "16px", width: "30%" }}>Myth</th>
-                  <th style={{ padding: "16px", width: "50%" }}>Reality</th>
-                  <th style={{ padding: "16px", width: "20%" }}>Best next step</th>
-                </tr>
-              </thead>
-              <tbody>
-                {sharedMyths.rows.map((row, idx) => (
-                  <tr key={idx} style={{ borderBottom: idx < sharedMyths.rows.length - 1 ? "1px solid var(--border)" : "none" }}>
-                    <td style={{ padding: "16px", fontWeight: 700, color: "#d93838" }}>{row.myth}</td>
-                    <td style={{ padding: "16px", lineHeight: 1.4 }}>{row.reality}</td>
-                    <td style={{ padding: "16px", fontWeight: 700, color: "var(--b)" }}>{row.best}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          {/* ADVISER CTA PANEL */}
-          <div className="cta-panel" style={{ marginTop: "40px", background: "var(--b-dark)", color: "#fff", padding: "2.5rem", borderRadius: "16px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "20px", textAlign: "left" }}>
-            <div style={{ flex: "1 1 500px" }}>
-              <h2 style={{ color: "#fff", margin: 0, fontSize: "26px", fontWeight: 900 }}>Need certainty before you apply?</h2>
-              <p style={{ margin: "8px 0 0", color: "rgba(255,255,255,0.85)", fontSize: "15px" }}>
-                YStudy can check your status, previous study and course type before you submit your application.
-              </p>
-            </div>
-            <div className="btnrow" style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-              <a className="btn btn-blue" href="/tools/eligibility-checker">
-                Check eligibility
-              </a>
-              <a className="btn btn-orange" href="/apply">
-                Apply with YStudy
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FOOTER CTA */}
-      <section className="footer-cta" style={{ background: "var(--soft)", padding: "3rem 1.5rem", textAlign: "center", borderTop: "1px solid var(--border)" }}>
-        <div className="container" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <span className="kicker">Stay in touch</span>
-          <h2 style={{ fontSize: "28px", fontWeight: 900, margin: "8px 0" }}>Your next step should feel organised.</h2>
-          <p style={{ color: "var(--muted)", maxWidth: "500px", marginBottom: "24px" }}>
-            Create a free account to save progress, find your best degree and track applications.
-          </p>
-          <div className="btnrow" style={{ display: "flex", gap: "12px" }}>
-            <a className="btn btn-white" href="/dashboard">
-              Create account
-            </a>
-            <a className="btn btn-orange" href="/apply">
-              Apply now
-            </a>
-          </div>
-        </div>
-      </section>
+      {/* SHARED BOTTOM SECTIONS */}
+      <FundingBottomSections />
     </div>
   );
 }
