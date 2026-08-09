@@ -1,0 +1,48 @@
+{
+  "page": "disabled-students-allowance",
+  "section_1": {
+    "badge": "★ DSA · 2026/27",
+    "title": "Extra support, if a condition makes study harder.",
+    "description": "Covers study costs like assistive software, specialized equipment and non-medical support. Not a loan, doesn't depend on household income.",
+    "bgImage": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=2000&q=85",
+    "rightCard": {
+      "layoutType": "stats-highlight",
+      "title": "DSA cap value",
+      "mainValue": "£26,948",
+      "description": "Maximum support per year",
+      "items": [
+        { "title": "No repayment", "value": "100%" },
+        { "title": "Income-free", "value": "✓" }
+      ]
+    }
+  },
+  "section_2": {
+    "title": "Who qualifies for DSA?",
+    "description": "DSA is designed to support students with a wide range of learning needs, physical conditions, or mental health challenges.",
+    "cards": [
+      {
+        "title": "Learning difficulties",
+        "description": "Includes dyslexia, dyspraxia, ADHD, and other neurodivergent study needs."
+      },
+      {
+        "title": "Mental health conditions",
+        "description": "Includes long-term anxiety, depression, PTSD, or other mental health challenges."
+      },
+      {
+        "title": "Physical disabilities",
+        "description": "Includes chronic pain, visual or hearing impairments, mobility conditions, and long-term illnesses."
+      }
+    ],
+    "status": true
+  },
+  "faqs": [
+    {
+      "q": "Do I get this money in cash?",
+      "a": "Usually no. SFE pays for the services, software, or equipment directly to the suppliers, or reimburses you with proof of purchase."
+    },
+    {
+      "q": "Do I need a formal diagnosis?",
+      "a": "Yes, you will need a diagnostic assessment or medical evidence from a qualified doctor or educational psychologist."
+    }
+  ]
+}

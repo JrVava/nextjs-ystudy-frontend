@@ -1,0 +1,48 @@
+{
+  "page": "grants",
+  "section_1": {
+    "badge": "★ Grants & bursaries · 2026/27",
+    "title": "Money you don't pay back.",
+    "description": "On top of your loans — for childcare, learning costs, dependants and disability. Each is claimed on your SFE application, not automatic.",
+    "bgImage": "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=2000&q=85",
+    "rightCard": {
+      "layoutType": "grid-2x2",
+      "title": "Extra support limits",
+      "items": [
+        { "title": "Childcare /wk", "value": "£199.62" },
+        { "title": "Learning /yr", "value": "£2,024" },
+        { "title": "Adult dependant", "value": "£3,545" },
+        { "title": "DSA support", "value": "£27k+" }
+      ]
+    }
+  },
+  "section_2": {
+    "title": "Additional help available",
+    "description": "These extra grants are added directly onto your main SFE application profile.",
+    "cards": [
+      {
+        "title": "Parents' Learning Allowance",
+        "description": "Up to £2,024 per year to help with course materials, books and travel if you have dependants."
+      },
+      {
+        "title": "Adult Dependants' Grant",
+        "description": "Up to £3,545 per year if you have an adult who depends on you financially."
+      },
+      {
+        "title": "Disabled Students' Allowance (DSA)",
+        "description": "Support for computer software, specialized equipment and non-medical helpers."
+      }
+    ],
+    "status": true
+  },
+  "faqs": [
+    {
+      "q": "How do I claim these grants?",
+      "a": "You apply for them online through SFE at the same time as you apply for your main tuition and maintenance loans."
+    },
+    {
+      "q": "Are they based on household income?",
+      "a": "Yes, most dependants' grants are assessed based on your partner's or household income."
+    }
+  ]
+}

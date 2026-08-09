@@ -1,0 +1,48 @@
+{
+  "page": "childcare-grant",
+  "section_1": {
+    "badge": "★ Childcare Grant · 2026/27",
+    "title": "Studying with kids? This helps.",
+    "description": "Covers up to 85% of registered childcare while you study — paid termly, and it doesn't reduce your maintenance loan.",
+    "bgImage": "https://images.unsplash.com/photo-1484665754804-74b091211472?auto=format&fit=crop&w=2000&q=85",
+    "rightCard": {
+      "layoutType": "list-items",
+      "title": "Per week · non-repayable",
+      "mainValue": "Up to £342.24",
+      "description": "Weekly maximum limits",
+      "items": [
+        { "title": "1 child", "value": "£199.62" },
+        { "title": "2+ children", "value": "£342.24" }
+      ]
+    }
+  },
+  "section_2": {
+    "title": "How it works & key rules",
+    "description": "The grant is paid directly into the Childcare Grant Payment Service (CCGPS) to pay your provider.",
+    "cards": [
+      {
+        "title": "Paid termly",
+        "description": "SFE pays the grant in three installments throughout the academic year."
+      },
+      {
+        "title": "Registered providers",
+        "description": "Your nursery, childminder or school club must be fully Ofsted registered."
+      },
+      {
+        "title": "Full-time study",
+        "description": "Available only to undergraduate students on full-time designated courses."
+      }
+    ],
+    "status": true
+  },
+  "faqs": [
+    {
+      "q": "Do I have to pay back the Childcare Grant?",
+      "a": "No, the Childcare Grant is a grant, not a loan, and does not need to be repaid unless you leave your course early."
+    },
+    {
+      "q": "Can I get it if my partner works?",
+      "a": "Yes, but it is income-assessed based on your overall household income."
+    }
+  ]
+}

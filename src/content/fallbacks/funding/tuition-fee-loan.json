@@ -1,0 +1,48 @@
+{
+  "page": "tuition-fee-loan",
+  "section_1": {
+    "badge": "★ Tuition Fee Loan · 2026/27",
+    "title": "Can your course fees be covered?",
+    "description": "Covers your full tuition fees up to £9,250/yr (or £6,000+ for private/some providers). Paid directly to the provider — you never touch the money.",
+    "bgImage": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=2000&q=85",
+    "rightCard": {
+      "layoutType": "list-items",
+      "title": "Fee loan details",
+      "mainValue": "£9,250",
+      "description": "Standard university fee limit",
+      "items": [
+        { "title": "Paid to", "value": "University" },
+        { "title": "Repayable", "value": "Yes, above £25k" }
+      ]
+    }
+  },
+  "section_2": {
+    "title": "Key details about Tuition Loans",
+    "description": "The tuition fee loan ensures your course fees are paid upfront so you don't face upfront costs.",
+    "cards": [
+      {
+        "title": "Direct Payment",
+        "description": "SFE pays the loan straight to the university or college in three instalments per year after your attendance is confirmed."
+      },
+      {
+        "title": "Designation Check",
+        "description": "The loan is only paid if your specific course and provider are officially SFE-designated for that year."
+      },
+      {
+        "title": "Previous Study rules",
+        "description": "If you have studied at higher education level before, it can reduce your available years of tuition fee support. Speak to an adviser."
+      }
+    ],
+    "status": true
+  },
+  "faqs": [
+    {
+      "q": "Do I have to pay it back?",
+      "a": "Yes, it is part of your student loan balance, but you only repay it after you graduate and earn above the £25,000 income threshold."
+    },
+    {
+      "q": "What if my fees are higher?",
+      "a": "If you study at a private provider where fees exceed the SFE cap, you may need to pay the difference yourself."
+    }
+  ]
+}

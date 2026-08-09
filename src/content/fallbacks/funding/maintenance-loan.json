@@ -1,0 +1,49 @@
+{
+  "page": "maintenance-loan",
+  "section_1": {
+    "badge": "★ Maintenance Loan · 2026/27",
+    "title": "Your living costs, paid into your bank.",
+    "description": "Support for rent, travel, food, and books. Paid directly to you in three instalments (usually at the start of each term).",
+    "bgImage": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=2000&q=85",
+    "rightCard": {
+      "layoutType": "stats-highlight",
+      "title": "Living support limits",
+      "mainValue": "Up to £14k+",
+      "description": "Based on household income & location",
+      "items": [
+        { "title": "Living at home", "value": "Up to £8,990" },
+        { "title": "Away (Outside LDN)", "value": "Up to £10,544" },
+        { "title": "Away (In London)", "value": "Up to £13,762" }
+      ]
+    }
+  },
+  "section_2": {
+    "title": "How Maintenance Loans are assessed",
+    "description": "Assessed by Student Finance England based on location, household income, and course intensity.",
+    "cards": [
+      {
+        "title": "Household Income",
+        "description": "The amount depends on your household income (partner's income if living together, or parents' income if dependent)."
+      },
+      {
+        "title": "Where you live",
+        "description": "Higher maximum amounts are available to students studying in London or living away from their parents."
+      },
+      {
+        "title": "Paid termly",
+        "description": "The loan is released in three instalments (33%, 33%, 34%) after the university confirms your enrolment."
+      }
+    ],
+    "status": true
+  },
+  "faqs": [
+    {
+      "q": "Do I have to pay it back?",
+      "a": "Yes, it is combined with your tuition fee loan balance, and repaid together once you graduate and earn above the Plan 5 threshold."
+    },
+    {
+      "q": "What if my household income is high?",
+      "a": "You will still be eligible for the non-income-assessed minimum portion of the maintenance loan, regardless of income."
+    }
+  ]
+}

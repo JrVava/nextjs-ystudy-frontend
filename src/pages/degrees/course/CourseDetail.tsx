@@ -6,6 +6,7 @@ import { formatSalaryRange } from "@/components/degrees/CourseCard";
 import CourseHero from "@/components/degrees/CourseHero";
 import "@/app/degrees/course/course.css";
 import defaultCourseData from "@/content/fallbacks/course/business-management-ba.json";
+import { getMediaUrl } from "@/lib/utils/media";
 
 function getSectionWithFallback(cmsSec: any, backendSec: any, defaultSec: any) {
   const merged = { ...cmsSec, ...backendSec };
@@ -58,9 +59,10 @@ interface CourseDetailProps {
   cmsData: any;
   backendCourse: any;
   faqs?: any[];
+  bannerData?: any;
 }
 
-export default function CourseDetail({ slug, cmsData, backendCourse, faqs }: CourseDetailProps) {
+export default function CourseDetail({ slug, cmsData, backendCourse, faqs, bannerData }: CourseDetailProps) {
   const [isSaved, setIsSaved] = useState(false);
 
   // Quick Estimate state
@@ -72,23 +74,90 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs }: Cou
   // FAQ Accordion State
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
 
+  const banner = bannerData && bannerData.isActive ? bannerData : null;
+
+  // Helper to extract snapshot items from banner right card if they exist
+  const getBannerItemValue = (query: string, index: number, fallback: string) => {
+    if (!banner?.rightCard?.items) return fallback;
+    
+    const itemByQuery = banner.rightCard.items.find((i: any) => {
+      const matchText = `${i.title || ""} ${i.subtitle || ""} ${i.description || ""}`.toLowerCase();
+      return matchText.includes(query);
+    });
+    
+    if (itemByQuery) {
+      if (banner.rightCard.layoutType === 'grid-2x2') {
+        return itemByQuery.value || itemByQuery.subtitle || itemByQuery.title || fallback;
+      }
+      return itemByQuery.value || itemByQuery.title || itemByQuery.subtitle || fallback;
+    }
+    
+    const itemByIndex = banner.rightCard.items[index];
+    if (itemByIndex) {
+      if (banner.rightCard.layoutType === 'grid-2x2') {
+        return itemByIndex.value || itemByIndex.subtitle || itemByIndex.title || fallback;
+      }
+      return itemByIndex.value || itemByIndex.title || itemByIndex.subtitle || fallback;
+    }
+    
+    return fallback;
+  };
+
   // Dynamic values
-  const title = backendCourse?.title || cmsData?.title || (slug || "").replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-  const description = backendCourse?.description || backendCourse?.shortDescription || cmsData?.description || "A practical degree route designed for working adults.";
-  const kicker = backendCourse?.courseCms?.kicker || cmsData?.kicker || "Featured Course";
-  const image = backendCourse?.fullImageUrl || backendCourse?.image || cmsData?.image || "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=2000&q=80";
+  const title = banner?.leftContent?.title || backendCourse?.title || cmsData?.title || (slug || "").replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+  const description = banner?.leftContent?.description || backendCourse?.description || backendCourse?.shortDescription || cmsData?.description || "A practical degree route designed for working adults.";
+  const kicker = banner?.leftContent?.badgeText || backendCourse?.courseCms?.kicker || cmsData?.kicker || "Featured Course";
+  
+  const bannerImage = banner ? getMediaUrl(banner.background?.imageUrl, banner.fullImageUrl) : null;
+  const image = bannerImage || backendCourse?.fullImageUrl || backendCourse?.image || cmsData?.image || "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=2000&q=80";
 
   const formattedSalary = formatSalaryRange(backendCourse?.salaryRange || backendCourse?.salary);
 
+  const getBannerMatch = () => {
+    const defaultMatch = backendCourse?.matchScore ? `${backendCourse.matchScore}% match` : (cmsData?.snapshot?.match || "92% match");
+    if (!banner?.rightCard?.title) return defaultMatch;
+    const titleLower = banner.rightCard.title.toLowerCase();
+    if (titleLower.includes("match") || titleLower.includes("%")) {
+      return banner.rightCard.title;
+    }
+    return defaultMatch;
+  };
+
   // Fallback defaults mapping
   const snapshot = {
-    match: backendCourse?.matchScore ? `${backendCourse.matchScore}% match` : (cmsData?.snapshot?.match || "92% match"),
-    salary: formattedSalary || cmsData?.snapshot?.salary || "£24k – £55k+",
-    duration: (backendCourse?.durations && (backendCourse.durations[0]?.duration || backendCourse.durations[0]?.label || backendCourse.durations[0]?.name || backendCourse.durations[0]?.title)) || cmsData?.snapshot?.duration || "3 yrs",
-    mode: (backendCourse?.modeType && (backendCourse.modeType[0]?.name || backendCourse.modeType[0]?.title)) || cmsData?.snapshot?.mode || "Blended",
-    maintenance: cmsData?.snapshot?.maintenance || "£14k+",
-    funding: (backendCourse?.fundings && (backendCourse.fundings[0]?.name || backendCourse.fundings[0]?.title)) || cmsData?.snapshot?.funding || "SFE"
+    match: getBannerMatch(),
+    salary: banner?.rightCard?.mainValue || formattedSalary || cmsData?.snapshot?.salary || "£24k – £55k+",
+    duration: getBannerItemValue(
+      "duration",
+      0,
+      (backendCourse?.durations && (backendCourse.durations[0]?.duration || backendCourse.durations[0]?.label || backendCourse.durations[0]?.name || backendCourse.durations[0]?.title)) || cmsData?.snapshot?.duration || "3 yrs"
+    ),
+    mode: getBannerItemValue(
+      "mode",
+      1,
+      (backendCourse?.modeType && (backendCourse.modeType[0]?.name || backendCourse.modeType[0]?.title)) || cmsData?.snapshot?.mode || "Blended"
+    ),
+    maintenance: getBannerItemValue(
+      "maintenance",
+      2,
+      cmsData?.snapshot?.maintenance || "£14k+"
+    ),
+    funding: getBannerItemValue(
+      "funding",
+      3,
+      (backendCourse?.fundings && (backendCourse.fundings[0]?.name || backendCourse.fundings[0]?.title)) || cmsData?.snapshot?.funding || "SFE"
+    )
   };
+
+  let bannerStyle = backendCourse?.courseCms?.bannerStyle || "blue";
+  if (banner?.background?.bgColor) {
+    const bg = banner.background.bgColor.toLowerCase();
+    if (bg === "white" || bg === "#ffffff") {
+      bannerStyle = "white";
+    } else if (bg === "black" || bg === "#000000") {
+      bannerStyle = "black";
+    }
+  }
 
   const handleCalculate = () => {
     if (calcMode === 'online') {
@@ -284,8 +353,6 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs }: Cou
       return { label: req, desc: "" };
     })
     : (sec10.rows || []);
-
-  const bannerStyle = backendCourse?.courseCms?.bannerStyle || "blue";
 
   return (
     <div className="qualification-page course-detail-page animate-fade-in">
