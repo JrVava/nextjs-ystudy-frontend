@@ -25,6 +25,14 @@ import fallbackCvBuilder from "@/content/fallbacks/tools/cv-builder.json";
 import fallbackFundingChecker from "@/content/fallbacks/tools/funding-checker.json";
 import fallbackEnglishTest from "@/content/fallbacks/tools/english-test.json";
 import fallbackDegreeMatchFinder from "@/content/fallbacks/tools/degree-match-finder.json";
+import fallbackFunding from "@/content/fallbacks/funding.json";
+import fallbackMoney from "@/content/fallbacks/money.json";
+import fallbackChildcareGrant from "@/content/fallbacks/funding/childcare-grant.json";
+import fallbackGrants from "@/content/fallbacks/funding/grants.json";
+import fallbackDSA from "@/content/fallbacks/funding/disabled-students-allowance.json";
+import fallbackTuitionFeeLoan from "@/content/fallbacks/funding/tuition-fee-loan.json";
+import fallbackMaintenanceLoan from "@/content/fallbacks/funding/maintenance-loan.json";
+import fallbackStudentFinance from "@/content/fallbacks/guides/student-finance.json";
 import api from "@/lib/api";
 
 export async function getCMSPageContent(pageName: string): Promise<CMSPageData | null> {
@@ -65,6 +73,31 @@ function getFallbackData(pageName: string): CMSPageData | null {
   }
   console.info(`[cms.service] Using static fallback data for page: ${pageName}`);
   const slug = pageName.toLowerCase().trim();
+
+  if (slug === "funding") {
+    return fallbackFunding as unknown as CMSPageData;
+  }
+  if (slug === "money") {
+    return fallbackMoney as unknown as CMSPageData;
+  }
+  if (slug === "childcare-grant") {
+    return fallbackChildcareGrant as unknown as CMSPageData;
+  }
+  if (slug === "grants" || slug === "grants-support") {
+    return fallbackGrants as unknown as CMSPageData;
+  }
+  if (slug === "disabled-students-allowance" || slug === "disabled-students-allowance-guide" || slug === "dsa") {
+    return fallbackDSA as unknown as CMSPageData;
+  }
+  if (slug === "tuition-fee-loan") {
+    return fallbackTuitionFeeLoan as unknown as CMSPageData;
+  }
+  if (slug === "maintenance-loan") {
+    return fallbackMaintenanceLoan as unknown as CMSPageData;
+  }
+  if (slug === "student-finance") {
+    return fallbackStudentFinance as unknown as CMSPageData;
+  }
 
   if (slug === "home") {
     return fallbackHome as unknown as CMSPageData;

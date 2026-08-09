@@ -1,14 +1,16 @@
 import { SiteLayout } from "@/components/layout";
+import Apply from "@/pages/Apply";
+
+export const metadata = {
+  title: "YStudy — Apply with Confidence",
+  description: "Complete one short form and a YStudy adviser will help you check suitable courses, documents and Student Finance before you commit.",
+};
 
 export default function Page() {
   return (
     <SiteLayout>
-      <div className="sec soft">
-        <div className="wrap">
-          <h1 className="h1">Apply to YStudy</h1>
-          <p className="lead" style={{ marginTop: "12px" }}>Under construction.</p>
-        </div>
-      </div>
+      <Apply />
     </SiteLayout>
   );
 }
+

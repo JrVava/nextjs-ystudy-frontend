@@ -1,14 +1,15 @@
+import Money from "@/pages/Money";
 import { SiteLayout } from "@/components/layout";
+
+export const metadata = {
+  title: "YStudy — How much Student Finance could you receive",
+  description: "Learn how much Student Finance you could receive. Compare course funding routes, Living cost support, student bank accounts, and broadband essentials.",
+};
 
 export default function Page() {
   return (
     <SiteLayout>
-      <div className="sec soft">
-        <div className="wrap">
-          <h1 className="h1">Student Money Hub</h1>
-          <p className="lead" style={{ marginTop: "12px" }}>Under construction.</p>
-        </div>
-      </div>
+      <Money />
     </SiteLayout>
   );
 }

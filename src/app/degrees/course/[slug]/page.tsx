@@ -2,6 +2,7 @@ import CourseDetail from "@/pages/degrees/course/CourseDetail";
 import { getCMSPageContent } from "@/services/cms.service";
 import { getCourseBySlug } from "@/services/course.service";
 import { getFAQBySlug } from "@/services/faq.service";
+import { getBannerBySlug } from "@/services/banner.service";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -21,6 +22,16 @@ export default async function Page({ params }: PageProps) {
   const cmsData = await getCMSPageContent(slug);
   const backendCourse = await getCourseBySlug(slug);
   const faqs = await getFAQBySlug(slug);
+  const bannerData = await getBannerBySlug(slug);
 
-  return <CourseDetail slug={slug} cmsData={cmsData} backendCourse={backendCourse} faqs={faqs || undefined} />;
+  return (
+    <CourseDetail
+      slug={slug}
+      cmsData={cmsData}
+      backendCourse={backendCourse}
+      faqs={faqs || undefined}
+      bannerData={bannerData || undefined}
+    />
+  );
 }
+

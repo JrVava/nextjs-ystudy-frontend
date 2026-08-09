@@ -1,0 +1,40 @@
+{
+  "page": "student-finance",
+  "section_1": {
+    "badge": "Student Finance Guide",
+    "title": "Student Finance explained clearly.",
+    "description": "Understand funding rules, previous study, documents and next steps before applying.",
+    "bgImage": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=2200&q=80"
+  },
+  "section_2": {
+    "title": "Student Finance Guides",
+    "description": "Open a guide or speak to an adviser if you want a route checked.",
+    "cards": [
+      {
+        "title": "Maintenance Loan",
+        "subTitle": "Living cost support and what affects it.",
+        "link": "/funding/maintenance-loan",
+        "image": "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1600&q=85"
+      },
+      {
+        "title": "Tuition Fee Loan",
+        "subTitle": "How course fee support works.",
+        "link": "/funding/tuition-fee-loan",
+        "image": "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1600&q=85"
+      },
+      {
+        "title": "Previous Study",
+        "subTitle": "Why previous university study can affect funding.",
+        "link": "/guides/student-finance",
+        "image": "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1600&q=85"
+      },
+      {
+        "title": "EU Settled Status",
+        "subTitle": "Residency routes students often ask about.",
+        "link": "/guides/polish-community",
+        "image": "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1600&q=85"
+      }
+    ],
+    "status": true
+  }
+}
