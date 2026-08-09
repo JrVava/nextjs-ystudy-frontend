@@ -542,3 +542,39 @@ export function FloatingAdviser() {
     </div>
   );
 }
+
+/** Generic CTA Panel component. */
+export function CtaPanel({
+  title,
+  description,
+  primaryBtnText = "Check eligibility",
+  primaryBtnHref = "/tools/eligibility-checker",
+  secondaryBtnText = "Apply with YStudy",
+  secondaryBtnHref = "/apply",
+  style
+}: {
+  title?: string;
+  description?: string;
+  primaryBtnText?: string;
+  primaryBtnHref?: string;
+  secondaryBtnText?: string;
+  secondaryBtnHref?: string;
+  style?: React.CSSProperties;
+}) {
+  return (
+    <div className="cta-panel" style={style}>
+      <div>
+        {title && <h2>{title}</h2>}
+        {description && <p>{description}</p>}
+      </div>
+      <div className="btnrow">
+        <Link className="btn btn-blue" href={primaryBtnHref}>
+          {primaryBtnText}
+        </Link>
+        <Link className="btn btn-orange" href={secondaryBtnHref}>
+          {secondaryBtnText}
+        </Link>
+      </div>
+    </div>
+  );
+}

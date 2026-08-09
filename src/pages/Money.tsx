@@ -1,6 +1,20 @@
 import React from "react";
 import { getCMSPageContent } from "@/services/cms.service";
 import FinanceStepper from "@/components/widgets/FinanceStepper";
+import { ComparisonTable, FooterCta, CtaPanel } from "@/components/sections";
+
+const renderFundingCell = (val: any, colKey: string) => {
+  if (colKey === "maintainance" || colKey === "maintenance") {
+    return <span style={{ color: "var(--o)", fontWeight: 700 }}>{val}</span>;
+  }
+  if (colKey === "verdict") {
+    return <span style={{ color: "var(--b)", fontWeight: 700 }}>{val}</span>;
+  }
+  if (colKey === "route" || colKey === "option" || colKey === "degree") {
+    return <span style={{ fontWeight: 700 }}>{val}</span>;
+  }
+  return val;
+};
 
 export default async function Money() {
   const data = await getCMSPageContent("student-money-hub");
@@ -150,30 +164,18 @@ export default async function Money() {
               </div>
               <p>{s5.description || "Clear decision signals for course comparison, university comparison and funding guide pages."}</p>
             </div>
-            <div className="finance-comparison-table">
-              <table>
-                <thead>
-                  <tr>
-                    <th>{s5.headers?.route_header || "Route"}</th>
-                    <th>{s5.headers?.funding_header || "Funding type"}</th>
-                    <th>{s5.headers?.maintainance_header || "Maintenance Loan"}</th>
-                    <th>{s5.headers?.best_header || "Best for"}</th>
-                    <th>{s5.headers?.verdict_header || "Verdict"}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {(s5.rows || []).map((row: any, idx: number) => (
-                    <tr key={idx}>
-                      <td>{row.route}</td>
-                      <td>{row.funding}</td>
-                      <td>{row.maintainance}</td>
-                      <td>{row.best}</td>
-                      <td>{row.verdict}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            <ComparisonTable
+              className="finance-comparison-table"
+              headers={[
+                s5.headers?.route_header || "Route",
+                s5.headers?.funding_header || "Funding type",
+                s5.headers?.maintainance_header || "Maintenance Loan",
+                s5.headers?.best_header || "Best for",
+                s5.headers?.verdict_header || "Verdict"
+              ]}
+              rows={s5.rows || []}
+              renderCell={renderFundingCell}
+            />
           </div>
         </section>
       )}
@@ -229,19 +231,12 @@ export default async function Money() {
       )}
 
       {/* FOOTER CTA */}
-      {s8.status !== false && (
-        <div className="footer-cta">
-          <div>
-            <span className="kicker">{s8.badge || "Stay in touch"}</span>
-            <h2>{s8.title || "Your next step should feel organised."}</h2>
-            <p>{s8.description || "Create a free account to save progress, find your best degree and track applications."}</p>
-          </div>
-          <div className="btnrow">
-            <a className="btn btn-white" href="/dashboard">Create account</a>
-            <a className="btn btn-orange" href="/apply">Apply now</a>
-          </div>
-        </div>
-      )}
+      <FooterCta
+        status={s8.status !== false}
+        badge={s8.badge}
+        title={s8.title}
+        description={s8.description}
+      />
 
       {/* STUDENT MONEY HUB BOTTOM SECTION */}
       {s9.status !== false && (
@@ -270,14 +265,15 @@ export default async function Money() {
             </div>
 
             {s10.status !== false && (
-              <div className="cta-panel" style={{ marginTop: "28px" }}>
-                <h2>{s10.title || "Need help choosing the right route?"}</h2>
-                <p>{s10.description || "Use Degree Match Finder or speak to a YStudy adviser before applying."}</p>
-                <div className="btnrow">
-                  <a className="btn btn-blue" href="/tools/degree-match">Find my degree</a>
-                  <a className="btn btn-orange" href="/apply">Apply with YStudy</a>
-                </div>
-              </div>
+              <CtaPanel
+                title={s10.title || "Need help choosing the right route?"}
+                description={s10.description || "Use Degree Match Finder or speak to a YStudy adviser before applying."}
+                primaryBtnText="Find my degree"
+                primaryBtnHref="/tools/degree-match"
+                secondaryBtnText="Apply with YStudy"
+                secondaryBtnHref="/apply"
+                style={{ marginTop: "28px" }}
+              />
             )}
           </div>
         </section>

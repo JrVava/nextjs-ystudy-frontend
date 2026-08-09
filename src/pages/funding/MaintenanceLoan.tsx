@@ -4,6 +4,17 @@ import FundingTabs from "@/components/widgets/FundingTabs";
 import MaintenanceJourneyWheel from "@/components/widgets/MaintenanceJourneyWheel";
 import MaintenanceCalculator from "@/components/widgets/MaintenanceCalculator";
 import FundingBottomSections from "@/components/widgets/FundingBottomSections";
+import { ComparisonTable } from "@/components/sections";
+
+const renderMaintenanceCell = (val: any, colKey: string) => {
+  if (colKey === "maximum") {
+    return <span style={{ color: "var(--o)", fontWeight: 700 }}>{val}</span>;
+  }
+  if (colKey === "living") {
+    return <span style={{ fontWeight: 600 }}>{val}</span>;
+  }
+  return val;
+};
 
 interface MaintenanceLoanProps {
   data?: any;
@@ -108,26 +119,16 @@ export function MaintenanceLoan({ data }: MaintenanceLoanProps) {
               <p style={{ color: "var(--muted)", fontSize: "15px", lineHeight: 1.5, marginBottom: "20px" }}>
                 {s3?.description || "The maximums below apply to full-time students. Part-time students receive reduced amounts. These are the highest possible figures — most students receive less based on their household income."}
               </p>
-              <div className="comp-table" style={{ width: "100%", overflowX: "auto", border: "1px solid var(--border)", borderRadius: "12px", background: "#fff" }}>
-                <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left", fontSize: "15px" }}>
-                  <thead>
-                    <tr style={{ background: "var(--soft)", borderBottom: "1px solid var(--border)" }}>
-                      <th style={{ padding: "16px" }}>{s3?.headers?.living_header || "Living situation"}</th>
-                      <th style={{ padding: "16px" }}>{s3?.headers?.maximum_header || "Maximum 2026/27"}</th>
-                      <th style={{ padding: "16px" }}>{s3?.headers?.minimum_header || "Minimum (high income)"}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {(s3?.rows || defaultMaximums).map((row: any, idx: number) => (
-                      <tr key={idx} style={{ borderBottom: idx < (s3?.rows || defaultMaximums).length - 1 ? "1px solid var(--border)" : "none" }}>
-                        <td style={{ padding: "16px", fontWeight: 600 }}>{row.living}</td>
-                        <td style={{ padding: "16px", color: "var(--o)", fontWeight: 700 }}>{row.maximum}</td>
-                        <td style={{ padding: "16px" }}>{row.minimum}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+              <ComparisonTable
+                className="comp-table"
+                headers={[
+                  s3?.headers?.living_header || "Living situation",
+                  s3?.headers?.maximum_header || "Maximum 2026/27",
+                  s3?.headers?.minimum_header || "Minimum (high income)"
+                ]}
+                rows={s3?.rows || defaultMaximums}
+                renderCell={renderMaintenanceCell}
+              />
               <p style={{ marginTop: "14px", fontSize: "13px", color: "var(--muted)", fontWeight: 700, margin: "14px 0 0" }}>
                 {s3?.tableDescription || "2026/27 SFE published maximums. Actual entitlement varies by household income. Verify at gov.uk/student-finance."}
               </p>

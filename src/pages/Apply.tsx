@@ -1,6 +1,7 @@
 import React from "react";
 import ApplyFormWidget from "@/components/widgets/ApplyFormWidget";
 import "@/app/tools/tools.css";
+import { QualificationConversionCards, QualificationCrosslinks } from "@/components/ui";
 
 export default function Apply() {
   return (
@@ -244,49 +245,10 @@ export default function Apply() {
       </section>
 
       {/* THREE LINK CARDS CONVERSION SYSTEM */}
-      <section className="ys-conversion-system" aria-label="YStudy next steps">
-        <div className="ys-conversion-wrap">
-          <a className="ys-conversion-card blue" href="/tools/eligibility-checker">
-            <div>
-              <h2>Check if you can get funded.</h2>
-              <p>Quickly understand if you may qualify for Student Finance, grants and flexible university routes.</p>
-            </div>
-            <span>Check eligibility</span>
-          </a>
-          <a className="ys-conversion-card orange" href="/apply">
-            <div>
-              <h2>Apply with YStudy.</h2>
-              <p>Send us your details and we’ll help you choose the right course, prepare documents and move forward.</p>
-            </div>
-            <span>Start application</span>
-          </a>
-          <a className="ys-conversion-card dark" href="/lead/adviser-call">
-            <div>
-              <h2>Speak with an adviser.</h2>
-              <p>Not sure what to study, what you can get or which documents you need? Book a free call.</p>
-            </div>
-            <span>Book free call</span>
-          </a>
-        </div>
-      </section>
+      <QualificationConversionCards />
 
       {/* CROSSLINKS SECTION */}
-      <section className="ys-crosslinks" aria-label="Useful links">
-        <div className="inner">
-          <div>
-            <h2>Useful next steps</h2>
-            <p>Move from information to action. Compare degrees, check funding, explore careers and apply with support.</p>
-          </div>
-          <div className="ys-link-grid">
-            <a href="/degrees">Find degrees</a>
-            <a href="/funding">Funding hub</a>
-            <a href="/careers">Careers & salaries</a>
-            <a href="/tools/degree-match">Degree Match</a>
-            <a href="/tools/salary-checker">Salary Checker</a>
-            <a href="/guides">Student guides</a>
-          </div>
-        </div>
-      </section>
+      <QualificationCrosslinks />
     </div>
   );
 }

@@ -5,8 +5,22 @@ import FinanceStepper from "@/components/widgets/FinanceStepper";
 import FundingTracker from "@/components/widgets/FundingTracker";
 import FundingBottomSections from "@/components/widgets/FundingBottomSections";
 import { getCMSPageContent } from "@/services/cms.service";
+import { ComparisonTable, FinanceWarningBanner } from "@/components/sections";
 
-export async function TuitionFeeLoan() {
+const renderFundingCell = (val: any, colKey: string) => {
+  if (colKey === "maintainance" || colKey === "maintenance") {
+    return <span style={{ color: "var(--o)", fontWeight: 700 }}>{val}</span>;
+  }
+  if (colKey === "verdict") {
+    return <span style={{ color: "var(--b)", fontWeight: 700 }}>{val}</span>;
+  }
+  if (colKey === "route" || colKey === "option" || colKey === "degree") {
+    return <span style={{ fontWeight: 700 }}>{val}</span>;
+  }
+  return val;
+};
+
+export default async function TuitionFeeLoan() {
   const data = await getCMSPageContent("tuition-fee-loan");
 
   const s2 = data?.section_2; // Stepper
@@ -154,26 +168,12 @@ export async function TuitionFeeLoan() {
       )}
 
       {/* NOTICE */}
-      {s4?.status !== false && (
-        <section className="section white">
-          <div className="container">
-            <div className="notice" style={{ background: "#fff8f2", borderLeft: "4px solid var(--o)", padding: "2rem", borderRadius: "0 12px 12px 0", textAlign: "left", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "20px" }}>
-              <div>
-                <span className="kicker" style={{ color: "var(--o)", textTransform: "uppercase", fontWeight: 700, fontSize: "12px" }}>
-                  {s4?.badge || "Important funding rule"}
-                </span>
-                <h2 style={{ fontSize: "32px", fontWeight: 900, margin: "8px 0" }}>
-                  {s4?.title || "Maintenance Loan is not usually available for online/distance learning."}
-                </h2>
-                <p style={{ color: "var(--muted)", margin: 0 }}>
-                  {s4?.description || "Weekend-only routes can also be risky. Ask an adviser before choosing a course."}
-                </p>
-              </div>
-              <a className="btn btn-orange" href="/tools/eligibility-checker">Check now</a>
-            </div>
-          </div>
-        </section>
-      )}
+      <FinanceWarningBanner
+        badge={s4?.badge}
+        title={s4?.title}
+        description={s4?.description}
+        status={s4?.status !== false}
+      />
 
       {/* OVERVIEW */}
       {s5?.status !== false && (
@@ -300,37 +300,24 @@ export async function TuitionFeeLoan() {
               </div>
               <p style={{ color: "var(--muted)", margin: "8px 0 0" }}>{s10?.description || "Use for course comparison, funding routes and university choices."}</p>
             </div>
-            <div className="comp-table" style={{ width: "100%", overflowX: "auto", border: "1px solid var(--border)", borderRadius: "12px" }}>
-              <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left", fontSize: "15px" }}>
-                <thead>
-                  <tr style={{ background: "var(--soft)", borderBottom: "1px solid var(--border)" }}>
-                    <th style={{ padding: "16px" }}>{s10?.headers?.option_header || "Option"}</th>
-                    <th style={{ padding: "16px" }}>{s10?.headers?.best_header || "Best for"}</th>
-                    <th style={{ padding: "16px" }}>{s10?.headers?.funding_header || "Funding"}</th>
-                    <th style={{ padding: "16px" }}>{s10?.headers?.flexible_header || "Flexible study"}</th>
-                    <th style={{ padding: "16px" }}>{s10?.headers?.salary_header || "Salary potential"}</th>
-                    <th style={{ padding: "16px" }}>{s10?.headers?.verdict_header || "Verdict"}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {(s10?.rows || [
-                    { option: "Business Management", best: "Career changers", funding: "✓", flexible: "✓", salary: "Medium–High", verdict: "Best overall" },
-                    { option: "Cybersecurity", best: "Digital careers", funding: "✓", flexible: "✓", salary: "High", verdict: "Highest salary" },
-                    { option: "Psychology", best: "People-focused careers", funding: "✓", flexible: "×", salary: "Medium", verdict: "Popular route" },
-                    { option: "Online MSc", best: "Working adults", funding: "✓", flexible: "✓", salary: "Medium–High", verdict: "Most flexible" }
-                  ]).map((row: any, idx: number) => (
-                    <tr key={idx} style={{ borderBottom: idx < (s10?.rows || []).length - 1 ? "1px solid var(--border)" : "none" }}>
-                      <td style={{ padding: "16px", fontWeight: 700 }}>{row.option}</td>
-                      <td style={{ padding: "16px" }}>{row.best}</td>
-                      <td style={{ padding: "16px" }}>{row.funding}</td>
-                      <td style={{ padding: "16px" }}>{row.flexible}</td>
-                      <td style={{ padding: "16px" }}>{row.salary}</td>
-                      <td style={{ padding: "16px", fontWeight: 700, color: "var(--b)" }}>{row.verdict}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            <ComparisonTable
+              className="comp-table"
+              headers={[
+                s10?.headers?.option_header || "Option",
+                s10?.headers?.best_header || "Best for",
+                s10?.headers?.funding_header || "Funding",
+                s10?.headers?.flexible_header || "Flexible study",
+                s10?.headers?.salary_header || "Salary potential",
+                s10?.headers?.verdict_header || "Verdict"
+              ]}
+              rows={s10?.rows || [
+                { option: "Business Management", best: "Career changers", funding: "✓", flexible: "✓", salary: "Medium–High", verdict: "Best overall" },
+                { option: "Cybersecurity", best: "Digital careers", funding: "✓", flexible: "✓", salary: "High", verdict: "Highest salary" },
+                { option: "Psychology", best: "People-focused careers", funding: "✓", flexible: "×", salary: "Medium", verdict: "Popular route" },
+                { option: "Online MSc", best: "Working adults", funding: "✓", flexible: "✓", salary: "Medium–High", verdict: "Most flexible" }
+              ]}
+              renderCell={renderFundingCell}
+            />
           </div>
         </section>
       )}
@@ -473,26 +460,12 @@ export async function TuitionFeeLoan() {
       )}
 
       {/* WARNING BANNER */}
-      {s14?.status !== false && (
-        <section className="section tight ds-finance-integrated">
-          <div className="container">
-            <div className="finance-warning-banner" style={{ background: "#fff8f2", borderLeft: "4px solid var(--o)", padding: "1.5rem 2rem", borderRadius: "0 12px 12px 0", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "20px", textAlign: "left" }}>
-              <div>
-                <span className="kicker" style={{ color: "var(--o)", fontWeight: 700, textTransform: "uppercase", fontSize: "11px" }}>
-                  {s14?.badge || "Important funding rule"}
-                </span>
-                <h2 style={{ fontSize: "22px", fontWeight: 900, margin: "6px 0" }}>
-                  {s14?.title || "Study mode can affect Maintenance Loan."}
-                </h2>
-                <p style={{ color: "var(--muted)", margin: 0, fontSize: "14px" }}>
-                  {s14?.description || "Online, distance-learning and weekend-only routes may not qualify for Maintenance Loan. Ask an adviser before choosing the course."}
-                </p>
-              </div>
-              <a className="btn btn-orange" href="/tools/eligibility-checker">Check study mode risk</a>
-            </div>
-          </div>
-        </section>
-      )}
+      <FinanceWarningBanner
+        badge={s14?.badge}
+        title={s14?.title}
+        description={s14?.description}
+        status={s14?.status !== false}
+      />
 
       {/* COMPARISON TABLE */}
       {s15?.status !== false && (
@@ -505,35 +478,23 @@ export async function TuitionFeeLoan() {
               </div>
               <p style={{ color: "var(--muted)", margin: "8px 0 0" }}>{s15?.description || "Clear decision signals for course comparison, university comparison and funding guide pages."}</p>
             </div>
-            <div className="finance-comparison-table" style={{ width: "100%", overflowX: "auto", border: "1px solid var(--border)", borderRadius: "12px" }}>
-              <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left", fontSize: "15px" }}>
-                <thead>
-                  <tr style={{ background: "var(--soft)", borderBottom: "1px solid var(--border)" }}>
-                    <th style={{ padding: "16px" }}>{s15?.headers?.route_header || "Route"}</th>
-                    <th style={{ padding: "16px" }}>{s15?.headers?.funding_header || "Funding type"}</th>
-                    <th style={{ padding: "16px" }}>{s15?.headers?.maintainance_header || "Maintenance Loan"}</th>
-                    <th style={{ padding: "16px" }}>{s15?.headers?.best_header || "Best for"}</th>
-                    <th style={{ padding: "16px" }}>{s15?.headers?.verdict_header || "Verdict"}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {(s15?.rows || [
-                    { route: "Campus / blended undergraduate", funding: "Tuition + maintenance", maintainance: "Usually stronger", best: "Students needing living-cost support", verdict: "Best overall route" },
-                    { route: "Weekend-only", funding: "Needs careful check", maintainance: "Risk area", best: "Working adults with limited time", verdict: "Ask adviser first" },
-                    { route: "Online / distance learning", funding: "Tuition may apply", maintainance: "Usually no maintenance", best: "Remote learners", verdict: "Good flexibility, less living-cost support" },
-                    { route: "Postgraduate Master’s", funding: "Postgraduate Loan", maintainance: "Different system", best: "Graduates and career changers", verdict: "Check loan cap and tuition" }
-                  ]).map((row: any, idx: number) => (
-                    <tr key={idx} style={{ borderBottom: idx < (s15?.rows || []).length - 1 ? "1px solid var(--border)" : "none" }}>
-                      <td style={{ padding: "16px", fontWeight: 700 }}>{row.route}</td>
-                      <td style={{ padding: "16px" }}>{row.funding}</td>
-                      <td style={{ padding: "16px", color: "var(--o)", fontWeight: 700 }}>{row.maintainance}</td>
-                      <td style={{ padding: "16px" }}>{row.best}</td>
-                      <td style={{ padding: "16px", fontWeight: 700, color: "var(--b)" }}>{row.verdict}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            <ComparisonTable
+              className="finance-comparison-table"
+              headers={[
+                s15?.headers?.route_header || "Route",
+                s15?.headers?.funding_header || "Funding type",
+                s15?.headers?.maintainance_header || "Maintenance Loan",
+                s15?.headers?.best_header || "Best for",
+                s15?.headers?.verdict_header || "Verdict"
+              ]}
+              rows={s15?.rows || [
+                { route: "Campus / blended undergraduate", funding: "Tuition + maintenance", maintainance: "Usually stronger", best: "Students needing living-cost support", verdict: "Best overall route" },
+                { route: "Weekend-only", funding: "Needs careful check", maintainance: "Risk area", best: "Working adults with limited time", verdict: "Ask adviser first" },
+                { route: "Online / distance learning", funding: "Tuition may apply", maintainance: "Usually no maintenance", best: "Remote learners", verdict: "Good flexibility, less living-cost support" },
+                { route: "Postgraduate Master’s", funding: "Postgraduate Loan", maintainance: "Different system", best: "Graduates and career changers", verdict: "Check loan cap and tuition" }
+              ]}
+              renderCell={renderFundingCell}
+            />
           </div>
         </section>
       )}
@@ -607,4 +568,3 @@ export async function TuitionFeeLoan() {
   );
 }
 
-export default TuitionFeeLoan;

@@ -123,8 +123,95 @@ export default async function Page({ params }: PageProps) {
 
 ---
 
+## Reusable Components & layout Sections
+
+To prevent code duplication, do not write raw HTML/CSS wrappers for common UI patterns. Import and reuse the following components:
+
+### 1. Comparison & Informational Tables
+For check lists, decision signals, or situation-maximum lists.
+```tsx
+import { ComparisonTable } from "@/components/sections";
+
+<ComparisonTable
+  className="finance-comparison-table" // or "comp-table"
+  headers={["Option", "Details", "Verdict"]}
+  rows={[{ option: "Blended", details: "On-campus", verdict: "Strongest" }]}
+  renderCell={(value, colKey) => {
+    if (colKey === "verdict") return <b style={{ color: "var(--b)" }}>{value}</b>;
+    return value;
+  }}
+/>
+```
+
+### 2. Notices & Warning Banners
+For highlighted warnings (e.g., study mode checks, residency criteria alerts).
+```tsx
+import { FinanceWarningBanner } from "@/components/sections";
+
+<FinanceWarningBanner
+  badge="Eligibility Warning"
+  title="Study mode can affect Maintenance Loan."
+  description="Distance learning routes may not qualify for living-cost support."
+  status={true}
+/>
+```
+
+### 3. CTA Panels & Action Cards
+For inline adviser-call prompts or route comparisons.
+```tsx
+import { CtaPanel } from "@/components/sections";
+
+<CtaPanel
+  title="Need help choosing the right route?"
+  description="Use Degree Match Finder or speak to a YStudy adviser before applying."
+  primaryBtnText="Find my degree"
+  primaryBtnHref="/tools/degree-match"
+  secondaryBtnText="Apply with YStudy"
+  secondaryBtnHref="/apply"
+  style={{ marginTop: "28px" }}
+/>
+```
+
+### 4. Stay In Touch Footer ribbon
+A page-footer layout ribbon.
+```tsx
+import { FooterCta } from "@/components/sections";
+
+<FooterCta
+  badge="Stay in touch"
+  title="Your next step should feel organised."
+  description="Create a free account to save progress and track applications."
+  status={true}
+/>
+```
+
+### 5. Conversion Cards & Next Steps
+Standard 3-column actions card-grid.
+```tsx
+import { QualificationConversionCards, QualificationCrosslinks } from "@/components/ui";
+
+<QualificationConversionCards />
+<QualificationCrosslinks />
+```
+
+### 6. Shared Bottom Sections (Funding Pages)
+Bundles Eligibility Snapshot, journey, myths, certainty CTA, and footer stay in touch bands.
+```tsx
+import FundingBottomSections from "@/components/widgets/FundingBottomSections";
+
+<FundingBottomSections
+  snapshot={data.section_8}
+  journey={data.section_9}
+  myths={data.section_10}
+  certainty={data.section_11}
+/>
+```
+
+---
+
 ## Best Practices Checklist
 
+- [ ] **Reuse First**: Check this guide before implementing raw layout wrappers like `.cta-panel`, `.footer-cta`, or `.ds-finance-integrated`.
 - [ ] **SEO Tags**: Ensure every static/dynamic App Router `page.tsx` defines high-quality `title` and `description` metadata.
 - [ ] **No Placeholders**: Never use placeholder images or missing values; integrate dynamic fallbacks or curations.
 - [ ] **Styles**: Use the global stylesheet class names (e.g., `ds-finance-integrated`, `card-grid`, `btn-orange`) to maintain consistent styling.
