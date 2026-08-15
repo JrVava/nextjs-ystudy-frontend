@@ -1,0 +1,101 @@
+{
+  "page": "guides-hub",
+  "section_1": {
+    "badge": "Guides · plain English",
+    "title": "Guides that make the next step clear.",
+    "description": "Funding, university routes, applications and careers — written without jargon, for adult learners and career changers.",
+    "bgImage": "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=2000&q=85",
+    "chips": ["💷 Funding", "🎓 Routes", "📄 Applying", "📈 Careers"]
+  },
+  "section_2": {
+    "badge": "All guides",
+    "title": "Plain-English guides for adult learners.",
+    "description": "Funding, university routes, applications and careers — explained without jargon. Pick the one that answers your question.",
+    "cards": [
+      {
+        "title": "How Student Finance actually works",
+        "description": "Tuition loans, maintenance loans, eligibility and the 40-year write-off.",
+        "link": "/guides/student-finance",
+        "category": "Funding",
+        "readTime": "8 min read",
+        "image": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        "title": "Your route into university",
+        "description": "Foundation Year, HND, Top-Up and Master’s routes for adults without A-levels.",
+        "link": "/guides/university-routes",
+        "category": "Routes",
+        "readTime": "7 min read",
+        "image": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        "title": "Careers & salaries by degree",
+        "description": "Realistic salary ranges and progression routes for working adults.",
+        "link": "/tools/salary-checker",
+        "category": "Careers",
+        "readTime": "6 min read",
+        "image": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        "title": "Change career through study",
+        "description": "Practical routes for changing direction at 30, 40 or 50.",
+        "link": "/guides/career-change",
+        "category": "Career change",
+        "readTime": "6 min read",
+        "image": "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        "title": "From Poland to a UK degree",
+        "description": "Funding and routes for the Polish community in the UK — settled & pre-settled status.",
+        "link": "/guides/polish-community",
+        "category": "Community",
+        "readTime": "9 min read",
+        "image": "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        "title": "News & updates",
+        "description": "Funding changes, deadlines and practical updates for adult learners.",
+        "link": "/guides/news",
+        "category": "News",
+        "readTime": "4 min read",
+        "image": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=800&q=80"
+      }
+    ],
+    "status": true
+  },
+  "section_3": {
+    "title": "Need help choosing where to start?",
+    "description": "Talk to a student adviser before choosing a course or submitting an application.",
+    "btnText": "Talk to an adviser",
+    "btnHref": "/lead/adviser-call",
+    "status": true
+  },
+  "section_4": {
+    "badge": "Phase 8 authority hub",
+    "title": "High-value guides for students who are close to applying.",
+    "description": "These guides answer the questions that usually stop students from moving forward: eligibility, funding, entry routes and flexible study.",
+    "cards": [
+      {
+        "title": "Mature student guide",
+        "description": "Returning to education, changing career and studying while working.",
+        "link": "/guides/mature-student-guide"
+      },
+      {
+        "title": "Settled status & Student Finance",
+        "description": "Understand documents, residency and status questions before applying.",
+        "link": "/guides/polish-community"
+      },
+      {
+        "title": "Foundation year guide",
+        "description": "Use Year 0 when you do not meet direct entry requirements.",
+        "link": "/degrees/qualifications/foundation-year"
+      },
+      {
+        "title": "Online and blended degrees",
+        "description": "Compare flexible study modes before choosing a course.",
+        "link": "/degrees/study-routes"
+      }
+    ],
+    "status": true
+  }
+}

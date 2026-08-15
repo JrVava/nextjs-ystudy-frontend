@@ -32,19 +32,19 @@ export default function Footer() {
         <div>
           <h4>Tools</h4>
           <ul>
-            <li><a href="tools/degree-match.html">Degree Match</a></li>
-            <li><a href="tools/salary-checker.html">Salary Checker</a></li>
-            <li><a href="tools/english-level-checker.html">English Checker</a></li>
-            <li><a href="tools/cv-builder.html">CV Builder</a></li>
+            <li><a href="/tools/degree-match">Degree Match</a></li>
+            <li><a href="/tools/salary-checker">Salary Checker</a></li>
+            <li><a href="/tools/english-level-checker">English Checker</a></li>
+            <li><a href="/tools/cv-builder">CV Builder</a></li>
           </ul>
         </div>
         <div>
           <h4>Company</h4>
           <ul>
-            <li><a href="why-ystudy.html">About</a></li>
-            <li><a href="success-stories.html">Success stories</a></li>
-            <li><a href="partners/index.html">Partners</a></li>
-            <li><a href="lead/contact-adviser.html">Contact</a></li>
+            <li><a href="/why-ystudy">About</a></li>
+            <li><a href="/success-stories">Success stories</a></li>
+            <li><a href="/partners">Partners</a></li>
+            <li><a href="/lead/contact-adviser">Contact</a></li>
           </ul>
         </div>
       </div>

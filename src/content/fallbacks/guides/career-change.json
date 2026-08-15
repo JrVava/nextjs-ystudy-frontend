@@ -1,0 +1,48 @@
+{
+  "page": "career-change",
+  "section_1": {
+    "badge": "Career Change Guide",
+    "title": "Change career through study.",
+    "description": "Compare realistic study routes for adults in their 30s, 40s and 50s.",
+    "bgImage": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=2200&q=80"
+  },
+  "section_2": {
+    "badge": "Featured guides",
+    "title": "Career Change Guides",
+    "description": "Open a guide or speak to an adviser if you want a route checked.",
+    "cards": [
+      {
+        "title": "Career change at 30",
+        "description": "A practical route back into study.",
+        "link": "/guides/career-change-30",
+        "image": "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1600&q=85"
+      },
+      {
+        "title": "Career change at 40",
+        "description": "Use work experience as part of your story.",
+        "link": "/guides/career-change-40",
+        "image": "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1600&q=85"
+      },
+      {
+        "title": "Career change at 50",
+        "description": "Flexible routes for adult learners.",
+        "link": "/guides/career-change-50",
+        "image": "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1600&q=85"
+      },
+      {
+        "title": "Studying while working",
+        "description": "How to plan course, funding and time.",
+        "link": "/guides/studying-while-working",
+        "image": "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1600&q=85"
+      }
+    ],
+    "status": true
+  },
+  "section_3": {
+    "title": "Want a personalised route?",
+    "description": "A YStudy adviser can check your funding, qualifications and course options.",
+    "btnText": "Book Adviser Call",
+    "btnHref": "/lead/adviser-call",
+    "status": true
+  }
+}

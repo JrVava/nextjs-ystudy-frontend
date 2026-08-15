@@ -232,41 +232,41 @@ export function MaintenanceCalculator() {
       </div>
 
       {/* Results panel */}
-      <div className="calc2-result" id="calcResult" style={{ background: "var(--soft)", padding: "1.75rem", borderRadius: "16px", border: "1px solid var(--border)" }}>
-        <div className="rlabel" style={{ fontSize: "13px", color: "var(--muted)", textTransform: "uppercase", fontWeight: 700 }}>
+      <div className="calc2-result" id="calcResult" >
+        <div className="rlabel">
           Total possible support / year
         </div>
-        <div className="rtotal" style={{ fontSize: "36px", fontWeight: 900, color: "var(--b)", margin: "4px 0" }}>
+        <div className="rtotal" >
           {fmt(result.total)}
         </div>
-        <div className="rsub" style={{ fontSize: "14px", color: "var(--muted)", marginBottom: "16px" }}>
+        <div className="rsub">
           {result.sub}
         </div>
-        <div className="calc2-bd" style={{ borderTop: "1px solid var(--border)", paddingTop: "12px", display: "flex", flexDirection: "column", gap: "8px" }}>
-          <div className="row" style={{ display: "flex", justifyContent: "space-between", fontSize: "14px" }}>
+        <div className="calc2-bd">
+          <div className="row" >
             <span>Tuition Fee Loan</span>
             <strong>{result.pg ? "—" : fmt(result.tuition)}</strong>
           </div>
-          <div className="row" style={{ display: "flex", justifyContent: "space-between", fontSize: "14px" }}>
+          <div className="row" >
             <span>Maintenance Loan</span>
             <strong>{result.pg ? "—" : fmt(result.maint)}</strong>
           </div>
-          <div className="row muted" style={{ display: "flex", justifyContent: "space-between", fontSize: "14px", color: "var(--muted)" }}>
+          <div className="row muted">
             <span>{result.pg ? "Combined Master's loan" : "Extra grants (est.)"}</span>
             <strong>{result.pg ? fmt(12858) : fmt(result.grant)}</strong>
           </div>
         </div>
 
         {result.flag && (
-          <div className="calc2-flag show" style={{ background: "#fff8f2", borderLeft: "4px solid var(--o)", padding: "12px 14px", borderRadius: "0 8px 8px 0", marginTop: "16px", fontSize: "13.5px", color: "var(--dark)", fontWeight: 600 }}>
+          <div className="calc2-flag show">
             {result.flag}
           </div>
         )}
 
-        <div className="fine" style={{ fontSize: "12px", color: "var(--muted)", marginTop: "16px", lineHeight: 1.45 }}>
+        <div className="fine">
           Indicative only — not a guarantee. Your official assessment comes from Student Finance England, based on residency, previous study, course designation and household income.
         </div>
-        <div className="btnrow" style={{ marginTop: "18px", display: "flex", gap: "12px" }}>
+        <div className="btnrow">
           <a className="btn btn-orange" href="/apply">
             Apply with support →
           </a>

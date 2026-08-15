@@ -1,6 +1,7 @@
 import React from "react";
 import Grants from "@/pages/funding/Grants";
 import { getCMSPageContent } from "@/services/cms.service";
+import { getFAQBySlug } from "@/services/faq.service";
 
 export const metadata = {
   title: "YStudy — What extra support could you get",
@@ -8,6 +9,9 @@ export const metadata = {
 };
 
 export default async function Page() {
-  const data = await getCMSPageContent("grants-support");
-  return <Grants data={data} />;
+  const [data, faqs] = await Promise.all([
+    getCMSPageContent("grants-support"),
+    getFAQBySlug("grants")
+  ]);
+  return <Grants data={data} faqs={faqs} />;
 }

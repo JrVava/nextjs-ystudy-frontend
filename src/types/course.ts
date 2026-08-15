@@ -131,6 +131,7 @@ export interface BackendCourse {
   entryRequirement?: string[] | string;
   entryRequirements?: string[] | string;
   courseCms?: CourseCmsData;
+  courseType?: "General" | "Social";
 }
 
 export type CourseSummary = {

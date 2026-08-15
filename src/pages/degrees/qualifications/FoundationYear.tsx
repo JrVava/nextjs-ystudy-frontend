@@ -7,8 +7,13 @@ import {
   QualificationCrosslinks,
 } from "@/components/ui";
 
+import { getStudentStoriesList } from "@/services/student-story.service";
+
 export default async function FoundationYear() {
-  const data = await getCMSPageContent("foundation-year");
+  const [data, dbStories] = await Promise.all([
+    getCMSPageContent("foundation-year"),
+    getStudentStoriesList().catch(() => null)
+  ]);
 
   return (
     <div className="qualification-page foundation-year-page">
@@ -288,18 +293,38 @@ export default async function FoundationYear() {
               <p>{data?.section_10?.description}</p>
             </div>
             <div className="qf-stories">
-              {data?.section_10?.stories?.map((s: any, idx: number) => (
-                <div key={idx} className="storyc">
-                  <div className="sph">
-                    <span className="tag">{s.tag}</span>
-                    <img src={s.image} alt="" />
+              {(() => {
+                const stories = (dbStories && dbStories.length > 0)
+                  ? dbStories.map((s: any) => ({
+                      tag: s.badge || "Success Story",
+                      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=700&q=80",
+                      quote: s.description,
+                      author: s.name,
+                      courseInfo: s.year && s.subject ? `${s.year} · ${s.subject}` : (s.year || s.subject || "")
+                    }))
+                  : data?.section_10?.stories;
+
+                if (!stories) return null;
+
+                const fallbackImages = [
+                  "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=700&q=80",
+                  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=700&q=80",
+                  "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=700&q=80"
+                ];
+
+                return stories.map((s: any, idx: number) => (
+                  <div key={idx} className="storyc">
+                    <div className="sph">
+                      <span className="tag">{s.tag}</span>
+                      <img src={s.image || fallbackImages[idx % 3]} alt="" />
+                    </div>
+                    <div className="sb">
+                      <p className="q">"{s.quote}"</p>
+                      <div className="who">{s.author}<span>{s.courseInfo}</span></div>
+                    </div>
                   </div>
-                  <div className="sb">
-                    <p className="q">"{s.quote}"</p>
-                    <div className="who">{s.author}<span>{s.courseInfo}</span></div>
-                  </div>
-                </div>
-              ))}
+                ));
+              })()}
             </div>
           </div>
         </section>

@@ -60,9 +60,11 @@ interface CourseDetailProps {
   backendCourse: any;
   faqs?: any[];
   bannerData?: any;
+  dbIntakes?: any[];
+  dbStories?: any[];
 }
 
-export default function CourseDetail({ slug, cmsData, backendCourse, faqs, bannerData }: CourseDetailProps) {
+export default function CourseDetail({ slug, cmsData, backendCourse, faqs, bannerData, dbIntakes, dbStories }: CourseDetailProps) {
   const [isSaved, setIsSaved] = useState(false);
 
   // Quick Estimate state
@@ -328,6 +330,43 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
         answer: c.description
       })),
       status: socialCms.FAQ?.section_1?.status
+    };
+  }
+
+  // Dynamically map upcoming intakes and student stories from DB
+  const finalStories = (dbStories && dbStories.length > 0)
+    ? dbStories
+    : (backendCourse?.courseCms?.reviews?.studentStories || []);
+
+  if (finalStories && finalStories.length > 0) {
+    customSec9 = {
+      ...customSec9,
+      cards: finalStories.slice(0, 3).map((story: any) => ({
+        image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=700&q=80",
+        badge: story.badge || "Student Story",
+        quote: story.description,
+        name: story.name,
+        status: story.year && story.subject ? `${story.year} · ${story.subject}` : (story.year || story.subject || "")
+      })),
+      status: true
+    };
+  }
+
+  const finalIntakes = (dbIntakes && dbIntakes.length > 0)
+    ? dbIntakes
+    : (backendCourse?.courseCms?.Entry?.section_2?.upcomingIntakes || []);
+
+  if (finalIntakes && finalIntakes.length > 0) {
+    customSec11 = {
+      ...customSec11,
+      cards: finalIntakes.slice(0, 4).map((intake: any) => ({
+        month: intake.month,
+        year: intake.year,
+        title: title || backendCourse?.title || "Degree Intake",
+        desc: "Main intake route.",
+        link: intake.link || "/apply"
+      })),
+      status: true
     };
   }
 

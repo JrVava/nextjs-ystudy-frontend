@@ -1,4 +1,5 @@
 import { getCMSPageContent } from "@/services/cms.service";
+import { getFAQBySlug } from "@/services/faq.service";
 import "@/app/degrees/qualifications/qualifications.css";
 import { Banner } from "@/components/ui/Banner";
 import { QualificationConversionCards } from "@/components/ui";
@@ -8,7 +9,10 @@ interface GuideDetailProps {
 }
 
 export default async function GuideDetail({ slug }: GuideDetailProps) {
-  const data = await getCMSPageContent(slug);
+  const [data, faqs] = await Promise.all([
+    getCMSPageContent(slug),
+    getFAQBySlug(slug)
+  ]);
 
   if (!data) {
     return (
@@ -105,7 +109,7 @@ export default async function GuideDetail({ slug }: GuideDetailProps) {
       )}
 
       {/* STANDARD ACCORDION Q&A / FAQS */}
-      {data.faqs && (
+      {((faqs && faqs.length > 0) || data.faqs) && (
         <section className="qf-sec">
           <div className="qf" style={{ textAlign: "left" }}>
             <div className="qf-head" style={{ marginBottom: "2rem" }}>
@@ -114,10 +118,10 @@ export default async function GuideDetail({ slug }: GuideDetailProps) {
             </div>
             
             <div className="qf-faq">
-              {data.faqs.map((faq: any, idx: number) => (
+              {(faqs && faqs.length > 0 ? faqs : data.faqs).map((faq: any, idx: number) => (
                 <details key={idx} className="faqi" open={idx === 0}>
-                  <summary>{faq.q || faq.question}</summary>
-                  <p>{faq.a || faq.answer}</p>
+                  <summary>{faq.question || faq.q}</summary>
+                  <p>{faq.answer || faq.a}</p>
                 </details>
               ))}
             </div>

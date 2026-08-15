@@ -1,6 +1,7 @@
 import React from "react";
 import DisabledStudentsAllowance from "@/pages/funding/DisabledStudentsAllowance";
 import { getCMSPageContent } from "@/services/cms.service";
+import { getFAQBySlug } from "@/services/faq.service";
 
 export const metadata = {
   title: "YStudy — Could you get disability-related study support",
@@ -8,6 +9,9 @@ export const metadata = {
 };
 
 export default async function Page() {
-  const data = await getCMSPageContent("dsa");
-  return <DisabledStudentsAllowance data={data} />;
+  const [data, faqs] = await Promise.all([
+    getCMSPageContent("dsa"),
+    getFAQBySlug("disabled-students-allowance")
+  ]);
+  return <DisabledStudentsAllowance data={data} faqs={faqs} />;
 }

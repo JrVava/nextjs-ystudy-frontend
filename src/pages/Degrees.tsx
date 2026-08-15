@@ -306,7 +306,7 @@ export default async function Degrees() {
                     <h3>{data?.section_8?.steps?.[2]?.title || "Read our guides"}</h3>
                     <p>{data?.section_8?.steps?.[2]?.description || "Still have questions? Our plain-English guides often hold the answer — funding, applying and career routes explained."}</p>
                   </div>
-                  <div className="jcards" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "14px" }}>
+                  <div className="jcards">
                     <GuideCard
                       href="/funding/maintenance-loan"
                       category="Funding"

@@ -18,12 +18,15 @@ const getBadgeClass = (badge: string, code: string) => {
   return "full";
 };
 
+import { getStudentStoriesList } from "@/services/student-story.service";
+
 export default async function Home() {
-  const [data, allCourses, subjects, faqs] = await Promise.all([
+  const [data, allCourses, subjects, faqs, dbStories] = await Promise.all([
     getCMSPageContent("home"),
     getAllCourses(3),
     getSubjects(6),
-    getFAQBySlug("home")
+    getFAQBySlug("home"),
+    getStudentStoriesList().catch(() => null)
   ]);
 
   const renderCell = (val: string) => {
@@ -481,8 +484,19 @@ export default async function Home() {
               <a className="btn outline" style={{ border: '2px solid var(--ink)' }} href="/success-stories">More stories →</a>
             </div>
             <div className="g3 ys-carousel-mobile">
-              {data?.section_13?.card ? (
-                data.section_13.card.map((c: any, idx: number) => {
+              {(() => {
+                const stories = (dbStories && dbStories.length > 0)
+                  ? dbStories.map((s: any) => ({
+                      image: "",
+                      title: s.description,
+                      name: s.name,
+                      year: s.year && s.subject ? `${s.year} · ${s.subject}` : (s.year || s.subject || "")
+                    }))
+                  : data?.section_13?.card;
+
+                if (!stories) return null;
+
+                return stories.map((c: any, idx: number) => {
                   const fallbackImages = [
                     "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=700&q=80",
                     "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=700&q=80",
@@ -500,41 +514,8 @@ export default async function Home() {
                       </div>
                     </article>
                   );
-                })
-              ) : (
-                <>
-                  <article className="c-full" style={{ minHeight: "clamp(340px,30vw,420px)" }}>
-                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=700&q=80" alt="" />
-                    <div className="sc"></div>
-                    <div className="inner">
-                      <div style={{ color: "var(--o-gold)", fontWeight: 900, letterSpacing: "2px", marginBottom: "8px" }}>★★★★★</div>
-                      <h3 className="h3" style={{ marginBottom: "14px", color: "#fff" }}>"A degree that fits around my kids."</h3>
-                      <b style={{ fontWeight: 900 }}>Aisha M.</b>
-                      <span style={{ display: "block", color: "#cdd9ec", fontSize: "13px", fontWeight: 700 }}>Year 2 · Business Management</span>
-                    </div>
-                  </article>
-                  <article className="c-full" style={{ minHeight: "clamp(340px,30vw,420px)" }}>
-                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=700&q=80" alt="" />
-                    <div className="sc"></div>
-                    <div className="inner">
-                      <div style={{ color: "var(--o-gold)", fontWeight: 900, letterSpacing: "2px", marginBottom: "8px" }}>★★★★★</div>
-                      <h3 className="h3" style={{ marginBottom: "14px", color: "#fff" }}>"The adviser showed me a route."</h3>
-                      <b style={{ fontWeight: 900 }}>James T.</b>
-                      <span style={{ display: "block", color: "#cdd9ec", fontSize: "13px", fontWeight: 700 }}>Year 1 · Computing</span>
-                    </div>
-                  </article>
-                  <article className="c-full" style={{ minHeight: "clamp(340px,30vw,420px)" }}>
-                    <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=700&q=80" alt="" />
-                    <div className="sc"></div>
-                    <div className="inner">
-                      <div style={{ color: "var(--o-gold)", fontWeight: 900, letterSpacing: "2px", marginBottom: "8px" }}>★★★★★</div>
-                      <h3 className="h3" style={{ marginBottom: "14px", color: "#fff" }}>"Best decision I've made."</h3>
-                      <b style={{ fontWeight: 900 }}>Priya K.</b>
-                      <span style={{ display: "block", color: "#cdd9ec", fontSize: "13px", fontWeight: 700 }}>Year 2 · Health &amp; Social Care</span>
-                    </div>
-                  </article>
-                </>
-              )}
+                });
+              })()}
             </div>
           </div>
         </section>
