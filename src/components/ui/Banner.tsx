@@ -24,6 +24,7 @@ interface BannerProps {
       icon?: string;
     }>;
   };
+  childrenPosition?: 'left' | 'bottom';
 }
 
 export async function Banner({
@@ -33,7 +34,8 @@ export async function Banner({
   fallbackDescription,
   fallbackBadgeText,
   fallbackBgImage,
-  fallbackRightCard
+  fallbackRightCard,
+  childrenPosition
 }: BannerProps) {
   const banner = await getBannerBySlug(slug);
 
@@ -45,6 +47,9 @@ export async function Banner({
       : "Access professional guidance and find flexible pathways matching your personal work and life schedules.");
     const eyebrow = fallbackBadgeText || (isHome ? "Free guidance for working adults" : "YStudy Portal");
     const bgImage = fallbackBgImage || "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=2000&q=85";
+
+    const renderInLeft = childrenPosition === 'left' || isHome;
+    const renderInBottom = !renderInLeft;
 
     const hasLeft = !!(title || description || eyebrow || children);
     const hasRight = isHome || !!(fallbackRightCard && fallbackRightCard.layoutType && fallbackRightCard.layoutType !== 'none');
@@ -59,7 +64,7 @@ export async function Banner({
               {eyebrow && <span className={`${isHome ? 'eyebrow glass' : 'dsx-eyebrow'}`} style={{ marginBottom: "24px" }}>{eyebrow}</span>}
               {title && <h1>{title}</h1>}
               {description && <p className="lead">{description}</p>}
-              {isHome && children}
+              {renderInLeft && children}
             </div>
           )}
 
@@ -156,7 +161,7 @@ export async function Banner({
             )
           )}
 
-          {!isHome && children && (
+          {renderInBottom && children && (
             <div className="hfull-width">
               {children}
             </div>
@@ -169,6 +174,8 @@ export async function Banner({
   const { leftContent, rightCard, background } = banner;
   const bgUrl = getMediaUrl(background?.imageUrl, banner.fullImageUrl);
   const isHome = slug === "home";
+  const renderInLeft = childrenPosition === 'left' || isHome;
+  const renderInBottom = !renderInLeft;
 
   const hasLeft = !!(leftContent?.title || leftContent?.description || leftContent?.badgeText || children);
   const hasRight = slug === "home" || !!(rightCard && rightCard.layoutType && rightCard.layoutType !== 'none');
@@ -197,7 +204,7 @@ export async function Banner({
             {leftContent.description && (
               <p className="lead">{leftContent.description}</p>
             )}
-            {isHome && children}
+            {renderInLeft && children}
           </div>
         )}
 
@@ -297,7 +304,7 @@ export async function Banner({
           )}
         </div>
 
-        {!isHome && children && (
+        {renderInBottom && children && (
           <div className="hfull-width">
             {children}
           </div>

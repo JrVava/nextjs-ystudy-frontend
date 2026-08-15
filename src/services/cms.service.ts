@@ -33,6 +33,11 @@ import fallbackDSA from "@/content/fallbacks/funding/disabled-students-allowance
 import fallbackTuitionFeeLoan from "@/content/fallbacks/funding/tuition-fee-loan.json";
 import fallbackMaintenanceLoan from "@/content/fallbacks/funding/maintenance-loan.json";
 import fallbackStudentFinance from "@/content/fallbacks/guides/student-finance.json";
+import fallbackGuidesHub from "@/content/fallbacks/guides/hub.json";
+import fallbackUniversityRoutes from "@/content/fallbacks/guides/university-routes.json";
+import fallbackCareerChange from "@/content/fallbacks/guides/career-change.json";
+import fallbackNews from "@/content/fallbacks/guides/news.json";
+import fallbackWhyYStudy from "@/content/fallbacks/why-ystudy.json";
 import api from "@/lib/api";
 
 export async function getCMSPageContent(pageName: string): Promise<CMSPageData | null> {
@@ -98,6 +103,21 @@ function getFallbackData(pageName: string): CMSPageData | null {
   if (slug === "student-finance") {
     return fallbackStudentFinance as unknown as CMSPageData;
   }
+  if (slug === "guides" || slug === "guides-hub" || slug === "resources" || slug === "resources-hub") {
+    return fallbackGuidesHub as unknown as CMSPageData;
+  }
+  if (slug === "university-routes" || slug === "university-routes-guide") {
+    return fallbackUniversityRoutes as unknown as CMSPageData;
+  }
+  if (slug === "career-change" || slug === "career-change-guide") {
+    return fallbackCareerChange as unknown as CMSPageData;
+  }
+  if (slug === "news" || slug === "news-guides" || slug === "news-updates") {
+    return fallbackNews as unknown as CMSPageData;
+  }
+  if (slug === "why-ystudy" || slug === "why-use-ystudy") {
+    return fallbackWhyYStudy as unknown as CMSPageData;
+  }
 
   if (slug === "home") {
     return fallbackHome as unknown as CMSPageData;
@@ -138,13 +158,13 @@ function getFallbackData(pageName: string): CMSPageData | null {
   if (slug === "masters-degree" || slug === "masters") {
     return fallbackMasters as unknown as CMSPageData;
   }
-  if (slug === "business-management-ba") {
+  if (slug === "business" || slug === "business-management-ba") {
     return fallbackBusinessCourse as unknown as CMSPageData;
   }
-  if (slug === "computing-cybersecurity-bsc") {
+  if (slug === "computing" || slug === "computing-cybersecurity-bsc") {
     return fallbackComputingCourse as unknown as CMSPageData;
   }
-  if (slug === "health-social-care-ba") {
+  if (slug === "health" || slug === "health-social-care-ba") {
     return fallbackHealthCourse as unknown as CMSPageData;
   }
   if (slug === "tools") {

@@ -1,11 +1,97 @@
 import { getCMSPageContent } from "@/services/cms.service";
+import { getToolsList } from "@/services/tool.service";
 import "@/app/tools/tools.css";
 import { Banner, QualificationConversionCards, QualificationCrosslinks, ToolAdviserBand, ToolCard } from "@/components/ui";
 import Link from "next/link";
 import React from "react";
 
+const fallbackTools = [
+  {
+    link: "/tools/degree-match",
+    imageSrc: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80",
+    title: "Degree Match",
+    description: "Answer a few questions, get degrees that fit your background.",
+    time: "5 min · no sign-up",
+    mode: "free"
+  },
+  {
+    link: "/tools/eligibility-checker",
+    imageSrc: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80",
+    title: "Eligibility checker",
+    description: "See if you qualify for Student Finance before choosing a course.",
+    time: "2 min",
+    mode: "free"
+  },
+  {
+    link: "/tools/english-level-checker",
+    imageSrc: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80",
+    title: "English level test",
+    description: "Check your English against course entry levels in 5 minutes.",
+    time: "5 min",
+    mode: "free"
+  },
+  {
+    link: "/tools/salary-checker",
+    imageSrc: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=80",
+    title: "Salary checker",
+    description: "Realistic salary ranges by subject and career stage.",
+    time: "Instant",
+    mode: "free"
+  },
+  {
+    link: "/tools/cv-builder",
+    imageSrc: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=800&q=80",
+    title: "CV builder",
+    description: "A university-ready CV built for adult learners and changers.",
+    time: "10 min",
+    mode: "free"
+  },
+  {
+    link: "/tools/personal-statement-calculator",
+    imageSrc: "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&q=80",
+    title: "Personal statement",
+    description: "Guided prompts shape your motivation into a confident draft.",
+    time: "Guided",
+    mode: "free"
+  },
+  {
+    link: "/tools/finance-calculator",
+    imageSrc: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=800&q=80",
+    title: "Finance calculator",
+    description: "Estimate your tuition and maintenance support in minutes.",
+    time: "2 min",
+    mode: "free"
+  },
+  {
+    link: "/tools/career-quiz",
+    imageSrc: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80",
+    title: "Career quiz",
+    description: "Find the career direction — and degrees — that fit how you work.",
+    time: "5 min",
+    mode: "free"
+  }
+];
+
+const getChipText = (link: string, mode: string) => {
+  const l = link.toLowerCase();
+  if (l.includes("degree-match")) return "Discover";
+  if (l.includes("eligibility-checker")) return "Approval";
+  if (l.includes("english-level")) return "Assess";
+  if (l.includes("salary-checker")) return "Earnings";
+  if (l.includes("cv-builder")) return "Apply";
+  if (l.includes("personal-statement")) return "Apply";
+  if (l.includes("finance-calculator")) return "Funding";
+  if (l.includes("career-quiz")) return "Direction";
+  return mode ? mode.charAt(0).toUpperCase() + mode.slice(1) : "Free";
+};
+
 export default async function ToolsIndex() {
-  const data = await getCMSPageContent("tools");
+  const [data, dbTools] = await Promise.all([
+    getCMSPageContent("tools"),
+    getToolsList().catch(() => null)
+  ]);
+
+  const toolsList = (dbTools && dbTools.length > 0) ? dbTools : fallbackTools;
 
   return (
     <div className="tools-page tools-index-page">
@@ -52,77 +138,17 @@ export default async function ToolsIndex() {
               <p>{data?.section_2?.description || "Each one is free, takes minutes, and ends with a useful result — no sign-up needed."}</p>
             </div>
             <div className="thub-grid">
-              <ToolCard
-                href="/tools/degree-match"
-                chipText="Discover"
-                imageSrc="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80"
-                title="Degree Match"
-                description="Answer a few questions, get degrees that fit your background."
-                metaText="5 min · no sign-up"
-              />
-
-              <ToolCard
-                href="/tools/eligibility-checker"
-                chipText="Approval"
-                imageSrc="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80"
-                title="Eligibility checker"
-                description="See if you qualify for Student Finance before choosing a course."
-                metaText="2 min"
-              />
-
-              <ToolCard
-                href="/tools/english-level-checker"
-                chipText="Assess"
-                imageSrc="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80"
-                title="English level test"
-                description="Check your English against course entry levels in 5 minutes."
-                metaText="5 min"
-              />
-
-              <ToolCard
-                href="/tools/salary-checker"
-                chipText="Earnings"
-                imageSrc="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=80"
-                title="Salary checker"
-                description="Realistic salary ranges by subject and career stage."
-                metaText="Instant"
-              />
-
-              <ToolCard
-                href="/tools/cv-builder"
-                chipText="Apply"
-                imageSrc="https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=800&q=80"
-                title="CV builder"
-                description="A university-ready CV built for adult learners and changers."
-                metaText="10 min"
-              />
-
-              <ToolCard
-                href="/tools/personal-statement-calculator"
-                chipText="Apply"
-                imageSrc="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&q=80"
-                title="Personal statement"
-                description="Guided prompts shape your motivation into a confident draft."
-                metaText="Guided"
-              />
-
-              <ToolCard
-                href="/tools/finance-calculator"
-                chipText="Funding"
-                imageSrc="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=800&q=80"
-                title="Finance calculator"
-                description="Estimate your tuition and maintenance support in minutes."
-                metaText="2 min"
-              />
-
-              <ToolCard
-                href="/tools/career-quiz"
-                chipText="Direction"
-                imageSrc="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80"
-                title="Career quiz"
-                description="Find the career direction — and degrees — that fit how you work."
-                metaText="5 min"
-              />
+              {toolsList.map((t: any, idx: number) => (
+                <ToolCard
+                  key={t._id || idx}
+                  href={t.link}
+                  chipText={getChipText(t.link, t.mode || "free")}
+                  imageSrc={t.fullImageUrl || t.imageSrc || "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80"}
+                  title={t.title}
+                  description={t.description}
+                  metaText={t.time}
+                />
+              ))}
             </div>
           </div>
         </section>

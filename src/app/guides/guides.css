@@ -1,0 +1,281 @@
+/* Guides Hub specific CSS rules migrated from E:/projects/y-study/doc/ystudy-v738-mobile-12px-gutter-audited/guides/index.html */
+
+:root {
+  --display-font: "Montserrat", Inter, system-ui, sans-serif;
+  --fs-h2: clamp(30px, 3.2vw, 52px);
+  --fs-h3: clamp(22px, 1.7vw, 28px);
+  --fs-lead: clamp(18px, 1.4vw, 23px);
+  --lh-tight: .94;
+}
+
+.ghub-sec {
+  padding: clamp(40px, 5vw, 80px) 0;
+}
+
+.ghub-sec .container {
+  width: min(1680px, calc(100% - 44px));
+  margin: 0 auto;
+}
+
+.ghub-head {
+  margin-bottom: 30px;
+}
+
+.ghub-head .kicker {
+  color: #e05000;
+}
+
+.ghub-head h2 {
+  font-family: var(--display-font);
+  font-weight: 900;
+  letter-spacing: -.035em;
+  line-height: var(--lh-tight);
+  font-size: var(--fs-h2);
+  margin: 8px 0 8px;
+}
+
+.ghub-head p {
+  color: #46566f;
+  font-weight: 600;
+  font-size: var(--fs-lead);
+  max-width: 640px;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.ghub-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.gcard {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+}
+
+.gcard .gph {
+  position: relative;
+  aspect-ratio: 16/10;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 14px 38px rgba(15, 23, 42, .12);
+}
+
+.gcard .gph img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s ease;
+}
+
+.gcard:hover .gph img {
+  transform: scale(1.07);
+}
+
+.gcard .gchip {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  background: #fff;
+  color: #071126;
+  font-family: var(--display-font);
+  font-weight: 900;
+  font-size: 12px;
+  border-radius: 999px;
+  padding: 6px 13px;
+}
+
+.gcard .gtitle {
+  font-family: var(--display-font);
+  font-weight: 900;
+  letter-spacing: -.02em;
+  font-size: 20px;
+  color: #071126;
+  margin: 16px 0 6px;
+  transition: color .2s;
+}
+
+.gcard:hover .gtitle {
+  color: #e05000;
+}
+
+.gcard .gdesc {
+  color: #46566f;
+  font-weight: 600;
+  font-size: 14.5px;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.gcard .gfoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 14px;
+  padding-top: 13px;
+  border-top: 1px solid #dbe8f7;
+}
+
+.gcard .gmin {
+  color: #46566f;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.gcard .gread {
+  font-family: var(--display-font);
+  font-weight: 900;
+  font-size: 14px;
+  color: #071126;
+  transition: color .2s;
+}
+
+.gcard:hover .gread {
+  color: #e05000;
+}
+
+@media(max-width:860px) {
+  .ghub-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media(max-width:560px) {
+  .ghub-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.hubhero {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  min-height: clamp(420px, 52vh, 520px);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hubhero img.bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.hubhero .sc {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.hubhero .in>* {
+  max-width: 780px;
+}
+
+.hubhero .in {
+  position: relative;
+  z-index: 2;
+  width: min(1680px, calc(100% - 44px));
+  margin: 0 auto;
+  padding: clamp(32px, 4vw, 58px) 0;
+  color: #fff;
+}
+
+.hubhero .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: "Montserrat", Inter, system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  border-radius: 999px;
+  padding: 8px 15px;
+  margin-bottom: 15px;
+  background: rgba(255, 255, 255, .18);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, .45);
+}
+
+.hubhero h1 {
+  font-family: "Montserrat", Inter, system-ui, sans-serif;
+  font-weight: 900;
+  letter-spacing: -.04em;
+  line-height: .96;
+  margin: 0 0 14px;
+  font-size: clamp(34px, 4vw, 60px);
+  color: #fff;
+}
+
+.hubhero .lead {
+  font-size: clamp(16px, 1.2vw, 18px);
+  line-height: 1.55;
+  font-weight: 600;
+  color: rgba(255, 255, 255, .92);
+  max-width: 520px;
+  margin: 0;
+}
+
+.hubhero .btnrow {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+.hubbtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 54px;
+  padding: 0 26px;
+  border-radius: 999px;
+  font-family: "Montserrat", Inter, system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 15.5px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.hubbtn.white {
+  background: #fff;
+  color: #071126;
+}
+
+.hubbtn.ghost {
+  background: rgba(255, 255, 255, .15);
+  color: #fff;
+  border-color: rgba(255, 255, 255, .45);
+}
+
+.hubhero .chips {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+}
+
+.hubhero .chips span {
+  background: rgba(255, 255, 255, .16);
+  border: 1px solid rgba(255, 255, 255, .3);
+  color: #fff;
+  font-family: "Montserrat", Inter, system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 12.5px;
+  border-radius: 999px;
+  padding: 8px 14px;
+}
+
+@media(max-width:680px) {
+  .hubbtn {
+    flex: 1 1 100%;
+  }
+}

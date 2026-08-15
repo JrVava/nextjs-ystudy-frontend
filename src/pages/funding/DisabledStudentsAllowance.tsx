@@ -4,9 +4,10 @@ import FundingBottomSections from "@/components/widgets/FundingBottomSections";
 
 interface DisabledStudentsAllowanceProps {
   data?: any;
+  faqs?: any[] | null;
 }
 
-export function DisabledStudentsAllowance({ data }: DisabledStudentsAllowanceProps) {
+export function DisabledStudentsAllowance({ data, faqs }: DisabledStudentsAllowanceProps) {
   const s2 = data?.section_2; // snapshot
   const s3 = data?.section_3; // journey
   const s4 = data?.section_4; // myths
@@ -41,6 +42,55 @@ export function DisabledStudentsAllowance({ data }: DisabledStudentsAllowancePro
           </a>
         </div>
       </Banner>
+
+      {/* FAQ SECTION */}
+      {((faqs && faqs.length > 0) || data?.faqs) ? (
+        <section className="section white">
+          <div className="container">
+            <div className="title-row" style={{ textAlign: "left", marginBottom: "2rem" }}>
+              <div>
+                <span className="kicker">FAQ</span>
+                <h2>Common DSA questions.</h2>
+              </div>
+            </div>
+            <div className="faq-list" style={{ maxWidth: "880px", display: "grid", gap: "14px", textAlign: "left" }}>
+              {(faqs && faqs.length > 0 ? faqs : data?.faqs || []).map((faq: any, idx: number) => (
+                <details key={faq._id || idx} className="info-card" style={{ background: "var(--soft)", border: "1px solid var(--border)", borderRadius: "12px", padding: "1.25rem", cursor: "pointer" }}>
+                  <summary style={{ fontWeight: 950, fontSize: "17px", color: "#102033" }}>{faq.question || faq.q}</summary>
+                  <p style={{ marginTop: "12px", color: "var(--muted)", fontSize: "14.5px", lineHeight: 1.5 }}>
+                    {faq.answer || faq.a}
+                  </p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : (
+        <section className="section white">
+          <div className="container">
+            <div className="title-row" style={{ textAlign: "left", marginBottom: "2rem" }}>
+              <div>
+                <span className="kicker">FAQ</span>
+                <h2>Common DSA questions.</h2>
+              </div>
+            </div>
+            <div className="faq-list" style={{ maxWidth: "880px", display: "grid", gap: "14px", textAlign: "left" }}>
+              <details className="info-card" style={{ background: "var(--soft)", border: "1px solid var(--border)", borderRadius: "12px", padding: "1.25rem", cursor: "pointer" }}>
+                <summary style={{ fontWeight: 950, fontSize: "17px", color: "#102033" }}>Do I get this money in cash?</summary>
+                <p style={{ marginTop: "12px", color: "var(--muted)", fontSize: "14.5px", lineHeight: 1.5 }}>
+                  Usually no. SFE pays for the services, software, or equipment directly to the suppliers, or reimburses you with proof of purchase.
+                </p>
+              </details>
+              <details className="info-card" style={{ background: "var(--soft)", border: "1px solid var(--border)", borderRadius: "12px", padding: "1.25rem", cursor: "pointer" }}>
+                <summary style={{ fontWeight: 950, fontSize: "17px", color: "#102033" }}>Do I need a formal diagnosis?</summary>
+                <p style={{ marginTop: "12px", color: "var(--muted)", fontSize: "14.5px", lineHeight: 1.5 }}>
+                  Yes, you will need a diagnostic assessment or medical evidence from a qualified doctor or educational psychologist.
+                </p>
+              </details>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* SHARED BOTTOM SECTIONS */}
       <FundingBottomSections

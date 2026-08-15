@@ -1,0 +1,58 @@
+{
+  "page": "why-ystudy",
+  "hero": {
+    "kicker": "Why YStudy",
+    "title": "Why use YStudy?",
+    "description": "Independent guidance for adults comparing courses, funding and flexible routes.",
+    "snapshotTitle": "Snapshot",
+    "snapshotItems": [
+      { "title": "Free", "subtitle": "guidance" },
+      { "title": "Funding", "subtitle": "check" },
+      { "title": "Route", "subtitle": "match" },
+      { "title": "Apply", "subtitle": "support" }
+    ]
+  },
+  "convHero": {
+    "kicker": "Why YStudy",
+    "title": "Independent education guidance.",
+    "description": "We help adults find realistic study routes, understand funding and apply with more confidence.",
+    "panelTitle": "Trust signals",
+    "panelItems": [
+      { "title": "Free", "subtitle": "guidance" },
+      { "title": "Adult", "subtitle": "focused" },
+      { "title": "Funding", "subtitle": "first" },
+      { "title": "Apply", "subtitle": "support" }
+    ]
+  },
+  "section_2": {
+    "badge": "Why students use YStudy",
+    "title": "Built for mature students, not generic applicants",
+    "description": "YStudy focuses on the decisions adults actually worry about.",
+    "cards": [
+      { "ico": "🧭", "title": "Independent", "description": "Guidance platform, not a university." },
+      { "ico": "💷", "title": "Free guidance", "description": "Students can check options before applying." },
+      { "ico": "✅", "title": "Funding focused", "description": "Eligibility and finance checks come early." },
+      { "ico": "👥", "title": "Adult learner specialists", "description": "Built around working adults and career changers." },
+      { "ico": "📝", "title": "Application support", "description": "Documents, interviews and adviser handoff." }
+    ],
+    "status": true
+  },
+  "section_3": {
+    "badge": "What can we help with?",
+    "title": "One journey from unsure to applied",
+    "steps": [
+      { "num": 1, "title": "Degree choice", "description": "Find realistic courses and routes." },
+      { "num": 2, "title": "Funding", "description": "Check risks and possible support." },
+      { "num": 3, "title": "Application", "description": "Prepare documents and personal statement." },
+      { "num": 4, "title": "Interview", "description": "Use adviser guidance before important conversations." }
+    ],
+    "status": true
+  },
+  "section_4": {
+    "title": "Check your eligibility",
+    "description": "Start with funding and route confidence.",
+    "btnText": "Check now",
+    "btnHref": "/tools/eligibility-checker",
+    "status": true
+  }
+}

@@ -1,6 +1,8 @@
 import React from "react";
 import MaintenanceLoan from "@/pages/funding/MaintenanceLoan";
 import { getCMSPageContent } from "@/services/cms.service";
+import { getFAQBySlug } from "@/services/faq.service";
+import { getGuidesList } from "@/services/guide.service";
 
 export const metadata = {
   title: "YStudy — Could you get help with living costs",
@@ -8,6 +10,10 @@ export const metadata = {
 };
 
 export default async function Page() {
-  const data = await getCMSPageContent("maintenance-loan");
-  return <MaintenanceLoan data={data} />;
+  const [data, faqs, guides] = await Promise.all([
+    getCMSPageContent("maintenance-loan"),
+    getFAQBySlug("maintenance-loan"),
+    getGuidesList()
+  ]);
+  return <MaintenanceLoan data={data} faqs={faqs} guides={guides} />;
 }

@@ -1,4 +1,5 @@
 import { SiteLayout, GuideLayout } from "@/components/layout";
+import "./guides.css";
 
 export default function GuidesSectionLayout({
   children,

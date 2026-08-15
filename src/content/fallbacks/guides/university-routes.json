@@ -1,0 +1,48 @@
+{
+  "page": "university-routes",
+  "section_1": {
+    "badge": "University Routes",
+    "title": "Understand your route into university.",
+    "description": "Compare foundation, HND, top-up, degree and master routes.",
+    "bgImage": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=2000&q=85"
+  },
+  "section_2": {
+    "badge": "Featured guides",
+    "title": "University Routes",
+    "description": "Open a guide or speak to an adviser if you want a route checked.",
+    "cards": [
+      {
+        "title": "Foundation Year explained",
+        "description": "For students without traditional entry qualifications or returning after a long break.",
+        "link": "/degrees/qualifications/foundation-year",
+        "image": "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1600&q=85"
+      },
+      {
+        "title": "HND vs Degree",
+        "description": "Understand vocational and academic routes.",
+        "link": "/degrees/qualifications/hnd",
+        "image": "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1600&q=85"
+      },
+      {
+        "title": "Top-Up Degrees",
+        "description": "Turn a Level 5 qualification into a full degree.",
+        "link": "/degrees/qualifications/top-up-degree",
+        "image": "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1600&q=85"
+      },
+      {
+        "title": "Master’s Degrees",
+        "description": "Postgraduate routes and funding basics.",
+        "link": "/degrees/qualifications/masters",
+        "image": "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1600&q=85"
+      }
+    ],
+    "status": true
+  },
+  "section_3": {
+    "title": "Want a personalised route?",
+    "description": "A YStudy adviser can check your funding, qualifications and course options.",
+    "btnText": "Book Adviser Call",
+    "btnHref": "/lead/adviser-call",
+    "status": true
+  }
+}

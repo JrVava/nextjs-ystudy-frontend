@@ -1,10 +1,8 @@
-import React from "react";
-import Banner from "@/components/ui/Banner";
-import FundingTabs from "@/components/widgets/FundingTabs";
-import MaintenanceJourneyWheel from "@/components/widgets/MaintenanceJourneyWheel";
-import MaintenanceCalculator from "@/components/widgets/MaintenanceCalculator";
-import FundingBottomSections from "@/components/widgets/FundingBottomSections";
 import { ComparisonTable } from "@/components/sections";
+import Banner from "@/components/ui/Banner";
+import FundingBottomSections from "@/components/widgets/FundingBottomSections";
+import MaintenanceCalculator from "@/components/widgets/MaintenanceCalculator";
+import MaintenanceJourneyWheel from "@/components/widgets/MaintenanceJourneyWheel";
 
 const renderMaintenanceCell = (val: any, colKey: string) => {
   if (colKey === "maximum") {
@@ -18,9 +16,11 @@ const renderMaintenanceCell = (val: any, colKey: string) => {
 
 interface MaintenanceLoanProps {
   data?: any;
+  faqs?: any[] | null;
+  guides?: any[] | null;
 }
 
-export function MaintenanceLoan({ data }: MaintenanceLoanProps) {
+export function MaintenanceLoan({ data, faqs, guides }: MaintenanceLoanProps) {
   const s2 = data?.section_2; // What is maintenance loan
   const s3 = data?.section_3; // 2026/27 maximum amounts table
   const s4 = data?.section_4; // Journey wheel steps
@@ -33,6 +33,14 @@ export function MaintenanceLoan({ data }: MaintenanceLoanProps) {
   const s11 = data?.section_11; // Related guides
   const s12 = data?.section_12; // FAQ title
   const s13 = data?.section_13; // Final CTA estimate
+  const s14 = data?.section_14; // snapshot
+  const s15 = data?.section_15; // journey
+  const s16 = data?.section_16; // myths
+  const s17 = data?.section_17; // certainty
+  const s18 = data?.section_18; // stay in touch
+  const s19 = data?.section_19; // Tuition fee link
+  const s20 = data?.section_20; // Grants link
+  const s21 = data?.section_21; // Repayments link
 
   // Fallback defaults if database tables are not loaded
   const defaultMaximums = [
@@ -44,8 +52,6 @@ export function MaintenanceLoan({ data }: MaintenanceLoanProps) {
 
   return (
     <div className="qualification-page funding-sub-page">
-      {/* PAGE TABS */}
-      <FundingTabs />
 
       {/* HERO BANNER */}
       <Banner
@@ -366,18 +372,18 @@ export function MaintenanceLoan({ data }: MaintenanceLoanProps) {
               </div>
             </div>
             <div className="guide-grid guide-carousel" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "20px", textAlign: "left" }}>
-              {(s11?.cards || [
-                { title: "Tuition fee loan explained", description: "Understand the loan paid directly to your university.", link: "/funding/tuition-fee-loan", image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=900&q=80" },
-                { title: "Check your eligibility", description: "Residency, previous study and course rules explained.", link: "/tools/eligibility-checker", image: "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=900&q=80" },
-                { title: "How repayments work", description: "Income-based repayment, thresholds and write-off rules.", link: "/funding", image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=900&q=80" }
-              ]).slice(0, 3).map((card: any, idx: number) => (
+              {(guides && guides.length > 0 ? guides : (s11?.cards || [
+                { title: "Tuition fee loan explained", description: "Understand the loan paid directly to your university.", link: "/funding/tuition-fee-loan", fullImageUrl: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=900&q=80" },
+                { title: "Check your eligibility", description: "Residency, previous study and course rules explained.", link: "/tools/eligibility-checker", fullImageUrl: "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=900&q=80" },
+                { title: "How repayments work", description: "Income-based repayment, thresholds and write-off rules.", link: "/funding", fullImageUrl: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=900&q=80" }
+              ])).slice(0, 3).map((card: any, idx: number) => (
                 <a className="guide-card" href={card.link} key={idx} style={{ background: "var(--soft)", border: "1px solid var(--border)", borderRadius: "12px", overflow: "hidden", display: "flex", flexDirection: "column", textDecoration: "none", color: "inherit" }}>
                   <span className="guide-media">
-                    <img alt={card.title} src={card.image || "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=900&q=80"} style={{ height: "150px", width: "100%", objectFit: "cover" }} />
+                    <img alt={card.title} src={card.fullImageUrl || card.image || "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=900&q=80"} ></img>
                   </span>
                   <div style={{ padding: "1.25rem", flex: 1, display: "flex", flexDirection: "column" }}>
                     <h3 className="guide-title" style={{ fontSize: "16px", fontWeight: 800, margin: "0 0 4px" }}>{card.title}</h3>
-                    <p className="guide-sub" style={{ fontSize: "13px", color: "var(--muted)", margin: "0 0 12px", flex: 1 }}>{card.description}</p>
+                    <p className="guide-sub" style={{ fontSize: "13px", color: "var(--muted)", margin: "0 0 12px", flex: 1 }}>{card.description || card.subTitle}</p>
                     <span className="guide-cta" style={{ fontWeight: 700, color: "var(--b)", fontSize: "13px" }}>Open guide →</span>
                   </div>
                 </a>
@@ -398,36 +404,49 @@ export function MaintenanceLoan({ data }: MaintenanceLoanProps) {
               </div>
             </div>
             <div className="faq-list" style={{ maxWidth: "880px", display: "grid", gap: "14px", textAlign: "left" }}>
-              <details className="info-card" style={{ background: "var(--soft)", border: "1px solid var(--border)", borderRadius: "12px", padding: "1.25rem", cursor: "pointer" }}>
-                <summary style={{ fontWeight: 950, fontSize: "17px", color: "#102033" }}>How does household income affect how much I get?</summary>
-                <p style={{ marginTop: "12px", color: "var(--muted)", fontSize: "14.5px", lineHeight: 1.5 }}>
-                  SFE uses a sliding scale. You get the full maintenance maximum at a household income at or below about £25,000, and it gradually reduces to the minimum rate once income reaches roughly £62,410. The exact amount depends on SFE's current assessment — use the calculator for an indicative figure.
-                </p>
-              </details>
-              <details className="info-card" style={{ background: "var(--soft)", border: "1px solid var(--border)", borderRadius: "12px", padding: "1.25rem", cursor: "pointer" }}>
-                <summary style={{ fontWeight: 950, fontSize: "17px", color: "#102033" }}>Can I get more maintenance if I have dependants?</summary>
-                <p style={{ marginTop: "12px", color: "var(--muted)", fontSize: "14.5px", lineHeight: 1.5 }}>
-                  Yes — there are additional grants if you have dependent children or an adult dependant. These are grants, not loans.
-                </p>
-              </details>
-              <details className="info-card" style={{ background: "var(--soft)", border: "1px solid var(--border)", borderRadius: "12px", padding: "1.25rem", cursor: "pointer" }}>
-                <summary style={{ fontWeight: 950, fontSize: "17px", color: "#102033" }}>What if I live at home — is it still worth it?</summary>
-                <p style={{ marginTop: "12px", color: "var(--muted)", fontSize: "14.5px", lineHeight: 1.5 }}>
-                  The at-home rate is lower (up to £9,118) but still substantial support for living costs, and it reduces what you need from other sources.
-                </p>
-              </details>
-              <details className="info-card" style={{ background: "var(--soft)", border: "1px solid var(--border)", borderRadius: "12px", padding: "1.25rem", cursor: "pointer" }}>
-                <summary style={{ fontWeight: 950, fontSize: "17px", color: "#102033" }}>Does studying part-time affect my maintenance loan?</summary>
-                <p style={{ marginTop: "12px", color: "var(--muted)", fontSize: "14.5px", lineHeight: 1.5 }}>
-                  Part-time undergraduate courses generally do not qualify for the maintenance loan, though tuition support may be available above 25% intensity.
-                </p>
-              </details>
-              <details className="info-card" style={{ background: "var(--soft)", border: "1px solid var(--border)", borderRadius: "12px", padding: "1.25rem", cursor: "pointer" }}>
-                <summary style={{ fontWeight: 950, fontSize: "17px", color: "#102033" }}>What happens if I take a leave of absence?</summary>
-                <p style={{ marginTop: "12px", color: "var(--muted)", fontSize: "14.5px", lineHeight: 1.5 }}>
-                  Your maintenance payments usually pause during a leave of absence. Contact SFE and your university as the impact depends on timing and circumstances.
-                </p>
-              </details>
+              {faqs && faqs.length > 0 ? (
+                faqs.map((faq: any, idx: number) => (
+                  <details key={faq._id || idx} className="info-card" style={{ background: "var(--soft)", border: "1px solid var(--border)", borderRadius: "12px", padding: "1.25rem", cursor: "pointer" }}>
+                    <summary style={{ fontWeight: 950, fontSize: "17px", color: "#102033" }}>{faq.question}</summary>
+                    <p style={{ marginTop: "12px", color: "var(--muted)", fontSize: "14.5px", lineHeight: 1.5 }}>
+                      {faq.answer}
+                    </p>
+                  </details>
+                ))
+              ) : (
+                <>
+                  <details className="info-card" style={{ background: "var(--soft)", border: "1px solid var(--border)", borderRadius: "12px", padding: "1.25rem", cursor: "pointer" }}>
+                    <summary style={{ fontWeight: 950, fontSize: "17px", color: "#102033" }}>How does household income affect how much I get?</summary>
+                    <p style={{ marginTop: "12px", color: "var(--muted)", fontSize: "14.5px", lineHeight: 1.5 }}>
+                      SFE uses a sliding scale. You get the full maintenance maximum at a household income at or below about £25,000, and it gradually reduces to the minimum rate once income reaches roughly £62,410. The exact amount depends on SFE's current assessment — use the calculator for an indicative figure.
+                    </p>
+                  </details>
+                  <details className="info-card" style={{ background: "var(--soft)", border: "1px solid var(--border)", borderRadius: "12px", padding: "1.25rem", cursor: "pointer" }}>
+                    <summary style={{ fontWeight: 950, fontSize: "17px", color: "#102033" }}>Can I get more maintenance if I have dependants?</summary>
+                    <p style={{ marginTop: "12px", color: "var(--muted)", fontSize: "14.5px", lineHeight: 1.5 }}>
+                      Yes — there are additional grants if you have dependent children or an adult dependant. These are grants, not loans.
+                    </p>
+                  </details>
+                  <details className="info-card" style={{ background: "var(--soft)", border: "1px solid var(--border)", borderRadius: "12px", padding: "1.25rem", cursor: "pointer" }}>
+                    <summary style={{ fontWeight: 950, fontSize: "17px", color: "#102033" }}>What if I live at home — is it still worth it?</summary>
+                    <p style={{ marginTop: "12px", color: "var(--muted)", fontSize: "14.5px", lineHeight: 1.5 }}>
+                      The at-home rate is lower (up to £9,118) but still substantial support for living costs, and it reduces what you need from other sources.
+                    </p>
+                  </details>
+                  <details className="info-card" style={{ background: "var(--soft)", border: "1px solid var(--border)", borderRadius: "12px", padding: "1.25rem", cursor: "pointer" }}>
+                    <summary style={{ fontWeight: 950, fontSize: "17px", color: "#102033" }}>Does studying part-time affect my maintenance loan?</summary>
+                    <p style={{ marginTop: "12px", color: "var(--muted)", fontSize: "14.5px", lineHeight: 1.5 }}>
+                      Part-time undergraduate courses generally do not qualify for the maintenance loan, though tuition support may be available above 25% intensity.
+                    </p>
+                  </details>
+                  <details className="info-card" style={{ background: "var(--soft)", border: "1px solid var(--border)", borderRadius: "12px", padding: "1.25rem", cursor: "pointer" }}>
+                    <summary style={{ fontWeight: 950, fontSize: "17px", color: "#102033" }}>What happens if I take a leave of absence?</summary>
+                    <p style={{ marginTop: "12px", color: "var(--muted)", fontSize: "14.5px", lineHeight: 1.5 }}>
+                      Your maintenance payments usually pause during a leave of absence. Contact SFE and your university as the impact depends on timing and circumstances.
+                    </p>
+                  </details>
+                </>
+              )}
             </div>
           </div>
         </section>
@@ -436,20 +455,20 @@ export function MaintenanceLoan({ data }: MaintenanceLoanProps) {
       {/* FINAL CTA */}
       {s13?.status !== false && (
         <section className="section">
-          <div className="container" style={{ textAlign: "left" }}>
-            <div className="final-cta" style={{ background: "var(--soft)", border: "1px solid var(--border)", borderRadius: "16px", padding: "2.5rem", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "20px" }}>
+          <div className="container" >
+            <div className="final-cta" >
               <div>
-                <span className="kicker" style={{ color: "var(--o)", textTransform: "uppercase", fontSize: "11px", fontWeight: 800 }}>
+                <span className="kicker" >
                   {s13?.badge || "Want a personal estimate?"}
                 </span>
-                <h2 style={{ fontSize: "24px", fontWeight: 900, margin: "6px 0" }}>
+                <h2 >
                   {s13?.title || "See your maintenance loan based on your actual situation."}
                 </h2>
-                <p style={{ color: "var(--muted)", margin: 0 }}>
+                <p>
                   {s13?.description || "Use the calculator to estimate your loan based on your income, location and living situation."}
                 </p>
               </div>
-              <div className="btnrow" style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+              <div className="btnrow" >
                 <a className="btn btn-orange" href="#calculator">Open Finance Calculator →</a>
                 <a className="btn btn-white" href="/lead/adviser-call">Speak to an adviser</a>
               </div>
@@ -459,7 +478,58 @@ export function MaintenanceLoan({ data }: MaintenanceLoanProps) {
       )}
 
       {/* SHARED BOTTOM SECTIONS */}
-      <FundingBottomSections />
+      <FundingBottomSections
+        snapshot={s14}
+        journey={s15}
+        myths={s16}
+        certainty={s17}
+        stayInTouch={s18}
+      />
+
+      {/* TUITION FEE LOAN SHORT LINK SECTION */}
+      {s19?.status !== false && (
+        <section className="section tight" id="tuition">
+          <div className="container">
+            <div className="info-card" style={{ background: "var(--soft)", border: "1px solid var(--border)", borderRadius: "12px", padding: "1.5rem", textAlign: "left" }}>
+              <span className="kicker">{s19?.badge || "Tuition Fee Loan"}</span>
+              <h2>{s19?.title || "Tuition Fee Loan"}</h2>
+              <p style={{ color: "var(--muted)", margin: "8px 0 0" }}>
+                {s19?.description || "This section is ready for detailed content in the next content pass."}
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* GRANTS SHORT LINK SECTION */}
+      {s20?.status !== false && (
+        <section className="section tight" id="grants">
+          <div className="container">
+            <div className="info-card" style={{ background: "var(--soft)", border: "1px solid var(--border)", borderRadius: "12px", padding: "1.5rem", textAlign: "left" }}>
+              <span className="kicker">{s20?.badge || "Grants"}</span>
+              <h2>{s20?.title || "Grants"}</h2>
+              <p style={{ color: "var(--muted)", margin: "8px 0 0" }}>
+                {s20?.description || "This section is ready for detailed content in the next content pass."}
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* REPAYMENT SHORT LINK SECTION */}
+      {s21?.status !== false && (
+        <section className="section tight" id="repayment">
+          <div className="container">
+            <div className="info-card" style={{ background: "var(--soft)", border: "1px solid var(--border)", borderRadius: "12px", padding: "1.5rem", textAlign: "left" }}>
+              <span className="kicker">{s21?.badge || "Repayment"}</span>
+              <h2>{s21?.title || "Repayment"}</h2>
+              <p style={{ color: "var(--muted)", margin: "8px 0 0" }}>
+                {s21?.description || "This section is ready for detailed content in the next content pass."}
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
     </div>
   );
 }
