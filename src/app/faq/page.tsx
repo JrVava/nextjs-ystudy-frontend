@@ -1,14 +1,16 @@
+import React from "react";
 import { SiteLayout } from "@/components/layout";
+import Faq from "@/pages/Faq";
+
+export const metadata = {
+  title: "YStudy — Common questions about studying with YStudy",
+  description: "Find answers about courses, funding, eligibility, applications and adviser support.",
+};
 
 export default function Page() {
   return (
     <SiteLayout>
-      <div className="sec soft">
-        <div className="wrap">
-          <h1 className="h1">Frequently Asked Questions</h1>
-          <p className="lead" style={{ marginTop: "12px" }}>Under construction.</p>
-        </div>
-      </div>
+      <Faq />
     </SiteLayout>
   );
 }

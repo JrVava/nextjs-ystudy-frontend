@@ -1,0 +1,55 @@
+{
+  "page": "settled-status",
+  "section_1": {
+    "badge": "Guide · Eligibility",
+    "title": "Settled status and Student Finance",
+    "description": "Understand how settled status, pre-settled status and residency history may affect funding routes.",
+    "status": true
+  },
+  "section_2": {
+    "badge": "Practical guide",
+    "title": "What students usually need to know.",
+    "description": "Clear, useful guidance designed for mature students who want a realistic route into university.",
+    "cards": [
+      {
+        "title": "Status matters",
+        "description": "British citizenship, settled status, ILR and refugee status are common eligible categories.",
+        "icon": "🇬🇧"
+      },
+      {
+        "title": "Evidence is important",
+        "description": "Students may need a share code, ID and proof of UK residence.",
+        "icon": "🧾"
+      },
+      {
+        "title": "Residency history",
+        "description": "SFE often checks where you lived before the course starts.",
+        "icon": "📍"
+      },
+      {
+        "title": "Pre-settled can be complex",
+        "description": "Some students qualify, others need specialist checking depending on work and residence.",
+        "icon": "❓"
+      },
+      {
+        "title": "Funding type varies",
+        "description": "Tuition, maintenance and grants may depend on category and circumstances.",
+        "icon": "💷"
+      },
+      {
+        "title": "Check before applying",
+        "description": "Eligibility mistakes can delay or damage an application.",
+        "icon": "🤝"
+      }
+    ],
+    "status": true
+  },
+  "section_3": {
+    "badge": "YStudy support",
+    "title": "Turn this guide into a plan.",
+    "description": "We can help you compare routes, understand funding and prepare your application documents.",
+    "ctaTitle": "Ready to check your options?",
+    "ctaDescription": "Start with eligibility, then speak to an adviser if you want human support.",
+    "status": true
+  }
+}

@@ -38,7 +38,16 @@ import fallbackUniversityRoutes from "@/content/fallbacks/guides/university-rout
 import fallbackCareerChange from "@/content/fallbacks/guides/career-change.json";
 import fallbackNews from "@/content/fallbacks/guides/news.json";
 import fallbackWhyYStudy from "@/content/fallbacks/why-ystudy.json";
+import fallbackCareersSalaries from "@/content/fallbacks/guides/careers-salaries.json";
+import fallbackFoundationYears from "@/content/fallbacks/guides/foundation-years.json";
+import fallbackMatureStudents from "@/content/fallbacks/guides/mature-students.json";
+import fallbackOnlineDegrees from "@/content/fallbacks/guides/online-degrees.json";
+import fallbackSettledStatus from "@/content/fallbacks/guides/settled-status.json";
+import fallbackHowGuidanceWorks from "@/content/fallbacks/how-guidance-works.json";
+import fallbackSuccessStories from "@/content/fallbacks/success-stories.json";
+import fallbackFaq from "@/content/fallbacks/faq.json";
 import api from "@/lib/api";
+
 
 export async function getCMSPageContent(pageName: string): Promise<CMSPageData | null> {
   if (!pageName || typeof pageName !== "string") {
@@ -118,6 +127,31 @@ function getFallbackData(pageName: string): CMSPageData | null {
   if (slug === "why-ystudy" || slug === "why-use-ystudy") {
     return fallbackWhyYStudy as unknown as CMSPageData;
   }
+  if (slug === "careers-salaries" || slug === "careers-salaries-guide") {
+    return fallbackCareersSalaries as unknown as CMSPageData;
+  }
+  if (slug === "foundation-years" || slug === "foundation-years-guide") {
+    return fallbackFoundationYears as unknown as CMSPageData;
+  }
+  if (slug === "mature-students" || slug === "mature-students-guide") {
+    return fallbackMatureStudents as unknown as CMSPageData;
+  }
+  if (slug === "online-degrees" || slug === "online-degrees-guide") {
+    return fallbackOnlineDegrees as unknown as CMSPageData;
+  }
+  if (slug === "settled-status" || slug === "settled-status-guide") {
+    return fallbackSettledStatus as unknown as CMSPageData;
+  }
+  if (slug === "how-guidance-works" || slug === "how-guidance-works-page") {
+    return fallbackHowGuidanceWorks as unknown as CMSPageData;
+  }
+  if (slug === "success-stories" || slug === "success-story") {
+    return fallbackSuccessStories as unknown as CMSPageData;
+  }
+  if (slug === "faq" || slug === "faqs") {
+    return fallbackFaq as unknown as CMSPageData;
+  }
+
 
   if (slug === "home") {
     return fallbackHome as unknown as CMSPageData;

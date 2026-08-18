@@ -1,0 +1,62 @@
+{
+  "page": "faqs",
+  "section_2": {
+    "badge": "Resource",
+    "title": "Common questions about studying with YStudy.",
+    "description": "Find answers about courses, funding, eligibility, applications and adviser support.",
+    "status": true,
+    "faqs": [
+      {
+        "question": "Is YStudy guidance free?",
+        "answer": "Yes. YStudy guidance is free for students."
+      },
+      {
+        "question": "Do I need to know the course already?",
+        "answer": "No. Choose “not sure” in the form and an adviser can help you shortlist routes."
+      },
+      {
+        "question": "Can I apply as a mature student?",
+        "answer": "Yes. Many YStudy users are working adults returning to education."
+      },
+      {
+        "question": "Is Student Finance guaranteed?",
+        "answer": "No. Student Finance and admission decisions are made by the official provider or funding body."
+      }
+    ]
+  },
+  "section_3": {
+    "title": "Need personal guidance?",
+    "description": "Speak to a YStudy adviser before you apply.",
+    "status": true
+  },
+  "section_4": {
+    "cards": [
+      {
+        "title": "Check if you can get funded.",
+        "description": "Quickly understand if you may qualify for Student Finance, grants and flexible university routes."
+      },
+      {
+        "title": "Apply with YStudy.",
+        "description": "Send us your details and we’ll help you choose the right course, prepare documents and move forward."
+      },
+      {
+        "title": "Speak with an adviser.",
+        "description": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      }
+    ],
+    "status": true
+  },
+  "section_5": {
+    "title": "Useful next steps",
+    "description": "Move from information to action. Compare degrees, check funding, explore careers and apply with support.",
+    "cards": [
+      { "title": "Find degrees", "link": "/degrees/" },
+      { "title": "Funding hub", "link": "/funding/" },
+      { "title": "Careers & salaries", "link": "/careers/" },
+      { "title": "Degree Match", "link": "/tools/degree-match" },
+      { "title": "Salary Checker", "link": "/tools/salary-checker" },
+      { "title": "Student guides", "link": "/guides/" }
+    ],
+    "status": true
+  }
+}

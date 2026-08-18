@@ -1,9 +1,10 @@
 import React from "react";
 import { getCMSPageContent } from "@/services/cms.service";
 import { QualificationConversionCards, QualificationCrosslinks } from "@/components/ui";
+import fallbackData from "@/content/fallbacks/guides/hub.json";
 
 export default async function GuidesHub() {
-  const data = await getCMSPageContent("guides-hub");
+  const data = await getCMSPageContent("resources-hub");
 
   if (!data) {
     return (
@@ -15,10 +16,25 @@ export default async function GuidesHub() {
     );
   }
 
-  const s1 = data.section_1 || {};
-  const s2 = data.section_2 || {};
-  const s3 = data.section_3 || {};
+  const s1 = data.section_1 || fallbackData.section_1 || {};
+  const s2 = data.section_2 || fallbackData.section_2 || {};
+  const s3 = data.section_3 || fallbackData.section_3 || {};
   const s4 = data.section_4 || {};
+  const s5 = data.section_5 || {};
+  const s6 = data.section_6 && Object.keys(data.section_6).length > 0 ? data.section_6 : fallbackData.section_4 || {};
+
+  const s2Cards = s2.cards || fallbackData.section_2?.cards || [];
+  
+  const s3BtnText = s3.btnText || fallbackData.section_3?.btnText || "Talk to an adviser";
+  const s3BtnHref = s3.btnHref || fallbackData.section_3?.btnHref || "/lead/adviser-call";
+
+  const s6Cards = (s6.cards || fallbackData.section_4?.cards || []).map((card: any, idx: number) => {
+    const fallbackLink = fallbackData.section_4?.cards?.[idx]?.link || "#";
+    return {
+      ...card,
+      link: card.link || fallbackLink
+    };
+  });
 
   return (
     <div className="guides-hub-page">
@@ -63,7 +79,7 @@ export default async function GuidesHub() {
               <p>{s2.description || "Funding, university routes, applications and careers — explained without jargon. Pick the one that answers your question."}</p>
             </div>
             <div className="ghub-grid">
-              {(s2.cards || []).map((card: any, idx: number) => (
+              {s2Cards.map((card: any, idx: number) => (
                 <a className="gcard" href={card.link} key={idx}>
                   <div className="gph">
                     <span className="gchip">{card.category}</span>
@@ -94,8 +110,8 @@ export default async function GuidesHub() {
                 <h2>{s3.title || "Need help choosing where to start?"}</h2>
                 <p>{s3.description || "Talk to a student adviser before choosing a course or submitting an application."}</p>
               </div>
-              <a className="btn btn-orange" href={s3.btnHref || "/lead/adviser-call"}>
-                {s3.btnText || "Talk to an adviser"}
+              <a className="btn btn-orange" href={s3BtnHref}>
+                {s3BtnText}
               </a>
             </div>
           </div>
@@ -103,22 +119,22 @@ export default async function GuidesHub() {
       )}
 
       {/* THREE-COLUMN CONVERSION CARDS */}
-      <QualificationConversionCards />
+      <QualificationConversionCards sectionData={s4} />
 
       {/* CROSSLINKS SECTION */}
-      <QualificationCrosslinks />
+      <QualificationCrosslinks sectionData={s5} />
 
       {/* PHASE 8 AUTHORITY HUB */}
-      {s4.status !== false && (
+      {s6.status !== false && (
         <section className="v705-sec v705-soft" id="authority-hub">
           <div className="v705-wrap" style={{ maxWidth: "min(1680px, calc(100% - 44px))", margin: "0 auto", padding: "0 12px" }}>
             <div className="v705-head" style={{ marginBottom: "30px", textAlign: "left" }}>
-              <span className="kicker" style={{ color: "#e05000", fontWeight: 800, textTransform: "uppercase", fontSize: "11.5px" }}>{s4.badge || "Phase 8 authority hub"}</span>
-              <h2 style={{ fontFamily: "var(--display-font)", fontWeight: 900, fontSize: "clamp(26px, 2.5vw, 42px)", margin: "8px 0" }}>{s4.title || "High-value guides for students who are close to applying."}</h2>
-              <p style={{ color: "#46566f", fontWeight: 600, fontSize: "clamp(16px, 1.2vw, 19px)" }}>{s4.description || "These guides answer the questions that usually stop students from moving forward: eligibility, funding, entry routes and flexible study."}</p>
+              <span className="kicker" style={{ color: "#e05000", fontWeight: 800, textTransform: "uppercase", fontSize: "11.5px" }}>{s6.badge || "Phase 8 authority hub"}</span>
+              <h2 style={{ fontFamily: "var(--display-font)", fontWeight: 900, fontSize: "clamp(26px, 2.5vw, 42px)", margin: "8px 0" }}>{s6.title || "High-value guides for students who are close to applying."}</h2>
+              <p style={{ color: "#46566f", fontWeight: 600, fontSize: "clamp(16px, 1.2vw, 19px)" }}>{s6.description || "These guides answer the questions that usually stop students from moving forward: eligibility, funding, entry routes and flexible study."}</p>
             </div>
             <div className="ys-authority-grid">
-              {(s4.cards || []).map((card: any, idx: number) => (
+              {s6Cards.map((card: any, idx: number) => (
                 <a className="ys-authority-card" href={card.link} key={idx}>
                   <h3>{card.title}</h3>
                   <p>{card.description} <b>Read guide →</b></p>

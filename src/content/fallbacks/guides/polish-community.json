@@ -1,97 +1,426 @@
 {
   "page": "polish-community",
-  "hero": {
-    "kicker": "From Polish Matura to a UK degree",
-    "title": "Understand Student Finance, Matura recognition and flexible degree routes in plain English.",
-    "description": "If you are a Polish citizen living in the UK, higher education is closer than you think. Learn how mature entry, residency rules, and language tests work for adult learners."
+  "section_2": {
+    "badge": "Community snapshot",
+    "title": "What should Polish students know first?",
+    "description": "Polish people are one of the largest European communities in the UK. Many arrived after Poland joined the EU, built work and family lives here, and now want UK qualifications for career progression.",
+    "cards": [
+      {
+        "icon": "🏙️",
+        "title": "Large UK community",
+        "description": "Major communities are in London, Birmingham, Manchester, Edinburgh, Glasgow, Southampton, Reading and Crewe."
+      },
+      {
+        "icon": "📄",
+        "title": "EUSS routes",
+        "description": "Many Polish residents hold settled or pre-settled status under the EU Settlement Scheme, which may support home-fee and funding routes."
+      },
+      {
+        "icon": "👷",
+        "title": "Work-based progression",
+        "description": "Construction, care, logistics, IT and business are common starting points for moving into professional roles."
+      },
+      {
+        "icon": "🎓",
+        "title": "Mature learner friendly",
+        "description": "Foundation Year, CertHE and flexible degrees may suit adults who have worked for years and do not hold UK A-levels."
+      }
+    ],
+    "status": true
   },
-  "challenges": [
-    {
-      "num": 1,
-      "title": "Residency documentation",
-      "description": "Gather official UK evidence early: council tax, bills, GP records, payslips, P60s and Home Office status evidence."
-    },
-    {
-      "num": 2,
-      "title": "Academic English",
-      "description": "Everyday English and academic writing are different. The best route depends on provider, course and interview expectations."
-    },
-    {
-      "num": 3,
-      "title": "Polish qualification recognition",
-      "description": "Matura, Licencjat and Magister routes may be understood differently depending on course level. Get evidence early."
-    },
-    {
-      "num": 4,
-      "title": "Work and family balance",
-      "description": "Many adults need flexible study patterns around shifts, childcare, rent and family responsibilities."
-    },
-    {
-      "num": 5,
-      "title": "Pre-settled to settled timing",
-      "description": "If you can upgrade, plan early. It may help reduce uncertainty before starting the course."
-    }
-  ],
-  "stories": [
-    {
-      "author": "Tomasz",
-      "location": "Birmingham",
-      "path": ["Trade work", "BSc Construction Management", "Project management route"],
-      "image": "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      "author": "Magda",
-      "location": "London",
-      "path": ["Care assistant", "Health & Social Care", "Healthcare leadership"],
-      "image": "https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      "author": "Kamil",
-      "location": "Manchester",
-      "path": ["Warehouse work", "Computing route", "IT career change"],
-      "image": "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=600&q=80"
-    }
-  ],
-  "faqs": [
-    {
-      "q": "Can Polish citizens get Student Finance in England?",
-      "a": "Possibly, depending on status, residency, previous study and course rules. Settled status, eligible pre-settled status, ILR and British citizenship are common routes."
-    },
-    {
-      "q": "Is Polish Matura accepted by UK universities?",
-      "a": "Often yes, but requirements vary by provider, subject and grades. Some providers may request ENIC comparison evidence."
-    },
-    {
-      "q": "Can I study without A-levels?",
-      "a": "Yes, some adults use Foundation Year, CertHE or mature-entry routes where work experience and motivation are considered."
-    },
-    {
-      "q": "Can I apply with pre-settled status?",
-      "a": "Many students can, but the full funding and residency rules need checking. Prepare evidence of your UK residence."
-    },
-    {
-      "q": "Is Licencjat recognised in the UK?",
-      "a": "A Polish Licencjat can support UK postgraduate or career-change routes, but each provider assesses the qualification and subject relevance."
-    },
-    {
-      "q": "Can I work while studying?",
-      "a": "Many adult learners work while studying. The safest option is to look for flexible, blended, weekend or part-time-compatible routes."
-    },
-    {
-      "q": "Do I need IELTS?",
-      "a": "Not always. Some providers accept GCSE English, previous study evidence or their own interview/assessment. Requirements vary."
-    },
-    {
-      "q": "Can parents get extra support?",
-      "a": "Some eligible parents may access Childcare Grant or Parents’ Learning Allowance. Amounts depend on circumstances and official assessment."
-    },
-    {
-      "q": "What if I missed the EUSS deadline?",
-      "a": "Late applications may be possible in some situations, but this needs specialist advice. Without eligible status, international fees may apply."
-    },
-    {
-      "q": "What should I do first?",
-      "a": "Start with Eligibility Checker or book an adviser call. Do not assume you are not suitable before checking status, funding and course routes."
-    }
-  ]
+  "section_3": {
+    "badge": "Student Finance",
+    "title": "Can you get Student Finance?",
+    "description": "Eligibility depends mainly on immigration status, residency history, previous study and the course — not simply nationality.",
+    "cards": [
+      {
+        "badge": "Likely route",
+        "badgeClass": "gg-status green",
+        "title": "Settled Status",
+        "description": "Usually treated like a UK citizen for home-fee and Student Finance purposes if other rules are met."
+      },
+      {
+        "badge": "Often eligible",
+        "badgeClass": "gg-status green",
+        "title": "Pre-Settled Status",
+        "description": "Many students qualify if they meet residency and course rules. Evidence matters."
+      },
+      {
+        "badge": "Eligible route",
+        "badgeClass": "gg-status green",
+        "title": "ILR",
+        "description": "Indefinite Leave to Remain is normally a strong route for home-fee and funding access."
+      },
+      {
+        "badge": "Standard route",
+        "badgeClass": "gg-status green",
+        "title": "British Citizen",
+        "description": "Apply through the standard Student Finance and admissions process."
+      },
+      {
+        "badge": "Adviser review",
+        "badgeClass": "gg-status amber",
+        "title": "No EUSS / New arrival",
+        "description": "May be case-by-case. Without eligible status, international fees may apply."
+      }
+    ],
+    "cardDescription": "3-year residency rule: keep evidence such as council tax, tenancy documents, utility bills, GP/NHS records, payslips, P60s and official letters.",
+    "status": true
+  },
+  "section_4": {
+    "badge": "Myths broken",
+    "title": "Common myths — broken.",
+    "description": "These pages should build confidence, not scare people away. A lower-confidence student should speak to an adviser, not assume university is impossible.",
+    "cards": [
+      {
+        "badge": "Reality",
+        "title": "❌ “I need A-levels.”",
+        "description": "Foundation Year and mature-entry routes may allow adults to start without traditional A-levels, depending on the provider and course."
+      },
+      {
+        "badge": "Reality",
+        "title": "❌ “Student Finance is only for British citizens.”",
+        "description": "Settled status, pre-settled status and ILR holders may be eligible for funding if the full rules are met."
+      },
+      {
+        "badge": "Reality",
+        "title": "❌ “My Matura will not count.”",
+        "description": "Polish Matura is commonly understood by UK providers and may be accepted directly or through a qualification comparison route."
+      },
+      {
+        "badge": "Reality",
+        "title": "❌ “I am too old to study.”",
+        "description": "Many YStudy students are working adults, parents and career changers in their 30s, 40s and 50s."
+      },
+      {
+        "badge": "Reality",
+        "title": "❌ “I cannot study because I work.”",
+        "description": "Weekend, blended and flexible routes are designed for adults balancing work, bills and family commitments."
+      },
+      {
+        "badge": "Reality",
+        "title": "❌ “My English must be perfect.”",
+        "description": "Interview requirements vary. Some foundation and flexible routes include academic support. The safest step is adviser matching."
+      }
+    ],
+    "status": true
+  },
+  "section_5": {
+    "badge": "Qualification conversion",
+    "title": "How do Polish qualifications translate?",
+    "description": "Students may start from Matura, UK qualifications, Polish higher education or no formal qualifications.",
+    "cards": [
+      {
+        "title": "Polish Matura",
+        "description": "Świadectwo dojrzałości can support university entry and may be compared to UK A-level study."
+      },
+      {
+        "title": "UK route check",
+        "description": "Provider checks grades, subjects, English evidence and whether ENIC evidence is needed."
+      },
+      {
+        "title": "Degree entry",
+        "description": "Direct entry, Foundation Year or CertHE route depending on course and profile."
+      },
+      {
+        "title": "Apply with support",
+        "description": "Documents, funding, English confidence and interview preparation."
+      }
+    ],
+    "cards2": [
+      {
+        "title": "Licencjat",
+        "description": "A Polish 3-year bachelor route may support postgraduate study or a career-change route. Check case by case."
+      },
+      {
+        "title": "Magister",
+        "description": "Often a strong academic background for UK postgraduate or professional progression routes."
+      },
+      {
+        "title": "No formal qualifications",
+        "description": "Mature applicants may still have options through Foundation Year, CertHE or work-experience routes."
+      }
+    ],
+    "status": true
+  },
+  "section_6": {
+    "badge": "Funding snapshot",
+    "title": "How much funding could you receive?",
+    "description": "Figures used here follow the source content you provided for the Polish guide. Official amounts and eligibility can change.",
+    "cards": [
+      {
+        "title": "Tuition Fee Loan",
+        "amount": "£9,790",
+        "description": "Paid to provider if approved."
+      },
+      {
+        "title": "Maintenance Loan",
+        "amount": "£14,135",
+        "description": "London, away-from-home maximum used in the source guide."
+      },
+      {
+        "title": "Childcare Grant",
+        "amount": "£199.62/wk",
+        "description": "For eligible students using registered childcare."
+      },
+      {
+        "title": "Parents’ Learning Allowance",
+        "amount": "£1,963",
+        "description": "Extra support for some parents."
+      }
+    ],
+    "status": true
+  },
+  "section_7": {
+    "badge": "Popular degree routes",
+    "title": "What degrees do Polish students often choose?",
+    "description": "These are observational patterns based on common work backgrounds and progression routes. The right choice still depends on the individual.",
+    "status": true
+  },
+  "section_8": {
+    "badge": "Career outcomes",
+    "title": "What could your career progression look like?",
+    "description": "Salary depends on employer, region, experience and sector. Use this as a planning guide, not a guarantee.",
+    "cards": [
+      {
+        "title": "Care → Nursing",
+        "salary": "£24k → £45k",
+        "description": "Health & Social Care or nursing pathways."
+      },
+      {
+        "title": "Site work → Construction PM",
+        "salary": "£32k → £65k+",
+        "description": "Construction management, QS and project roles."
+      },
+      {
+        "title": "IT support → Developer",
+        "salary": "£28k → £70k",
+        "description": "Computing, software and cyber progression."
+      },
+      {
+        "title": "Bookkeeper → Accountant",
+        "salary": "£26k → £55k",
+        "description": "Accounting, finance and professional qualification paths."
+      }
+    ],
+    "status": true
+  },
+  "section_9": {
+    "badge": "Study locations",
+    "title": "Where could you study?",
+    "description": "No logos, no ranking claims — just useful location and study-mode information.",
+    "status": true
+  },
+  "section_10": {
+    "badge": "Challenges & solutions",
+    "title": "What challenges should you prepare for?",
+    "description": "These are based on the practical issues highlighted in the Polish community content you provided.",
+    "cards": [
+      {
+        "number": "1",
+        "title": "Residency documentation",
+        "description": "Gather official UK evidence early: council tax, bills, GP records, payslips, P60s and Home Office status evidence."
+      },
+      {
+        "number": "2",
+        "title": "Academic English",
+        "description": "Everyday English and academic writing are different. The best route depends on provider, course and interview expectations."
+      },
+      {
+        "number": "3",
+        "title": "Polish qualification recognition",
+        "description": "Matura, Licencjat and Magister routes may be understood differently depending on course level. Get evidence early."
+      },
+      {
+        "number": "4",
+        "title": "Work and family balance",
+        "description": "Many adults need flexible study patterns around shifts, childcare, rent and family responsibilities."
+      },
+      {
+        "number": "5",
+        "title": "Pre-settled to settled timing",
+        "description": "If you can upgrade, plan early. It may help reduce uncertainty before starting the course."
+      }
+    ],
+    "status": true
+  },
+  "section_11": {
+    "badge": "Student stories",
+    "title": "What could your story look like?",
+    "description": "Use these as realistic journey examples. Replace with real testimonials when available.",
+    "cards": [
+      {
+        "name": "Tomasz, Birmingham",
+        "img": "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1200&q=85",
+        "path": ["Trade work", "BSc Construction Management", "Project management route"]
+      },
+      {
+        "name": "Magda, London",
+        "img": "https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1200&q=85",
+        "path": ["Care assistant", "Health & Social Care", "Healthcare leadership"]
+      },
+      {
+        "name": "Kamil, Manchester",
+        "img": "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=85",
+        "path": ["Warehouse work", "Computing route", "IT career change"]
+      }
+    ],
+    "status": true
+  },
+  "section_12": {
+    "badge": "FAQ",
+    "title": "Common questions from Polish students",
+    "description": "This section is designed for SEO and reassurance. Keep answers clear and practical.",
+    "faqs": [
+      {
+        "q": "Can Polish citizens get Student Finance in England?",
+        "a": "Possibly, depending on status, residency, previous study and course rules. Settled status, eligible pre-settled status, ILR and British citizenship are common routes."
+      },
+      {
+        "q": "Is Polish Matura accepted by UK universities?",
+        "a": "Often yes, but requirements vary by provider, subject and grades. Some providers may request ENIC comparison evidence."
+      },
+      {
+        "q": "Can I study without A-levels?",
+        "a": "Yes, some adults use Foundation Year, CertHE or mature-entry routes where work experience and motivation are considered."
+      },
+      {
+        "q": "Can I apply with pre-settled status?",
+        "a": "Many students can, but the full funding and residency rules need checking. Prepare evidence of your UK residence."
+      },
+      {
+        "q": "Is Licencjat recognised in the UK?",
+        "a": "A Polish Licencjat can support UK postgraduate or career-change routes, but each provider assesses the qualification and subject relevance."
+      },
+      {
+        "q": "Can I work while studying?",
+        "a": "Many adult learners work while studying. The safest option is to look for flexible, blended, weekend or part-time-compatible routes."
+      },
+      {
+        "q": "Do I need IELTS?",
+        "a": "Not always. Some providers accept GCSE English, previous study evidence or their own interview/assessment. Requirements vary."
+      },
+      {
+        "q": "Can parents get extra support?",
+        "a": "Some eligible parents may access Childcare Grant or Parents’ Learning Allowance. Amounts depend on circumstances and official assessment."
+      },
+      {
+        "q": "What if I missed the EUSS deadline?",
+        "a": "Late applications may be possible in some situations, but this needs specialist advice. Without eligible status, international fees may apply."
+      },
+      {
+        "q": "What should I do first?",
+        "a": "Start with Eligibility Checker or book an adviser call. Do not assume you are not suitable before checking status, funding and course routes."
+      }
+    ],
+    "status": true
+  },
+  "section_13": {
+    "badge": "Related tools",
+    "title": "Plan your next step with YStudy.",
+    "description": "These tools move the guide reader into a real application journey.",
+    "cards": [
+      {
+        "badge": "Decision tool",
+        "title": "Degree Match Finder",
+        "description": "Match your goals, qualifications and study style to realistic routes."
+      },
+      {
+        "badge": "Funding tool",
+        "title": "Eligibility Checker",
+        "description": "Check status, residence and funding risk before applying."
+      },
+      {
+        "badge": "Interview tool",
+        "title": "English Test",
+        "description": "Choose B1, B2 or Advanced and check interview confidence."
+      }
+    ],
+    "status": true
+  },
+  "section_14": {
+    "badge": "Related guides",
+    "title": "Keep learning before you apply.",
+    "description": "Use article cards to connect the Polish guide to the wider Resources section.",
+    "cards": [
+      {
+        "title": "Foundation Year Guide",
+        "description": "Understand Year 0 routes for mature students.",
+        "img": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=85",
+        "link": "/degrees/qualifications/foundation-year"
+      },
+      {
+        "title": "Student Finance Guides",
+        "description": "Loans, grants and common funding risks.",
+        "img": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=85",
+        "link": "/guides/student-finance"
+      },
+      {
+        "title": "Career Change Guide",
+        "description": "Study routes for adults changing direction.",
+        "img": "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=85",
+        "link": "/guides/career-change"
+      }
+    ],
+    "status": true
+  },
+  "section_15": {
+    "title": "Ready to check your options?",
+    "description": "YStudy can help you understand Student Finance, Polish qualification evidence, flexible degree options and the application process.",
+    "pointers": [
+      "✓ Student Finance",
+      "✓ Matura / qualification route",
+      "✓ Flexible degrees",
+      "✓ Application support"
+    ],
+    "status": true
+  },
+  "section_16": {
+    "cards": [
+      {
+        "title": "Check if you can get funded.",
+        "description": "Quickly understand if you may qualify for Student Finance, grants and flexible university routes."
+      },
+      {
+        "title": "Apply with YStudy.",
+        "description": "Send us your details and we’ll help you choose the right course, prepare documents and move forward."
+      },
+      {
+        "title": "Speak with an adviser.",
+        "description": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      }
+    ],
+    "status": true
+  },
+  "section_17": {
+    "title": "Useful next steps",
+    "description": "Move from information to action. Compare degrees, check funding, explore careers and apply with support.",
+    "cards": [
+      {
+        "title": "Find degrees",
+        "link": "Quickly understand if you may qualify for Student Finance, grants and flexible university routes."
+      },
+      {
+        "title": "Funding hub",
+        "link": "Send us your details and we’ll help you choose the right course, prepare documents and move forward."
+      },
+      {
+        "title": "Careers & salaries",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      },
+      {
+        "title": "Degree Match",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      },
+      {
+        "title": "Salary Checker",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      },
+      {
+        "title": "Student guides",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      }
+    ],
+    "status": true
+  }
 }

@@ -48,6 +48,7 @@ export default async function StudentFinance() {
           ]
         }}
         childrenPosition="left"
+        isGuideHero={true}
       >
         <div className="btnrow" style={{ display: "flex", gap: "12px", marginTop: "24px" }}>
           <a className="btn btn-orange" href="/tools/eligibility-checker">

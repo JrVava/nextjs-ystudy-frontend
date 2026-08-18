@@ -15,7 +15,7 @@ export interface StudentStoryItem {
 
 export async function getStudentStoriesList(): Promise<StudentStoryItem[] | null> {
   try {
-    const res = await api.get("/student-stories/list");
+    const res = await api.get("/frontend/student-stories");
 
     const json = res.data;
     if (!json || !json.data) {

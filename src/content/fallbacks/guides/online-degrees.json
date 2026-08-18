@@ -1,0 +1,55 @@
+{
+  "page": "online-degrees",
+  "section_1": {
+    "badge": "Guide · Flexible study",
+    "title": "Online and blended degrees",
+    "description": "Compare online, blended, weekend and campus study patterns before choosing your route.",
+    "status": true
+  },
+  "section_2": {
+    "badge": "Practical guide",
+    "title": "What students usually need to know.",
+    "description": "Clear, useful guidance designed for mature students who want a realistic route into university.",
+    "cards": [
+      {
+        "title": "Online is flexible",
+        "description": "Useful for work and childcare, but requires self-discipline.",
+        "icon": "💻"
+      },
+      {
+        "title": "Blended adds structure",
+        "description": "Some students prefer campus days plus online work.",
+        "icon": "🏫"
+      },
+      {
+        "title": "Attendance rules matter",
+        "description": "Check the exact teaching pattern and attendance expectations.",
+        "icon": "📆"
+      },
+      {
+        "title": "Funding can differ",
+        "description": "Some funding rules can change depending on mode and intensity.",
+        "icon": "💷"
+      },
+      {
+        "title": "Support is important",
+        "description": "Ask about tutors, adviser access and study skills support.",
+        "icon": "👥"
+      },
+      {
+        "title": "Match lifestyle to course",
+        "description": "The best course is the one you can realistically complete.",
+        "icon": "🎯"
+      }
+    ],
+    "status": true
+  },
+  "section_3": {
+    "badge": "YStudy support",
+    "title": "Turn this guide into a plan.",
+    "description": "We can help you compare routes, understand funding and prepare your application documents.",
+    "ctaTitle": "Ready to check your options?",
+    "ctaDescription": "Start with eligibility, then speak to an adviser if you want human support.",
+    "status": true
+  }
+}

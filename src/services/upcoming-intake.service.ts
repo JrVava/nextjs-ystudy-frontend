@@ -13,7 +13,7 @@ export interface UpcomingIntakeItem {
 
 export async function getUpcomingIntakesList(): Promise<UpcomingIntakeItem[] | null> {
   try {
-    const res = await api.get("/upcoming-intakes/list");
+    const res = await api.get("/frontend/upcoming-intakes");
 
     const json = res.data;
     if (!json || !json.data) {

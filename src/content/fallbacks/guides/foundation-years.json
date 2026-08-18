@@ -1,0 +1,55 @@
+{
+  "page": "foundation-years",
+  "section_1": {
+    "badge": "Guide · Entry routes",
+    "title": "Foundation year guide",
+    "description": "When you do not meet direct entry requirements, a foundation year can be a practical route into a full degree.",
+    "status": true
+  },
+  "section_2": {
+    "badge": "Practical guide",
+    "title": "What students usually need to know.",
+    "description": "Clear, useful guidance designed for mature students who want a realistic route into university.",
+    "cards": [
+      {
+        "title": "Year 0 route",
+        "description": "A foundation year is normally the first year before Year 1 of the degree.",
+        "icon": "0️⃣"
+      },
+      {
+        "title": "Good for missing Level 3",
+        "description": "It can help if you do not have A-levels or an Access course.",
+        "icon": "📚"
+      },
+      {
+        "title": "Often funded",
+        "description": "Integrated foundation years can usually be considered for Student Finance if eligible.",
+        "icon": "💷"
+      },
+      {
+        "title": "Progression matters",
+        "description": "Check whether passing the year leads automatically to the degree.",
+        "icon": "➡️"
+      },
+      {
+        "title": "Subject fit",
+        "description": "Choose a foundation year linked to the degree you actually want.",
+        "icon": "🧭"
+      },
+      {
+        "title": "Best for confidence",
+        "description": "It helps rebuild academic skills before the main degree.",
+        "icon": "✅"
+      }
+    ],
+    "status": true
+  },
+  "section_3": {
+    "badge": "YStudy support",
+    "title": "Turn this guide into a plan.",
+    "description": "We can help you compare routes, understand funding and prepare your application documents.",
+    "ctaTitle": "Ready to check your options?",
+    "ctaDescription": "Start with eligibility, then speak to an adviser if you want human support.",
+    "status": true
+  }
+}
