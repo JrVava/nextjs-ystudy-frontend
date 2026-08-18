@@ -12,7 +12,7 @@ interface BannerProps {
   fallbackBadgeText?: string;
   fallbackBgImage?: string;
   fallbackRightCard?: {
-    layoutType: 'stacked-cards' | 'stats-highlight' | 'grid-2x2' | 'list-items' | 'none';
+    layoutType: 'stacked-cards' | 'stats-highlight' | 'grid-2x2' | 'list-items' | 'guide-hero' | 'none';
     title?: string;
     description?: string;
     mainValue?: string;
@@ -25,6 +25,7 @@ interface BannerProps {
     }>;
   };
   childrenPosition?: 'left' | 'bottom';
+  isGuideHero?: boolean;
 }
 
 export async function Banner({
@@ -35,9 +36,52 @@ export async function Banner({
   fallbackBadgeText,
   fallbackBgImage,
   fallbackRightCard,
-  childrenPosition
+  childrenPosition,
+  isGuideHero
 }: BannerProps) {
   const banner = await getBannerBySlug(slug);
+
+  const isGuideHeroActive = isGuideHero || banner?.rightCard?.layoutType === "guide-hero" || fallbackRightCard?.layoutType === "guide-hero";
+
+  if (isGuideHeroActive) {
+    const title = banner?.leftContent?.title || fallbackTitle;
+    const kicker = banner?.leftContent?.badgeText || fallbackBadgeText;
+    const description = banner?.leftContent?.description || fallbackDescription;
+    
+    const rightCard = (banner?.rightCard || fallbackRightCard || {}) as { title?: string; items?: any[] };
+    const snapshotTitle = rightCard.title || "Snapshot";
+    const snapshotItems = rightCard.items || [];
+    
+    return (
+      <section className="section">
+        <div className="yds-hero yds-guide-hero">
+          <div>
+            {kicker && <span className="kicker">{kicker}</span>}
+            {title && <h1>{title}</h1>}
+            {description && <p>{description}</p>}
+            {children}
+          </div>
+          <div className="yds-snapshot">
+            <h2>{snapshotTitle}</h2>
+            <div className="yds-snapshot-grid">
+              {(snapshotItems.length > 0 ? snapshotItems : [
+                { title: "Free", subtitle: "guidance" },
+                { title: "Funding", subtitle: "check" },
+                { title: "Route", subtitle: "match" },
+                { title: "Apply", subtitle: "support" }
+              ]).map((item: any, idx: number) => (
+                <div key={idx}>
+                  <b>{item.title || item.value}</b>
+                  <span>{item.subtitle || item.description}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
 
   if (!banner || !banner.isActive) {
     const isHome = slug === "home";

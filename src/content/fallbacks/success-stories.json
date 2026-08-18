@@ -1,0 +1,95 @@
+{
+  "page": "success-stories",
+  "hero": {
+    "kicker": "Success Stories",
+    "title": "Real student journeys.",
+    "description": "See how adults move from work experience into degree routes and career progression.",
+    "snapshotTitle": "Snapshot",
+    "snapshotItems": [
+      { "title": "Free", "subtitle": "guidance" },
+      { "title": "Funding", "subtitle": "check" },
+      { "title": "Route", "subtitle": "match" },
+      { "title": "Apply", "subtitle": "support" }
+    ]
+  },
+  "convHero": {
+    "kicker": "Success stories",
+    "title": "Real student journeys.",
+    "description": "People who changed their future through education, funding guidance and flexible study routes.",
+    "panelTitle": "Before and after",
+    "panelItems": [
+      { "title": "Work", "subtitle": "today" },
+      { "title": "Degree", "subtitle": "route" },
+      { "title": "Funding", "subtitle": "check" },
+      { "title": "Apply", "subtitle": "support" }
+    ]
+  },
+  "section_2": {
+    "badge": "Student journeys",
+    "title": "Stories students recognise",
+    "description": "Use these as inspiration, not promises.",
+    "cards": [
+      {
+        "tag": "Warehouse → Degree",
+        "title": "Warehouse Supervisor",
+        "description": "A practical route into Business Management.",
+        "image": "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=85",
+        "link": "/tools/degree-match"
+      },
+      {
+        "tag": "Driver → Digital",
+        "title": "Driver",
+        "description": "A route into Computing and Cyber Security.",
+        "image": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=85",
+        "link": "/tools/degree-match"
+      },
+      {
+        "tag": "Retail → People",
+        "title": "Retail Manager",
+        "description": "A route into Psychology or HR.",
+        "image": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1200&q=85",
+        "link": "/tools/degree-match"
+      },
+      {
+        "tag": "Care → Progression",
+        "title": "Healthcare Assistant",
+        "description": "A route into Health & Social Care leadership.",
+        "image": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=85",
+        "link": "/tools/degree-match"
+      }
+    ],
+    "status": true
+  },
+  "section_3": {
+    "badge": "Before & after",
+    "title": "What changes after a clear plan",
+    "description": "Focus on route clarity, funding confidence and application progress.",
+    "cards": [
+      { "icon": "💼", "title": "Current job", "description": "Use your work experience as part of your application story." },
+      { "icon": "💷", "title": "Funding", "description": "Check maintenance, tuition and eligibility early." },
+      { "icon": "🎓", "title": "Qualification", "description": "Choose the route: foundation, degree, top-up or master’s." },
+      { "icon": "🚀", "title": "New career", "description": "Use study to move toward a realistic career outcome." }
+    ],
+    "status": true
+  },
+  "section_4": {
+    "badge": "Video testimonials",
+    "title": "Placeholder for future video stories",
+    "description": "Add student videos later without changing the page structure.",
+    "cards": [
+      {
+        "icon": "▶",
+        "title": "Video stories coming soon",
+        "description": "Short, authentic stories will sit here when you are ready to collect them."
+      }
+    ],
+    "status": true
+  },
+  "section_5": {
+    "title": "Start your journey",
+    "description": "Find a degree route and check funding before applying.",
+    "btnText": "Start now",
+    "btnHref": "/tools/degree-match",
+    "status": true
+  }
+}

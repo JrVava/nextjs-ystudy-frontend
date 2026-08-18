@@ -15,7 +15,7 @@ export interface ToolItem {
 
 export async function getToolsList(): Promise<ToolItem[] | null> {
   try {
-    const res = await api.get("/tools/list");
+    const res = await api.get("/frontend/tools");
 
     const json = res.data;
     if (!json || !json.data) {

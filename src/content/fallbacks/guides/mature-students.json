@@ -1,0 +1,55 @@
+{
+  "page": "mature-students",
+  "section_1": {
+    "badge": "Guide · Mature students",
+    "title": "Mature student guide",
+    "description": "A simple guide for adults returning to education, changing career or studying while working.",
+    "status": true
+  },
+  "section_2": {
+    "badge": "Practical guide",
+    "title": "What students usually need to know.",
+    "description": "Clear, useful guidance designed for mature students who want a realistic route into university.",
+    "cards": [
+      {
+        "title": "You do not need to be 18",
+        "description": "Many UK degree routes are built for adults with work and family commitments.",
+        "icon": "🎓"
+      },
+      {
+        "title": "Funding may be available",
+        "description": "Tuition Fee Loan, Maintenance Loan and some grants can support eligible students.",
+        "icon": "💷"
+      },
+      {
+        "title": "Choose the right route",
+        "description": "Foundation years, CertHE, HNDs and full degrees can all lead to progression.",
+        "icon": "🧭"
+      },
+      {
+        "title": "Prepare documents early",
+        "description": "ID, share code, certificates, CV and address history are commonly needed.",
+        "icon": "📄"
+      },
+      {
+        "title": "Flexible study matters",
+        "description": "Look for blended, evening, weekend or online learning patterns.",
+        "icon": "⏱️"
+      },
+      {
+        "title": "Get guidance",
+        "description": "A good adviser helps you avoid courses that do not fit your goals.",
+        "icon": "🤝"
+      }
+    ],
+    "status": true
+  },
+  "section_3": {
+    "badge": "YStudy support",
+    "title": "Turn this guide into a plan.",
+    "description": "We can help you compare routes, understand funding and prepare your application documents.",
+    "ctaTitle": "Ready to check your options?",
+    "ctaDescription": "Start with eligibility, then speak to an adviser if you want human support.",
+    "status": true
+  }
+}

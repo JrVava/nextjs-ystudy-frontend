@@ -24,7 +24,7 @@ export interface BannerData {
     footerItems?: Array<{ label: string; value: string }>;
   };
   rightCard: {
-    layoutType: 'stacked-cards' | 'stats-highlight' | 'grid-2x2' | 'list-items' | 'none';
+    layoutType: 'stacked-cards' | 'stats-highlight' | 'grid-2x2' | 'list-items' | 'guide-hero' | 'none';
     title?: string;
     description?: string;
     mainValue?: string;

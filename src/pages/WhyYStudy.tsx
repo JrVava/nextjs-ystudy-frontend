@@ -1,5 +1,6 @@
 import React from "react";
 import { getCMSPageContent } from "@/services/cms.service";
+import { Banner } from "@/components/ui/Banner";
 
 export default async function WhyYStudy() {
   const data = await getCMSPageContent("why-ystudy");
@@ -23,40 +24,33 @@ export default async function WhyYStudy() {
   return (
     <div className="why-ystudy-page">
       {/* GUIDE HERO SECTION */}
-      <section className="section">
-        <div className="yds-hero yds-guide-hero">
-          <div>
-            <span className="kicker">{hero.kicker || "Why YStudy"}</span>
-            <h1>{hero.title || "Why use YStudy?"}</h1>
-            <p>{hero.description || "Independent guidance for adults comparing courses, funding and flexible routes."}</p>
-            <div className="btnrow">
-              <a className="btn btn-orange" href="/tools/eligibility-checker">Check eligibility</a>
-              <a className="btn btn-white" href="/lead/adviser-call">Book adviser</a>
-            </div>
-            <div className="hero-pills">
-              <span>Plain English</span>
-              <span>Adult learner route</span>
-              <span>Funding-focused</span>
-            </div>
-          </div>
-          <div className="yds-snapshot">
-            <h2>{hero.snapshotTitle || "Snapshot"}</h2>
-            <div className="yds-snapshot-grid">
-              {(hero.snapshotItems || [
-                { title: "Free", subtitle: "guidance" },
-                { title: "Funding", subtitle: "check" },
-                { title: "Route", subtitle: "match" },
-                { title: "Apply", subtitle: "support" }
-              ]).map((item: any, idx: number) => (
-                <div key={idx}>
-                  <b>{item.title}</b>
-                  <span>{item.subtitle}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+      <Banner
+        slug="why-ystudy"
+        fallbackBadgeText={hero.kicker || "Why YStudy"}
+        fallbackTitle={hero.title || "Why use YStudy?"}
+        fallbackDescription={hero.description || "Independent guidance for adults comparing courses, funding and flexible routes."}
+        fallbackRightCard={{
+          layoutType: "guide-hero",
+          title: hero.snapshotTitle || "Snapshot",
+          items: (hero.snapshotItems || [
+            { title: "Free", subtitle: "guidance" },
+            { title: "Funding", subtitle: "check" },
+            { title: "Route", subtitle: "match" },
+            { title: "Apply", subtitle: "support" }
+          ])
+        }}
+        isGuideHero={true}
+      >
+        <div className="btnrow">
+          <a className="btn btn-orange" href="/tools/eligibility-checker">Check eligibility</a>
+          <a className="btn btn-white" href="/lead/adviser-call">Book adviser</a>
         </div>
-      </section>
+        <div className="hero-pills">
+          <span>Plain English</span>
+          <span>Adult learner route</span>
+          <span>Funding-focused</span>
+        </div>
+      </Banner>
 
       {/* CONV HERO SECTION */}
       <section className="conv-hero">
@@ -101,7 +95,7 @@ export default async function WhyYStudy() {
             <div className="conv-grid five">
               {(s2.cards || []).map((card: any, idx: number) => (
                 <article className="conv-card" key={idx}>
-                  <div className="ico">{card.ico}</div>
+                  <div className="ico">{card.ico || card.icon}</div>
                   <h3>{card.title}</h3>
                   <p>{card.description}</p>
                 </article>
@@ -121,9 +115,9 @@ export default async function WhyYStudy() {
               <p></p>
             </div>
             <div className="conv-timeline">
-              {(s3.steps || []).map((step: any, idx: number) => (
+              {(s3.steps || s3.cards || []).map((step: any, idx: number) => (
                 <div className="conv-step" key={idx}>
-                  <div className="num">{step.num || (idx + 1)}</div>
+                  <div className="num">{step.num || step.number || (idx + 1)}</div>
                   <h3>{step.title}</h3>
                   <p>{step.description}</p>
                 </div>

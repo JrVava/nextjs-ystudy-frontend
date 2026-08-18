@@ -36,6 +36,7 @@ export default async function GuideDetail({ slug }: GuideDetailProps) {
         fallbackDescription="Read our professional guide for mature students and adult learners."
         fallbackBadgeText="YStudy Student Guide"
         fallbackBgImage="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=2200&q=80"
+        isGuideHero={true}
       >
         <div style={{ textAlign: "left", width: "100%" }}>
           <p className="bc" style={{ margin: "0 0 16px", color: "rgba(255,255,255,0.8)", fontSize: "13px" }}>

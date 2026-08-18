@@ -1,0 +1,62 @@
+{
+  "page": "how-guidance-works",
+  "hero": {
+    "kicker": "Guidance Process",
+    "title": "How YStudy guidance works.",
+    "description": "A simple route from eligibility check to degree match, funding review and application support.",
+    "snapshotTitle": "Snapshot",
+    "snapshotItems": [
+      { "title": "Free", "subtitle": "guidance" },
+      { "title": "Funding", "subtitle": "check" },
+      { "title": "Route", "subtitle": "match" },
+      { "title": "Apply", "subtitle": "support" }
+    ]
+  },
+  "convHero": {
+    "kicker": "How guidance works",
+    "title": "Your route into university.",
+    "description": "A simple step-by-step process from eligibility to application and start date.",
+    "panelTitle": "Guided process",
+    "panelItems": [
+      { "title": "1", "subtitle": "Check" },
+      { "title": "2", "subtitle": "Match" },
+      { "title": "3", "subtitle": "Apply" },
+      { "title": "4", "subtitle": "Track" }
+    ]
+  },
+  "section_2": {
+    "badge": "Your route",
+    "title": "Six clear steps",
+    "description": "",
+    "cards": [
+      { "number": "1", "title": "Check eligibility", "description": "Understand status, funding and possible risks." },
+      { "number": "2", "title": "Career Quiz", "description": "Explore career direction and study interests." },
+      { "number": "3", "title": "Degree Match Finder", "description": "Get route and degree recommendations." },
+      { "number": "4", "title": "Funding Check", "description": "Estimate support and understand evidence." },
+      { "number": "5", "title": "Apply", "description": "Use the Application Hub and adviser support." },
+      { "number": "6", "title": "Start University", "description": "Prepare for interview, documents and enrolment." },
+      { "number": "7", "title": "Track Progress", "description": "Dashboard shows tasks, messages and next actions." },
+      { "number": "8", "title": "Get Help", "description": "Speak to an adviser when anything is unclear." }
+    ],
+    "status": true
+  },
+  "section_3": {
+    "badge": "After you apply",
+    "title": "Dashboard and adviser support",
+    "description": "",
+    "cards": [
+      { "icon": "📊", "title": "Dashboard preview", "description": "Track applications, documents and messages." },
+      { "icon": "📎", "title": "Document uploads", "description": "Organise ID, residency evidence and qualifications." },
+      { "icon": "👤", "title": "Adviser review", "description": "Send tool results and application context." },
+      { "icon": "💷", "title": "Funding checks", "description": "Keep finance risks visible before deadlines." }
+    ],
+    "status": true
+  },
+  "section_4": {
+    "title": "Start your route",
+    "description": "Begin with Degree Match Finder and check funding afterwards.",
+    "btnText": "Start now",
+    "btnHref": "/tools/degree-match",
+    "status": true
+  }
+}

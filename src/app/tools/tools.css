@@ -288,6 +288,7 @@
 }
 
 .hubhero .chips,
+.hhero .chips,
 .loc-hero .chips {
   display: flex;
   gap: 9px;
@@ -296,6 +297,7 @@
 }
 
 .hubhero .chips span,
+.hhero .chips span,
 .loc-hero .chips span {
   background: rgba(255, 255, 255, .16);
   border: 1px solid rgba(255, 255, 255, .3);
@@ -568,6 +570,7 @@
 }
 
 @media(max-width:820px) {
+
   .answer-grid,
   .degree-card-row {
     grid-template-columns: 1fr;
@@ -583,5 +586,3 @@
 }
 
 /* --- Mockup Integrated Styles --- */
-
-

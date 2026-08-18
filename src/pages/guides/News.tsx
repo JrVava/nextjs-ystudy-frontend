@@ -4,7 +4,7 @@ import { Banner } from "@/components/ui/Banner";
 import { QualificationConversionCards, QualificationCrosslinks } from "@/components/ui";
 
 export default async function News() {
-  const data = await getCMSPageContent("news");
+  const data = await getCMSPageContent("news-updates");
 
   if (!data) {
     return (
@@ -18,6 +18,7 @@ export default async function News() {
 
   const s1 = data.section_1 || {};
   const s2 = data.section_2 || {};
+  const s3 = data.section_3 || {};
 
   return (
     <div className="qualification-page news-page">
@@ -39,6 +40,7 @@ export default async function News() {
           ]
         }}
         childrenPosition="left"
+        isGuideHero={true}
       >
         <div className="btnrow" style={{ display: "flex", gap: "12px", marginTop: "24px" }}>
           <a className="btn btn-orange" href="/tools/eligibility-checker">
@@ -55,42 +57,11 @@ export default async function News() {
         </div>
       </Banner>
 
-      {/* LATEST UPDATES LISTING (IF ANY CARDS EXIST) */}
-      {s2.status !== false && s2.cards && s2.cards.length > 0 && (
-        <section className="conv-section">
-          <div className="container">
-            <div className="conv-head">
-              <span className="kicker">{s2.badge || "Latest updates"}</span>
-              <h2>{s2.title || "News & updates"}</h2>
-              <p>{s2.description || "Practical updates for adult learners comparing courses, funding and entry routes."}</p>
-            </div>
-            <div className="guide-grid guide-carousel">
-              {s2.cards.map((card: any, idx: number) => (
-                <a className="guide-card" href={card.link} key={idx}>
-                  <span className="guide-media">
-                    <img
-                      alt={card.title}
-                      src={card.image || "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1600&q=85"}
-                    />
-                  </span>
-                  <span className="guide-tags">
-                    <span className="guide-tag">Update</span>
-                  </span>
-                  <h3 className="guide-title">{card.title}</h3>
-                  <p className="guide-sub">{card.description}</p>
-                  <span className="guide-cta">Read update →</span>
-                </a>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
       {/* CONVERSION CARDS */}
-      <QualificationConversionCards />
+      <QualificationConversionCards sectionData={s2} />
 
       {/* CROSSLINKS */}
-      <QualificationCrosslinks />
+      <QualificationCrosslinks sectionData={s3} />
     </div>
   );
 }

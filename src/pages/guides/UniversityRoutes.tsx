@@ -1,10 +1,14 @@
 import React from "react";
 import { getCMSPageContent } from "@/services/cms.service";
+import { getGuidesList } from "@/services/guide.service";
 import { Banner } from "@/components/ui/Banner";
 import { QualificationConversionCards, QualificationCrosslinks } from "@/components/ui";
 
 export default async function UniversityRoutes() {
-  const data = await getCMSPageContent("university-routes");
+  const [data, guides] = await Promise.all([
+    getCMSPageContent("university-routes"),
+    getGuidesList()
+  ]);
 
   if (!data) {
     return (
@@ -19,6 +23,35 @@ export default async function UniversityRoutes() {
   const s1 = data.section_1 || {};
   const s2 = data.section_2 || {};
   const s3 = data.section_3 || {};
+  const s4 = data.section_4 || {};
+  const s5 = data.section_5 || {};
+
+  const s2CardsFallback = [
+    {
+      title: "Foundation Year explained",
+      description: "For students without traditional entry qualifications or returning after a long break.",
+      link: "/degrees/qualifications/foundation-year",
+      image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1600&q=85"
+    },
+    {
+      title: "HND vs Degree",
+      description: "Understand vocational and academic routes.",
+      link: "/degrees/qualifications/hnd",
+      image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1600&q=85"
+    },
+    {
+      title: "Top-Up Degrees",
+      description: "Turn a Level 5 qualification into a full degree.",
+      link: "/degrees/qualifications/top-up-degree",
+      image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1600&q=85"
+    },
+    {
+      title: "Master’s Degrees",
+      description: "Postgraduate routes and funding basics.",
+      link: "/degrees/qualifications/masters",
+      image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1600&q=85"
+    }
+  ];
 
   return (
     <div className="qualification-page university-routes-page">
@@ -40,6 +73,7 @@ export default async function UniversityRoutes() {
           ]
         }}
         childrenPosition="left"
+        isGuideHero={true}
       >
         <div className="btnrow" style={{ display: "flex", gap: "12px", marginTop: "24px" }}>
           <a className="btn btn-orange" href="/tools/eligibility-checker">
@@ -66,19 +100,19 @@ export default async function UniversityRoutes() {
               <p>{s2.description || "Open a guide or speak to an adviser if you want a route checked."}</p>
             </div>
             <div className="guide-grid guide-carousel">
-              {(s2.cards || []).map((card: any, idx: number) => (
+              {(guides && guides.length > 0 ? guides : (s2.cards && s2.cards.length > 0 ? s2.cards : s2CardsFallback)).map((card: any, idx: number) => (
                 <a className="guide-card" href={card.link} key={idx}>
                   <span className="guide-media">
                     <img
                       alt={card.title}
-                      src={card.image || "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1600&q=85"}
+                      src={card.fullImageUrl || card.image || "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1600&q=85"}
                     />
                   </span>
                   <span className="guide-tags">
                     <span className="guide-tag">Guide</span>
                   </span>
                   <h3 className="guide-title">{card.title}</h3>
-                  <p className="guide-sub">{card.description}</p>
+                  <p className="guide-sub">{card.subTitle || card.description}</p>
                   <span className="guide-cta">Read guide →</span>
                 </a>
               ))}
@@ -105,10 +139,10 @@ export default async function UniversityRoutes() {
       )}
 
       {/* CONVERSION CARDS */}
-      <QualificationConversionCards />
+      <QualificationConversionCards sectionData={s4} />
 
       {/* CROSSLINKS */}
-      <QualificationCrosslinks />
+      <QualificationCrosslinks sectionData={s5} />
     </div>
   );
 }

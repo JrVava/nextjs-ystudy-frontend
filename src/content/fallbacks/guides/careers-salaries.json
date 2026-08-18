@@ -1,0 +1,46 @@
+{
+  "page": "careers-salaries",
+  "section_1": {
+    "badge": "Career Guides Hub",
+    "title": "Explore career guides.",
+    "description": "Compare subject routes, salary ranges and career outcomes before choosing your degree.",
+    "status": true
+  },
+  "section_2": {
+    "badge": "Featured guides",
+    "title": "Careers & Salaries",
+    "description": "Open a guide or speak to an adviser if you want a route checked.",
+    "cards": [
+      {
+        "title": "Business Management Salary",
+        "description": "Common roles and progression routes.",
+        "link": "/lead/adviser-call",
+        "image": "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1600&q=85"
+      },
+      {
+        "title": "Cyber Security Salary",
+        "description": "Digital career paths and salary ranges.",
+        "link": "/lead/adviser-call",
+        "image": "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1600&q=85"
+      },
+      {
+        "title": "Healthcare Careers",
+        "description": "Care and community roles after study.",
+        "link": "/lead/adviser-call",
+        "image": "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1600&q=85"
+      },
+      {
+        "title": "Highest Paying Degrees",
+        "description": "Use salary as one decision factor, not the only one.",
+        "link": "/lead/adviser-call",
+        "image": "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1600&q=85"
+      }
+    ],
+    "status": true
+  },
+  "section_3": {
+    "title": "Want a personalised route?",
+    "description": "A YStudy adviser can check your funding, qualifications and course options.",
+    "status": true
+  }
+}
