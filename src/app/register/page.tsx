@@ -3,14 +3,14 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { loginUser } from "@/services/auth.service";
+import { registerUser } from "@/services/auth.service";
 import "@/styles/auth.css";
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const router = useRouter();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -22,28 +22,14 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const response = await loginUser({ email, password });
-      console.log('response', response);
-
-      if (response.success && response.token) {
-        setSuccess(response.message || "Login successful! Redirecting to dashboard...");
-        
-        // Set token cookie for next.js middleware protection
-        const maxAge = response.expiresInMs ? response.expiresInMs / 1000 : 86400; // default 1 day
-        document.cookie = `token=${response.token}; path=/; max-age=${maxAge}; SameSite=Lax`;
-
-        // Save user info and token to localStorage
-        localStorage.setItem("ystudy_token", response.token);
-        if (response.user) {
-          localStorage.setItem("ystudy_user", JSON.stringify(response.user));
-        }
-
-        // Force reload and redirect to dashboard to ensure middleware processes the new cookie
+      const response = await registerUser({ name, email, password });
+      if (response.success) {
+        setSuccess(response.message || "Registration successful! Redirecting to login...");
         setTimeout(() => {
-          window.location.href = "/dashboard";
-        }, 1500);
+          router.push("/login");
+        }, 2000);
       } else {
-        setError(response.message || "Invalid credentials");
+        setError(response.message || "Registration failed");
       }
     } catch (err: any) {
       setError(err.message || "An unexpected error occurred. Please try again.");
@@ -60,14 +46,26 @@ export default function LoginPage() {
             <img src="/assets/ystudy-logo.png" alt="YStudy Logo" className="auth-logo" />
             <span className="auth-brand-text">YStudy</span>
           </div>
-          <h1>Sign In</h1>
-          <p>Log in to your YStudy dashboard</p>
+          <h1>Create Account</h1>
+          <p>Sign up to start your journey with YStudy</p>
         </div>
 
         {error && <div className="auth-error">{error}</div>}
         {success && <div className="auth-success">{success}</div>}
 
         <form className="auth-form" onSubmit={handleSubmit}>
+          <div className="auth-input-group">
+            <label htmlFor="name">Full Name</label>
+            <input
+              type="text"
+              id="name"
+              placeholder="John Doe"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              disabled={loading || !!success}
+            />
+          </div>
           <div className="auth-input-group">
             <label htmlFor="email">Email address</label>
             <input
@@ -92,33 +90,19 @@ export default function LoginPage() {
               disabled={loading || !!success}
             />
           </div>
-          <div className="auth-form-actions">
-            <label className="auth-remember-me">
-              <input
-                type="checkbox"
-                checked={rememberMe}
-                onChange={(e) => setRememberMe(e.target.checked)}
-                disabled={loading || !!success}
-              />{" "}
-              Remember me
-            </label>
-            <Link href="/forgot-password" className="auth-forgot-password">
-              Forgot password?
-            </Link>
-          </div>
           <button type="submit" className="auth-submit" disabled={loading || !!success}>
             {loading ? (
               <span className="auth-spinner-container">
-                <span className="auth-spinner"></span> Signing In...
+                <span className="auth-spinner"></span> Creating Account...
               </span>
             ) : (
-              "Sign In"
+              "Create Account"
             )}
           </button>
         </form>
         <div className="auth-footer">
           <p>
-            New to YStudy? <Link href="/register">Create an account</Link>
+            Already have an account? <Link href="/login">Sign In</Link>
           </p>
         </div>
       </div>
