@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { SiteLayout } from "@/components/layout";
+import { logoutUser } from "@/services/auth.service";
 
 export default function DashboardPage() {
   const [tools, setTools] = useState<any[]>([]);
@@ -13,24 +14,41 @@ export default function DashboardPage() {
     try {
       const savedTools = JSON.parse(localStorage.getItem("ystudy_saved_tools") || "[]");
       setTools(savedTools);
-    } catch (e) {}
+    } catch (e) { }
 
     try {
       const savedFunding = JSON.parse(localStorage.getItem("ystudy_funding_profile") || "null");
       setFunding(savedFunding);
-    } catch (e) {}
+    } catch (e) { }
 
     try {
       const savedAdviser = JSON.parse(localStorage.getItem("ystudy_adviser_context") || "null");
       setAdviser(savedAdviser);
-    } catch (e) {}
+    } catch (e) { }
   }, []);
+
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+    } catch (e) {
+      console.error("Logout API failed:", e);
+    }
+    document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    localStorage.removeItem("ystudy_token");
+    localStorage.removeItem("ystudy_user");
+    window.location.href = "/login";
+  };
 
   return (
     <SiteLayout showBottomNav={true}>
       <main className="dash-shell">
         <div className="wrap">
-          <span className="eyebrow o" style={{ marginBottom: "16px" }}>Student Dashboard</span>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
+            <span className="eyebrow o" style={{ margin: 0 }}>Student Dashboard</span>
+            <button onClick={handleLogout} className="btn outline sm" style={{ minHeight: "32px", padding: "0 12px", fontSize: "12px", cursor: "pointer" }}>
+              Sign Out
+            </button>
+          </div>
           <h1 className="h1" style={{ marginBottom: "8px" }}>Your YStudy progress.</h1>
           <p className="lead" style={{ marginBottom: "28px" }}>
             This static version saves tool results locally in your browser. No database connection is required.

@@ -4,8 +4,8 @@ import { Container } from "@/components/ui";
 
 export function DashboardLayout({ children }: PropsWithChildren) {
   return (
-    <div className={cn("dash-shell")}>
-      <Container width="shell">{children}</Container>
+    <div>
+      {children}
     </div>
   );
 }
