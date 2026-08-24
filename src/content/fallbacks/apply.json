@@ -1,0 +1,161 @@
+{
+  "page": "apply",
+  "section_2": {
+    "badge": "How it works",
+    "title": "From interest to application in four clear steps.",
+    "description": "YStudy keeps the process practical. You do not need to know the perfect degree before you start — we help you choose, check and apply.",
+    "cards": [
+      {
+        "number": "1",
+        "title": "Choose a direction",
+        "description": "Tell us your goals, work background and subject interests. We shortlist realistic degree routes."
+      },
+      {
+        "number": "2",
+        "title": "Check eligibility",
+        "description": "We look at residency, previous study, qualifications and Student Finance questions before you waste time."
+      },
+      {
+        "number": "3",
+        "title": "Prepare documents",
+        "description": "You receive a clear checklist for ID, status, qualifications, CV or personal statement."
+      },
+      {
+        "number": "4",
+        "title": "Submit and enrol",
+        "description": "We support your application steps, interview preparation and enrolment communication."
+      }
+    ],
+    "status": true
+  },
+  "section_3": {
+    "badge": "Student support",
+    "title": "What YStudy can help you with.",
+    "description": "Useful support for mature students, workers, parents and career changers who need a flexible university route.",
+    "cards": [
+      {
+        "icon": "🎓",
+        "title": "Course selection",
+        "description": "Business, health, computing, psychology, law, construction and other practical degree routes."
+      },
+      {
+        "icon": "£",
+        "title": "Student Finance guidance",
+        "description": "Tuition Fee Loan, Maintenance Loan, grants and common questions about previous study."
+      },
+      {
+        "icon": "🧾",
+        "title": "Document checks",
+        "description": "We help you understand what documents are normally requested and how to prepare them."
+      },
+      {
+        "icon": "✍️",
+        "title": "Personal statement",
+        "description": "Structure your motivation, experience and career plan clearly for admissions teams."
+      },
+      {
+        "icon": "💬",
+        "title": "Interview confidence",
+        "description": "Practice explaining why you want the course and how you will manage study."
+      },
+      {
+        "icon": "✅",
+        "title": "Application tracking",
+        "description": "Know what has been submitted, what is pending and what your next step is."
+      }
+    ],
+    "status": true
+  },
+  "section_4": {
+    "badge": "Checklist",
+    "title": "Documents usually needed.",
+    "description": "Exact requirements depend on the university and your situation, but most applicants should prepare these.",
+    "pointers": [
+      "Passport or national ID",
+      "Share code / residency evidence",
+      "Proof of address",
+      "Qualification certificates",
+      "CV if you apply with experience",
+      "Personal statement or motivation notes"
+    ],
+    "status": true
+  },
+  "section_5": {
+    "badge": "Why students use us",
+    "title": "A serious, practical application service.",
+    "description": "The goal is not to push any course. The goal is to help you choose a route you can realistically start, fund and complete.",
+    "cards": [
+      {
+        "title": "“I finally understood my options.”",
+        "description": "Many students come to us unsure about funding, entry routes or flexible study. We turn that into a clear next step."
+      },
+      {
+        "title": "“The checklist helped me move faster.”",
+        "description": "Applications often slow down because documents are missing. A clear list helps you prepare early."
+      },
+      {
+        "title": "“I needed someone to explain it simply.”",
+        "description": "Especially for mature students, practical guidance can make university feel possible again."
+      }
+    ],
+    "status": true
+  },
+  "section_6": {
+    "badge": "FAQ",
+    "title": "Common application questions.",
+    "status": true
+  },
+  "section_7": {
+    "title": "Ready to check your route?",
+    "description": "Start with one form. We will help you understand your course, funding and documents.",
+    "status": true
+  },
+  "section_8": {
+    "cards": [
+      {
+        "title": "Check if you can get funded.",
+        "description": "Quickly understand if you may qualify for Student Finance, grants and flexible university routes."
+      },
+      {
+        "title": "Apply with YStudy.",
+        "description": "Send us your details and we’ll help you choose the right course, prepare documents and move forward."
+      },
+      {
+        "title": "Speak with an adviser.",
+        "description": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      }
+    ],
+    "status": true
+  },
+  "section_9": {
+    "title": "Useful next steps",
+    "description": "Move from information to action. Compare degrees, check funding, explore careers and apply with support.",
+    "cards": [
+      {
+        "title": "Find degrees",
+        "link": "Quickly understand if you may qualify for Student Finance, grants and flexible university routes."
+      },
+      {
+        "title": "Funding hub",
+        "link": "Send us your details and we’ll help you choose the right course, prepare documents and move forward."
+      },
+      {
+        "title": "Careers & salaries",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      },
+      {
+        "title": "Degree Match",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      },
+      {
+        "title": "Salary Checker",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      },
+      {
+        "title": "Student guides",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      }
+    ],
+    "status": true
+  }
+}

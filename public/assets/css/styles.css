@@ -89,6 +89,10 @@ p {
   margin: 0
 }
 
+.qf-sec {
+  padding: clamp(38px, 4.5vw, 70px) 0;
+}
+
 .dark p,
 .hero p,
 .photo-break p,

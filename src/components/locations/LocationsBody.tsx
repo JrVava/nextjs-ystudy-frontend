@@ -1,5 +1,6 @@
 "use client";
 
+/* eslint-disable @typescript-eslint/no-explicit-any, react-hooks/preserve-manual-memoization, react-hooks/set-state-in-effect */
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { LocationResultsCarousel } from "@/components/locations/LocationResultsCarousel";
@@ -38,52 +39,105 @@ export default function LocationsBody({ data }: LocationsBodyProps) {
     fetchSubjects();
   }, []);
 
-  const cities = data?.cities || [
-    {
-      id: "london",
-      name: "London",
-      floatDescription: "Largest choice · flexible routes · foundation year options",
-      gridDescription: "Broad course choice, strong transport links and popular flexible study options.",
-      carouselDescription: "Popular routes for mature students who can travel into London for flexible or blended study.",
-      badges: ["20+ courses", "Foundation routes", "Funding available"],
-      image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=900&q=80",
-      gridImage: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1100&q=82",
-      buttonText: "Explore London courses"
-    },
-    {
-      id: "birmingham",
-      name: "Birmingham",
-      floatDescription: "Central location · mature student friendly · practical courses",
-      gridDescription: "A practical Midlands hub for adult learners looking for flexible degree routes.",
-      carouselDescription: "Central England options for adults balancing work, family and study.",
-      badges: ["15+ courses", "Evening/weekend", "Central England"],
-      image: "https://images.unsplash.com/photo-1543946207-39bd91e70ca7?auto=format&fit=crop&w=900&q=80",
-      gridImage: "https://images.unsplash.com/photo-1543946207-39bd91e70ca7?auto=format&fit=crop&w=1100&q=82",
-      buttonText: "Explore Birmingham courses"
-    },
-    {
-      id: "manchester",
-      name: "Manchester",
-      floatDescription: "Weekend & blended routes · career-focused subjects",
-      gridDescription: "Popular with working adults interested in business, health and technology routes.",
-      carouselDescription: "Career-focused routes for working adults in business, care, computing and technology.",
-      badges: ["12+ courses", "Blended options", "Career-focused"],
-      image: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=900&q=80",
-      gridImage: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1100&q=82",
-      buttonText: "Explore Manchester courses"
-    },
-    {
-      id: "leeds",
-      name: "Leeds",
-      floatDescription: "Growing city · business and career routes · lower living costs",
-      gridDescription: "A strong Northern city for business, finance, digital and career-focused study routes.",
-      carouselDescription: "A growing Northern option for business, finance, digital and career-focused study planning.",
-      badges: ["Growing hub", "Business routes", "Funding available"],
-      image: "https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?auto=format&fit=crop&w=900&q=80",
-      gridImage: "https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?auto=format&fit=crop&w=1100&q=82",
-      buttonText: "Explore Leeds courses"
+  // Extract unique locations from apiCourses
+  const extractedLocations = React.useMemo(() => {
+    const map = new Map<string, any>();
+    apiCourses.forEach((course) => {
+      if (Array.isArray(course.locations)) {
+        course.locations.forEach((loc: any) => {
+          if (loc && (loc.slug || loc._id)) {
+            const key = (loc.slug || loc._id).toString().toLowerCase();
+            if (!map.has(key)) {
+              map.set(key, loc);
+            }
+          }
+        });
+      }
+    });
+    return Array.from(map.values());
+  }, [apiCourses]);
+
+  const cities = React.useMemo(() => {
+    // If the CMS data has cities, use them
+    if (data?.cities && data.cities.length > 0) {
+      return data.cities;
     }
-  ];
+    
+    // Default hardcoded fallbacks
+    const defaultCities = [
+      {
+        id: "london",
+        name: "London",
+        floatDescription: "Largest choice · flexible routes · foundation year options",
+        gridDescription: "Broad course choice, strong transport links and popular flexible study options.",
+        carouselDescription: "Popular routes for mature students who can travel into London for flexible or blended study.",
+        badges: ["20+ courses", "Foundation routes", "Funding available"],
+        image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=900&q=80",
+        gridImage: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1100&q=82",
+        buttonText: "Explore London courses"
+      },
+      {
+        id: "birmingham",
+        name: "Birmingham",
+        floatDescription: "Central location · mature student friendly · practical courses",
+        gridDescription: "A practical Midlands hub for adult learners looking for flexible degree routes.",
+        carouselDescription: "Central England options for adults balancing work, family and study.",
+        badges: ["15+ courses", "Evening/weekend", "Central England"],
+        image: "https://images.unsplash.com/photo-1543946207-39bd91e70ca7?auto=format&fit=crop&w=900&q=80",
+        gridImage: "https://images.unsplash.com/photo-1543946207-39bd91e70ca7?auto=format&fit=crop&w=1100&q=82",
+        buttonText: "Explore Birmingham courses"
+      },
+      {
+        id: "manchester",
+        name: "Manchester",
+        floatDescription: "Weekend & blended routes · career-focused subjects",
+        gridDescription: "Popular with working adults interested in business, health and technology routes.",
+        carouselDescription: "Career-focused routes for working adults in business, care, computing and technology.",
+        badges: ["12+ courses", "Blended options", "Career-focused"],
+        image: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=900&q=80",
+        gridImage: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1100&q=82",
+        buttonText: "Explore Manchester courses"
+      },
+      {
+        id: "leeds",
+        name: "Leeds",
+        floatDescription: "Growing city · business and career routes · lower living costs",
+        gridDescription: "A strong Northern city for business, finance, digital and career-focused study routes.",
+        carouselDescription: "A growing Northern option for business, finance, digital and career-focused study planning.",
+        badges: ["Growing hub", "Business routes", "Funding available"],
+        image: "https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?auto=format&fit=crop&w=900&q=80",
+        gridImage: "https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?auto=format&fit=crop&w=1100&q=82",
+        buttonText: "Explore Leeds courses"
+      }
+    ];
+
+    if (extractedLocations.length > 0) {
+      return extractedLocations.map((loc: any) => {
+        const nameVal = loc.title || loc.name || "";
+        const idVal = loc.slug || loc._id?.toString() || nameVal.toLowerCase();
+        const fallbackCity = defaultCities.find((c: any) => c.id === idVal || c.id === nameVal.toLowerCase());
+        return {
+          id: idVal,
+          name: nameVal,
+          floatDescription: loc.short_description || fallbackCity?.floatDescription || "Flexible routes · mature student friendly",
+          gridDescription: loc.long_description || loc.description || fallbackCity?.gridDescription || `Explore flexible course opportunities in ${nameVal}.`,
+          carouselDescription: loc.description || loc.long_description || fallbackCity?.carouselDescription || `Popular routes for mature students in ${nameVal}.`,
+          badges: loc.tags && loc.tags.length > 0 ? loc.tags : (fallbackCity?.badges || ["Foundation routes", "Funding available"]),
+          image: loc.fullImageUrl || loc.image || fallbackCity?.image || "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=900&q=80",
+          gridImage: loc.fullImageUrl || loc.image || fallbackCity?.gridImage || "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1100&q=82",
+          buttonText: fallbackCity?.buttonText || `Explore ${nameVal} courses`
+        };
+      });
+    }
+
+    return defaultCities;
+  }, [extractedLocations, data]);
+
+  useEffect(() => {
+    if (cities && cities.length > 0 && !cities.some((c: any) => c.id === activeTab)) {
+      setActiveTab(cities[0].id);
+    }
+  }, [cities, activeTab]);
 
   // Group dynamic API courses by city location
   const formattedCoursesData: Record<string, BackendCourse[]> = { ...(data?.courses_data || {}) };
@@ -346,8 +400,8 @@ export default function LocationsBody({ data }: LocationsBodyProps) {
                   <div className="body">
                     {s.quote ? (
                       <>
-                        <h3>"{s.quote}"</h3>
-                        <p>"{s.text || s.description}"</p>
+                        <h3>&ldquo;{s.quote}&rdquo;</h3>
+                        <p>&ldquo;{s.text || s.description}&rdquo;</p>
                         <b style={{ display: "block", marginTop: "12px", fontSize: "13.5px" }}>
                           — {s.author || s.name}, {s.location || s.year}
                         </b>

@@ -1,0 +1,169 @@
+{
+    "page": "business-opportunities",
+    "section_2": {
+        "badge": "Opportunities",
+        "title": "Commercial partnerships without clutter",
+        "description": "Build relevant campaigns around real student needs.",
+        "cards": [
+            {
+                "icon": "📣",
+                "title": "Advertising",
+                "description": "Reach students at decision points."
+            },
+            {
+                "icon": "📝",
+                "title": "Sponsored content",
+                "description": "Useful guides with clear disclosure."
+            },
+            {
+                "icon": "🏷️",
+                "title": "Discount programmes",
+                "description": "Offers for students and working adults."
+            },
+            {
+                "icon": "⭐",
+                "title": "Featured listings",
+                "description": "Promote relevant services carefully."
+            },
+            {
+                "icon": "✉️",
+                "title": "Email campaigns",
+                "description": "One useful update, not spam."
+            }
+        ],
+        "status": true
+    },
+    "section_3": {
+        "badge": "Audience statistics",
+        "title": "Who YStudy reaches",
+        "description": "These are the audiences your partnership can support.",
+        "cards": [
+            {
+                "title": "25+",
+                "description": "adult learners"
+            },
+            {
+                "title": "UK",
+                "description": "residents"
+            },
+            {
+                "title": "Work",
+                "description": "career changers"
+            },
+            {
+                "title": "Apply",
+                "description": "intent-led"
+            }
+        ],
+        "status": true
+    },
+    "section_4": {
+        "badge": "Partnership types",
+        "title": "Choose the right commercial route",
+        "description": "Keep every partnership useful, relevant and transparent.",
+        "cards": [
+            {
+                "icon": "🤝",
+                "title": "Brand Partner",
+                "description": "Longer-term collaboration with YStudy."
+            },
+            {
+                "icon": "🔗",
+                "title": "Affiliate Partner",
+                "description": "Tracked performance partnerships."
+            },
+            {
+                "icon": "🏆",
+                "title": "Sponsor",
+                "description": "Support guides, campaigns or tools."
+            },
+            {
+                "icon": "📢",
+                "title": "Advertiser",
+                "description": "Reach specific audiences with relevant offers."
+            }
+        ],
+        "status": true
+    },
+    "section_5": {
+        "title": "Talk to partnerships",
+        "description": "Tell us what you offer and who you want to reach.",
+        "status": true
+    },
+    "section_6": {
+        "cards": [
+            {
+                "title": "Check if you can get funded.",
+                "description": "Quickly understand if you may qualify for Student Finance, grants and flexible university routes."
+            },
+            {
+                "title": "Apply with YStudy.",
+                "description": "Send us your details and we’ll help you choose the right course, prepare documents and move forward."
+            },
+            {
+                "title": "Speak with an adviser.",
+                "description": "Not sure what to study, what you can get or which documents you need? Book a free call."
+            }
+        ],
+        "status": true
+    },
+    "section_7": {
+        "title": "Useful next steps",
+        "description": "Move from information to action. Compare degrees, check funding, explore careers and apply with support.",
+        "cards": [
+            {
+                "title": "Find degrees",
+                "link": "Quickly understand if you may qualify for Student Finance, grants and flexible university routes."
+            },
+            {
+                "title": "Funding hub",
+                "link": "Send us your details and we’ll help you choose the right course, prepare documents and move forward."
+            },
+            {
+                "title": "Careers & salaries",
+                "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+            },
+            {
+                "title": "Degree Match",
+                "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+            },
+            {
+                "title": "Salary Checker",
+                "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+            },
+            {
+                "title": "Student guides",
+                "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+            }
+        ],
+        "status": true
+    },
+    "section_8": {
+        "cards": [
+            {
+                "badge": "Business partnership",
+                "title": "Talk to us about reaching adult learners.",
+                "description": "Advertising, discounts, sponsored content, email campaigns or student offers."
+            },
+            {
+                "badge": "What we review",
+                "title": "Simple, practical partnership checks.",
+                "cards": [
+                    {
+                        "title": "Audience fit",
+                        "description": "Mature students, career changers, UK residents or adult learners."
+                    },
+                    {
+                        "title": "Promotion method",
+                        "description": "Referral, content, community, adviser support or paid partnership."
+                    },
+                    {
+                        "title": "Next step",
+                        "description": "Call, tracking link, adviser onboarding or campaign plan."
+                    }
+                ]
+            }
+        ],
+        "status": true
+    }
+}

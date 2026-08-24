@@ -1,0 +1,183 @@
+{
+    "page": "creator-programme",
+    "section_2": {
+        "badge": "Perfect for",
+        "title": "Creator channels with community trust",
+        "description": "YStudy works best with creators who can explain education, funding and career change simply.",
+        "cards": [
+            {
+                "badge": "Short video",
+                "title": "TikTok creators",
+                "description": "Myth-busting and student stories.",
+                "image": ""
+            },
+            {
+                "badge": "Video",
+                "title": "YouTube creators",
+                "description": "Longer guides and interviews.",
+                "image": ""
+            },
+            {
+                "badge": "Social",
+                "title": "Instagram creators",
+                "description": "Stories, reels and FAQs.",
+                "image": ""
+            },
+            {
+                "badge": "Groups",
+                "title": "Facebook communities",
+                "description": "Useful posts and live Q&A.",
+                "image": ""
+            },
+            {
+                "badge": "Messaging",
+                "title": "WhatsApp communities",
+                "description": "Warm referrals and local trust.",
+                "image": ""
+            }
+        ],
+        "status": true
+    },
+    "section_3": {
+        "badge": "Content ideas",
+        "title": "Useful topics your audience will actually watch",
+        "description": "Focus on decisions, funding myths and real journeys — not generic university marketing.",
+        "cards": [
+            {
+                "icon": "🎓",
+                "title": "University journeys",
+                "description": "Adult learner stories and realistic routes."
+            },
+            {
+                "icon": "💷",
+                "title": "Funding myths",
+                "description": "Maintenance Loan, tuition and eligibility explained."
+            },
+            {
+                "icon": "🔄",
+                "title": "Career changes",
+                "description": "From warehouse, retail or care into a degree route."
+            },
+            {
+                "icon": "📹",
+                "title": "Student stories",
+                "description": "Short, relatable videos that build trust."
+            }
+        ],
+        "status": true
+    },
+    "section_4": {
+        "badge": "What you get",
+        "title": "Support that makes content easier",
+        "description": "We provide the partner structure so you can focus on creating.",
+        "cards": [
+            {
+                "icon": "🤝",
+                "title": "Dedicated adviser",
+                "description": "A point of contact for student questions."
+            },
+            {
+                "icon": "🔗",
+                "title": "Tracking",
+                "description": "Links and reporting for your campaigns."
+            },
+            {
+                "icon": "📊",
+                "title": "Reporting",
+                "description": "Visibility over leads and outcomes."
+            },
+            {
+                "icon": "🎨",
+                "title": "Creative support",
+                "description": "Angles, scripts and campaign ideas."
+            },
+            {
+                "icon": "💷",
+                "title": "Commission",
+                "description": "Performance-based reward structure."
+            }
+        ],
+        "status": true
+    },
+    "section_5": {
+        "title": "Apply as a creator partner",
+        "description": "Tell us about your audience and we will suggest the best partnership route.",
+        "status": true
+    },
+    "section_6": {
+        "cards": [
+            {
+                "title": "Check if you can get funded.",
+                "description": "Quickly understand if you may qualify for Student Finance, grants and flexible university routes."
+            },
+            {
+                "title": "Apply with YStudy.",
+                "description": "Send us your details and we’ll help you choose the right course, prepare documents and move forward."
+            },
+            {
+                "title": "Speak with an adviser.",
+                "description": "Not sure what to study, what you can get or which documents you need? Book a free call."
+            }
+        ],
+        "status": true
+    },
+    "section_7": {
+        "title": "Useful next steps",
+        "description": "Move from information to action. Compare degrees, check funding, explore careers and apply with support.",
+        "cards": [
+            {
+                "title": "Find degrees",
+                "link": "Quickly understand if you may qualify for Student Finance, grants and flexible university routes."
+            },
+            {
+                "title": "Funding hub",
+                "link": "Send us your details and we’ll help you choose the right course, prepare documents and move forward."
+            },
+            {
+                "title": "Careers & salaries",
+                "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+            },
+            {
+                "title": "Degree Match",
+                "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+            },
+            {
+                "title": "Salary Checker",
+                "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+            },
+            {
+                "title": "Student guides",
+                "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+            }
+        ],
+        "status": true
+    },
+    "section_8": {
+        "cards": [
+            {
+                "badge": "Creator enquiry",
+                "title": "Apply as a Creator & Influencer Partner.",
+                "description": "Tell us where your audience is and how you want to promote education opportunities."
+            },
+            {
+                "badge": "What we review",
+                "title": "Simple, practical partnership checks.",
+                "cards": [
+                    {
+                        "title": "Audience fit",
+                        "description": "Mature students, career changers, UK residents or adult learners."
+                    },
+                    {
+                        "title": "Promotion method",
+                        "description": "Referral, content, community, adviser support or paid partnership."
+                    },
+                    {
+                        "title": "Next step",
+                        "description": "Call, tracking link, adviser onboarding or campaign plan."
+                    }
+                ]
+            }
+        ],
+        "status": true
+    }
+}

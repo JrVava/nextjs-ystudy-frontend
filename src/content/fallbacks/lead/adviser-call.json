@@ -1,0 +1,139 @@
+{
+  "page": "adviser-call",
+  "section_2": {
+    "badge": "Call options",
+    "title": "Choose the right call for your situation.",
+    "description": "Short, focused and practical. You should finish the call knowing what to do next.",
+    "cards": [
+      {
+        "number": "15",
+        "title": "Quick advice call",
+        "description": "Best for one question: funding, eligibility, course choice or next step."
+      },
+      {
+        "number": "30",
+        "title": "Application review",
+        "description": "Best if you need to talk through documents, study mode and application readiness."
+      },
+      {
+        "icon": "£",
+        "title": "Funding review",
+        "description": "Discuss Student Finance questions before you submit anything officially."
+      }
+    ],
+    "status": true
+  },
+  "section_3": {
+    "badge": "Outcomes",
+    "title": "What you should know after the call.",
+    "cards": [
+      {
+        "title": "Your realistic courses",
+        "description": "Subjects and entry routes that fit your background."
+      },
+      {
+        "title": "Your likely funding route",
+        "description": "Which finance questions to check carefully."
+      },
+      {
+        "title": "Your document list",
+        "description": "What to prepare before the next stage."
+      },
+      {
+        "title": "Your next action",
+        "description": "Apply, compare, take eligibility check or prepare evidence."
+      }
+    ],
+    "status": true
+  },
+  "section_4": {
+    "badge": "What happens next",
+    "title": "After you request the call",
+    "cards": [
+      {
+        "title": "We review your request.",
+        "description": "We check the topic and any saved tool results if available."
+      },
+      {
+        "title": "We confirm the call.",
+        "description": "You receive confirmation by WhatsApp, phone or email."
+      },
+      {
+        "title": "You speak to an adviser.",
+        "description": "We discuss degree options, funding, eligibility or your application."
+      }
+    ],
+    "status": true
+  },
+  "section_5": {
+    "badge": "FAQ",
+    "title": "Quick questions",
+    "cards": [
+      {
+        "title": "Is the call free?",
+        "description": "Yes. The adviser call is free."
+      },
+      {
+        "title": "How long is the call?",
+        "description": "Usually around 15 minutes."
+      },
+      {
+        "title": "Can I use WhatsApp?",
+        "description": "Yes. Choose WhatsApp as your preferred contact method."
+      },
+      {
+        "title": "Do I need documents ready?",
+        "description": "No. If documents are needed, the adviser will explain what to prepare."
+      }
+    ],
+    "status": true
+  },
+  "section_6": {
+    "cards": [
+      {
+        "title": "Check if you can get funded.",
+        "description": "Quickly understand if you may qualify for Student Finance, grants and flexible university routes."
+      },
+      {
+        "title": "Apply with YStudy.",
+        "description": "Send us your details and we’ll help you choose the right course, prepare documents and move forward."
+      },
+      {
+        "title": "Speak with an adviser.",
+        "description": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      }
+    ],
+    "status": true
+  },
+  "section_7": {
+    "title": "Useful next steps",
+    "description": "Move from information to action. Compare degrees, check funding, explore careers and apply with support.",
+    "cards": [
+      {
+        "title": "Find degrees",
+        "link": "Quickly understand if you may qualify for Student Finance, grants and flexible university routes."
+      },
+      {
+        "title": "Funding hub",
+        "link": "Send us your details and we’ll help you choose the right course, prepare documents and move forward."
+      },
+      {
+        "title": "Careers & salaries",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      },
+      {
+        "title": "Degree Match",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      },
+      {
+        "title": "Salary Checker",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      },
+      {
+        "title": "Student guides",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      }
+    ],
+    "status": true
+  }
+}

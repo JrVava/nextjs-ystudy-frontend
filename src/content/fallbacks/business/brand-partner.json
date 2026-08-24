@@ -1,0 +1,111 @@
+{
+  "page": "brand-partnerships",
+  "section_2": {
+    "badge": "Why partner",
+    "title": "A simple, transparent way to reach students",
+    "description": "One point of contact, clear pricing and brand-safe placements. We handle the campaign so you can focus on your product.",
+    "cards": [
+      {
+        "icon": "🤝",
+        "title": "Dedicated manager",
+        "description": "One contact from brief to results."
+      },
+      {
+        "icon": "🎯",
+        "title": "Tailored campaigns",
+        "description": "Built around your category and goals."
+      },
+      {
+        "icon": "📈",
+        "title": "Transparent results",
+        "description": "Clear reporting throughout."
+      },
+      {
+        "icon": "🛡️",
+        "title": "Brand-safe",
+        "description": "Independent, student-first placements."
+      }
+    ],
+    "status": true
+  },
+  "section_3": {
+    "badge": "How it works",
+    "title": "How to get started",
+    "cards": [
+      {
+        "number": "1",
+        "title": "Get in touch",
+        "description": "Tell us your brand and goals."
+      },
+      {
+        "number": "2",
+        "title": "Receive a plan",
+        "description": "We propose placements and pricing."
+      },
+      {
+        "number": "3",
+        "title": "Approve & launch",
+        "description": "Sign off and we go live."
+      },
+      {
+        "number": "4",
+        "title": "See the results",
+        "description": "Transparent reporting on performance."
+      }
+    ],
+    "status": true
+  },
+  "section_4": {
+    "title": "Become a brand partner",
+    "description": "Tell us about your brand and we'll build a plan.",
+    "status": true
+  },
+  "section_5": {
+    "cards": [
+      {
+        "title": "Check if you can get funded.",
+        "description": "Quickly understand if you may qualify for Student Finance, grants and flexible university routes."
+      },
+      {
+        "title": "Apply with YStudy.",
+        "description": "Send us your details and we’ll help you choose the right course, prepare documents and move forward."
+      },
+      {
+        "title": "Speak with an adviser.",
+        "description": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      }
+    ],
+    "status": true
+  },
+  "section_6": {
+    "title": "Useful next steps",
+    "description": "Move from information to action. Compare degrees, check funding, explore careers and apply with support.",
+    "cards": [
+      {
+        "title": "Find degrees",
+        "link": "Quickly understand if you may qualify for Student Finance, grants and flexible university routes."
+      },
+      {
+        "title": "Funding hub",
+        "link": "Send us your details and we’ll help you choose the right course, prepare documents and move forward."
+      },
+      {
+        "title": "Careers & salaries",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      },
+      {
+        "title": "Degree Match",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      },
+      {
+        "title": "Salary Checker",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      },
+      {
+        "title": "Student guides",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      }
+    ],
+    "status": true
+  }
+}
