@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { getCMSPageContent } from "@/services/cms.service";
 import { Banner } from "@/components/ui/Banner";
 import LocationsBody from "@/components/locations/LocationsBody";
+import Link from "next/link";
 
 export default async function Locations() {
   const data = await getCMSPageContent("study-locations");
@@ -30,9 +32,9 @@ export default async function Locations() {
       >
         <div style={{ textAlign: "left", width: "100%" }}>
           <div className="loc-actions" style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginTop: "24px" }}>
-            <a className="btn blue" href="/degrees#results">Search degrees</a>
-            <a className="btn blue" href="/tools/eligibility-checker">Check eligibility</a>
-            <a className="btn orange" href="/apply">Apply with YStudy</a>
+            <Link className="btn blue" href="/degrees#results">Search degrees</Link>
+            <Link className="btn blue" href="/tools/eligibility-checker">Check eligibility</Link>
+            <Link className="btn orange" href="/apply">Apply with YStudy</Link>
           </div>
         </div>
       </Banner>

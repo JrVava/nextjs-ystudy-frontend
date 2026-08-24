@@ -1,0 +1,49 @@
+{
+  "page": "partners",
+  "hero": {
+    "kicker": "Partners",
+    "title": "Partner with YStudy.",
+    "description": "Work with YStudy as an adviser, creator, affiliate, university or business partner.",
+    "btn1Text": "Explore partners",
+    "btn1Href": "#form",
+    "btn2Text": "Book adviser call",
+    "btn2Href": "/lead/adviser-call"
+  },
+  "routes": {
+    "kicker": "Choose your partner route",
+    "title": "Different ways to work with YStudy",
+    "description": "Start with the path that best matches your audience and strengths.",
+    "cards": [
+      {
+        "ico": "🧭",
+        "title": "Become an adviser",
+        "description": "Guide students through degree, funding and application decisions.",
+        "link": "/partners/become-an-adviser"
+      },
+      {
+        "ico": "🔗",
+        "title": "Affiliate partners",
+        "description": "Promote YStudy with tracked links and performance rewards.",
+        "link": "#"
+      },
+      {
+        "ico": "📱",
+        "title": "Creator & Influencer programme",
+        "description": "Use content to help your audience access higher education.",
+        "link": "/partners/influencers"
+      },
+      {
+        "ico": "🎁",
+        "title": "Refer a friend",
+        "description": "Share YStudy with someone you know and help them apply.",
+        "link": "#"
+      }
+    ]
+  },
+  "cta": {
+    "title": "Not sure which route fits?",
+    "description": "Speak to us and we will suggest the best partner route.",
+    "btnText": "Talk to us",
+    "btnHref": "/lead/adviser-call"
+  }
+}

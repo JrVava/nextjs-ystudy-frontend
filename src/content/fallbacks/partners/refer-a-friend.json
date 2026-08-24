@@ -1,0 +1,135 @@
+{
+  "page": "refer-a-friend",
+  "section_2": {
+    "badge": "How it works",
+    "title": "Four simple steps",
+    "description": "Your friend gets guidance. You help them move forward.",
+    "cards": [
+      {
+        "number": "1",
+        "title": "Share referral",
+        "description": "Send your referral link to a friend who may want to study."
+      },
+      {
+        "number": "2",
+        "title": "Friend applies",
+        "description": "They use YStudy tools or speak with an adviser."
+      },
+      {
+        "number": "3",
+        "title": "Friend enrols",
+        "description": "We support their application and enrolment journey."
+      },
+      {
+        "number": "4",
+        "title": "Reward issued",
+        "description": "Eligible rewards are issued under the referral terms."
+      }
+    ],
+    "status": true
+  },
+  "section_3": {
+    "badge": "Why students refer",
+    "title": "Helping friends should be simple",
+    "description": "Referral pages should be clear, fast and confidence-building.",
+    "cards": [
+      {
+        "icon": "🤝",
+        "title": "Help friends",
+        "description": "Give someone a realistic study route."
+      },
+      {
+        "icon": "⚡",
+        "title": "Simple process",
+        "description": "Share one link and YStudy supports the rest."
+      },
+      {
+        "icon": "🎁",
+        "title": "Fast rewards",
+        "description": "Rewards are linked to successful outcomes."
+      }
+    ],
+    "status": true
+  },
+  "section_4": {
+    "title": "Ready to refer?",
+    "description": "Start referring friends who may want to study in the UK.",
+    "status": true
+  },
+  "section_5": {
+    "cards": [
+      {
+        "title": "Check if you can get funded.",
+        "description": "Quickly understand if you may qualify for Student Finance, grants and flexible university routes."
+      },
+      {
+        "title": "Apply with YStudy.",
+        "description": "Send us your details and we’ll help you choose the right course, prepare documents and move forward."
+      },
+      {
+        "title": "Speak with an adviser.",
+        "description": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      }
+    ],
+    "status": true
+  },
+  "section_6": {
+    "title": "Useful next steps",
+    "description": "Move from information to action. Compare degrees, check funding, explore careers and apply with support.",
+    "cards": [
+      {
+        "title": "Find degrees",
+        "link": "Quickly understand if you may qualify for Student Finance, grants and flexible university routes."
+      },
+      {
+        "title": "Funding hub",
+        "link": "Send us your details and we’ll help you choose the right course, prepare documents and move forward."
+      },
+      {
+        "title": "Careers & salaries",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      },
+      {
+        "title": "Degree Match",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      },
+      {
+        "title": "Salary Checker",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      },
+      {
+        "title": "Student guides",
+        "link": "Not sure what to study, what you can get or which documents you need? Book a free call."
+      }
+    ],
+    "status": true
+  },
+  "section_7": {
+    "cards": [
+      {
+        "badge": "Referral form",
+        "title": "Refer a friend to YStudy.",
+        "description": "Share your details and your friend’s contact information so the team can follow up."
+      },
+      {
+        "badge": "What we review",
+        "title": "Simple, practical partnership checks.",
+        "cards": [
+          {
+            "title": "Audience fit",
+            "description": "Mature students, career changers, UK residents or adult learners."
+          },
+          {
+            "title": "Promotion method",
+            "description": "Referral, content, community, adviser support or paid partnership."
+          },
+          {
+            "title": "Next step",
+            "description": "Call, tracking link, adviser onboarding or campaign plan."
+          }
+        ]
+      }
+    ],
+    "status": true
+  }
+}

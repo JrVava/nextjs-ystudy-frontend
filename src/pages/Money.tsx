@@ -2,6 +2,7 @@ import React from "react";
 import { getCMSPageContent } from "@/services/cms.service";
 import FinanceStepper from "@/components/widgets/FinanceStepper";
 import { ComparisonTable, FooterCta, CtaPanel } from "@/components/sections";
+import { Banner } from "@/components/ui/Banner";
 
 const renderFundingCell = (val: any, colKey: string) => {
   if (colKey === "maintainance" || colKey === "maintenance") {
@@ -29,6 +30,7 @@ export default async function Money() {
     );
   }
 
+  const hero = data.hero || {};
   const s2 = data.section_2 || {};
   const s3 = data.section_3 || {};
   const s4 = data.section_4 || {};
@@ -42,33 +44,33 @@ export default async function Money() {
   return (
     <div className="qualification-page money-hub-page">
       {/* SECTION 1: HERO */}
-      <section className="section">
-        <div className="yds-hero yds-guide-hero">
-          <div>
-            <span className="kicker">Student Money Hub</span>
-            <h1>Student money hub.</h1>
-            <p>Understand funding, budgeting and student money decisions before you apply.</p>
-            <div className="btnrow">
-              <a className="btn btn-orange" href="/tools/finance-calculator">Open calculator</a>
-              <a className="btn btn-white" href="/tools/eligibility-checker">Check eligibility</a>
-            </div>
-            <div className="hero-pills">
-              <span>Plain English</span>
-              <span>Adult learner route</span>
-              <span>Funding-focused</span>
-            </div>
-          </div>
-          <div className="yds-snapshot">
-            <h2>Snapshot</h2>
-            <div className="yds-snapshot-grid">
-              <div><b>£14k+</b><span>support</span></div>
-              <div><b>£9k+</b><span>tuition</span></div>
-              <div><b>SFE</b><span>route</span></div>
-              <div><b>Free</b><span>guidance</span></div>
-            </div>
-          </div>
+      <Banner
+        slug="student-money-hub"
+        fallbackBadgeText={hero.kicker || "Student Money Hub"}
+        fallbackTitle={hero.title || "Student money hub."}
+        fallbackDescription={hero.description || "Understand funding, budgeting and student money decisions before you apply."}
+        fallbackRightCard={{
+          layoutType: "guide-hero",
+          title: hero.snapshotTitle || "Snapshot",
+          items: hero.snapshotItems || [
+            { title: "£14k+", subtitle: "support" },
+            { title: "£9k+", subtitle: "tuition" },
+            { title: "SFE", subtitle: "route" },
+            { title: "Free", subtitle: "guidance" }
+          ]
+        }}
+        isGuideHero={true}
+      >
+        <div className="btnrow">
+          <a className="btn btn-orange" href="/tools/finance-calculator">Open calculator</a>
+          <a className="btn btn-white" href="/tools/eligibility-checker">Check eligibility</a>
         </div>
-      </section>
+        <div className="hero-pills">
+          <span>Plain English</span>
+          <span>Adult learner route</span>
+          <span>Funding-focused</span>
+        </div>
+      </Banner>
 
       {/* SECTION 2: FUNDING CARDS */}
       {s2.status !== false && (

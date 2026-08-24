@@ -46,6 +46,16 @@ import fallbackSettledStatus from "@/content/fallbacks/guides/settled-status.jso
 import fallbackHowGuidanceWorks from "@/content/fallbacks/how-guidance-works.json";
 import fallbackSuccessStories from "@/content/fallbacks/success-stories.json";
 import fallbackFaq from "@/content/fallbacks/faq.json";
+import fallbackPartners from "@/content/fallbacks/partners.json";
+import fallbackBecomeAnAdviser from "@/content/fallbacks/partners/become-an-adviser.json";
+import fallbackInfluencers from "@/content/fallbacks/partners/influencers.json";
+import fallbackBusiness from "@/content/fallbacks/business.json";
+import fallbackAdvertise from "@/content/fallbacks/business/advertise.json";
+import fallbackApply from "@/content/fallbacks/apply.json";
+import fallbackAdviserCall from "@/content/fallbacks/lead/adviser-call.json";
+import fallbackAffiliatePartners from "@/content/fallbacks/partners/affiliate-partners.json";
+import fallbackReferAFriend from "@/content/fallbacks/partners/refer-a-friend.json";
+import fallbackBrandPartner from "@/content/fallbacks/business/brand-partner.json";
 import api from "@/lib/api";
 
 
@@ -150,6 +160,36 @@ function getFallbackData(pageName: string): CMSPageData | null {
   }
   if (slug === "faq" || slug === "faqs") {
     return fallbackFaq as unknown as CMSPageData;
+  }
+  if (slug === "partners") {
+    return fallbackPartners as unknown as CMSPageData;
+  }
+  if (slug === "become-an-adviser" || slug === "become-a-student-adviser") {
+    return fallbackBecomeAnAdviser as unknown as CMSPageData;
+  }
+  if (slug === "influencers" || slug === "creator-programme") {
+    return fallbackInfluencers as unknown as CMSPageData;
+  }
+  if (slug === "business" || slug === "business-partners" || slug === "business-opportunities") {
+    return fallbackBusiness as unknown as CMSPageData;
+  }
+  if (slug === "advertise" || slug === "advertise-to-students") {
+    return fallbackAdvertise as unknown as CMSPageData;
+  }
+  if (slug === "adviser-call") {
+    return fallbackAdviserCall as unknown as CMSPageData;
+  }
+  if (slug === "affiliate-partners" || slug === "affiliate-programme") {
+    return fallbackAffiliatePartners as unknown as CMSPageData;
+  }
+  if (slug === "refer-a-friend") {
+    return fallbackReferAFriend as unknown as CMSPageData;
+  }
+  if (slug === "brand-partner" || slug === "brand-partnerships") {
+    return fallbackBrandPartner as unknown as CMSPageData;
+  }
+  if (slug === "apply") {
+    return fallbackApply as unknown as CMSPageData;
   }
 
 
