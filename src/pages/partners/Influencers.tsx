@@ -18,11 +18,11 @@ export default async function Influencers() {
     );
   }
 
-  const s2 = data.section_2 || {};
-  const s3 = data.section_3 || {};
-  const s4 = data.section_4 || {};
-  const s5 = data.section_5 || {};
-  const s8 = data.section_8 || {};
+  const s2 = data?.section_2 || {};
+  const s3 = data?.section_3 || {};
+  const s4 = data?.section_4 || {};
+  const s5 = data?.section_5 || {};
+  const s8 = data?.section_8 || {};
 
   const formCard = s8.cards?.[0] || {};
   const reviewCard = s8.cards?.[1] || {};
@@ -128,8 +128,8 @@ export default async function Influencers() {
       )}
 
       {/* BOTTOM SECTIONS */}
-      <QualificationConversionCards sectionData={data.section_6} />
-      <QualificationCrosslinks sectionData={data.section_7} />
+      <QualificationConversionCards sectionData={data?.section_6} />
+      <QualificationCrosslinks sectionData={data?.section_7} />
 
       {/* WORKFLOW FORM */}
       <PartnershipFormWidget

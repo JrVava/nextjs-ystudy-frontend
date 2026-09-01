@@ -31,16 +31,16 @@ export default async function Funding() {
     );
   }
 
-  const s2 = data.section_2 || {};
-  const s3 = data.section_3 || {};
-  const s4 = data.section_4 || {};
-  const s5 = data.section_5 || {};
-  const s6 = data.section_6 || {};
-  const s7 = data.section_7 || {};
-  const s8 = data.section_8 || {};
-  const s9 = data.section_9 || {};
-  const s10 = data.section_10 || {};
-  const s11 = data.section_11 || {};
+  const s2 = data?.section_2 || {};
+  const s3 = data?.section_3 || {};
+  const s4 = data?.section_4 || {};
+  const s5 = data?.section_5 || {};
+  const s6 = data?.section_6 || {};
+  const s7 = data?.section_7 || {};
+  const s8 = data?.section_8 || {};
+  const s9 = data?.section_9 || {};
+  const s10 = data?.section_10 || {};
+  const s11 = data?.section_11 || {};
 
   return (
     <div className="qualification-page funding-hub-page">

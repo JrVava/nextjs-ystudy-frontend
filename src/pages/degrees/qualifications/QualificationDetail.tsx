@@ -63,7 +63,7 @@ export default async function QualificationDetail({ slug }: QualificationDetailP
           fallbackBgImage="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=2000&q=85"
         />
         <QualificationSection2
-          section2Data={data.section_2}
+          section2Data={data?.section_2}
           fallbackBadge="Qualification Guide"
           fallbackTitle={`${title} Qualification`}
           fallbackDescription={`Learn how an integrated ${title} works as a standard funding-supported entry route for mature students.`}
@@ -77,42 +77,42 @@ export default async function QualificationDetail({ slug }: QualificationDetailP
 
       {/* QUICK EXPLANATION / STEP CARDS */}
       <QualificationQuickExplanation
-        sectionData={data.section_3}
+        sectionData={data?.section_3}
         fallbackTitle={`What is ${title}?`}
       />
 
       {/* ENTRY REQUIREMENTS AND PROGRESSION */}
       <QualificationEntryRequirements
-        sectionData={data.section_4}
+        sectionData={data?.section_4}
         fallbackTitle="Entry requirements and pathways"
       />
 
       {/* SFE FUNDING CHECK */}
       <QualificationFundingCheck
-        sectionData={data.section_5}
+        sectionData={data?.section_5}
       />
 
       {/* FAQS SECTION */}
       <QualificationFaqs
         slug={slug}
-        sectionData={data.section_6}
+        sectionData={data?.section_6}
         fallbackTitle={`${title} FAQ.`}
       />
 
       {/* FINAL CALL TO ACTION / CTA PANEL */}
       <QualificationCtaPanel
-        sectionData={data.section_7}
+        sectionData={data?.section_7}
         fallbackDescription={`Speak with YStudy before applying. We can check your qualification, funding route and course options.`}
       />
 
       {/* THREE LINK CARDS CONVERSION SYSTEM */}
       <QualificationConversionCards
-        sectionData={data.section_8}
+        sectionData={data?.section_8}
       />
 
       {/* CROSSLINKS SECTION */}
       <QualificationCrosslinks
-        sectionData={data.section_9}
+        sectionData={data?.section_9}
       />
     </div>
   );

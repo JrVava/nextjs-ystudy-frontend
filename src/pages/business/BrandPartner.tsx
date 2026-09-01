@@ -10,11 +10,11 @@ interface BrandPartnerProps {
 }
 
 export default function BrandPartner({ data }: BrandPartnerProps) {
-  const s2 = data.section_2 || {};
-  const s3 = data.section_3 || {};
-  const s4 = data.section_4 || {};
-  const s5 = data.section_5 || {};
-  const s6 = data.section_6 || {};
+  const s2 = data?.section_2 || {};
+  const s3 = data?.section_3 || {};
+  const s4 = data?.section_4 || {};
+  const s5 = data?.section_5 || {};
+  const s6 = data?.section_6 || {};
 
   return (
     <div className="brand-partner-page">

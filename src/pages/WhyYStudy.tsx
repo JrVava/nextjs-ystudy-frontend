@@ -17,9 +17,9 @@ export default async function WhyYStudy() {
 
   const hero = data.hero || {};
   const convHero = data.convHero || {};
-  const s2 = data.section_2 || {};
-  const s3 = data.section_3 || {};
-  const s4 = data.section_4 || {};
+  const s2 = data?.section_2 || {};
+  const s3 = data?.section_3 || {};
+  const s4 = data?.section_4 || {};
 
   return (
     <div className="why-ystudy-page">

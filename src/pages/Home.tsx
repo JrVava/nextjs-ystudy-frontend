@@ -82,7 +82,7 @@ export default async function Home() {
             <h2 className="h1" style={{ color: "#fff", marginBottom: "8px" }}>{data?.section_3?.title}</h2>
             <div className="impact" style={{ gridTemplateColumns: "repeat(4,auto)", justifyContent: "start", textAlign: "left", gap: "clamp(20px,3vw,48px)", marginTop: "28px" }}>
               {data?.section_3?.statistics ? (
-                data.section_3.statistics.map((stat: any, idx: number) => (
+                data?.section_3.statistics.map((stat: any, idx: number) => (
                   <div key={idx} className="it"><b>{stat.value}</b><span>{stat.label}</span></div>
                 ))
               ) : (
@@ -134,7 +134,7 @@ export default async function Home() {
                 <p className="lead" style={{ marginBottom: "22px" }}>{data?.section_5?.description}</p>
                 <div className="pills">
                   {data?.section_5?.badges ? (
-                    data.section_5.badges.map((b: any, idx: number) => (
+                    data?.section_5.badges.map((b: any, idx: number) => (
                       <span key={idx} className={b.class}>{b.value}</span>
                     ))
                   ) : (
@@ -348,7 +348,7 @@ export default async function Home() {
               </div>
               <div className="imm-grid">
                 {data?.section_10?.status_cards ? (
-                  data.section_10.status_cards.map((card: any, idx: number) => (
+                  data?.section_10.status_cards.map((card: any, idx: number) => (
                     <article key={idx} className="imm">
                       <div className="top">
                         <span className="code">{card.code}</span>
@@ -368,11 +368,11 @@ export default async function Home() {
                 {data?.section_10?.ps_box && (
                   <article className="imm dark" style={{ gridColumn: "1/-1" }}>
                     <div className="top">
-                      <span className="code">{data.section_10.ps_box.code}</span>
-                      <span className="badge part">{data.section_10.ps_box.badge}</span>
+                      <span className="code">{data?.section_10.ps_box.code}</span>
+                      <span className="badge part">{data?.section_10.ps_box.badge}</span>
                     </div>
-                    <h4>{data.section_10.ps_box.title}</h4>
-                    <p className="desc">{data.section_10.ps_box.description}</p>
+                    <h4>{data?.section_10.ps_box.title}</h4>
+                    <p className="desc">{data?.section_10.ps_box.description}</p>
                   </article>
                 )}
               </div>
@@ -395,7 +395,7 @@ export default async function Home() {
             </div>
             <div className="sal-grid" style={{ marginBottom: "30px" }}>
               {data?.section_11?.projection_cards ? (
-                data.section_11.projection_cards.map((c: any, idx: number) => (
+                data?.section_11.projection_cards.map((c: any, idx: number) => (
                   <article key={idx} className="sal">
                     <div className="stage">{c.level}</div>
                     <div className="yr">{c.years}</div>
@@ -415,8 +415,8 @@ export default async function Home() {
             {data?.section_11?.cta_banner && (
               <div className="sal-band">
                 <div>
-                  <h3 className="h2" style={{ marginBottom: "8px", color: "#fff" }}>{data.section_11.cta_banner.title}</h3>
-                  <p style={{ color: "#cdd9ec", fontWeight: 600 }}>{data.section_11.cta_banner.subtitle}</p>
+                  <h3 className="h2" style={{ marginBottom: "8px", color: "#fff" }}>{data?.section_11.cta_banner.title}</h3>
+                  <p style={{ color: "#cdd9ec", fontWeight: 600 }}>{data?.section_11.cta_banner.subtitle}</p>
                 </div>
                 <a className="btn orange lg" href="/tools/salary-checker">Open Salary Checker →</a>
               </div>
@@ -438,7 +438,7 @@ export default async function Home() {
               </div>
               <div style={{ display: "grid", gap: "14px" }}>
                 {data?.section_12?.truth_cards ? (
-                  data.section_12.truth_cards.map((c: any, idx: number) => (
+                  data?.section_12.truth_cards.map((c: any, idx: number) => (
                     <div key={idx} className="note-box">
                       <b>{c.title}</b>
                       <p>{c.description}</p>
@@ -463,8 +463,8 @@ export default async function Home() {
           <div className="wrap">
             <div style={{ background: "linear-gradient(135deg,var(--b-deep),var(--b))", color: "#fff", borderRadius: "20px", padding: "22px 28px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "18px", flexWrap: "wrap" }}>
               <div>
-                <b style={{ fontSize: "21px", fontWeight: 900 }}>{data.section_12.next_intake.title}</b>
-                <div style={{ color: "#cdd9ec", fontWeight: 700 }}>{data.section_12.next_intake.description}</div>
+                <b style={{ fontSize: "21px", fontWeight: 900 }}>{data?.section_12.next_intake.title}</b>
+                <div style={{ color: "#cdd9ec", fontWeight: 700 }}>{data?.section_12.next_intake.description}</div>
               </div>
               <a className="btn white" href="/apply">Start your application →</a>
             </div>
@@ -534,7 +534,7 @@ export default async function Home() {
             </div>
             <div className="g3 ys-carousel-mobile">
               {data?.section_14?.card ? (
-                data.section_14.card.map((c: any, idx: number) => {
+                data?.section_14.card.map((c: any, idx: number) => {
                   const fallbackImages = [
                     "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=80",
                     "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80",
@@ -721,7 +721,7 @@ export default async function Home() {
               </div>
               <div className="refer-grid">
                 {data?.section_18?.card ? (
-                  data.section_18.card.map((c: any, idx: number) => {
+                  data?.section_18.card.map((c: any, idx: number) => {
                     const fallbackImages = [
                       "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=700&q=80",
                       "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=700&q=80",

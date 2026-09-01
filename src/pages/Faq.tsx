@@ -20,10 +20,10 @@ export default async function Faq() {
   // Fetch dynamic FAQs from DB
   const dbFaqs = (await getFAQBySlug("faqs")) || (await getFAQBySlug("faq"));
 
-  const s2 = data.section_2 || {};
-  const s3 = data.section_3 || {};
-  const s4 = data.section_4 || {};
-  const s5 = data.section_5 || {};
+  const s2 = data?.section_2 || {};
+  const s3 = data?.section_3 || {};
+  const s4 = data?.section_4 || {};
+  const s5 = data?.section_5 || {};
 
   // Combine dynamic FAQs and fallbacks
   const faqs = (dbFaqs && dbFaqs.length > 0) ? dbFaqs : (s2.faqs || []);

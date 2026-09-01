@@ -48,7 +48,7 @@ export default async function FoundationYear() {
             </div>
             <div className="qf-grid3">
               {data?.section_3?.cards && (
-                data.section_3.cards.map((card: any, idx: number) => (
+                data?.section_3.cards.map((card: any, idx: number) => (
                   <div className="fcard" key={idx}>
                     <h3>{card.title}</h3>
                     <p>{card.description}</p>
@@ -105,7 +105,7 @@ export default async function FoundationYear() {
             <p className="sub">{data?.section_5?.description}</p>
             <div className="steps">
               {data?.section_5?.cards && (
-                data.section_5.cards.map((card: any, idx: number) => {
+                data?.section_5.cards.map((card: any, idx: number) => {
                   let href = "/apply";
                   let btnLabel = "Start applying →";
                   if (idx === 0) {
@@ -145,7 +145,7 @@ export default async function FoundationYear() {
             </div>
             <div className="qf-grid4">
               {data?.section_6?.cards && (
-                data.section_6.cards.map((card: any, idx: number) => (
+                data?.section_6.cards.map((card: any, idx: number) => (
                   <div className="fcard" key={idx}>
                     <div className="n">{card.numbers}</div>
                     <h3>{card.title}</h3>
@@ -174,7 +174,7 @@ export default async function FoundationYear() {
 
             <div className="elig-routes">
               {data?.section_7?.cards && (
-                data.section_7.cards.map((card: any, idx: number) => {
+                data?.section_7.cards.map((card: any, idx: number) => {
                   const isWarn = card.badge === "Plan for these";
                   return (
                     <div className={`eligc ${isWarn ? "warn" : ""}`} key={idx}>
@@ -210,7 +210,7 @@ export default async function FoundationYear() {
               </thead>
               <tbody>
                 {data?.section_7?.row && (
-                  data.section_7.row.map((r: any, idx: number) => (
+                  data?.section_7.row.map((r: any, idx: number) => (
                     <tr key={idx}>
                       <td className="who">
                         {r.status?.title}
@@ -237,7 +237,7 @@ export default async function FoundationYear() {
               <h2>{data?.section_8?.title}</h2>
               <div className="qf-fund-grid">
                 {data?.section_8?.cards && (
-                  data.section_8.cards.map((c: any, idx: number) => (
+                  data?.section_8.cards.map((c: any, idx: number) => (
                     <div className="fundc" key={idx}>
                       <b>{c.cost}</b>
                       <span>{c.description}</span>
@@ -262,7 +262,7 @@ export default async function FoundationYear() {
             </div>
             <div className="qf-compare">
               {data?.section_9?.cards && (
-                data.section_9.cards.map((c: any, idx: number) => (
+                data?.section_9.cards.map((c: any, idx: number) => (
                   <div className="compc" key={idx}>
                     <h3>{c.title}</h3>
                     <dl>

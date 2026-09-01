@@ -22,11 +22,11 @@ export default async function CareerChange() {
   }
 
 
-  const s1 = data.section_1 || {};
-  const s2 = data.section_2 || {};
-  const s3 = data.section_3 || {};
-  const s4 = data.section_4 || {};
-  const s5 = data.section_5 || {};
+  const s1 = data?.section_1 || {};
+  const s2 = data?.section_2 || {};
+  const s3 = data?.section_3 || {};
+  const s4 = data?.section_4 || {};
+  const s5 = data?.section_5 || {};
 
   return (
     <div className="qualification-page career-change-page">

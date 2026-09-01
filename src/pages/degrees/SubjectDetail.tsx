@@ -40,9 +40,9 @@ export default async function SubjectDetail({ subject }: SubjectDetailProps) {
             <a href="/degrees/subjects" style={{ color: "#fff", textDecoration: "none" }}>Subjects</a> › {title}
           </p>
           
-          {data.section_1?.sfe_highlight && (
+          {data?.section_1?.sfe_highlight && (
             <div className="sfe" style={{ display: "inline-flex", alignItems: "center", gap: "11px", borderRadius: "14px", padding: "13px 18px", fontSize: "14px", background: "rgba(255,255,255,0.14)", border: "1px solid rgba(255,255,255,0.34)", color: "#fff", backdropFilter: "blur(6px)", margin: "16px 0 0" }}>
-              <span>{data.section_1.sfe_highlight}</span>
+              <span>{data?.section_1.sfe_highlight}</span>
             </div>
           )}
 
@@ -54,17 +54,17 @@ export default async function SubjectDetail({ subject }: SubjectDetailProps) {
       </Banner>
 
       {/* DYNAMIC COURSE LISTINGS */}
-      {data.section_2?.status !== false && (
+      {data?.section_2?.status !== false && (
         <section className="qf-sec" id="courses">
           <div className="qf" style={{ textAlign: "left" }}>
             <div className="qf-head">
-              <span className="kicker">{data.section_2?.badge || "Available courses"}</span>
-              <h2>{data.section_2?.title || `${title} courses you can study flexibly.`}</h2>
-              <p>{data.section_2?.description || "Every route is built around work and family, with full Student Finance support."}</p>
+              <span className="kicker">{data?.section_2?.badge || "Available courses"}</span>
+              <h2>{data?.section_2?.title || `${title} courses you can study flexibly.`}</h2>
+              <p>{data?.section_2?.description || "Every route is built around work and family, with full Student Finance support."}</p>
             </div>
 
             <div className="qf-courses">
-              {data.section_2?.courses?.map((c: any, idx: number) => (
+              {data?.section_2?.courses?.map((c: any, idx: number) => (
                 <article key={idx} className="qcard">
                   <div className="ph" style={{ aspectRatio: "16/10" }}>
                     <img src={c.image} alt={c.title} />
@@ -95,17 +95,17 @@ export default async function SubjectDetail({ subject }: SubjectDetailProps) {
       )}
 
       {/* WHO APPLIES / MOTIVATION BLOCK */}
-      {data.section_3?.status !== false && data.section_3?.cards && (
+      {data?.section_3?.status !== false && data?.section_3?.cards && (
         <section className="qf-sec" style={{ background: "var(--soft)" }}>
           <div className="qf" style={{ textAlign: "left" }}>
             <div className="qf-head">
-              <span className="kicker">{data.section_3.badge || "Who applies"}</span>
-              <h2>{data.section_3.title || `${title} degrees suit you if...`}</h2>
-              <p>{data.section_3.description}</p>
+              <span className="kicker">{data?.section_3.badge || "Who applies"}</span>
+              <h2>{data?.section_3.title || `${title} degrees suit you if...`}</h2>
+              <p>{data?.section_3.description}</p>
             </div>
 
             <div className="elig-routes">
-              {data.section_3.cards.map((c: any, idx: number) => (
+              {data?.section_3.cards.map((c: any, idx: number) => (
                 <div className="eligc" key={idx}>
                   <h3>{c.title}</h3>
                   <p style={{ color: "var(--muted)", fontSize: "14px", lineHeight: 1.5, margin: "8px 0 0" }}>{c.description}</p>
@@ -117,16 +117,16 @@ export default async function SubjectDetail({ subject }: SubjectDetailProps) {
       )}
 
       {/* CAREER OUTCOMES STATS */}
-      {data.section_4?.status !== false && data.section_4?.stats && (
+      {data?.section_4?.status !== false && data?.section_4?.stats && (
         <section className="qf-sec" style={{ background: "var(--b-navy)", color: "#fff", border: "none" }}>
           <div className="qf" style={{ textAlign: "left" }}>
             <div className="qf-head" style={{ marginBottom: "2rem" }}>
-              <span className="kicker" style={{ color: "#9cc0ff" }}>{data.section_4.badge || "Career outcomes"}</span>
-              <h2 style={{ color: "#fff", fontSize: "clamp(26px, 3vw, 42px)", fontWeight: 900 }}>{data.section_4.title || `Where a ${title} degree takes you.`}</h2>
+              <span className="kicker" style={{ color: "#9cc0ff" }}>{data?.section_4.badge || "Career outcomes"}</span>
+              <h2 style={{ color: "#fff", fontSize: "clamp(26px, 3vw, 42px)", fontWeight: 900 }}>{data?.section_4.title || `Where a ${title} degree takes you.`}</h2>
             </div>
 
             <div className="qf-fund-grid">
-              {data.section_4.stats.map((s: any, idx: number) => (
+              {data?.section_4.stats.map((s: any, idx: number) => (
                 <div className="fundc" key={idx} style={{ textAlign: "center" }}>
                   <b style={{ fontSize: "clamp(24px, 2.5vw, 36px)" }}>{s.value}</b>
                   <span style={{ color: "#aebed6" }}>{s.label}</span>
@@ -138,17 +138,17 @@ export default async function SubjectDetail({ subject }: SubjectDetailProps) {
       )}
 
       {/* PROGRESSION LADDER */}
-      {data.section_5?.status !== false && data.section_5?.steps && (
+      {data?.section_5?.status !== false && data?.section_5?.steps && (
         <section className="qf-sec" style={{ background: "var(--soft)" }}>
           <div className="qf" style={{ textAlign: "left" }}>
             <div className="qf-head">
-              <span className="kicker">{data.section_5.badge || "Progression ladder"}</span>
-              <h2>{data.section_5.title || `How a ${title} career builds over time.`}</h2>
-              <p>{data.section_5.description}</p>
+              <span className="kicker">{data?.section_5.badge || "Progression ladder"}</span>
+              <h2>{data?.section_5.title || `How a ${title} career builds over time.`}</h2>
+              <p>{data?.section_5.description}</p>
             </div>
 
             <div className="qf-grid4" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))" }}>
-              {data.section_5.steps.map((step: any, idx: number) => (
+              {data?.section_5.steps.map((step: any, idx: number) => (
                 <div className="fcard" key={idx}>
                   <div className="n">{idx + 1}</div>
                   <h3>{step.title}</h3>
@@ -162,17 +162,17 @@ export default async function SubjectDetail({ subject }: SubjectDetailProps) {
       )}
 
       {/* ENTRY ROUTES WITHOUT A-LEVELS */}
-      {data.section_6?.status !== false && data.section_6?.cards && (
+      {data?.section_6?.status !== false && data?.section_6?.cards && (
         <section className="qf-sec">
           <div className="qf" style={{ textAlign: "left" }}>
             <div className="qf-head">
-              <span className="kicker">{data.section_6.badge || "Entry routes"}</span>
-              <h2>{data.section_6.title || "How to qualify without A-levels."}</h2>
-              <p>{data.section_6.description}</p>
+              <span className="kicker">{data?.section_6.badge || "Entry routes"}</span>
+              <h2>{data?.section_6.title || "How to qualify without A-levels."}</h2>
+              <p>{data?.section_6.description}</p>
             </div>
 
             <div className="qf-grid3">
-              {data.section_6.cards.map((c: any, idx: number) => (
+              {data?.section_6.cards.map((c: any, idx: number) => (
                 <div className="entryc" key={idx} style={{ background: "#fff", border: "1px solid var(--line)", borderRadius: "16px", padding: "24px", boxShadow: "0 12px 30px rgba(15,23,42,0.06)" }}>
                   <h3 style={{ fontSize: "18px", fontWeight: 900, color: "var(--ink)", margin: "0 0 8px" }}>{c.title}</h3>
                   <p style={{ color: "var(--muted)", fontSize: "14px", lineHeight: 1.5 }}>{c.description}</p>
@@ -189,29 +189,29 @@ export default async function SubjectDetail({ subject }: SubjectDetailProps) {
       )}
 
       {/* EDITOR'S PICK SNAPSHOT */}
-      {data.section_7?.status !== false && data.section_7?.editor_pick && (
+      {data?.section_7?.status !== false && data?.section_7?.editor_pick && (
         <section className="qf-sec" style={{ background: "var(--soft)" }}>
           <div className="qf" style={{ textAlign: "left" }}>
             <div className="qf-head">
-              <span className="kicker">{data.section_7.badge || "Featured this week"}</span>
-              <h2>{data.section_7.title || "Editor’s pick in this subject."}</h2>
-              <p>{data.section_7.description}</p>
+              <span className="kicker">{data?.section_7.badge || "Featured this week"}</span>
+              <h2>{data?.section_7.title || "Editor’s pick in this subject."}</h2>
+              <p>{data?.section_7.description}</p>
             </div>
 
             <div className="sbj-editor" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", background: "#fff", borderRadius: "18px", border: "1px solid var(--line)", overflow: "hidden" }}>
               <div className="eph" style={{ minHeight: "260px" }}>
-                <img src={data.section_7.editor_pick.image || "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1000&q=85"} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                <img src={data?.section_7.editor_pick.image || "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1000&q=85"} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
               </div>
               <div className="eb" style={{ padding: "2rem" }}>
                 <span className="ek" style={{ background: "#fff4e0", color: "#9a4b00", border: "1px solid #ffd9a8", fontSize: "12px", padding: "6px 12px", borderRadius: "999px", display: "inline-block", fontWeight: 800, marginBottom: "1rem" }}>
                   ★ Editor's pick
                 </span>
-                <h3 style={{ fontSize: "24px", fontWeight: 900 }}>{data.section_7.editor_pick.title}</h3>
-                <p style={{ color: "var(--muted)", margin: "8px 0 1rem" }}>{data.section_7.editor_pick.description}</p>
+                <h3 style={{ fontSize: "24px", fontWeight: 900 }}>{data?.section_7.editor_pick.title}</h3>
+                <p style={{ color: "var(--muted)", margin: "8px 0 1rem" }}>{data?.section_7.editor_pick.description}</p>
                 
-                {data.section_7.editor_pick.pills && (
+                {data?.section_7.editor_pick.pills && (
                   <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", marginBottom: "1.5rem" }}>
-                    {data.section_7.editor_pick.pills.map((p: string, pIdx: number) => (
+                    {data?.section_7.editor_pick.pills.map((p: string, pIdx: number) => (
                       <span key={pIdx} style={{ fontSize: "12px", background: "rgba(10, 82, 214, 0.05)", color: "var(--b)", padding: "4px 10px", borderRadius: "999px", fontWeight: 700 }}>
                         {p}
                       </span>
@@ -220,7 +220,7 @@ export default async function SubjectDetail({ subject }: SubjectDetailProps) {
                 )}
 
                 <div className="btnrow" style={{ display: "flex", gap: "10px" }}>
-                  <a className="btn btn-blue" href={data.section_7.editor_pick.link || "/apply"}>View Course →</a>
+                  <a className="btn btn-blue" href={data?.section_7.editor_pick.link || "/apply"}>View Course →</a>
                   <a className="btn btn-orange" href="/apply">Apply Now</a>
                 </div>
               </div>

@@ -18,10 +18,10 @@ export default async function SuccessStories() {
 
   const hero = data.hero || {};
   const convHero = data.convHero || {};
-  const s2 = data.section_2 || {};
-  const s3 = data.section_3 || {};
-  const s4 = data.section_4 || {};
-  const s5 = data.section_5 || {};
+  const s2 = data?.section_2 || {};
+  const s3 = data?.section_3 || {};
+  const s4 = data?.section_4 || {};
+  const s5 = data?.section_5 || {};
 
   // Fallback for s2.cards if missing or empty in the database
   const s2Cards = (s2.cards && s2.cards.length > 0) ? s2.cards : [

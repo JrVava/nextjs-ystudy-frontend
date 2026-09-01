@@ -16,9 +16,9 @@ export default async function MatureStudents() {
     );
   }
 
-  const s1 = data.section_1 || {};
-  const s2 = data.section_2 || {};
-  const s3 = data.section_3 || {};
+  const s1 = data?.section_1 || {};
+  const s2 = data?.section_2 || {};
+  const s3 = data?.section_3 || {};
 
   return (
     <div className="qualification-page mature-students-page">

@@ -16,12 +16,12 @@ export default async function GuidesHub() {
     );
   }
 
-  const s1 = data.section_1 || fallbackData.section_1 || {};
-  const s2 = data.section_2 || fallbackData.section_2 || {};
-  const s3 = data.section_3 || fallbackData.section_3 || {};
-  const s4 = data.section_4 || {};
-  const s5 = data.section_5 || {};
-  const s6 = data.section_6 && Object.keys(data.section_6).length > 0 ? data.section_6 : fallbackData.section_4 || {};
+  const s1 = data?.section_1 || fallbackData.section_1 || {};
+  const s2 = data?.section_2 || fallbackData.section_2 || {};
+  const s3 = data?.section_3 || fallbackData.section_3 || {};
+  const s4 = data?.section_4 || {};
+  const s5 = data?.section_5 || {};
+  const s6 = data?.section_6 && Object.keys(data?.section_6).length > 0 ? data?.section_6 : fallbackData.section_4 || {};
 
   const s2Cards = s2.cards || fallbackData.section_2?.cards || [];
   

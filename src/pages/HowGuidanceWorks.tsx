@@ -17,7 +17,7 @@ export default async function HowGuidanceWorks() {
 
   const hero = data.hero || {};
   const convHero = data.convHero || {};
-  const s2 = data.section_2 || {
+  const s2 = data?.section_2 || {
     badge: "Your route",
     title: "Six clear steps",
     cards: [
@@ -64,7 +64,7 @@ export default async function HowGuidanceWorks() {
     ],
     status: true
   };
-  const s3 = data.section_3 || {
+  const s3 = data?.section_3 || {
     badge: "After you apply",
     title: "Dashboard and adviser support",
     cards: [
@@ -91,7 +91,7 @@ export default async function HowGuidanceWorks() {
     ],
     status: true
   };
-  const s4 = data.section_4 || {
+  const s4 = data?.section_4 || {
     title: "Start your route",
     description: "Begin with Degree Match Finder and check funding afterwards.",
     status: true

@@ -106,8 +106,8 @@ export default async function FundingSubPage({ slug }: FundingSubPageProps) {
     ]
   };
 
-  const s1 = data.section_1 || {};
-  const s2 = data.section_2 || {};
+  const s1 = data?.section_1 || {};
+  const s2 = data?.section_2 || {};
   const faqs = data.faqs || [];
 
   return (

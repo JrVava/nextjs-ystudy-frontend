@@ -11,13 +11,13 @@ interface AffiliatePartnersProps {
 }
 
 export default function AffiliatePartners({ data }: AffiliatePartnersProps) {
-  const s2 = data.section_2 || {};
-  const s3 = data.section_3 || {};
-  const s4 = data.section_4 || {};
-  const s5 = data.section_5 || {};
-  const s6 = data.section_6 || {};
-  const s7 = data.section_7 || {};
-  const s8 = data.section_8 || {};
+  const s2 = data?.section_2 || {};
+  const s3 = data?.section_3 || {};
+  const s4 = data?.section_4 || {};
+  const s5 = data?.section_5 || {};
+  const s6 = data?.section_6 || {};
+  const s7 = data?.section_7 || {};
+  const s8 = data?.section_8 || {};
 
   const formCard = s8.cards?.[0] || {};
   const reviewCard = s8.cards?.[1] || {};

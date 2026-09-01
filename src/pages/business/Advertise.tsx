@@ -16,9 +16,9 @@ export default async function Advertise() {
     );
   }
 
-  const s2 = data.section_2 || {};
-  const s3 = data.section_3 || {};
-  const s4 = data.section_4 || {};
+  const s2 = data?.section_2 || {};
+  const s3 = data?.section_3 || {};
+  const s4 = data?.section_4 || {};
 
   const defaultReviewItems = [
     { title: "Audience fit", description: "Mature students, career changers, UK residents or adult learners." },
@@ -111,8 +111,8 @@ export default async function Advertise() {
       )}
 
       {/* BOTTOM SECTIONS */}
-      <QualificationConversionCards sectionData={data.section_5} />
-      <QualificationCrosslinks sectionData={data.section_6} />
+      <QualificationConversionCards sectionData={data?.section_5} />
+      <QualificationCrosslinks sectionData={data?.section_6} />
     </div>
   );
 }
