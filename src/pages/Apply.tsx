@@ -73,6 +73,19 @@ export default async function Apply() {
         </div>
       </Banner>
 
+      {/* APPLY FORM SECTION */}
+      <section className="form-first" id="apply-form">
+        <div className="container" style={{ maxWidth: "800px" }}>
+          <div className="form-card" style={{ background: "transparent", padding: 0, border: "none" }}>
+            <h2 style={{ textAlign: "center", marginBottom: "0.5rem" }}>Complete one short form.</h2>
+            <p className="intro" style={{ textAlign: "center", marginBottom: "2rem", color: "var(--muted)" }}>
+              Complete this form and we will contact you within one working day. You do not need to know the perfect course yet.
+            </p>
+            <ApplyFormWidget />
+          </div>
+        </div>
+      </section>
+
       {/* HOW IT WORKS */}
       {s2.status !== false && (
         <section className="v705-sec">
@@ -138,19 +151,6 @@ export default async function Apply() {
           </div>
         </section>
       )}
-
-      {/* APPLY FORM SECTION */}
-      <section className="form-first" id="apply-form">
-        <div className="container" style={{ maxWidth: "800px" }}>
-          <div className="form-card" style={{ background: "transparent", padding: 0, border: "none" }}>
-            <h2 style={{ textAlign: "center", marginBottom: "0.5rem" }}>Complete one short form.</h2>
-            <p className="intro" style={{ textAlign: "center", marginBottom: "2rem", color: "var(--muted)" }}>
-              Complete this form and we will contact you within one working day. You do not need to know the perfect course yet.
-            </p>
-            <ApplyFormWidget />
-          </div>
-        </div>
-      </section>
 
       {/* WHY STUDENTS USE US */}
       {s5.status !== false && (
