@@ -137,7 +137,7 @@ export async function getAllCourses(filters?: CourseFilterParams | number): Prom
 
       if (decrypted && decrypted.success && decrypted.data) {
         const courses = decrypted.data.courses || decrypted.data;
-        if (Array.isArray(courses) && courses.length > 0) {
+        if (Array.isArray(courses)) {
           return courses;
         }
       }

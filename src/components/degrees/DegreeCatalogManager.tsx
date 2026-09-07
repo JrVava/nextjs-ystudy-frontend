@@ -74,6 +74,7 @@ export function DegreeCatalogProvider({
     let isSubscribed = true;
     const fetchFilteredCourses = async () => {
       try {
+        setApiCourses([]);
         const resolveId = (collection: any[], val: string, anyText: string) => 
           val === anyText ? undefined : collection.find(item => item.title === val)?._id || val;
 
