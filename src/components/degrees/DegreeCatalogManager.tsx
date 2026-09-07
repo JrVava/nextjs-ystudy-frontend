@@ -31,6 +31,7 @@ interface DegreeCatalogContextType {
   modes: any[];
   durations: any[];
   fundings: any[];
+  locations: any[];
   section3Data?: any;
 }
 
@@ -43,6 +44,7 @@ export function DegreeCatalogProvider({
   modes,
   durations,
   fundings,
+  locations,
   section3Data,
   children
 }: {
@@ -52,6 +54,7 @@ export function DegreeCatalogProvider({
   modes: any[];
   durations: any[];
   fundings: any[];
+  locations: any[];
   section3Data?: any;
   children: React.ReactNode;
 }) {
@@ -82,7 +85,7 @@ export function DegreeCatalogProvider({
           subject: resolveId(subjects, selectedSubject, "Any subject"),
           qualification: resolveId(qualifications, selectedQualification, "Any qualification"),
           mode: resolveId(modes, selectedMode, "Any mode"),
-          location: selectedLocation === "Any location" ? undefined : selectedLocation,
+          location: resolveId(locations, selectedLocation, "Any location"),
           duration: resolveId(durations, selectedDuration, "Any duration"),
           funding: resolveId(fundings, selectedFunding, "Any funding"),
           keyword_search: searchQuery
@@ -112,7 +115,8 @@ export function DegreeCatalogProvider({
     qualifications,
     modes,
     durations,
-    fundings
+    fundings,
+    locations
   ]);
 
   React.useEffect(() => {
@@ -328,6 +332,7 @@ export function DegreeCatalogProvider({
         modes,
         durations,
         fundings,
+        locations,
         section3Data
       }}
     >
@@ -349,6 +354,7 @@ export function DegreeSearchConsole() {
     modes,
     durations,
     fundings,
+    locations,
     searchQuery,
     setSearchQuery,
     selectedSubject,
@@ -399,11 +405,9 @@ export function DegreeSearchConsole() {
           <label>Location</label>
           <select value={selectedLocation} onChange={(e) => setSelectedLocation(e.target.value)}>
             <option>Any location</option>
-            <option>London</option>
-            <option>Birmingham</option>
-            <option>Manchester</option>
-            <option>Online</option>
-            <option>Multiple locations</option>
+            {locations.map((item) => (
+              <option key={item._id} value={item.title}>{item.title}</option>
+            ))}
           </select>
         </div>
         <div className="dsx-fsel">

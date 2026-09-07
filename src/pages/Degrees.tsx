@@ -6,7 +6,8 @@ import {
   getFundings,
   getModes,
   getQualifications,
-  getSubjects
+  getSubjects,
+  getLocations
 } from "@/services/filters.service";
 import {
   DegreeCatalogProvider,
@@ -26,6 +27,7 @@ export default async function Degrees() {
     modes,
     durations,
     fundings,
+    locations,
     apiCourses
   ] = await Promise.all([
     getCMSPageContent("degrees"),
@@ -34,6 +36,7 @@ export default async function Degrees() {
     getModes(),
     getDurations(),
     getFundings(),
+    getLocations(),
     getAllCourses()
   ]);
 
@@ -49,6 +52,7 @@ export default async function Degrees() {
         modes={modes}
         durations={durations}
         fundings={fundings}
+        locations={locations}
         section3Data={data?.section_3}
       >
         {/* HERO SECTION DYNAMIZED WITH CUSTOM DEGREES BANNER */}

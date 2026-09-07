@@ -43,3 +43,7 @@ export function getDurations(): Promise<FilterItem[]> {
 export function getFundings(): Promise<FilterItem[]> {
   return fetchAndDecryptFilter("/frontend/fundings");
 }
+
+export function getLocations(): Promise<FilterItem[]> {
+  return fetchAndDecryptFilter("/frontend/locations");
+}
