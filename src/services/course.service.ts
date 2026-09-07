@@ -102,17 +102,32 @@ const FALLBACK_COURSES: BackendCourse[] = [
   }
 ];
 
-export async function getAllCourses(pageSize?: number): Promise<BackendCourse[]> {
+export interface CourseFilterParams {
+  subject?: string;
+  qualification?: string;
+  mode?: string;
+  location?: string;
+  duration?: string;
+  funding?: string;
+  keyword_search?: string;
+  pageSize?: number;
+}
+
+export async function getAllCourses(filters?: CourseFilterParams | number): Promise<BackendCourse[]> {
   try {
-    // Try primary backend endpoint: GET /frontend/course/allcourses
+    let payload: any = {};
+    if (typeof filters === "number") {
+      payload = { pageSize: filters };
+    } else if (filters && typeof filters === "object") {
+      payload = filters;
+    }
+
     let res;
-    const url = pageSize ? `/frontend/course/allcourses?pageSize=${pageSize}` : "/frontend/course/allcourses";
     try {
-      res = await api.get(url);
+      res = await api.post("/frontend/course/allcourses", payload);
     } catch (err: any) {
-      // Fallback try: GET /frontend/course/degree
-      const fallbackUrl = pageSize ? `/frontend/course/degree?pageSize=${pageSize}` : "/frontend/course/degree";
-      res = await api.get(fallbackUrl);
+      const url = payload.pageSize ? `/frontend/course/allcourses?pageSize=${payload.pageSize}` : "/frontend/course/allcourses";
+      res = await api.get(url);
     }
 
     const json = res?.data;

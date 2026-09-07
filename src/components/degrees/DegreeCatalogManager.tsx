@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState, useMemo, createContext, useContext } from "react";
+import React, { useState, useMemo, useEffect, createContext, useContext } from "react";
 import { CourseCard } from "@/components/degrees/CourseCard";
 import { BackendCourse } from "@/types/course";
+import { getAllCourses } from "@/services/course.service";
 
 interface DegreeCatalogContextType {
   viewMode: "grid" | "list";
@@ -63,6 +64,47 @@ export function DegreeCatalogProvider({
   const [selectedDuration, setSelectedDuration] = useState("Any duration");
   const [selectedFunding, setSelectedFunding] = useState("Any funding");
   const [sortBy, setSortBy] = useState<"match" | "title">("match");
+  const [apiCourses, setApiCourses] = useState<BackendCourse[]>(initialCourses);
+
+  useEffect(() => {
+    setApiCourses(initialCourses);
+  }, [initialCourses]);
+
+  useEffect(() => {
+    let isSubscribed = true;
+    const fetchFilteredCourses = async () => {
+      try {
+        const results = await getAllCourses({
+          subject: selectedSubject,
+          qualification: selectedQualification,
+          mode: selectedMode,
+          location: selectedLocation,
+          duration: selectedDuration,
+          funding: selectedFunding,
+          keyword_search: searchQuery
+        });
+        if (isSubscribed && Array.isArray(results)) {
+          setApiCourses(results);
+        }
+      } catch (err) {
+        console.error("Failed to fetch filtered courses", err);
+      }
+    };
+
+    const timeoutId = setTimeout(fetchFilteredCourses, 300);
+    return () => {
+      isSubscribed = false;
+      clearTimeout(timeoutId);
+    };
+  }, [
+    searchQuery,
+    selectedSubject,
+    selectedQualification,
+    selectedMode,
+    selectedLocation,
+    selectedDuration,
+    selectedFunding
+  ]);
 
   React.useEffect(() => {
     if (typeof window !== "undefined") {
@@ -92,7 +134,7 @@ export function DegreeCatalogProvider({
       return Math.min(score, 99);
     };
 
-    return initialCourses
+    return apiCourses
       .filter((course) => {
         // 1. Text Search Query
         if (searchQuery.trim()) {
@@ -238,7 +280,7 @@ export function DegreeCatalogProvider({
         return (b.matchScore || 0) - (a.matchScore || 0);
       });
   }, [
-    initialCourses,
+    apiCourses,
     searchQuery,
     selectedSubject,
     selectedQualification,
