@@ -74,13 +74,16 @@ export function DegreeCatalogProvider({
     let isSubscribed = true;
     const fetchFilteredCourses = async () => {
       try {
+        const resolveId = (collection: any[], val: string, anyText: string) => 
+          val === anyText ? undefined : collection.find(item => item.title === val)?._id || val;
+
         const results = await getAllCourses({
-          subject: selectedSubject,
-          qualification: selectedQualification,
-          mode: selectedMode,
-          location: selectedLocation,
-          duration: selectedDuration,
-          funding: selectedFunding,
+          subject: resolveId(subjects, selectedSubject, "Any subject"),
+          qualification: resolveId(qualifications, selectedQualification, "Any qualification"),
+          mode: resolveId(modes, selectedMode, "Any mode"),
+          location: selectedLocation === "Any location" ? undefined : selectedLocation,
+          duration: resolveId(durations, selectedDuration, "Any duration"),
+          funding: resolveId(fundings, selectedFunding, "Any funding"),
           keyword_search: searchQuery
         });
         if (isSubscribed && Array.isArray(results)) {
@@ -103,7 +106,12 @@ export function DegreeCatalogProvider({
     selectedMode,
     selectedLocation,
     selectedDuration,
-    selectedFunding
+    selectedFunding,
+    subjects,
+    qualifications,
+    modes,
+    durations,
+    fundings
   ]);
 
   React.useEffect(() => {
