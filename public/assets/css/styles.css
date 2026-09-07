@@ -1520,20 +1520,6 @@ body:has(.hero-copy .kicker:first-child) .hero img {
   font-size: 30px;
 }
 
-.grid-save {
-  position: absolute;
-  right: 14px;
-  top: 14px;
-  width: 56px;
-  height: 56px;
-  border-radius: 20px;
-  background: #fff;
-  display: grid;
-  place-items: center;
-  font-size: 28px;
-  color: #061126;
-}
-
 .grid-label {
   position: absolute;
   left: 14px;

@@ -214,15 +214,6 @@ export function CourseCard({ course, variant = "grid", onSave }: CourseCardProps
     <article className="grid-result-card" style={{ textAlign: "left" }}>
       <div className="grid-result-img">
         <img src={imageUrl} alt={title} />
-        <button
-          type="button"
-          className="grid-save"
-          onClick={() => onSave && onSave(course._id || slug)}
-          aria-label="Save course"
-          style={{ background: "transparent", border: 0, cursor: "pointer" }}
-        >
-          ♡
-        </button>
         <div className="grid-label">{subjectName}</div>
       </div>
       <div className="grid-result-body">
