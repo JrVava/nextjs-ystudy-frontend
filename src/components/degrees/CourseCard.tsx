@@ -59,15 +59,7 @@ export function CourseCard({ course, variant = "grid", onSave }: CourseCardProps
     subjectName = typeof s0 === "string" ? s0 : s0?.name || s0?.title || "";
   }
 
-  // Fallback to badges if subjectName is empty or "General"
-  if (!subjectName || subjectName.toLowerCase() === "general") {
-    if (Array.isArray(course.badges) && course.badges.length > 0) {
-      const b0 = course.badges[0];
-      if (typeof b0 === "string" && b0) subjectName = b0;
-    }
-  }
-
-  // Fallback to entryRequirement if subjectName is still empty or "General"
+  // Fallback to entryRequirement if subjectName is empty or "General"
   if (!subjectName || subjectName.toLowerCase() === "general") {
     const req = course.entryRequirement || course.entryRequirements;
     if (Array.isArray(req) && req.length > 0 && typeof req[0] === "string" && req[0]) {
@@ -92,35 +84,52 @@ export function CourseCard({ course, variant = "grid", onSave }: CourseCardProps
     }
   }
 
-  // Extract dynamic pills from badges, entryRequirement, tags, or defaults
-  const pillsRaw: string[] = [];
-
+  // Extract badges for grid-label
+  const badgesList: string[] = [];
   if (Array.isArray(course.badges)) {
     course.badges.forEach((b: any) => {
-      if (typeof b === "string" && b.trim()) pillsRaw.push(b.trim());
+      if (typeof b === "string" && b.trim()) badgesList.push(b.trim());
+      else if (b && typeof b === "object") {
+        const val = b.name || b.title || b.label;
+        if (typeof val === "string" && val.trim()) badgesList.push(val.trim());
+      }
     });
+  } else if (typeof course.badges === "string" && course.badges.trim()) {
+    badgesList.push(course.badges.trim());
   }
 
-  const reqs = course.entryRequirement || course.entryRequirements;
-  if (Array.isArray(reqs)) {
-    reqs.forEach((r: any) => {
-      if (typeof r === "string" && r.trim()) pillsRaw.push(r.trim());
-    });
-  } else if (typeof reqs === "string" && reqs.trim()) {
-    pillsRaw.push(reqs.trim());
-  }
+  const badgeLabel = badgesList.length > 0 ? badgesList.join(" • ") : subjectName;
 
+  // Extract tags for pills container
+  const tagsRaw: string[] = [];
   if (Array.isArray(course.tags)) {
     course.tags.forEach((t: any) => {
-      if (typeof t === "string" && t.trim()) pillsRaw.push(t.trim());
+      if (typeof t === "string" && t.trim()) tagsRaw.push(t.trim());
+      else if (t && typeof t === "object") {
+        const val = t.name || t.title || t.label;
+        if (typeof val === "string" && val.trim()) tagsRaw.push(val.trim());
+      }
     });
+  } else if (typeof course.tags === "string" && course.tags.trim()) {
+    tagsRaw.push(course.tags.trim());
   }
 
-  if (pillsRaw.length === 0) {
-    pillsRaw.push("2 days/week", "Blended", "SFE eligible");
+  if (tagsRaw.length === 0) {
+    const reqs = course.entryRequirement || course.entryRequirements;
+    if (Array.isArray(reqs)) {
+      reqs.forEach((r: any) => {
+        if (typeof r === "string" && r.trim()) tagsRaw.push(r.trim());
+      });
+    } else if (typeof reqs === "string" && reqs.trim()) {
+      tagsRaw.push(reqs.trim());
+    }
   }
 
-  const pills = Array.from(new Set(pillsRaw)).slice(0, 4);
+  if (tagsRaw.length === 0) {
+    tagsRaw.push("2 days/week", "Blended", "SFE eligible");
+  }
+
+  const tags = Array.from(new Set(tagsRaw)).slice(0, 4);
 
   const salary = formatSalaryRange(course.salaryRange || course.salary);
   const description = typeof course.shortDescription === "string" ? course.shortDescription : (typeof course.description === "string" ? course.description : "Flexible higher education degree route for mature students.");
@@ -131,15 +140,15 @@ export function CourseCard({ course, variant = "grid", onSave }: CourseCardProps
       <article className="list-result-card" style={{ textAlign: "left" }}>
         <div className="list-result-img">
           <img src={imageUrl} alt={title} />
-          <div className="grid-label">{subjectName}</div>
+          <div className="grid-label">{badgeLabel}</div>
         </div>
         <div className="list-result-body">
           <div className="list-result-content">
             <h3>{title}</h3>
             <p>{description}</p>
             <div className="pills" style={{ marginBottom: "12px" }}>
-              {pills.map((pill, i) => (
-                <span className="pill" key={i}>{pill}</span>
+              {tags.map((tag, i) => (
+                <span className="pill" key={i}>{tag}</span>
               ))}
             </div>
             <div className="list-result-info-row">
@@ -178,7 +187,7 @@ export function CourseCard({ course, variant = "grid", onSave }: CourseCardProps
       <article className="mini-course-card" style={{ textAlign: "left" }}>
         <img src={imageUrl} alt={title} />
         <div className="mini-course-body">
-          <span className="course-chip">{subjectName}</span>
+          <span className="course-chip">{badgeLabel}</span>
           <h4>{title}</h4>
           <p>{description}</p>
           <div className="mini-course-info">
@@ -187,11 +196,11 @@ export function CourseCard({ course, variant = "grid", onSave }: CourseCardProps
             <span>📅 Flexible timetable</span>
             <span>💰 {salary}</span>
           </div>
-          {pills.length > 0 && (
+          {tags.length > 0 && (
             <div className="pills" style={{ marginTop: "8px", marginBottom: "12px", display: "flex", flexWrap: "wrap", gap: "6px" }}>
-              {pills.map((pill, i) => (
+              {tags.map((tag, i) => (
                 <span className="pill" key={i} style={{ background: "#f4f8ff", border: "1px solid #e2ecfa", color: "#344054", borderRadius: "999px", padding: "4px 8px", fontSize: "11px", fontWeight: 700 }}>
-                  {pill}
+                  {tag}
                 </span>
               ))}
             </div>
@@ -214,14 +223,14 @@ export function CourseCard({ course, variant = "grid", onSave }: CourseCardProps
     <article className="grid-result-card" style={{ textAlign: "left" }}>
       <div className="grid-result-img">
         <img src={imageUrl} alt={title} />
-        <div className="grid-label">{subjectName}</div>
+        <div className="grid-label">{badgeLabel}</div>
       </div>
       <div className="grid-result-body">
         <h3>{title}</h3>
         <p>{description}</p>
         <div className="pills">
-          {pills.map((pill, i) => (
-            <span className="pill" key={i}>{pill}</span>
+          {tags.map((tag, i) => (
+            <span className="pill" key={i}>{tag}</span>
           ))}
         </div>
         <div className="two-metrics">

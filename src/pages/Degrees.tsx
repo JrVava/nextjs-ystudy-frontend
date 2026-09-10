@@ -40,7 +40,7 @@ export default async function Degrees() {
     getAllCourses()
   ]);
 
-  const coursesToRender: BackendCourse[] = apiCourses && apiCourses.length > 0 ? apiCourses : (data?.featured_courses || []);
+  const coursesToRender: BackendCourse[] = apiCourses && apiCourses.length > 0 ? apiCourses : ([]);
   const courseCount = coursesToRender.length;
 
   return (
