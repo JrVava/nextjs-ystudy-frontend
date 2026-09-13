@@ -172,3 +172,21 @@ export async function getCourseBySlug(slug: string): Promise<BackendCourse | nul
   const fallback = FALLBACK_COURSES.find((c) => c.slug === slug || c.slug.includes(slug));
   return fallback || null;
 }
+
+export async function getCoursesByIds(ids: string[]): Promise<BackendCourse[]> {
+  if (!ids || ids.length === 0) return [];
+  try {
+    const res = await api.post("/frontend/course/get-courses/by-ids", { ids });
+    const json = res?.data;
+    if (json && json.data) {
+      const decrypted = decrypt(json.data);
+      if (decrypted && decrypted.success && decrypted.data) {
+        return decrypted.data;
+      }
+    }
+  } catch (error: any) {
+    console.warn(`[course.service] Error fetching courses by ids:`, error.message || error);
+  }
+  return [];
+}
+

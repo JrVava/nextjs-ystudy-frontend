@@ -1,114 +1,247 @@
-import { getCMSPageContent } from "@/services/cms.service";
-import "@/app/degrees/qualifications/qualifications.css";
-import { Banner } from "@/components/ui/Banner";
-import { QualificationConversionCards } from "@/components/ui";
+import React from "react";
+import Link from "next/link";
+import "@/app/degrees/subject.css";
+import { Banner, QualificationConversionCards, QualificationFaqs, QualificationCrosslinks } from "@/components/ui";
 
 interface SubjectDetailProps {
   subject: string;
+  subjectData?: any;
+  courses?: any[];
+  dbFaqs?: any[];
 }
 
-export default async function SubjectDetail({ subject }: SubjectDetailProps) {
-  const data = await getCMSPageContent(subject);
+export default function SubjectDetail({ subject, subjectData, courses, dbFaqs }: SubjectDetailProps) {
+  const cms = subjectData?.cms || {};
+  const title = subjectData?.title || subject.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+  const heroImage = subjectData?.fullImageUrl || "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=2000&q=85";
 
-  if (!data) {
-    return (
-      <div style={{ padding: "4rem", textAlign: "center", color: "var(--muted)" }}>
-        <h2>Subject Guide Not Found</h2>
-        <p>We couldn't retrieve the subject guide details for "{subject}".</p>
-        <a href="/degrees/subjects" className="btn btn-blue" style={{ marginTop: "1rem" }}>All Subjects</a>
-      </div>
-    );
-  }
+  // Section 2 - Popular Courses
+  const sec2 = cms.section_2 || {};
+  const sec2Badge = sec2.badge || "Popular courses";
+  const sec2Title = sec2.title || `${title} courses adults often compare.`;
+  const sec2Desc = sec2.description || "Use these as starting points. An adviser can help you choose the most realistic route.";
 
-  // Formatting subject title for display
-  const title = (subject || "").replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+  const coursesList = (courses && courses.length > 0) ? courses : null;
+
+  // Section 3 - Why Study
+  const sec3 = cms.section_3 || {};
+  const sec3Badge = sec3.badge || "Why study this subject?";
+  const sec3Title = sec3.title || "Useful if you want a practical career direction.";
+  const sec3Desc = sec3.description || "This subject can work well for mature students because it connects study with real job roles, progression and professional confidence.";
+  const sec3Cards = Array.isArray(sec3.cards) && sec3.cards.length > 0 ? sec3.cards : [
+    { title: "Career change", description: "Use the degree to move into a new sector with a recognised academic route." },
+    { title: "Promotion route", description: "Formalise work experience and prepare for supervisor, manager or specialist roles." },
+    { title: "Flexible study", description: "Compare blended, online and campus routes around work and family commitments." }
+  ];
+
+  // Section 4 - Career Outcomes
+  const sec4 = cms.section_4 || {};
+  const sec4Badge = sec4.badge || "Career outcomes";
+  const sec4Title = sec4.title || "Roles this subject can lead towards.";
+  const sec4Cards = Array.isArray(sec4.cards) && sec4.cards.length > 0 ? sec4.cards : [
+    { title: "Care Coordinator", description: "Build relevant academic knowledge, transferable skills and practical confidence for this direction." },
+    { title: "Support Manager", description: "Build relevant academic knowledge, transferable skills and practical confidence for this direction." },
+    { title: "Public Health Officer", description: "Build relevant academic knowledge, transferable skills and practical confidence for this direction." },
+    { title: "Safeguarding Lead", description: "Build relevant academic knowledge, transferable skills and practical confidence for this direction." },
+    { title: "Service Manager", description: "Build relevant academic knowledge, transferable skills and practical confidence for this direction." }
+  ];
+
+  // Section 5 - Salary Progression
+  const sec5 = cms.section_5 || {};
+  const sec5Badge = sec5.badge || "Salary progression";
+  const sec5Title = sec5.title || "Typical earning stages to compare.";
+  const sec5Desc = sec5.description || "Figures vary by region, employer and experience, but students like to see the pathway clearly.";
+  const sec5Cards = Array.isArray(sec5.cards) && sec5.cards.length > 0 ? sec5.cards : [
+    { title: "Entry", price: "£23k", description: "First graduate or transition roles." },
+    { title: "Progressed", price: "£38k", description: "Experienced specialist or manager roles." },
+    { title: "Senior", price: "£55k+", description: "Leadership, consultancy or high-responsibility roles." }
+  ];
+
+  // Section 6 - Funding Snapshot
+  const sec6 = cms.section_6 || {};
+  const sec6Cards = Array.isArray(sec6.cards) && sec6.cards.length > 0 ? sec6.cards : [
+    {
+      className: "v705-card dark",
+      badge: "Funding snapshot",
+      title: "Check funding before you apply.",
+      description: "Most full-time undergraduate routes can be supported by Tuition Fee Loan and Maintenance Loan if you meet eligibility rules."
+    },
+    {
+      className: "v705-card",
+      title: "Tuition Fee Loan",
+      description: "Can cover eligible tuition fees so you do not usually pay upfront.",
+      link: "/funding/tuition-fee-loan",
+      linkName: "Learn more"
+    },
+    {
+      className: "v705-card",
+      title: "Maintenance Loan",
+      description: "Can help with living costs while studying. Amount depends on your circumstances.",
+      link: "/funding/maintenance-loan",
+      linkName: "Estimate support"
+    }
+  ];
+
+  // Section 7 - Related Subjects
+  const sec7 = cms.section_7 || {};
+  const sec7Badge = sec7.badge || "Related subjects";
+  const sec7Title = sec7.title || "Compare nearby routes.";
+
+  // Section 8 - FAQ
+  const sec8 = cms.section_8 || {};
+  const sec8Badge = sec8.badge || "FAQ";
+  const sec8Title = sec8.title || `Questions before choosing ${title}.`;
+
+  // Section 9 - Callout Band
+  const sec9 = cms.section_9 || {};
+  const sec9Title = sec9.title || `Want help choosing a ${title} course?`;
+  const sec9Desc = sec9.description || "Check your eligibility or apply with adviser support.";
 
   return (
-    <div className="qualification-page subject-detail-page">
-      {/* HERO SECTION DYNAMIZED WITH BANNER MODULE */}
+    <main>
+      {/* CENTRAL BANNER COMPONENT MAPPED WITH SLUG & BACKEND */}
       <Banner
         slug={subject}
-        fallbackTitle={`${title} Degrees for Mature Students`}
-        fallbackDescription={`Compare flexible ${title} degree routes, Student Finance eligibility, and career paths.`}
+        fallbackTitle={`${title} degrees with purpose.`}
+        fallbackDescription={subjectData?.description || "Build a route into care leadership, public health, safeguarding, community support or health service management."}
         fallbackBadgeText={`Subject area · ${title}`}
-        fallbackBgImage="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=2200&q=85"
+        fallbackBgImage={heroImage}
       >
-        <div style={{ textAlign: "left", width: "100%" }}>
-          <p className="bc" style={{ margin: "0 0 16px", color: "rgba(255,255,255,0.8)", fontSize: "13px" }}>
-            <a href="/" style={{ color: "#fff", textDecoration: "none" }}>Home</a> ›{" "}
-            <a href="/degrees" style={{ color: "#fff", textDecoration: "none" }}>Degrees</a> ›{" "}
-            <a href="/degrees/subjects" style={{ color: "#fff", textDecoration: "none" }}>Subjects</a> › {title}
-          </p>
-          
-          {data?.section_1?.sfe_highlight && (
-            <div className="sfe" style={{ display: "inline-flex", alignItems: "center", gap: "11px", borderRadius: "14px", padding: "13px 18px", fontSize: "14px", background: "rgba(255,255,255,0.14)", border: "1px solid rgba(255,255,255,0.34)", color: "#fff", backdropFilter: "blur(6px)", margin: "16px 0 0" }}>
-              <span>{data?.section_1.sfe_highlight}</span>
-            </div>
-          )}
-
-          <div className="btnrow" style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginTop: "24px" }}>
-            <a className="btn orange" href="#courses">View courses ↓</a>
-            <a className="btn ghost" href="/degrees">Compare all degrees</a>
-          </div>
+        <div className="sfe" style={{ marginTop: "18px" }}>
+          <span className="ck">✓</span>
+          <span>
+            Courses in this area may be eligible for <b>Tuition Fee Loan</b>, <b>Maintenance Loan</b> and grants depending on your circumstances.{" "}
+            <Link href="/funding" style={{ color: "#fff", textDecoration: "underline" }}>Estimate your funding →</Link>
+          </span>
+        </div>
+        <div className="btnrow" style={{ display: "flex", gap: "12px", marginTop: "22px", flexWrap: "wrap" }}>
+          <a className="sbtn white" href="#courses">View courses ↓</a>
+          <Link className="sbtn ghost" href="/tools/eligibility-checker">Check eligibility</Link>
         </div>
       </Banner>
 
-      {/* DYNAMIC COURSE LISTINGS */}
-      {data?.section_2?.status !== false && (
-        <section className="qf-sec" id="courses">
-          <div className="qf" style={{ textAlign: "left" }}>
-            <div className="qf-head">
-              <span className="kicker">{data?.section_2?.badge || "Available courses"}</span>
-              <h2>{data?.section_2?.title || `${title} courses you can study flexibly.`}</h2>
-              <p>{data?.section_2?.description || "Every route is built around work and family, with full Student Finance support."}</p>
+      {/* SECTION 2: POPULAR COURSES */}
+      {sec2.status !== false && (
+        <section className="sbj-sec" id="courses">
+          <div className="sbj">
+            <div className="sbj-head">
+              <span className="kicker">{sec2Badge}</span>
+              <h2>{sec2Title}</h2>
+              <p>{sec2Desc}</p>
             </div>
+            <div className="sbj-courses">
+              {coursesList ? (
+                coursesList.map((c: any, idx: number) => {
+                  const courseTitle = c.title || `${title} Degree`;
+                  const courseImg = c.fullImageUrl || c.image || heroImage;
+                  const tags = (c.tags && c.tags.length > 0) ? c.tags : ["Flexible", "SFE check", "Mature students"];
+                  const courseDesc = c.description || c.shortDescription || "A practical course route for adults who want career progression, a recognised qualification and structured support.";
+                  const courseLink = c.courseType === "Social" ? `/degrees/course/${c.slug}` : `/degrees/${c.slug}`;
 
-            <div className="qf-courses">
-              {data?.section_2?.courses?.map((c: any, idx: number) => (
-                <article key={idx} className="qcard">
-                  <div className="ph" style={{ aspectRatio: "16/10" }}>
-                    <img src={c.image} alt={c.title} />
-                    <div className="tags">
-                      {c.tags?.map((t: string, tIdx: number) => (
-                        <span key={tIdx}>{t}</span>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="cb" style={{ display: "flex", flexDirection: "column", flex: 1, padding: "1.25rem" }}>
-                    <h3 style={{ margin: "0 0 8px", fontSize: "19px", fontWeight: 900 }}>{c.title}</h3>
-                    <p style={{ fontSize: "14px", color: "var(--muted)", flex: 1 }}>{c.description}</p>
-                    {c.outcome && (
-                      <div className="out" style={{ background: "#fff7ee", border: "1px solid #ffe0b8", borderRadius: "11px", padding: "9px 12px", fontSize: "13px", color: "#9a4b00", marginBottom: "14px" }}>
-                        {c.outcome}
+                  return (
+                    <article key={c._id || idx} className="ccard">
+                      <div className="cph">
+                        <img src={courseImg} alt={courseTitle} />
+                        <div className="tags">
+                          {tags.map((tag: string, tIdx: number) => (
+                            <span key={tIdx}>{tag}</span>
+                          ))}
+                        </div>
                       </div>
-                    )}
-                    <div className="row" style={{ display: "flex", gap: "9px" }}>
-                      <a className="v" href={c.link || "/degrees"}>View Course</a>
-                      <a className="a" href="/apply">Apply</a>
+                      <div className="cb">
+                        <h3>{courseTitle}</h3>
+                        <p>{courseDesc}</p>
+                        <div className="out">✅ Funding and entry requirements depend on provider</div>
+                        <div className="cbtn">
+                          <Link className="v" href={courseLink}>View</Link>
+                          <Link className="a" href={`/apply?course=${c.slug || ''}`}>Apply</Link>
+                        </div>
+                      </div>
+                    </article>
+                  );
+                })
+              ) : (
+                <>
+                  <article className="ccard">
+                    <div className="cph">
+                      <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=2000&q=85" alt="Health & Social Care" />
+                      <div className="tags">
+                        <span>Flexible</span>
+                        <span>SFE check</span>
+                        <span>Mature students</span>
+                      </div>
                     </div>
-                  </div>
-                </article>
-              ))}
+                    <div className="cb">
+                      <h3>BA Health &amp; Social Care</h3>
+                      <p>A practical course route for adults who want career progression, a recognised qualification and structured support.</p>
+                      <div className="out">✅ Funding and entry requirements depend on provider</div>
+                      <div className="cbtn">
+                        <Link className="v" href="/degrees">View</Link>
+                        <Link className="a" href="/apply">Apply</Link>
+                      </div>
+                    </div>
+                  </article>
+
+                  <article className="ccard">
+                    <div className="cph">
+                      <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=2000&q=85" alt="Public Health" />
+                      <div className="tags">
+                        <span>Flexible</span>
+                        <span>SFE check</span>
+                        <span>Mature students</span>
+                      </div>
+                    </div>
+                    <div className="cb">
+                      <h3>Public Health</h3>
+                      <p>A practical course route for adults who want career progression, a recognised qualification and structured support.</p>
+                      <div className="out">✅ Funding and entry requirements depend on provider</div>
+                      <div className="cbtn">
+                        <Link className="v" href="/degrees">View</Link>
+                        <Link className="a" href="/apply">Apply</Link>
+                      </div>
+                    </div>
+                  </article>
+
+                  <article className="ccard">
+                    <div className="cph">
+                      <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=2000&q=85" alt="Health Management Foundation Year" />
+                      <div className="tags">
+                        <span>Flexible</span>
+                        <span>SFE check</span>
+                        <span>Mature students</span>
+                      </div>
+                    </div>
+                    <div className="cb">
+                      <h3>Health Management Foundation Year</h3>
+                      <p>A practical course route for adults who want career progression, a recognised qualification and structured support.</p>
+                      <div className="out">✅ Funding and entry requirements depend on provider</div>
+                      <div className="cbtn">
+                        <Link className="v" href="/degrees">View</Link>
+                        <Link className="a" href="/apply">Apply</Link>
+                      </div>
+                    </div>
+                  </article>
+                </>
+              )}
             </div>
           </div>
         </section>
       )}
 
-      {/* WHO APPLIES / MOTIVATION BLOCK */}
-      {data?.section_3?.status !== false && data?.section_3?.cards && (
-        <section className="qf-sec" style={{ background: "var(--soft)" }}>
-          <div className="qf" style={{ textAlign: "left" }}>
-            <div className="qf-head">
-              <span className="kicker">{data?.section_3.badge || "Who applies"}</span>
-              <h2>{data?.section_3.title || `${title} degrees suit you if...`}</h2>
-              <p>{data?.section_3.description}</p>
+      {/* SECTION 3: WHY STUDY THIS SUBJECT */}
+      {sec3.status !== false && (
+        <section className="v705-sec v705-soft">
+          <div className="v705-wrap">
+            <div className="v705-head">
+              <span className="kicker">{sec3Badge}</span>
+              <h2>{sec3Title}</h2>
+              <p>{sec3Desc}</p>
             </div>
-
-            <div className="elig-routes">
-              {data?.section_3.cards.map((c: any, idx: number) => (
-                <div className="eligc" key={idx}>
-                  <h3>{c.title}</h3>
-                  <p style={{ color: "var(--muted)", fontSize: "14px", lineHeight: 1.5, margin: "8px 0 0" }}>{c.description}</p>
+            <div className="v705-grid">
+              {sec3Cards.map((card: any, idx: number) => (
+                <div key={idx} className="v705-card">
+                  <h3>{card.title}</h3>
+                  <p>{card.description}</p>
                 </div>
               ))}
             </div>
@@ -116,20 +249,19 @@ export default async function SubjectDetail({ subject }: SubjectDetailProps) {
         </section>
       )}
 
-      {/* CAREER OUTCOMES STATS */}
-      {data?.section_4?.status !== false && data?.section_4?.stats && (
-        <section className="qf-sec" style={{ background: "var(--b-navy)", color: "#fff", border: "none" }}>
-          <div className="qf" style={{ textAlign: "left" }}>
-            <div className="qf-head" style={{ marginBottom: "2rem" }}>
-              <span className="kicker" style={{ color: "#9cc0ff" }}>{data?.section_4.badge || "Career outcomes"}</span>
-              <h2 style={{ color: "#fff", fontSize: "clamp(26px, 3vw, 42px)", fontWeight: 900 }}>{data?.section_4.title || `Where a ${title} degree takes you.`}</h2>
+      {/* SECTION 4: CAREER OUTCOMES */}
+      {sec4.status !== false && (
+        <section className="v705-sec">
+          <div className="v705-wrap">
+            <div className="v705-head">
+              <span className="kicker">{sec4Badge}</span>
+              <h2>{sec4Title}</h2>
             </div>
-
-            <div className="qf-fund-grid">
-              {data?.section_4.stats.map((s: any, idx: number) => (
-                <div className="fundc" key={idx} style={{ textAlign: "center" }}>
-                  <b style={{ fontSize: "clamp(24px, 2.5vw, 36px)" }}>{s.value}</b>
-                  <span style={{ color: "#aebed6" }}>{s.label}</span>
+            <div className="v705-grid">
+              {sec4Cards.map((card: any, idx: number) => (
+                <div key={idx} className="v705-card">
+                  <h3>{card.title}</h3>
+                  <p>{card.description}</p>
                 </div>
               ))}
             </div>
@@ -137,23 +269,21 @@ export default async function SubjectDetail({ subject }: SubjectDetailProps) {
         </section>
       )}
 
-      {/* PROGRESSION LADDER */}
-      {data?.section_5?.status !== false && data?.section_5?.steps && (
-        <section className="qf-sec" style={{ background: "var(--soft)" }}>
-          <div className="qf" style={{ textAlign: "left" }}>
-            <div className="qf-head">
-              <span className="kicker">{data?.section_5.badge || "Progression ladder"}</span>
-              <h2>{data?.section_5.title || `How a ${title} career builds over time.`}</h2>
-              <p>{data?.section_5.description}</p>
+      {/* SECTION 5: SALARY PROGRESSION */}
+      {sec5.status !== false && (
+        <section className="v705-sec v705-soft">
+          <div className="v705-wrap">
+            <div className="v705-head">
+              <span className="kicker">{sec5Badge}</span>
+              <h2>{sec5Title}</h2>
+              <p>{sec5Desc}</p>
             </div>
-
-            <div className="qf-grid4" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))" }}>
-              {data?.section_5.steps.map((step: any, idx: number) => (
-                <div className="fcard" key={idx}>
-                  <div className="n">{idx + 1}</div>
-                  <h3>{step.title}</h3>
-                  <div style={{ color: "#0f6e56", fontWeight: 800, margin: "4px 0 8px" }}>{step.salary}</div>
-                  <p>{step.description}</p>
+            <div className="v705-salary">
+              {sec5Cards.map((card: any, idx: number) => (
+                <div key={idx} className="v705-card">
+                  <span>{card.title}</span>
+                  <strong>{card.price}</strong>
+                  <p>{card.description}</p>
                 </div>
               ))}
             </div>
@@ -161,25 +291,20 @@ export default async function SubjectDetail({ subject }: SubjectDetailProps) {
         </section>
       )}
 
-      {/* ENTRY ROUTES WITHOUT A-LEVELS */}
-      {data?.section_6?.status !== false && data?.section_6?.cards && (
-        <section className="qf-sec">
-          <div className="qf" style={{ textAlign: "left" }}>
-            <div className="qf-head">
-              <span className="kicker">{data?.section_6.badge || "Entry routes"}</span>
-              <h2>{data?.section_6.title || "How to qualify without A-levels."}</h2>
-              <p>{data?.section_6.description}</p>
-            </div>
-
-            <div className="qf-grid3">
-              {data?.section_6.cards.map((c: any, idx: number) => (
-                <div className="entryc" key={idx} style={{ background: "#fff", border: "1px solid var(--line)", borderRadius: "16px", padding: "24px", boxShadow: "0 12px 30px rgba(15,23,42,0.06)" }}>
-                  <h3 style={{ fontSize: "18px", fontWeight: 900, color: "var(--ink)", margin: "0 0 8px" }}>{c.title}</h3>
-                  <p style={{ color: "var(--muted)", fontSize: "14px", lineHeight: 1.5 }}>{c.description}</p>
-                  {c.link && (
-                    <a href={c.link} style={{ display: "inline-block", marginTop: "12px", color: "var(--b)", fontWeight: 800 }}>
-                      Learn more →
-                    </a>
+      {/* SECTION 6: FUNDING SNAPSHOT */}
+      {sec6.status !== false && (
+        <section className="v705-sec">
+          <div className="v705-wrap">
+            <div className="v705-grid">
+              {sec6Cards.map((card: any, idx: number) => (
+                <div key={idx} className={card.className || "v705-card"}>
+                  {card.badge && <span className="kicker" style={{ color: card.className?.includes("dark") ? "#9cc0ff" : "var(--o-deep)" }}>{card.badge}</span>}
+                  <h3 style={{ color: card.className?.includes("dark") ? "#fff" : "var(--ink)" }}>{card.title}</h3>
+                  <p>{card.description}</p>
+                  {card.link && (
+                    <Link className={card.linkName?.includes("Estimate") ? "btn btn-orange" : "btn btn-blue"} href={card.link}>
+                      {card.linkName || "Learn more"}
+                    </Link>
                   )}
                 </div>
               ))}
@@ -188,49 +313,64 @@ export default async function SubjectDetail({ subject }: SubjectDetailProps) {
         </section>
       )}
 
-      {/* EDITOR'S PICK SNAPSHOT */}
-      {data?.section_7?.status !== false && data?.section_7?.editor_pick && (
-        <section className="qf-sec" style={{ background: "var(--soft)" }}>
-          <div className="qf" style={{ textAlign: "left" }}>
-            <div className="qf-head">
-              <span className="kicker">{data?.section_7.badge || "Featured this week"}</span>
-              <h2>{data?.section_7.title || "Editor’s pick in this subject."}</h2>
-              <p>{data?.section_7.description}</p>
+      {/* SECTION 7: RELATED SUBJECTS */}
+      {sec7.status !== false && (
+        <section className="v705-sec v705-soft">
+          <div className="v705-wrap">
+            <div className="v705-head">
+              <span className="kicker">{sec7Badge}</span>
+              <h2>{sec7Title}</h2>
             </div>
+            <div className="v705-chiprow">
+              {(sec7.subjects || [
+                { title: "Business", slug: "business" },
+                { title: "Computing", slug: "computing" },
+                { title: "Health", slug: "health" },
+                { title: "Construction", slug: "construction" },
+                { title: "Psychology", slug: "psychology" },
+                { title: "Law", slug: "law" }
+              ]).map((sub: any, idx: number) => (
+                <Link key={idx} className="v705-chip" href={`/degrees/${sub.slug}`}>{sub.title}</Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
-            <div className="sbj-editor" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", background: "#fff", borderRadius: "18px", border: "1px solid var(--line)", overflow: "hidden" }}>
-              <div className="eph" style={{ minHeight: "260px" }}>
-                <img src={data?.section_7.editor_pick.image || "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1000&q=85"} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+      {/* SECTION 8: FAQ COMPONENT INTEGRATION */}
+      {sec8.status !== false && (
+        <QualificationFaqs
+          slug={subject}
+          sectionData={sec8}
+          faqsToDisplay={dbFaqs}
+          fallbackBadge={sec8Badge}
+          fallbackTitle={sec8Title}
+        />
+      )}
+
+      {/* SECTION 9: CALLOUT BAND */}
+      {sec9.status !== false && (
+        <section className="v705-sec">
+          <div className="v705-wrap">
+            <div className="v705-band">
+              <div>
+                <h2>{sec9Title}</h2>
+                <p>{sec9Desc}</p>
               </div>
-              <div className="eb" style={{ padding: "2rem" }}>
-                <span className="ek" style={{ background: "#fff4e0", color: "#9a4b00", border: "1px solid #ffd9a8", fontSize: "12px", padding: "6px 12px", borderRadius: "999px", display: "inline-block", fontWeight: 800, marginBottom: "1rem" }}>
-                  ★ Editor's pick
-                </span>
-                <h3 style={{ fontSize: "24px", fontWeight: 900 }}>{data?.section_7.editor_pick.title}</h3>
-                <p style={{ color: "var(--muted)", margin: "8px 0 1rem" }}>{data?.section_7.editor_pick.description}</p>
-                
-                {data?.section_7.editor_pick.pills && (
-                  <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", marginBottom: "1.5rem" }}>
-                    {data?.section_7.editor_pick.pills.map((p: string, pIdx: number) => (
-                      <span key={pIdx} style={{ fontSize: "12px", background: "rgba(10, 82, 214, 0.05)", color: "var(--b)", padding: "4px 10px", borderRadius: "999px", fontWeight: 700 }}>
-                        {p}
-                      </span>
-                    ))}
-                  </div>
-                )}
-
-                <div className="btnrow" style={{ display: "flex", gap: "10px" }}>
-                  <a className="btn btn-blue" href={data?.section_7.editor_pick.link || "/apply"}>View Course →</a>
-                  <a className="btn btn-orange" href="/apply">Apply Now</a>
-                </div>
+              <div className="btnrow">
+                <Link className="btn btn-blue" href="/tools/eligibility-checker">Check eligibility</Link>
+                <Link className="btn btn-orange" href="/apply">Apply with YStudy</Link>
               </div>
             </div>
           </div>
         </section>
       )}
 
-      {/* CONVERSION PANEL */}
+      {/* CONVERSION SYSTEM STRIP */}
       <QualificationConversionCards />
-    </div>
+
+      {/* YS CROSSLINKS SECTION AT LAST */}
+      <QualificationCrosslinks sectionData={subjectData?.cms?.section_11} />
+    </main>
   );
 }
