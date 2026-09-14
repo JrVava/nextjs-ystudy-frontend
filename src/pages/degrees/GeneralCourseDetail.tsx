@@ -11,6 +11,7 @@ interface GeneralCourseDetailProps {
 }
 
 export default function GeneralCourseDetail({ slug, backendCourse, cmsData, dbFaqs }: GeneralCourseDetailProps) {
+  if (!slug) return null;
   const title = backendCourse?.title || slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
   const subjectName = backendCourse?.subject?.name || "Business";
   const heroImage = backendCourse?.fullImageUrl || "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=2000&q=85";

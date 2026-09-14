@@ -11,6 +11,7 @@ interface SubjectDetailProps {
 }
 
 export default function SubjectDetail({ subject, subjectData, courses, dbFaqs }: SubjectDetailProps) {
+  if (!subject) return null;
   const cms = subjectData?.cms || {};
   const title = subjectData?.title || subject.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
   const heroImage = subjectData?.fullImageUrl || "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=2000&q=85";
