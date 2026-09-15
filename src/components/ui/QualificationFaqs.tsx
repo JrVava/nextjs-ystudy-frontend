@@ -4,8 +4,10 @@ import React from "react";
 export interface FaqItem {
   question?: string;
   q?: string;
+  title?: string;
   answer?: string;
   a?: string;
+  description?: string;
 }
 
 export interface QualificationFaqsProps {
@@ -20,21 +22,6 @@ export interface QualificationFaqsProps {
   fallbackBadge?: string;
   fallbackTitle?: string;
 }
-
-const DEFAULT_FAQS: FaqItem[] = [
-  {
-    question: "Is this suitable for mature students?",
-    answer: "Yes. Many providers assess adults through qualifications, work experience, motivation and English level."
-  },
-  {
-    question: "Can YStudy help me choose between this and a degree?",
-    answer: "Yes. We compare the route against Foundation Year, HND, Top-Up and full Bachelor's options."
-  },
-  {
-    question: "Should I apply before checking funding?",
-    answer: "No. Check eligibility first, especially if you studied before or need maintenance support."
-  }
-];
 
 export async function QualificationFaqs({
   slug,
@@ -56,25 +43,25 @@ export async function QualificationFaqs({
   const title = sectionData?.title || fallbackTitle;
   const faqs = (backendFaqs && backendFaqs.length > 0)
     ? backendFaqs
-    : (sectionData?.faqs && sectionData.faqs.length > 0 ? sectionData.faqs : DEFAULT_FAQS);
+    : (sectionData?.faqs && sectionData.faqs.length > 0 ? sectionData.faqs : []);
+
+  if (!faqs || faqs.length === 0) {
+    return null;
+  }
 
   return (
-    <section className="qf-sec" style={{ background: "var(--soft)", textAlign: "left" }}>
-      <div className="qf">
-        <div className="qf-head">
+    <section className="v705-sec">
+      <div className="v705-wrap v705-faq">
+        <div className="v705-head">
           {badge && <span className="kicker">{badge}</span>}
           {title && <h2>{title}</h2>}
         </div>
-        {faqs && faqs.length > 0 && (
-          <div className="qf-faq">
-            {faqs.map((faq, idx) => (
-              <details key={idx} className="faqi" open={idx === 0}>
-                <summary>{faq.question || faq.q}</summary>
-                <p>{faq.answer || faq.a}</p>
-              </details>
-            ))}
-          </div>
-        )}
+        {faqs.map((faq, idx) => (
+          <details key={idx} open={idx === 0}>
+            <summary>{faq.question || faq.q || faq.title}</summary>
+            <p>{faq.answer || faq.a || faq.description}</p>
+          </details>
+        ))}
       </div>
     </section>
   );

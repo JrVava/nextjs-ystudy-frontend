@@ -44,39 +44,41 @@ export default async function Degrees() {
 
   const coursesToRender: BackendCourse[] = apiCourses && apiCourses.length > 0 ? apiCourses : ([]);
 
-  // Map backend subjects or fallback to CMS / static data
+  // Map backend subjects or CMS data
   const subjectsData = (subjects && subjects.length > 0)
     ? subjects.map((s: any) => ({
         title: s.title,
-        description: s.description || `Start with what you want to study in ${s.title}, then compare routes & funding.`,
+        description: s.description,
         badge: s.badge || s.title,
         link: `/degrees/${s.slug || s.title.toLowerCase()}`,
-        image: s.fullImageUrl || s.image || "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80",
-        meta: s.tags && s.tags.length > 0 ? s.tags : (s.salary ? [`Avg ${s.salary}`, "SFE Eligible", "Flexible"] : ["Flexible", "SFE Eligible"])
+        image: s.fullImageUrl || s.image,
+        meta: s.tags
       }))
-    : (data?.section_4?.subjects || [
-        { title: "Business & Management", description: "Leadership, operations, marketing and project management routes.", badge: "Business", link: "/degrees/business", image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80", meta: ["20+ courses", "London", "Flexible"] },
-        { title: "Health & Social Care", description: "Care, wellbeing, public health and community-focused routes.", badge: "Health", link: "/degrees/health", image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=900&q=80", meta: ["Foundation", "Weekend", "SFE"] },
-        { title: "Construction", description: "Construction management, planning and built environment routes.", badge: "Construction", link: "/degrees/construction", image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=900&q=80", meta: ["Foundation", "Career change"] },
-        { title: "Computing & Data", description: "Data, cybersecurity, software and digital career pathways.", badge: "Tech", link: "/degrees/computing", image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80", meta: ["Data", "AI", "Digital"] }
-      ]);
+    : (data?.section_4?.subjects || []);
 
-  // Map backend locations or fallback to CMS / static data
+  // Map backend qualifications or CMS data
+  const qualificationsData = (qualifications && qualifications.length > 0)
+    ? qualifications.map((q: any) => ({
+        title: q.title,
+        description: q.description,
+        badge: q.badge || q.title,
+        link: `/degrees/qualifications/${q.slug || q.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`,
+        image: q.fullImageUrl || q.image,
+        meta: q.tags
+      }))
+    : (data?.section_5?.qualifications || []);
+
+  // Map backend locations or CMS data
   const locationsData = (locations && locations.length > 0)
     ? locations.map((l: any) => ({
         title: l.title?.toLowerCase().startsWith("study in") ? l.title : `Study in ${l.title}`,
-        description: l.description || l.short_description || `Browse where you can study in ${l.title} with flexible timetables and strong transport links.`,
+        description: l.description || l.short_description,
         badge: l.badge || l.title,
         link: `/degrees/locations#${l.slug || l.title.toLowerCase().replace(/\s+/g, '-')}`,
-        image: l.fullImageUrl || l.image || "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=900&q=80",
-        meta: l.tags && l.tags.length > 0 ? l.tags : ["Flexible", "Evening/weekend", "SFE Eligible"]
+        image: l.fullImageUrl || l.image,
+        meta: l.tags
       }))
-    : (data?.section_6?.locations || [
-        { title: "Study in London", description: "Largest course choice with flexible study and strong transport links.", badge: "London", link: "/degrees/locations#london", image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=900&q=80", meta: ["20+ courses", "Evening/weekend"] },
-        { title: "Study in Birmingham", description: "Central England option popular with working adult learners.", badge: "Birmingham", link: "/degrees/locations#birmingham", image: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=900&q=80", meta: ["Business", "Health", "Construction"] },
-        { title: "Study in Manchester", description: "Northern study hub with flexible and career-focused routes.", badge: "Manchester", link: "/degrees/locations#manchester", image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80", meta: ["Blended", "Data", "Business"] },
-        { title: "Study in Leeds", description: "Growing Northern hub for business, finance and digital routes.", badge: "Leeds", link: "/degrees/locations#leeds", image: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=900&q=80", meta: ["Finance", "Digital", "Lower costs"] }
-      ]);
+    : (data?.section_6?.locations || []);
 
   return (
     <div className="degrees-page-content">
@@ -110,8 +112,8 @@ export default async function Degrees() {
           {/* SUBJECTS BLOCK */}
           {data?.section_4?.status !== false && (
             <AutoScrollSlider
-              title={data?.section_4?.title || "Courses available by subject"}
-              description={data?.section_4?.description || "Start with what you want to study, then compare flexible routes, funding and locations."}
+              title={data?.section_4?.title}
+              description={data?.section_4?.description}
               id="courses-by-subject"
             >
               {subjectsData.map((s: any, idx: number) => (
@@ -138,29 +140,26 @@ export default async function Degrees() {
           {/* QUALIFICATIONS BLOCK */}
           {data?.section_5?.status !== false && (
             <AutoScrollSlider
-              title={data?.section_5?.title || "Courses available by qualification"}
-              description={data?.section_5?.description || "Choose the right entry route: first year, foundation year, advanced entry or postgraduate."}
+              title={data?.section_5?.title}
+              description={data?.section_5?.description}
               id="courses-by-qualification"
             >
-              {(data?.section_5?.qualifications || [
-                { title: "Foundation Year", description: "Best if you do not meet standard entry requirements.", badge: "Foundation", link: "/degrees/qualifications/foundation-year", image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=80", meta: ["4 years", "SFE route", "Mature students"] },
-                { title: "Certificate of HE", description: "A one-year Level 4 route that can lead to degree progression.", badge: "CertHE", link: "/degrees/qualifications/certhe", image: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=900&q=80", meta: ["1 year", "Level 4"] },
-                { title: "HNC", description: "Practical higher education route with progression options.", badge: "HNC", link: "/degrees/qualifications/hnc", image: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=900&q=80", meta: ["Level 4", "Practical"] },
-                { title: "HND", description: "Two-year higher education pathway with top-up options.", badge: "HND", link: "/degrees/qualifications/hnd", image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=900&q=80", meta: ["Level 5", "Top-up"] }
-              ]).map((q: any, idx: number) => (
+              {qualificationsData.map((q: any, idx: number) => (
                 <a key={idx} className="sdx-card" href={q.link}>
                   <div className="sdx-photo">
-                    <img src={q.image} alt={q.title} />
-                    <span className="sdx-badge">{q.badge}</span>
+                    {q.image && <img src={q.image} alt={q.title} />}
+                    {q.badge && <span className="sdx-badge">{q.badge}</span>}
                   </div>
                   <div className="sdx-body">
                     <h3>{q.title}</h3>
-                    <p>{q.description}</p>
-                    <div className="sdx-meta">
-                      {q.meta?.map((m: string, mIdx: number) => (
-                        <span key={mIdx}>{m}</span>
-                      ))}
-                    </div>
+                    {q.description && <p>{q.description}</p>}
+                    {q.meta && q.meta.length > 0 && (
+                      <div className="sdx-meta">
+                        {q.meta.map((m: string, mIdx: number) => (
+                          <span key={mIdx}>{m}</span>
+                        ))}
+                      </div>
+                    )}
                     <span className="sdx-link">Explore route →</span>
                   </div>
                 </a>
@@ -171,8 +170,8 @@ export default async function Degrees() {
           {/* LOCATIONS BLOCK */}
           {data?.section_6?.status !== false && (
             <AutoScrollSlider
-              title={data?.section_6?.title || "Courses available by location"}
-              description={data?.section_6?.description || "Browse where you can realistically travel, then compare subjects and timetable options."}
+              title={data?.section_6?.title}
+              description={data?.section_6?.description}
               id="courses-by-location"
             >
               {locationsData.map((l: any, idx: number) => (
@@ -204,9 +203,9 @@ export default async function Degrees() {
           <div className="wrap">
             <div className="jrn-intro">
               <div>
-                <span className="eyebrow o">{data?.section_7?.badge || "Not sure how to choose?"}</span>
-                <h2 className="jt">{data?.section_7?.title || "Feeling unsure is normal. We'll guide you."}</h2>
-                <p>{data?.section_7?.description || "Most adult learners don't know exactly what to study at first. That's fine — here's a simple, free path from 'I'm not sure' to 'I've applied'."}</p>
+                <span className="eyebrow o">{data?.section_7?.badge}</span>
+                <h2 className="jt">{data?.section_7?.title}</h2>
+                <p>{data?.section_7?.description}</p>
               </div>
               <div className="jph">
                 <img
@@ -223,21 +222,17 @@ export default async function Degrees() {
                 <div className="jstep">
                   <div className="jl">
                     <span className="jnum">Step 1</span>
-                    <h3>{data?.section_8?.steps?.[0]?.title || "Choose your subject"}</h3>
-                    <p>{data?.section_8?.steps?.[0]?.description || "Start with what interests you. Browse the strongest routes for adult learners."}</p>
+                    <h3>{data?.section_8?.steps?.[0]?.title}</h3>
+                    <p>{data?.section_8?.steps?.[0]?.description}</p>
                   </div>
                   <AutoScrollTrack className="jcards">
-                    {(subjects && subjects.length > 0 ? subjects : [
-                      { title: "Business", slug: "business", description: "Management, operations, analyst routes." },
-                      { title: "Computing", slug: "computing", description: "Cybersecurity, software, networking." },
-                      { title: "Health & Social Care", slug: "health", description: "Care, social work, NHS routes." }
-                    ]).map((s: any, idx: number) => (
+                    {(subjects && subjects.length > 0 ? subjects : []).map((s: any, idx: number) => (
                       <JourneyCard
                         key={s._id || idx}
                         href={`/degrees/${s.slug || s.title?.toLowerCase()}`}
-                        image={s.fullImageUrl || s.image || "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80"}
+                        image={s.fullImageUrl || s.image}
                         title={s.title}
-                        description={s.description || "Explore flexible routes."}
+                        description={s.description}
                       />
                     ))}
                     <JourneyCard
@@ -262,8 +257,8 @@ export default async function Degrees() {
                 <div className="jstep">
                   <div className="jl">
                     <span className="jnum">Step 2</span>
-                    <h3>{data?.section_8?.steps?.[1]?.title || "Use our free tools"}</h3>
-                    <p>{data?.section_8?.steps?.[1]?.description || "Make sure you're eligible for funding and see where each route could take your salary."}</p>
+                    <h3>{data?.section_8?.steps?.[1]?.title}</h3>
+                    <p>{data?.section_8?.steps?.[1]?.description}</p>
                   </div>
                   <AutoScrollTrack className="jcards">
                     <JourneyCard
@@ -297,8 +292,8 @@ export default async function Degrees() {
                 <div className="jstep">
                   <div className="jl">
                     <span className="jnum">Step 3</span>
-                    <h3>{data?.section_8?.steps?.[2]?.title || "Read our guides"}</h3>
-                    <p>{data?.section_8?.steps?.[2]?.description || "Still have questions? Our plain-English guides often hold the answer — funding, applying and career routes explained."}</p>
+                    <h3>{data?.section_8?.steps?.[2]?.title}</h3>
+                    <p>{data?.section_8?.steps?.[2]?.description}</p>
                   </div>
                   <AutoScrollTrack className="jcards">
                     <JourneyCard
@@ -362,8 +357,8 @@ export default async function Degrees() {
                 <div className="jstep">
                   <div className="jl">
                     <span className="jnum">Step 4</span>
-                    <h3>{data?.section_8?.steps?.[3]?.title || "Free application kit"}</h3>
-                    <p>{data?.section_8?.steps?.[3]?.description || "Our students get free tools and adviser support to build a confident application."}</p>
+                    <h3>{data?.section_8?.steps?.[3]?.title}</h3>
+                    <p>{data?.section_8?.steps?.[3]?.description}</p>
                   </div>
                   <AutoScrollTrack className="jcards">
                     <JourneyCard
@@ -432,9 +427,9 @@ export default async function Degrees() {
           />
           <div className="hbsc"></div>
           <div className="hbin">
-            <span className="hbk">{data?.section_9?.badge || "Need guidance?"}</span>
-            <h2>{data?.section_9?.title || "Ask an adviser before you apply."}</h2>
-            <p>{data?.section_9?.description || "Get your entry route, funding eligibility and document readiness checked for free."}</p>
+            <span className="hbk">{data?.section_9?.badge}</span>
+            <h2>{data?.section_9?.title}</h2>
+            <p>{data?.section_9?.description}</p>
             <div className="hbrow">
               <a className="hbbtn dark" href="/lead/adviser-call">Book a free adviser →</a>
               <a className="hbbtn white" href="/apply">Apply with YStudy</a>
@@ -447,9 +442,9 @@ export default async function Degrees() {
       {data?.section_10?.status !== false && (
         <div className="footer-cta" style={{ marginTop: "34px" }}>
           <div>
-            <span className="kicker">{data?.section_10?.badge || "Not ready to apply yet?"}</span>
-            <h2>{data?.section_10?.title || "Save your shortlist for later."}</h2>
-            <p>{data?.section_10?.description || "Create a free account to save the courses you liked, track applications and pick up where you left off — no pressure to apply."}</p>
+            <span className="kicker">{data?.section_10?.badge}</span>
+            <h2>{data?.section_10?.title}</h2>
+            <p>{data?.section_10?.description}</p>
           </div>
           <div className="btnrow">
             <a className="btn btn-white" href="/dashboard">Create account</a>

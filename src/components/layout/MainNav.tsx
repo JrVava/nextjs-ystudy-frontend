@@ -19,7 +19,12 @@ export function MainNav({ pathname = "/", className }: MainNavProps) {
             className={cn("main-nav-item simple-nav-item", active && "is-active")}
           >
             <Link className="main-nav-link" href={section.href}>
-              {section.label} <span className="nav-caret">⌄</span>
+              {section.label}{" "}
+              <span className="nav-caret">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "middle", marginLeft: "2px" }}>
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </span>
             </Link>
             <div className="ds-mega simple-hover-card">
               <div className="simple-menu-grid">

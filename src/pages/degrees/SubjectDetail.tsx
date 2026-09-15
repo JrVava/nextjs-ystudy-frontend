@@ -14,98 +14,66 @@ export default function SubjectDetail({ subject, subjectData, courses, dbFaqs }:
   if (!subject) return null;
   const cms = subjectData?.cms || {};
   const title = subjectData?.title || subject.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-  const heroImage = subjectData?.fullImageUrl || "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=2000&q=85";
+  const heroImage = subjectData?.fullImageUrl;
+console.log("subjectData",subjectData);
 
   // Section 2 - Popular Courses
   const sec2 = cms.section_2 || {};
-  const sec2Badge = sec2.badge || "Popular courses";
-  const sec2Title = sec2.title || `${title} courses adults often compare.`;
-  const sec2Desc = sec2.description || "Use these as starting points. An adviser can help you choose the most realistic route.";
+  const sec2Badge = sec2.badge;
+  const sec2Title = sec2.title;
+  const sec2Desc = sec2.description;
 
-  const coursesList = (courses && courses.length > 0) ? courses : null;
+  const coursesList = (courses && courses.length > 0) ? courses : (sec2.courses || null);
 
   // Section 3 - Why Study
   const sec3 = cms.section_3 || {};
-  const sec3Badge = sec3.badge || "Why study this subject?";
-  const sec3Title = sec3.title || "Useful if you want a practical career direction.";
-  const sec3Desc = sec3.description || "This subject can work well for mature students because it connects study with real job roles, progression and professional confidence.";
-  const sec3Cards = Array.isArray(sec3.cards) && sec3.cards.length > 0 ? sec3.cards : [
-    { title: "Career change", description: "Use the degree to move into a new sector with a recognised academic route." },
-    { title: "Promotion route", description: "Formalise work experience and prepare for supervisor, manager or specialist roles." },
-    { title: "Flexible study", description: "Compare blended, online and campus routes around work and family commitments." }
-  ];
+  const sec3Badge = sec3.badge;
+  const sec3Title = sec3.title;
+  const sec3Desc = sec3.description;
+  const sec3Cards = Array.isArray(sec3.cards) ? sec3.cards : [];
 
   // Section 4 - Career Outcomes
   const sec4 = cms.section_4 || {};
-  const sec4Badge = sec4.badge || "Career outcomes";
-  const sec4Title = sec4.title || "Roles this subject can lead towards.";
-  const sec4Cards = Array.isArray(sec4.cards) && sec4.cards.length > 0 ? sec4.cards : [
-    { title: "Care Coordinator", description: "Build relevant academic knowledge, transferable skills and practical confidence for this direction." },
-    { title: "Support Manager", description: "Build relevant academic knowledge, transferable skills and practical confidence for this direction." },
-    { title: "Public Health Officer", description: "Build relevant academic knowledge, transferable skills and practical confidence for this direction." },
-    { title: "Safeguarding Lead", description: "Build relevant academic knowledge, transferable skills and practical confidence for this direction." },
-    { title: "Service Manager", description: "Build relevant academic knowledge, transferable skills and practical confidence for this direction." }
-  ];
+  const sec4Badge = sec4.badge;
+  const sec4Title = sec4.title;
+  const sec4Cards = Array.isArray(sec4.cards) ? sec4.cards : [];
 
   // Section 5 - Salary Progression
   const sec5 = cms.section_5 || {};
-  const sec5Badge = sec5.badge || "Salary progression";
-  const sec5Title = sec5.title || "Typical earning stages to compare.";
-  const sec5Desc = sec5.description || "Figures vary by region, employer and experience, but students like to see the pathway clearly.";
-  const sec5Cards = Array.isArray(sec5.cards) && sec5.cards.length > 0 ? sec5.cards : [
-    { title: "Entry", price: "£23k", description: "First graduate or transition roles." },
-    { title: "Progressed", price: "£38k", description: "Experienced specialist or manager roles." },
-    { title: "Senior", price: "£55k+", description: "Leadership, consultancy or high-responsibility roles." }
-  ];
+  const sec5Badge = sec5.badge;
+  const sec5Title = sec5.title;
+  const sec5Desc = sec5.description;
+  const sec5Cards = Array.isArray(sec5.cards) ? sec5.cards : [];
 
   // Section 6 - Funding Snapshot
   const sec6 = cms.section_6 || {};
-  const sec6Cards = Array.isArray(sec6.cards) && sec6.cards.length > 0 ? sec6.cards : [
-    {
-      className: "v705-card dark",
-      badge: "Funding snapshot",
-      title: "Check funding before you apply.",
-      description: "Most full-time undergraduate routes can be supported by Tuition Fee Loan and Maintenance Loan if you meet eligibility rules."
-    },
-    {
-      className: "v705-card",
-      title: "Tuition Fee Loan",
-      description: "Can cover eligible tuition fees so you do not usually pay upfront.",
-      link: "/funding/tuition-fee-loan",
-      linkName: "Learn more"
-    },
-    {
-      className: "v705-card",
-      title: "Maintenance Loan",
-      description: "Can help with living costs while studying. Amount depends on your circumstances.",
-      link: "/funding/maintenance-loan",
-      linkName: "Estimate support"
-    }
-  ];
+  const sec6Cards = Array.isArray(sec6.cards) ? sec6.cards : [];
 
   // Section 7 - Related Subjects
   const sec7 = cms.section_7 || {};
-  const sec7Badge = sec7.badge || "Related subjects";
-  const sec7Title = sec7.title || "Compare nearby routes.";
+  const sec7Badge = sec7.badge;
+  const sec7Title = sec7.title;
+  const sec7Subjects = Array.isArray(sec7.subjects) ? sec7.subjects : [];
+console.log("cms.section_8",cms.section_8);
 
   // Section 8 - FAQ
   const sec8 = cms.section_8 || {};
-  const sec8Badge = sec8.badge || "FAQ";
-  const sec8Title = sec8.title || `Questions before choosing ${title}.`;
+  const sec8Badge = sec8.badge;
+  const sec8Title = sec8.title;
 
   // Section 9 - Callout Band
   const sec9 = cms.section_9 || {};
-  const sec9Title = sec9.title || `Want help choosing a ${title} course?`;
-  const sec9Desc = sec9.description || "Check your eligibility or apply with adviser support.";
+  const sec9Title = sec9.title;
+  const sec9Desc = sec9.description;
 
   return (
     <main>
       {/* CENTRAL BANNER COMPONENT MAPPED WITH SLUG & BACKEND */}
       <Banner
         slug={subject}
-        fallbackTitle={`${title} degrees with purpose.`}
-        fallbackDescription={subjectData?.description || "Build a route into care leadership, public health, safeguarding, community support or health service management."}
-        fallbackBadgeText={`Subject area · ${title}`}
+        fallbackTitle={title ? `${title} degrees with purpose.` : undefined}
+        fallbackDescription={subjectData?.description}
+        fallbackBadgeText={title ? `Subject area · ${title}` : undefined}
         fallbackBgImage={heroImage}
       >
         <div className="sfe" style={{ marginTop: "18px" }}>
@@ -126,32 +94,34 @@ export default function SubjectDetail({ subject, subjectData, courses, dbFaqs }:
         <section className="sbj-sec" id="courses">
           <div className="sbj">
             <div className="sbj-head">
-              <span className="kicker">{sec2Badge}</span>
-              <h2>{sec2Title}</h2>
-              <p>{sec2Desc}</p>
+              {sec2Badge && <span className="kicker">{sec2Badge}</span>}
+              {sec2Title && <h2>{sec2Title}</h2>}
+              {sec2Desc && <p>{sec2Desc}</p>}
             </div>
-            <div className="sbj-courses">
-              {coursesList ? (
-                coursesList.map((c: any, idx: number) => {
+            {coursesList && coursesList.length > 0 && (
+              <div className="sbj-courses">
+                {coursesList.map((c: any, idx: number) => {
                   const courseTitle = c.title || `${title} Degree`;
                   const courseImg = c.fullImageUrl || c.image || heroImage;
-                  const tags = (c.tags && c.tags.length > 0) ? c.tags : ["Flexible", "SFE check", "Mature students"];
-                  const courseDesc = c.description || c.shortDescription || "A practical course route for adults who want career progression, a recognised qualification and structured support.";
+                  const tags = (c.tags && c.tags.length > 0) ? c.tags : [];
+                  const courseDesc = c.description || c.shortDescription;
                   const courseLink = c.courseType === "Social" ? `/degrees/course/${c.slug}` : `/degrees/${c.slug}`;
 
                   return (
                     <article key={c._id || idx} className="ccard">
                       <div className="cph">
-                        <img src={courseImg} alt={courseTitle} />
-                        <div className="tags">
-                          {tags.map((tag: string, tIdx: number) => (
-                            <span key={tIdx}>{tag}</span>
-                          ))}
-                        </div>
+                        {courseImg && <img src={courseImg} alt={courseTitle} />}
+                        {tags.length > 0 && (
+                          <div className="tags">
+                            {tags.map((tag: string, tIdx: number) => (
+                              <span key={tIdx}>{tag}</span>
+                            ))}
+                          </div>
+                        )}
                       </div>
                       <div className="cb">
                         <h3>{courseTitle}</h3>
-                        <p>{courseDesc}</p>
+                        {courseDesc && <p>{courseDesc}</p>}
                         <div className="out">✅ Funding and entry requirements depend on provider</div>
                         <div className="cbtn">
                           <Link className="v" href={courseLink}>View</Link>
@@ -160,71 +130,9 @@ export default function SubjectDetail({ subject, subjectData, courses, dbFaqs }:
                       </div>
                     </article>
                   );
-                })
-              ) : (
-                <>
-                  <article className="ccard">
-                    <div className="cph">
-                      <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=2000&q=85" alt="Health & Social Care" />
-                      <div className="tags">
-                        <span>Flexible</span>
-                        <span>SFE check</span>
-                        <span>Mature students</span>
-                      </div>
-                    </div>
-                    <div className="cb">
-                      <h3>BA Health &amp; Social Care</h3>
-                      <p>A practical course route for adults who want career progression, a recognised qualification and structured support.</p>
-                      <div className="out">✅ Funding and entry requirements depend on provider</div>
-                      <div className="cbtn">
-                        <Link className="v" href="/degrees">View</Link>
-                        <Link className="a" href="/apply">Apply</Link>
-                      </div>
-                    </div>
-                  </article>
-
-                  <article className="ccard">
-                    <div className="cph">
-                      <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=2000&q=85" alt="Public Health" />
-                      <div className="tags">
-                        <span>Flexible</span>
-                        <span>SFE check</span>
-                        <span>Mature students</span>
-                      </div>
-                    </div>
-                    <div className="cb">
-                      <h3>Public Health</h3>
-                      <p>A practical course route for adults who want career progression, a recognised qualification and structured support.</p>
-                      <div className="out">✅ Funding and entry requirements depend on provider</div>
-                      <div className="cbtn">
-                        <Link className="v" href="/degrees">View</Link>
-                        <Link className="a" href="/apply">Apply</Link>
-                      </div>
-                    </div>
-                  </article>
-
-                  <article className="ccard">
-                    <div className="cph">
-                      <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=2000&q=85" alt="Health Management Foundation Year" />
-                      <div className="tags">
-                        <span>Flexible</span>
-                        <span>SFE check</span>
-                        <span>Mature students</span>
-                      </div>
-                    </div>
-                    <div className="cb">
-                      <h3>Health Management Foundation Year</h3>
-                      <p>A practical course route for adults who want career progression, a recognised qualification and structured support.</p>
-                      <div className="out">✅ Funding and entry requirements depend on provider</div>
-                      <div className="cbtn">
-                        <Link className="v" href="/degrees">View</Link>
-                        <Link className="a" href="/apply">Apply</Link>
-                      </div>
-                    </div>
-                  </article>
-                </>
-              )}
-            </div>
+                })}
+              </div>
+            )}
           </div>
         </section>
       )}
@@ -234,18 +142,20 @@ export default function SubjectDetail({ subject, subjectData, courses, dbFaqs }:
         <section className="v705-sec v705-soft">
           <div className="v705-wrap">
             <div className="v705-head">
-              <span className="kicker">{sec3Badge}</span>
-              <h2>{sec3Title}</h2>
-              <p>{sec3Desc}</p>
+              {sec3Badge && <span className="kicker">{sec3Badge}</span>}
+              {sec3Title && <h2>{sec3Title}</h2>}
+              {sec3Desc && <p>{sec3Desc}</p>}
             </div>
-            <div className="v705-grid">
-              {sec3Cards.map((card: any, idx: number) => (
-                <div key={idx} className="v705-card">
-                  <h3>{card.title}</h3>
-                  <p>{card.description}</p>
-                </div>
-              ))}
-            </div>
+            {sec3Cards.length > 0 && (
+              <div className="v705-grid">
+                {sec3Cards.map((card: any, idx: number) => (
+                  <div key={idx} className="v705-card">
+                    <h3>{card.title}</h3>
+                    <p>{card.description}</p>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </section>
       )}
@@ -255,17 +165,19 @@ export default function SubjectDetail({ subject, subjectData, courses, dbFaqs }:
         <section className="v705-sec">
           <div className="v705-wrap">
             <div className="v705-head">
-              <span className="kicker">{sec4Badge}</span>
-              <h2>{sec4Title}</h2>
+              {sec4Badge && <span className="kicker">{sec4Badge}</span>}
+              {sec4Title && <h2>{sec4Title}</h2>}
             </div>
-            <div className="v705-grid">
-              {sec4Cards.map((card: any, idx: number) => (
-                <div key={idx} className="v705-card">
-                  <h3>{card.title}</h3>
-                  <p>{card.description}</p>
-                </div>
-              ))}
-            </div>
+            {sec4Cards.length > 0 && (
+              <div className="v705-grid">
+                {sec4Cards.map((card: any, idx: number) => (
+                  <div key={idx} className="v705-card">
+                    <h3>{card.title}</h3>
+                    <p>{card.description}</p>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </section>
       )}
@@ -275,25 +187,27 @@ export default function SubjectDetail({ subject, subjectData, courses, dbFaqs }:
         <section className="v705-sec v705-soft">
           <div className="v705-wrap">
             <div className="v705-head">
-              <span className="kicker">{sec5Badge}</span>
-              <h2>{sec5Title}</h2>
-              <p>{sec5Desc}</p>
+              {sec5Badge && <span className="kicker">{sec5Badge}</span>}
+              {sec5Title && <h2>{sec5Title}</h2>}
+              {sec5Desc && <p>{sec5Desc}</p>}
             </div>
-            <div className="v705-salary">
-              {sec5Cards.map((card: any, idx: number) => (
-                <div key={idx} className="v705-card">
-                  <span>{card.title}</span>
-                  <strong>{card.price}</strong>
-                  <p>{card.description}</p>
-                </div>
-              ))}
-            </div>
+            {sec5Cards.length > 0 && (
+              <div className="v705-salary">
+                {sec5Cards.map((card: any, idx: number) => (
+                  <div key={idx} className="v705-card">
+                    <span>{card.title}</span>
+                    <strong>{card.price}</strong>
+                    <p>{card.description}</p>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </section>
       )}
 
       {/* SECTION 6: FUNDING SNAPSHOT */}
-      {sec6.status !== false && (
+      {sec6.status !== false && sec6Cards.length > 0 && (
         <section className="v705-sec">
           <div className="v705-wrap">
             <div className="v705-grid">
@@ -319,21 +233,16 @@ export default function SubjectDetail({ subject, subjectData, courses, dbFaqs }:
         <section className="v705-sec v705-soft">
           <div className="v705-wrap">
             <div className="v705-head">
-              <span className="kicker">{sec7Badge}</span>
-              <h2>{sec7Title}</h2>
+              {sec7Badge && <span className="kicker">{sec7Badge}</span>}
+              {sec7Title && <h2>{sec7Title}</h2>}
             </div>
-            <div className="v705-chiprow">
-              {(sec7.subjects || [
-                { title: "Business", slug: "business" },
-                { title: "Computing", slug: "computing" },
-                { title: "Health", slug: "health" },
-                { title: "Construction", slug: "construction" },
-                { title: "Psychology", slug: "psychology" },
-                { title: "Law", slug: "law" }
-              ]).map((sub: any, idx: number) => (
-                <Link key={idx} className="v705-chip" href={`/degrees/${sub.slug}`}>{sub.title}</Link>
-              ))}
-            </div>
+            {sec7Subjects.length > 0 && (
+              <div className="v705-chiprow">
+                {sec7Subjects.map((sub: any, idx: number) => (
+                  <Link key={idx} className="v705-chip" href={`/degrees/${sub.slug}`}>{sub.title}</Link>
+                ))}
+              </div>
+            )}
           </div>
         </section>
       )}
@@ -350,13 +259,13 @@ export default function SubjectDetail({ subject, subjectData, courses, dbFaqs }:
       )}
 
       {/* SECTION 9: CALLOUT BAND */}
-      {sec9.status !== false && (
+      {sec9.status !== false && (sec9Title || sec9Desc) && (
         <section className="v705-sec">
           <div className="v705-wrap">
             <div className="v705-band">
               <div>
-                <h2>{sec9Title}</h2>
-                <p>{sec9Desc}</p>
+                {sec9Title && <h2>{sec9Title}</h2>}
+                {sec9Desc && <p>{sec9Desc}</p>}
               </div>
               <div className="btnrow">
                 <Link className="btn btn-blue" href="/tools/eligibility-checker">Check eligibility</Link>
@@ -368,7 +277,7 @@ export default function SubjectDetail({ subject, subjectData, courses, dbFaqs }:
       )}
 
       {/* CONVERSION SYSTEM STRIP */}
-      <QualificationConversionCards />
+      <QualificationConversionCards sectionData={cms.section_8} />
 
       {/* YS CROSSLINKS SECTION AT LAST */}
       <QualificationCrosslinks sectionData={subjectData?.cms?.section_11} />

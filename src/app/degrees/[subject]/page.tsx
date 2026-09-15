@@ -43,8 +43,8 @@ export async function generateMetadata({ params }: PageProps) {
 export default async function Page({ params }: PageProps) {
   const { subject } = await params;
 
-  // Fetch dbFaqs using the requested fallbacks
-  const dbFaqs = (await getFAQBySlug("faqs")) || (await getFAQBySlug("faq")) || [];
+  // Fetch dbFaqs using dynamic subject slug with fallbacks
+  const dbFaqs = (await getFAQBySlug(subject)) || (await getFAQBySlug("faqs")) || (await getFAQBySlug("faq")) || [];
   
   // 1. Check if this is a Subject by calling /api/frontend/subject/get-subject/{slug}
   const subjectData = await getSubjectBySlug(subject);

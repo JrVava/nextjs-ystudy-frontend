@@ -22,6 +22,9 @@ export interface BannerData {
     title: string;
     description?: string;
     footerItems?: Array<{ label: string; value: string }>;
+    sfeText?: string;
+    sfeLinkText?: string;
+    sfeLinkUrl?: string;
   };
   rightCard: {
     layoutType: 'stacked-cards' | 'stats-highlight' | 'grid-2x2' | 'list-items' | 'guide-hero' | 'none';

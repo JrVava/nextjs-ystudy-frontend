@@ -248,6 +248,19 @@ export async function Banner({
             {leftContent.description && (
               <p className="lead">{leftContent.description}</p>
             )}
+            {leftContent.sfeText && (
+              <div className="sfe" style={{ marginTop: "18px" }}>
+                <span className="ck">✓</span>
+                <span>
+                  {leftContent.sfeText}{" "}
+                  {leftContent.sfeLinkText && (
+                    <a href={leftContent.sfeLinkUrl || "/funding"}>
+                      {leftContent.sfeLinkText}
+                    </a>
+                  )}
+                </span>
+              </div>
+            )}
             {renderInLeft && children}
           </div>
         )}

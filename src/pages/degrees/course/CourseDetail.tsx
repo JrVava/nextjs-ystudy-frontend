@@ -8,7 +8,7 @@ import "@/app/degrees/course/course.css";
 import defaultCourseData from "@/content/fallbacks/course/business-management-ba.json";
 import { getMediaUrl } from "@/lib/utils/media";
 
-function getSectionWithFallback(cmsSec: any, backendSec: any, defaultSec: any) {
+function getSectionWithFallback(cmsSec: any, backendSec: any) {
   const merged = { ...cmsSec, ...backendSec };
 
   // If status is explicitly false, keep it disabled
@@ -29,29 +29,11 @@ function getSectionWithFallback(cmsSec: any, backendSec: any, defaultSec: any) {
     return true;
   });
 
-  // If no content, return default section
   if (!hasContent) {
-    return defaultSec || {};
+    return { status: false };
   }
 
-  // Merge default section with custom section data
-  const result = { ...defaultSec, ...merged };
-
-  // Fallback lists if empty
-  if (Array.isArray(result.cards) && result.cards.length === 0 && defaultSec?.cards) {
-    result.cards = defaultSec.cards;
-  }
-  if (Array.isArray(result.tiles) && result.tiles.length === 0 && defaultSec?.tiles) {
-    result.tiles = defaultSec.tiles;
-  }
-  if (Array.isArray(result.rows) && result.rows.length === 0 && defaultSec?.rows) {
-    result.rows = defaultSec.rows;
-  }
-  if (Array.isArray(result.faqs) && result.faqs.length === 0 && defaultSec?.faqs) {
-    result.faqs = defaultSec.faqs;
-  }
-
-  return result;
+  return merged;
 }
 
 interface CourseDetailProps {
@@ -128,26 +110,26 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
   // Fallback defaults mapping
   const snapshot = {
     match: getBannerMatch(),
-    salary: banner?.rightCard?.mainValue || formattedSalary || cmsData?.snapshot?.salary || "£24k – £55k+",
+    salary: banner?.rightCard?.mainValue || formattedSalary || cmsData?.snapshot?.salary,
     duration: getBannerItemValue(
       "duration",
       0,
-      (backendCourse?.durations && (backendCourse.durations[0]?.duration || backendCourse.durations[0]?.label || backendCourse.durations[0]?.name || backendCourse.durations[0]?.title)) || cmsData?.snapshot?.duration || "3 yrs"
+      (backendCourse?.durations && (backendCourse.durations[0]?.duration || backendCourse.durations[0]?.label || backendCourse.durations[0]?.name || backendCourse.durations[0]?.title)) || cmsData?.snapshot?.duration
     ),
     mode: getBannerItemValue(
       "mode",
       1,
-      (backendCourse?.modeType && (backendCourse.modeType[0]?.name || backendCourse.modeType[0]?.title)) || cmsData?.snapshot?.mode || "Blended"
+      (backendCourse?.modeType && (backendCourse.modeType[0]?.name || backendCourse.modeType[0]?.title)) || cmsData?.snapshot?.mode
     ),
     maintenance: getBannerItemValue(
       "maintenance",
       2,
-      cmsData?.snapshot?.maintenance || "£14k+"
+      cmsData?.snapshot?.maintenance
     ),
     funding: getBannerItemValue(
       "funding",
       3,
-      (backendCourse?.fundings && (backendCourse.fundings[0]?.name || backendCourse.fundings[0]?.title)) || cmsData?.snapshot?.funding || "SFE"
+      (backendCourse?.fundings && (backendCourse.fundings[0]?.name || backendCourse.fundings[0]?.title)) || cmsData?.snapshot?.funding
     )
   };
 
@@ -371,19 +353,19 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
   }
 
   // Section data fallback maps (completely dynamic)
-  const sec3 = getSectionWithFallback(cmsData?.section_3, customSec3, defaultCourseData?.section_3);
-  const sec4 = getSectionWithFallback(cmsData?.section_4, customSec4, defaultCourseData?.section_4);
-  const sec5 = getSectionWithFallback(cmsData?.section_5, customSec5, defaultCourseData?.section_5);
-  const sec6 = getSectionWithFallback(cmsData?.section_6, customSec6, defaultCourseData?.section_6);
-  const sec7 = getSectionWithFallback(cmsData?.section_7, customSec7, defaultCourseData?.section_7);
-  const sec8 = getSectionWithFallback(cmsData?.section_8, customSec8, defaultCourseData?.section_8);
-  const sec9 = getSectionWithFallback(cmsData?.section_9, customSec9, defaultCourseData?.section_9);
-  const sec10 = getSectionWithFallback(cmsData?.section_10, customSec10, defaultCourseData?.section_10);
-  const sec11 = getSectionWithFallback(cmsData?.section_11, customSec11, defaultCourseData?.section_11);
-  const sec12 = getSectionWithFallback(cmsData?.section_12, customSec12, defaultCourseData?.section_12);
-  const sec13 = getSectionWithFallback(cmsData?.section_13, customSec13, defaultCourseData?.section_13);
-  const sec14 = getSectionWithFallback(cmsData?.section_14, customSec14, defaultCourseData?.section_14);
-  const sec15 = getSectionWithFallback(cmsData?.section_15, customSec15, defaultCourseData?.section_15);
+  const sec3 = getSectionWithFallback(cmsData?.section_3, customSec3);
+  const sec4 = getSectionWithFallback(cmsData?.section_4, customSec4);
+  const sec5 = getSectionWithFallback(cmsData?.section_5, customSec5);
+  const sec6 = getSectionWithFallback(cmsData?.section_6, customSec6);
+  const sec7 = getSectionWithFallback(cmsData?.section_7, customSec7);
+  const sec8 = getSectionWithFallback(cmsData?.section_8, customSec8);
+  const sec9 = getSectionWithFallback(cmsData?.section_9, customSec9);
+  const sec10 = getSectionWithFallback(cmsData?.section_10, customSec10);
+  const sec11 = getSectionWithFallback(cmsData?.section_11, customSec11);
+  const sec12 = getSectionWithFallback(cmsData?.section_12, customSec12);
+  const sec13 = getSectionWithFallback(cmsData?.section_13, customSec13);
+  const sec14 = getSectionWithFallback(cmsData?.section_14, customSec14);
+  const sec15 = getSectionWithFallback(cmsData?.section_15, customSec15);
 
   const displayFaqs = (faqs && faqs.length > 0) ? faqs : (sec15.faqs || []);
 
@@ -464,36 +446,7 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
               <p className="lead">{sec4.description}</p>
             </div>
             <div className="g4 ys-carousel-mobile">
-              {(sec4.cards || [
-                {
-                  role: "Business Analyst",
-                  pay: "£28k–£45k",
-                  description: "Analyse data, processes and business decisions.",
-                  image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80",
-                  link: "/tools/salary-checker"
-                },
-                {
-                  role: "Operations Manager",
-                  pay: "£40k–£65k",
-                  description: "Lead teams, performance and operational systems.",
-                  image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=900&q=80",
-                  link: "/tools/salary-checker"
-                },
-                {
-                  role: "Project Manager",
-                  pay: "£42k–£70k",
-                  description: "Plan and deliver business projects.",
-                  image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=900&q=80",
-                  link: "/tools/salary-checker"
-                },
-                {
-                  role: "Commercial Manager",
-                  pay: "£50k–£90k+",
-                  description: "Manage budgets, contracts and commercial growth.",
-                  image: "https://images.unsplash.com/photo-1664575602554-2087b04935a5?auto=format&fit=crop&w=900&q=80",
-                  link: "/tools/salary-checker"
-                }
-              ])?.map((card: any, idx: number) => (
+              {sec4.cards?.map((card: any, idx: number) => (
                 <Link className="pcard" href={card.link || "/tools/salary-checker"} key={idx}>
                   <img className="bg" src={card.image} alt={card.role} />
                   <div className="scrim"></div>
@@ -615,38 +568,7 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
               <p className="lead">{sec6.description}</p>
             </div>
             <div className="g3 ys-carousel-mobile">
-              {(sec6.cards || [
-                {
-                  icon: "💼",
-                  title: "Career-focused",
-                  description: "Build practical business knowledge for management, operations and analyst roles."
-                },
-                {
-                  icon: "⏱",
-                  title: "Flexible schedule",
-                  description: "Designed for working adults who need a realistic weekly study rhythm."
-                },
-                {
-                  icon: "💷",
-                  title: "Student Finance route",
-                  description: "Check tuition and maintenance support before applying."
-                },
-                {
-                  icon: "🤝",
-                  title: "Adviser support",
-                  description: "YStudy can help organise documents, interview prep and next steps."
-                },
-                {
-                  icon: "📈",
-                  title: "Transferable skills",
-                  description: "Leadership, communication, data, finance and business decision-making."
-                },
-                {
-                  icon: "🎓",
-                  title: "Progression routes",
-                  description: "Move into postgraduate study, professional routes or management positions."
-                }
-              ])?.map((card: any, idx: number) => (
+              {sec6.cards?.map((card: any, idx: number) => (
                 <div className="rolecard" key={idx}>
                   <div style={{ fontSize: "28px", marginBottom: "10px" }}>{card.icon}</div>
                   <h4>{card.title}</h4>

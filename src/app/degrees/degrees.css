@@ -1289,3 +1289,41 @@
     border-top: 1px solid var(--line, #dbe8f7);
   }
 }
+
+/* SFE / Student Finance Eligibility Strip */
+.sfe {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  border-radius: 14px;
+  padding: 13px 18px;
+  font-weight: 700;
+  font-size: 14.5px;
+  line-height: 1.4;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  color: #fff;
+  margin-top: 18px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+    max-width: 780px;
+}
+
+.sfe .ck {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex: none;
+  font-weight: 900;
+  font-size: 14px;
+  background: #3ddc97;
+  color: #04342c;
+}
+
+.sfe a {
+  color: #fff;
+  text-decoration: underline;
+  font-weight: 800;
+}
