@@ -15,7 +15,6 @@ export default function SubjectDetail({ subject, subjectData, courses, dbFaqs }:
   const cms = subjectData?.cms || {};
   const title = subjectData?.title || subject.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
   const heroImage = subjectData?.fullImageUrl;
-console.log("subjectData",subjectData);
 
   // Section 2 - Popular Courses
   const sec2 = cms.section_2 || {};
@@ -54,7 +53,7 @@ console.log("subjectData",subjectData);
   const sec7Badge = sec7.badge;
   const sec7Title = sec7.title;
   const sec7Subjects = Array.isArray(sec7.subjects) ? sec7.subjects : [];
-console.log("cms.section_8",cms.section_8);
+  console.log("cms.section_8", cms.section_8);
 
   // Section 8 - FAQ
   const sec8 = cms.section_8 || {};
@@ -277,7 +276,7 @@ console.log("cms.section_8",cms.section_8);
       )}
 
       {/* CONVERSION SYSTEM STRIP */}
-      <QualificationConversionCards sectionData={cms.section_8} />
+      <QualificationConversionCards sectionData={cms.section_10} />
 
       {/* YS CROSSLINKS SECTION AT LAST */}
       <QualificationCrosslinks sectionData={subjectData?.cms?.section_11} />
