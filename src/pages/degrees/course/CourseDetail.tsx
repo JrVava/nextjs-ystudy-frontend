@@ -212,6 +212,7 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
       badge: socialCms.funding?.section_1?.badge,
       title: socialCms.funding?.section_1?.title,
       description: socialCms.funding?.section_1?.description,
+      cardTitle: socialCms.funding?.section_1?.cardTItle,
       totalSupport: socialCms.funding?.section_1?.cardDescription,
       tiles: socialCms.funding?.section_1?.cards?.map((c: any) => ({
         value: c.title,
@@ -478,7 +479,7 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
 
                 <div className="snapcard" style={{ boxShadow: "var(--shadow)", padding: "24px", border: "1px solid var(--panel-border)", borderRadius: "16px" }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "14px" }}>
-                    <span style={{ fontWeight: 800, color: "var(--muted)" }}>Total possible support</span>
+                    <span style={{ fontWeight: 800, color: "var(--muted)" }}>{sec5.cardTitle || "Total possible support"}</span>
                     <b style={{ color: "var(--b)", fontSize: "30px", fontWeight: 900 }}>{sec5.totalSupport}</b>
                   </div>
                   <div className="snapgrid" style={{ margin: 0, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: "12px" }}>
@@ -678,8 +679,11 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
               </div>
               <div>
                 {entryRows?.map((row: any, idx: number) => (
-                  <div className={`entryrow ${row.label === 'Not sure?' ? 'q' : ''}`} key={idx}>
-                    <div className="ic">{row.label === 'Not sure?' ? '?' : '✓'}</div>
+                  <div
+                    className={row.parentClass || `entryrow ${row.label === 'Not sure?' ? 'q' : ''}`}
+                    key={idx}
+                  >
+                    <div className="ic">{row.icon || (row.label === 'Not sure?' ? '?' : '✓')}</div>
                     <div><b>{row.label}</b> &nbsp;{row.desc && <span>{row.desc}</span>}</div>
                   </div>
                 ))}
@@ -731,7 +735,7 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
                   <div style={{ fontSize: "26px", marginBottom: "10px" }}>{card.icon}</div>
                   <h4>{card.title}</h4>
                   <p style={{ marginBottom: "14px" }}>{card.desc}</p>
-                  <Link className="btn blue sm" href={card.link}>Build route →</Link>
+                  <Link className="btn blue sm" href={card.link}>{card.btnName || "Build route →"}</Link>
                 </div>
               ))}
             </div>

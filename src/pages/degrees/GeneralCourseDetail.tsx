@@ -15,7 +15,6 @@ export default function GeneralCourseDetail({ slug, backendCourse, cmsData, dbFa
   const title = backendCourse?.title || cmsData?.title || (slug || "").replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
   const subjectName = backendCourse?.subject?.name || cmsData?.subjectName;
   const heroImage = backendCourse?.fullImageUrl || cmsData?.image;
-console.log('cmsData',cmsData);
 
   const sec2 = cmsData?.section_2 || {};
   const sec3 = cmsData?.section_3 || {};
@@ -27,13 +26,15 @@ console.log('cmsData',cmsData);
   const sec9 = cmsData?.section_9 || {};
   const sec10 = cmsData?.section_10 || {};
 
-  const coursesList = sec2.courses || cmsData?.courses || backendCourse?.courses || [];
+  const coursesList = sec2.availableCourses || sec2.courses || cmsData?.courses || backendCourse?.courses || [];
   const whoAppliesCards = sec3.cards || backendCourse?.whoApplies || [];
   const statsList = sec4.stats || sec4.cards || backendCourse?.stats || [];
   const ladderList = sec5.ladder || sec5.cards || backendCourse?.ladder || [];
   const entryCards = sec6.cards || sec6.entryRoutes || backendCourse?.entryRoutes || [];
-  const relatedSubjects = sec7.subjects || sec7.cards || sec7.relatedSubjects || [];
-  const snapshotCards = sec9.cards || [];
+  const relatedSubjects = sec7.subject || sec7.subjects || sec7.cards || sec7.relatedSubjects || [];
+  const conversionSnapshotCards = sec8.cards || [];
+  const nextStepsCards = sec9.cards || [];
+  const featuredCourse = sec10.featured_course || null;
 
   return (
     <main>
@@ -91,7 +92,7 @@ console.log('cmsData',cmsData);
                       <div className="cb">
                         <h3>{courseTitle}</h3>
                         {courseDesc && <p>{courseDesc}</p>}
-                        {c.outputInfo && <div className="out">{c.outputInfo}</div>}
+                        {c.careerOutcomeBadge && <div className="out">{c.careerOutcomeBadge}</div>}
                         <div className="cbtn">
                           <Link className="v" href={courseLink}>View</Link>
                           <Link className="a" href={`/apply?course=${c.slug || ''}`}>Apply</Link>
@@ -164,7 +165,7 @@ console.log('cmsData',cmsData);
               <div className="sbj-ladder">
                 {ladderList.map((lad: any, idx: number) => (
                   <div key={idx} className="lad">
-                    <div className="n">{lad.step || lad.n || idx + 1}</div>
+                    <div className="n">{lad.badge || lad.step || lad.n || idx + 1}</div>
                     <h4>{lad.title || lad.role}</h4>
                     {lad.salary && <div className="sal">{lad.salary}</div>}
                     {lad.description && <p>{lad.description}</p>}
@@ -213,9 +214,9 @@ console.log('cmsData',cmsData);
               <div className="sbj-related">
                 {relatedSubjects.map((sub: any, idx: number) => (
                   <Link key={idx} className="relc" href={sub.link || `/degrees/${sub.slug || ''}`}>
-                    {sub.image && (
+                    {(sub.fullImageUrl || sub.image) && (
                       <div className="rph">
-                        <img src={sub.image} alt={sub.title} />
+                        <img src={sub.fullImageUrl || sub.image} alt={sub.title} />
                       </div>
                     )}
                     <h3>{sub.title}</h3>
@@ -229,25 +230,22 @@ console.log('cmsData',cmsData);
       )}
 
       {/* FAQ SECTION */}
-      {sec8.status !== false && (
-        <QualificationFaqs
-          slug={slug}
-          sectionData={sec8}
-          faqsToDisplay={dbFaqs}
-        />
-      )}
+      <QualificationFaqs
+        slug={slug}
+        faqsToDisplay={dbFaqs}
+      />
 
       {/* CONVERSION SNAPSHOT */}
-      {sec9.status !== false && (sec9.title || snapshotCards.length > 0) && (
+      {sec8.status !== false && (sec8.title || conversionSnapshotCards.length > 0) && (
         <section className="v705-sec v705-soft">
           <div className="v705-wrap">
             <div className="v705-head">
-              {sec9.badge && <span className="kicker">{sec9.badge}</span>}
-              {sec9.title && <h2>{sec9.title}</h2>}
+              {sec8.badge && <span className="kicker">{sec8.badge}</span>}
+              {sec8.title && <h2>{sec8.title}</h2>}
             </div>
-            {snapshotCards.length > 0 && (
+            {conversionSnapshotCards.length > 0 && (
               <div className="v705-grid">
-                {snapshotCards.map((card: any, idx: number) => (
+                {conversionSnapshotCards.map((card: any, idx: number) => (
                   <div key={idx} className="v705-card">
                     <h3>{card.title}</h3>
                     <p>{card.description}</p>
@@ -262,11 +260,82 @@ console.log('cmsData',cmsData);
         </section>
       )}
 
+      {/* NEXT STEPS CTA */}
+      {sec9.status !== false && (sec9.title || nextStepsCards.length > 0) && (
+        <section className="sbj-sec">
+          <div className="sbj">
+            <div className="sbj-head">
+              {sec9.badge && <span className="kicker">{sec9.badge}</span>}
+              {sec9.title && <h2>{sec9.title}</h2>}
+              {sec9.description && <p>{sec9.description}</p>}
+            </div>
+            {nextStepsCards.length > 0 && (
+              <div className="sbj-next">
+                {nextStepsCards.map((card: any, idx: number) => (
+                  <div key={idx} className="nextc">
+                    <div className="ic">{card.icon}</div>
+                    <h3>{card.title}</h3>
+                    <p>{card.description}</p>
+                    {card.link && <Link href={card.link}>{card.linkText || "Learn more →"}</Link>}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
+      {/* FEATURED COURSE PICK */}
+      {sec10.status !== false && featuredCourse && (
+        <section className="sbj-sec" style={{ background: "var(--soft)" }}>
+          <div className="sbj">
+            <div className="sbj-head">
+              {sec10.badge && <span className="kicker">{sec10.badge}</span>}
+              {sec10.title && <h2>{sec10.title}</h2>}
+              {sec10.description && <p>{sec10.description}</p>}
+            </div>
+            <div className="sbj-editor">
+              <div className="eph">
+                {(featuredCourse.fullImageUrl || featuredCourse.image) && (
+                  <img src={featuredCourse.fullImageUrl || featuredCourse.image} alt={featuredCourse.title} />
+                )}
+              </div>
+              <div className="eb">
+                <span className="ek">★ Editor's pick{subjectName ? ` · Best ${subjectName} route` : ""}</span>
+                <h3>{featuredCourse.title}</h3>
+                {(featuredCourse.shortDescription || featuredCourse.description) && (
+                  <p>{featuredCourse.shortDescription || featuredCourse.description}</p>
+                )}
+                <div className="epills">
+                  {featuredCourse.salaryRange?.from && featuredCourse.salaryRange?.to && (
+                    <span>£{featuredCourse.salaryRange.from.toLocaleString()}–£{featuredCourse.salaryRange.to.toLocaleString()}</span>
+                  )}
+                  {(featuredCourse.badges || []).slice(0, 3).map((badge: string, bIdx: number) => (
+                    <span key={bIdx}>{badge}</span>
+                  ))}
+                </div>
+                <div className="btnrow">
+                  <Link
+                    className="sbtn dark"
+                    href={featuredCourse.courseType === "Social" ? `/degrees/course/${featuredCourse.slug}` : `/degrees/${featuredCourse.slug}`}
+                  >
+                    View course →
+                  </Link>
+                  <Link className="sbtn out" href={`/apply?course=${featuredCourse.slug || ""}`}>
+                    Start application
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* CONVERSION SYSTEM */}
-      <QualificationConversionCards sectionData={sec10} />
+      <QualificationConversionCards sectionData={cmsData?.section_11} />
 
       {/* YS CROSSLINKS SECTION AT LAST */}
-      <QualificationCrosslinks sectionData={cmsData?.section_11} />
+      <QualificationCrosslinks sectionData={cmsData?.section_12} />
     </main>
   );
 }
