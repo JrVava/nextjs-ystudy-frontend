@@ -7,6 +7,8 @@ import CourseHero from "@/components/degrees/CourseHero";
 import "@/app/degrees/course/course.css";
 import defaultCourseData from "@/content/fallbacks/course/business-management-ba.json";
 import { getMediaUrl } from "@/lib/utils/media";
+import QualificationConversionCards from "@/components/ui/QualificationConversionCards";
+import QualificationCrosslinks from "@/components/ui/QualificationCrosslinks";
 
 function getSectionWithFallback(cmsSec: any, backendSec: any) {
   const merged = { ...cmsSec, ...backendSec };
@@ -90,7 +92,7 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
   // Dynamic values
   const title = banner?.leftContent?.title || backendCourse?.title || cmsData?.title || (slug || "").replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
   const description = banner?.leftContent?.description || backendCourse?.description || backendCourse?.shortDescription || cmsData?.description || "A practical degree route designed for working adults.";
-  const kicker = banner?.leftContent?.badgeText || backendCourse?.courseCms?.kicker || cmsData?.kicker || "Featured Course";
+  const kicker = banner?.leftContent?.badgeText || cmsData?.kicker || "Featured Course";
   
   const bannerImage = banner ? getMediaUrl(banner.background?.imageUrl, banner.fullImageUrl) : null;
   const image = bannerImage || backendCourse?.fullImageUrl || backendCourse?.image || cmsData?.image || "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=2000&q=80";
@@ -133,7 +135,7 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
     )
   };
 
-  let bannerStyle = backendCourse?.courseCms?.bannerStyle || "blue";
+  let bannerStyle: "blue" | "black" | "white" = "blue";
   if (banner?.background?.bgColor) {
     const bg = banner.background.bgColor.toLowerCase();
     if (bg === "white" || bg === "#ffffff") {
@@ -308,10 +310,6 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
       badge: socialCms.FAQ?.section_1?.badge,
       title: socialCms.FAQ?.section_1?.title,
       description: socialCms.FAQ?.section_1?.description,
-      faqs: socialCms.FAQ?.section_3?.cards?.map((c: any) => ({
-        question: c.title,
-        answer: c.description
-      })),
       status: socialCms.FAQ?.section_1?.status
     };
   }
@@ -331,7 +329,7 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
         name: story.name,
         status: story.year && story.subject ? `${story.year} · ${story.subject}` : (story.year || story.subject || "")
       })),
-      status: true
+      status: customSec9?.status !== false
     };
   }
 
@@ -349,7 +347,7 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
         desc: "Main intake route.",
         link: intake.link || "/apply"
       })),
-      status: true
+      status: customSec11?.status !== false
     };
   }
 
@@ -368,7 +366,12 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
   const sec14 = getSectionWithFallback(cmsData?.section_14, customSec14);
   const sec15 = getSectionWithFallback(cmsData?.section_15, customSec15);
 
-  const displayFaqs = (faqs && faqs.length > 0) ? faqs : (sec15.faqs || []);
+  const displayFaqs = faqs && faqs.length > 0 ? faqs : (backendCourse?.courseCms?.FAQ?.section_1?.faq || []).map((f: any) => ({
+    question: f.question || f.title,
+    answer: f.answer || f.description
+  }));
+  const faqCms = backendCourse?.courseType === "Social" ? backendCourse?.courseCms?.FAQ : undefined;
+  const ctaSec = faqCms?.section_2 || {};
 
   const entryRows = (backendCourse?.entryRequirement && backendCourse.entryRequirement.length > 0)
     ? backendCourse.entryRequirement.map((req: string) => {
@@ -483,12 +486,23 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
                     <b style={{ color: "var(--b)", fontSize: "30px", fontWeight: 900 }}>{sec5.totalSupport}</b>
                   </div>
                   <div className="snapgrid" style={{ margin: 0, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: "12px" }}>
-                    {sec5.tiles?.map((tile: any, idx: number) => (
-                      <div className="snaptile" key={idx} style={{ padding: "12px", textAlign: "center" }}>
-                        <b style={{ fontSize: "20px", display: "block" }}>{tile.value}</b>
-                        <span style={{ fontSize: "12px", color: "var(--muted)" }}>{tile.label}</span>
-                      </div>
-                    ))}
+                    {sec5.tiles?.filter((tile: any) => tile.value || tile.label).map((tile: any, idx: number) => {
+                      const inner = (
+                        <>
+                          <b style={{ fontSize: "20px", display: "block" }}>{tile.value}</b>
+                          <span style={{ fontSize: "12px", color: "var(--muted)" }}>{tile.label}</span>
+                        </>
+                      );
+                      return tile.link ? (
+                        <Link className="snaptile" key={idx} href={tile.link} style={{ padding: "12px", textAlign: "center" }}>
+                          {inner}
+                        </Link>
+                      ) : (
+                        <div className="snaptile" key={idx} style={{ padding: "12px", textAlign: "center" }}>
+                          {inner}
+                        </div>
+                      );
+                    })}
                     <div className="snaptile" style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "12px" }}>
                       <Link className="btn blue sm" href="/tools/finance-calculator">Open full calculator</Link>
                     </div>
@@ -797,7 +811,7 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
       )}
 
       {/* 15. FAQ */}
-      {sec15.status !== false && (
+      {sec15.status !== false && displayFaqs.length > 0 && (
         <section className="sec soft" id="faq">
           <div className="wrap">
             <div className="shead row">
@@ -849,10 +863,10 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
       {/* 16. FINAL CTA */}
       <section className="sec ink">
         <div className="wrap" style={{ textAlign: "center" }}>
-          <span className="eyebrow glass" style={{ marginBottom: "18px", display: "inline-block" }}>Ready to apply?</span>
-          <h2 className="h1" style={{ color: "#fff", marginBottom: "14px" }}>Get help before submitting anything important.</h2>
+          <span className="eyebrow glass" style={{ marginBottom: "18px", display: "inline-block" }}>{ctaSec.badge || "Ready to apply?"}</span>
+          <h2 className="h1" style={{ color: "#fff", marginBottom: "14px" }}>{ctaSec.title || "Get help before submitting anything important."}</h2>
           <p className="lead" style={{ color: "#cdd9ec", maxWidth: "560px", margin: "0 auto 26px" }}>
-            YStudy can help with course selection, Student Finance, documents and application steps.
+            {ctaSec.description || "YStudy can help with course selection, Student Finance, documents and application steps."}
           </p>
           <div style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap" }}>
             <Link className="btn orange lg" href="/apply">Apply now</Link>
@@ -861,32 +875,11 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
         </div>
       </section>
 
-      {/* 17. CONVERSION BAND */}
-      <section className="ys-conversion-system" aria-label="YStudy next steps">
-        <div className="ys-conversion-wrap">
-          <Link className="ys-conversion-card blue" href="/tools/eligibility-checker">
-            <div>
-              <h2>Check if you can get funded.</h2>
-              <p>Quickly understand if you may qualify for Student Finance, grants and flexible university routes.</p>
-            </div>
-            <span>Check eligibility</span>
-          </Link>
-          <Link className="ys-conversion-card orange" href="/apply">
-            <div>
-              <h2>Apply with YStudy.</h2>
-              <p>Send us your details and we’ll help you choose the right course, prepare documents and move forward.</p>
-            </div>
-            <span>Start application</span>
-          </Link>
-          <Link className="ys-conversion-card dark" href="/lead/adviser-call">
-            <div>
-              <h2>Speak with an adviser.</h2>
-              <p>Not sure what to study, what you can get or which documents you need? Book a free call.</p>
-            </div>
-            <span>Book free call</span>
-          </Link>
-        </div>
-      </section>
+      {/* 17. CONVERSION CARDS */}
+      <QualificationConversionCards sectionData={faqCms?.section_3} />
+
+      {/* 18. USEFUL NEXT STEPS */}
+      <QualificationCrosslinks sectionData={faqCms?.section_4} />
     </div>
   );
 }

@@ -12,7 +12,7 @@ export interface QualificationCrosslinksProps {
     status?: boolean;
     title?: string;
     description?: string;
-    cards?: Array<{ title?: string }>;
+    cards?: Array<{ title?: string; link?: string }>;
     links?: CrosslinkItem[];
   };
   fallbackTitle?: string;
@@ -54,9 +54,10 @@ export function QualificationCrosslinks({
       else if (idx === 3) href = "/tools/degree-match";
       else if (idx === 4) href = "/tools/salary-checker";
       else if (idx === 5) href = "/guides";
+      const isUrl = typeof c.link === "string" && /^(\/|https?:\/\/)/.test(c.link.trim());
       return {
         text: c.title || "Link",
-        href
+        href: isUrl ? (c.link as string).trim() : href
       };
     });
   }
