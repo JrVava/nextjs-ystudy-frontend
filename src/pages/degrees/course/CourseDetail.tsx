@@ -450,7 +450,6 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
               <p className="lead">{sec4.description}</p>
             </div>
             <div className="g4 ys-carousel-mobile">
-              {console.log(sec4.cards)}
               {sec4.cards?.map((card: any, idx: number) => (
                 <Link className="pcard" href={card.link || "/tools/salary-checker"} key={idx}>
                   <img className="bg" src={card.fullImageUrl || undefined} alt={card.role} />
@@ -565,301 +564,323 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
                 <div className="result" style={{ marginTop: "16px", padding: "16px", borderRadius: "12px", background: "linear-gradient(135deg, var(--b-deep), var(--b))", color: "#fff" }}>
                   <div className="lbl" style={{ fontSize: "12px", opacity: 0.8 }}>Indicative total support</div>
                   <div className="big" style={{ fontSize: "28px", fontWeight: 900 }}>{calcResult}</div>
+                  <div className="ysf-mini-note">Indicative only. Final entitlement depends on SFE assessment, household income, location, course intensity and study mode.</div>
                 </div>
               </div>
             </div>
           </div>
         </section>
-      )}
+      )
+      }
 
       {/* 6. WHY THIS COURSE */}
-      {sec6.status !== false && (
-        <section className="sec soft">
-          <div className="wrap">
-            <div className="shead row">
-              <div>
-                <span className="eyebrow b" style={{ marginBottom: "16px", display: "inline-block" }}>{sec6.badge}</span>
-                <h2 className="h1">{sec6.title}</h2>
-              </div>
-              <p className="lead">{sec6.description}</p>
-            </div>
-            <div className="g3 ys-carousel-mobile">
-              {sec6.cards?.map((card: any, idx: number) => (
-                <div className="rolecard" key={idx}>
-                  <div style={{ fontSize: "28px", marginBottom: "10px" }}>{card.icon}</div>
-                  <h4>{card.title}</h4>
-                  <p>{card.description}</p>
+      {
+        sec6.status !== false && (
+          <section className="sec soft">
+            <div className="wrap">
+              <div className="shead row">
+                <div>
+                  <span className="eyebrow b" style={{ marginBottom: "16px", display: "inline-block" }}>{sec6.badge}</span>
+                  <h2 className="h1">{sec6.title}</h2>
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* 7. STUDY STRUCTURE */}
-      {sec7.status !== false && (
-        <section className="sec" id="study">
-          <div className="wrap">
-            <div className="shead row">
-              <div>
-                <span className="eyebrow o" style={{ marginBottom: "16px", display: "inline-block" }}>{sec7.badge}</span>
-                <h2 className="h1">{sec7.title}</h2>
+                <p className="lead">{sec6.description}</p>
               </div>
-              <p className="lead">{sec7.description}</p>
-            </div>
-            <div className="g3 ys-carousel-mobile">
-              {sec7.cards?.map((card: any, idx: number) => (
-                <div className="yearcard" key={idx}>
-                  <div className="yn">{card.year}</div>
-                  <h4>{card.title}</h4>
-                  <p style={{ color: "var(--muted)", fontWeight: 600, fontSize: "14px", marginBottom: "12px" }}>{card.subtitle}</p>
-                  <ul>
-                    {card.modules?.map((mod: string, mIdx: number) => (
-                      <li key={mIdx}>{mod}</li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* 8. STUDY MODES */}
-      {sec8.status !== false && (
-        <section className="sec soft">
-          <div className="wrap">
-            <div className="shead row">
-              <div>
-                <span className="eyebrow gold" style={{ marginBottom: "16px", display: "inline-block" }}>{sec8.badge}</span>
-                <h2 className="h1">{sec8.title}</h2>
-              </div>
-              <p className="lead">{sec8.description}</p>
-            </div>
-            <div className="g3 ys-carousel-mobile">
-              {sec8.cards?.map((card: any, idx: number) => (
-                <div className={`modecard ${idx === 0 ? 'best' : idx === 1 ? 'warn' : 'remote'}`} key={idx}>
-                  <span className="tag">{card.tag}</span>
-                  <h4>{card.title}</h4>
-                  <p>{card.description}</p>
-                  <div className="row"><span>Attendance</span><span>{card.attendance}</span></div>
-                  <div className="row"><span>Maintenance</span><span>{card.maintenance}</span></div>
-                  <div className="row"><span>Networking / Support</span><span>{card.networking || card.travel}</span></div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* 9. STORIES / REVIEWS */}
-      {sec9.status !== false && (
-        <section className="sec" id="reviews">
-          <div className="wrap">
-            <div className="shead row">
-              <div>
-                <span className="eyebrow b" style={{ marginBottom: "16px", display: "inline-block" }}>{sec9.badge}</span>
-                <h2 className="h1">{sec9.title}</h2>
-              </div>
-              <p className="lead">{sec9.description}</p>
-            </div>
-            <div className="g3 ys-carousel-mobile">
-              {sec9.cards?.map((card: any, idx: number) => (
-                <div className="pstory" key={idx}>
-                  <img className="bg" src={card.fullImageUrl || undefined} alt={card.name} />
-                  <div className="scrim"></div>
-                  <span className="pbadge">{card.badge}</span>
-                  <div className="ps-inner">
-                    <div className="stars">★★★★★</div>
-                    <blockquote>"{card.quote}"</blockquote>
-                    <div className="who"><b>{card.name}</b><span>{card.status}</span></div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* 10. ENTRY */}
-      {sec10.status !== false && (
-        <section className="sec soft" id="entry">
-          <div className="wrap">
-            <div className="g2" style={{ alignItems: "start", gap: "clamp(30px, 4vw, 60px)" }}>
-              <div>
-                <span className="eyebrow o" style={{ marginBottom: "16px", display: "inline-block" }}>{sec10.badge}</span>
-                <h2 className="h1" style={{ marginBottom: "14px" }}>{sec10.title}</h2>
-                <p className="lead" style={{ marginBottom: "22px" }}>{sec10.description}</p>
-                <Link className="btn orange lg" href="/tools/eligibility-checker">Free eligibility check →</Link>
-              </div>
-              <div>
-                {sec10.rows?.map((row: any, idx: number) => (
-                  <div
-                    className={row.parentClass || `entryrow ${row.label === 'Not sure?' ? 'q' : ''}`}
-                    key={idx}
-                  >
-                    <div className="ic">{row.icon || (row.label === 'Not sure?' ? '?' : '✓')}</div>
-                    <div><b>{row.label}</b> &nbsp;{row.desc && <span>{row.desc}</span>}</div>
+              <div className="g3 ys-carousel-mobile">
+                {sec6.cards?.map((card: any, idx: number) => (
+                  <div className="rolecard" key={idx}>
+                    <div style={{ fontSize: "28px", marginBottom: "10px" }}>{card.icon}</div>
+                    <h4>{card.title}</h4>
+                    <p>{card.description}</p>
                   </div>
                 ))}
               </div>
             </div>
-          </div>
-        </section>
-      )}
+          </section>
+        )
+      }
 
-      {/* 11. INTAKES */}
-      {sec11.status !== false && (
-        <section className="sec">
-          <div className="wrap">
-            <div className="shead row">
-              <div>
-                <span className="eyebrow gold" style={{ marginBottom: "16px", display: "inline-block" }}>{sec11.badge}</span>
-                <h2 className="h1">{sec11.title}</h2>
-              </div>
-              <p className="lead">{sec11.description}</p>
-            </div>
-            <div className="g4 ys-carousel-mobile">
-              {sec11.cards?.map((card: any, idx: number) => (
-                <div className="intake" key={idx}>
-                  <div className="mo"><b>{card.month}</b><span>{card.year}</span></div>
-                  <h4 style={{ fontWeight: 900, fontSize: "17px", marginBottom: "4px" }}>{card.title}</h4>
-                  <p style={{ color: "var(--muted)", fontWeight: 700, fontSize: "14px", marginBottom: "12px" }}>{card.desc}</p>
-                  <Link className="btn orange sm" href={card.link || "/apply"}>Apply →</Link>
+      {/* 7. STUDY STRUCTURE */}
+      {
+        sec7.status !== false && (
+          <section className="sec" id="study">
+            <div className="wrap">
+              <div className="shead row">
+                <div>
+                  <span className="eyebrow o" style={{ marginBottom: "16px", display: "inline-block" }}>{sec7.badge}</span>
+                  <h2 className="h1">{sec7.title}</h2>
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* 12. TOOLKIT */}
-      {sec12.status !== false && (
-        <section className="sec soft">
-          <div className="wrap">
-            <div className="shead row">
-              <div>
-                <span className="eyebrow b" style={{ marginBottom: "16px", display: "inline-block" }}>{sec12.badge}</span>
-                <h2 className="h1">{sec12.title}</h2>
+                <p className="lead">{sec7.description}</p>
               </div>
-              <p className="lead">{sec12.description}</p>
-            </div>
-            <div className="g4 ys-carousel-mobile">
-              {sec12.cards?.map((card: any, idx: number) => (
-                <div className="rolecard" key={idx}>
-                  <div style={{ fontSize: "26px", marginBottom: "10px" }}>{card.icon}</div>
-                  <h4>{card.title}</h4>
-                  <p style={{ marginBottom: "14px" }}>{card.desc}</p>
-                  <Link className="btn blue sm" href={card.link}>{card.btnName || "Build route →"}</Link>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* 13. CONVERSION BAND */}
-      {sec13.status !== false && (
-        <section className="sec tight">
-          <div className="wrap">
-            <div className="cband" >
-              <div>
-                <h3 style={{ fontSize: "22px", fontWeight: 900, margin: 0 }}>{sec13.title}</h3>
-                <div className="sub" style={{ color: "var(--muted)", fontWeight: 700, fontSize: "14px", marginTop: "4px" }}>{sec13.subtitle}</div>
-              </div>
-              <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-                <Link className="btn orange lg" href="/apply">Apply now</Link>
-                <Link className="btn white lg" href="/lead/adviser-call">Book adviser</Link>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* 14. RELATED + ALTERNATIVES */}
-      {sec14.status !== false && (
-        <section className="sec">
-          <div className="wrap">
-            <div className="shead row">
-              <div>
-                <span className="eyebrow o" style={{ marginBottom: "16px", display: "inline-block" }}>{sec14.badge}</span>
-                <h2 className="h1">{sec14.title}</h2>
-              </div>
-              <p className="lead">{sec14.description}</p>
-            </div>
-            <div className="g4 ys-carousel-mobile">
-              {sec14.cards?.map((card: any, idx: number) => (
-                <div className="ptop" key={idx}>
-                  <div className="ph" style={{ position: "relative", height: "180px", overflow: "hidden", borderRadius: "16px 16px 0 0" }}>
-                    <img src={card.fullImageUrl || undefined} alt={card.role} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                    <span className="badge" style={{ position: "absolute", top: "12px", left: "12px", background: "var(--b)", color: "#fff", padding: "4px 10px", borderRadius: "100px", fontSize: "11px", fontWeight: 800 }}>
-                      High Match
-                    </span>
+              <div className="g3 ys-carousel-mobile">
+                {sec7.cards?.map((card: any, idx: number) => (
+                  <div className="yearcard" key={idx}>
+                    <div className="yn">{card.year}</div>
+                    <h4>{card.title}</h4>
+                    <p style={{ color: "var(--muted)", fontWeight: 600, fontSize: "14px", marginBottom: "12px" }}>{card.subtitle}</p>
+                    <ul>
+                      {card.modules?.map((mod: string, mIdx: number) => (
+                        <li key={mIdx}>{mod}</li>
+                      ))}
+                    </ul>
                   </div>
-                  <div className="pb" style={{ padding: "18px", border: "1px solid var(--panel-border)", borderTop: "none", borderRadius: "0 0 16px 16px" }}>
-                    <h4 style={{ margin: 0, fontSize: "18px", fontWeight: 900 }}>{card.role}</h4>
-                    <p style={{ fontSize: "13px", color: "var(--muted)", margin: "8px 0 14px", minHeight: "38px" }}>{card.description}</p>
-                    <div className="mrow" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                      <b>{card.pay}</b>
-                      <Link className="btn outline sm" href={card.link}>View →</Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        )
+      }
+
+      {/* 8. STUDY MODES */}
+      {
+        sec8.status !== false && (
+          <section className="sec soft">
+            <div className="wrap">
+              <div className="shead row">
+                <div>
+                  <span className="eyebrow gold" style={{ marginBottom: "16px", display: "inline-block" }}>{sec8.badge}</span>
+                  <h2 className="h1">{sec8.title}</h2>
+                </div>
+                <p className="lead">{sec8.description}</p>
+              </div>
+              <div className="g3 ys-carousel-mobile">
+                {sec8.cards?.map((card: any, idx: number) => (
+                  <div className={`modecard ${idx === 0 ? 'best' : idx === 1 ? 'warn' : 'remote'}`} key={idx}>
+                    <span className="tag">{card.tag}</span>
+                    <h4>{card.title}</h4>
+                    <p>{card.description}</p>
+                    <div className="row"><span>Attendance</span><span>{card.attendance}</span></div>
+                    <div className="row"><span>Maintenance</span><span>{card.maintenance}</span></div>
+                    <div className="row"><span>Networking / Support</span><span>{card.networking || card.travel}</span></div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )
+      }
+
+      {/* 9. STORIES / REVIEWS */}
+      {
+        sec9.status !== false && (
+          <section className="sec" id="reviews">
+            <div className="wrap">
+              <div className="shead row">
+                <div>
+                  <span className="eyebrow b" style={{ marginBottom: "16px", display: "inline-block" }}>{sec9.badge}</span>
+                  <h2 className="h1">{sec9.title}</h2>
+                </div>
+                <p className="lead">{sec9.description}</p>
+              </div>
+              <div className="g3 ys-carousel-mobile">
+                {sec9.cards?.map((card: any, idx: number) => (
+                  <div className="pstory" key={idx}>
+                    <img className="bg" src={card.fullImageUrl || undefined} alt={card.name} />
+                    <div className="scrim"></div>
+                    <span className="pbadge">{card.badge}</span>
+                    <div className="ps-inner">
+                      <div className="stars">★★★★★</div>
+                      <blockquote>"{card.quote}"</blockquote>
+                      <div className="who"><b>{card.name}</b><span>{card.status}</span></div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
-      )}
+          </section>
+        )
+      }
+
+      {/* 10. ENTRY */}
+      {
+        sec10.status !== false && (
+          <section className="sec soft" id="entry">
+            <div className="wrap">
+              <div className="g2" style={{ alignItems: "start", gap: "clamp(30px, 4vw, 60px)" }}>
+                <div>
+                  <span className="eyebrow o" style={{ marginBottom: "16px", display: "inline-block" }}>{sec10.badge}</span>
+                  <h2 className="h1" style={{ marginBottom: "14px" }}>{sec10.title}</h2>
+                  <p className="lead" style={{ marginBottom: "22px" }}>{sec10.description}</p>
+                  <Link className="btn orange lg" href="/tools/eligibility-checker">Free eligibility check →</Link>
+                </div>
+                <div>
+                  {sec10.rows?.map((row: any, idx: number) => (
+                    <div
+                      className={row.parentClass || `entryrow ${row.label === 'Not sure?' ? 'q' : ''}`}
+                      key={idx}
+                    >
+                      <div className="ic">{row.icon || (row.label === 'Not sure?' ? '?' : '✓')}</div>
+                      <div><b>{row.label}</b> &nbsp;{row.desc && <span>{row.desc}</span>}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        )
+      }
+
+      {/* 11. INTAKES */}
+      {
+        sec11.status !== false && (
+          <section className="sec">
+            <div className="wrap">
+              <div className="shead row">
+                <div>
+                  <span className="eyebrow gold" style={{ marginBottom: "16px", display: "inline-block" }}>{sec11.badge}</span>
+                  <h2 className="h1">{sec11.title}</h2>
+                </div>
+                <p className="lead">{sec11.description}</p>
+              </div>
+              <div className="g4 ys-carousel-mobile">
+                {sec11.cards?.map((card: any, idx: number) => (
+                  <div className="intake" key={idx}>
+                    <div className="mo"><b>{card.month}</b><span>{card.year}</span></div>
+                    <h4 style={{ fontWeight: 900, fontSize: "17px", marginBottom: "4px" }}>{card.title}</h4>
+                    <p style={{ color: "var(--muted)", fontWeight: 700, fontSize: "14px", marginBottom: "12px" }}>{card.desc}</p>
+                    <Link className="btn orange sm" href={card.link || "/apply"}>Apply →</Link>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )
+      }
+
+      {/* 12. TOOLKIT */}
+      {
+        sec12.status !== false && (
+          <section className="sec soft">
+            <div className="wrap">
+              <div className="shead row">
+                <div>
+                  <span className="eyebrow b" style={{ marginBottom: "16px", display: "inline-block" }}>{sec12.badge}</span>
+                  <h2 className="h1">{sec12.title}</h2>
+                </div>
+                <p className="lead">{sec12.description}</p>
+              </div>
+              <div className="g4 ys-carousel-mobile">
+                {sec12.cards?.map((card: any, idx: number) => (
+                  <div className="rolecard" key={idx}>
+                    <div style={{ fontSize: "26px", marginBottom: "10px" }}>{card.icon}</div>
+                    <h4>{card.title}</h4>
+                    <p style={{ marginBottom: "14px" }}>{card.desc}</p>
+                    <Link className="btn blue sm" href={card.link}>{card.btnName || "Build route →"}</Link>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )
+      }
+
+      {/* 13. CONVERSION BAND */}
+      {
+        sec13.status !== false && (
+          <section className="sec tight">
+            <div className="wrap">
+              <div className="cband" >
+                <div>
+                  <h3 style={{ fontSize: "22px", fontWeight: 900, margin: 0 }}>{sec13.title}</h3>
+                  <div className="sub" style={{ color: "var(--muted)", fontWeight: 700, fontSize: "14px", marginTop: "4px" }}>{sec13.subtitle}</div>
+                </div>
+                <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+                  <Link className="btn orange lg" href="/apply">Apply now</Link>
+                  <Link className="btn white lg" href="/lead/adviser-call">Book adviser</Link>
+                </div>
+              </div>
+            </div>
+          </section>
+        )
+      }
+
+      {/* 14. RELATED + ALTERNATIVES */}
+      {
+        sec14.status !== false && (
+          <section className="sec">
+            <div className="wrap">
+              <div className="shead row">
+                <div>
+                  <span className="eyebrow o" style={{ marginBottom: "16px", display: "inline-block" }}>{sec14.badge}</span>
+                  <h2 className="h1">{sec14.title}</h2>
+                </div>
+                <p className="lead">{sec14.description}</p>
+              </div>
+              <div className="g4 ys-carousel-mobile">
+                {sec14.cards?.map((card: any, idx: number) => (
+                  <div className="ptop" key={idx}>
+                    <div className="ph" style={{ position: "relative", height: "180px", overflow: "hidden", borderRadius: "16px 16px 0 0" }}>
+                      <img src={card.fullImageUrl || undefined} alt={card.role} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                      <span className="badge" style={{ position: "absolute", top: "12px", left: "12px", background: "var(--b)", color: "#fff", padding: "4px 10px", borderRadius: "100px", fontSize: "11px", fontWeight: 800 }}>
+                        High Match
+                      </span>
+                    </div>
+                    <div className="pb" style={{ padding: "18px", border: "1px solid var(--panel-border)", borderTop: "none", borderRadius: "0 0 16px 16px" }}>
+                      <h4 style={{ margin: 0, fontSize: "18px", fontWeight: 900 }}>{card.role}</h4>
+                      <p style={{ fontSize: "13px", color: "var(--muted)", margin: "8px 0 14px", minHeight: "38px" }}>{card.description}</p>
+                      <div className="mrow" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                        <b>{card.pay}</b>
+                        <Link className="btn outline sm" href={card.link}>View →</Link>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )
+      }
 
       {/* 15. FAQ */}
-      {sec15.status !== false && displayFaqs.length > 0 && (
-        <section className="sec soft" id="faq">
-          <div className="wrap">
-            <div className="shead row">
-              <div>
-                <span className="eyebrow o" style={{ marginBottom: "16px", display: "inline-block" }}>{sec15.badge}</span>
-                <h2 className="h1">{sec15.title}</h2>
+      {
+        sec15.status !== false && displayFaqs.length > 0 && (
+          <section className="sec soft" id="faq">
+            <div className="wrap">
+              <div className="shead row">
+                <div>
+                  <span className="eyebrow o" style={{ marginBottom: "16px", display: "inline-block" }}>{sec15.badge}</span>
+                  <h2 className="h1">{sec15.title}</h2>
+                </div>
+                <p className="lead">{sec15.description}</p>
               </div>
-              <p className="lead">{sec15.description}</p>
-            </div>
-            <div style={{ maxWidth: "820px", display: "flex", flexDirection: "column", gap: "12px" }}>
-              {displayFaqs?.map((faq: any, idx: number) => (
-                <div
-                  className={`faqq ${activeFaq === idx ? 'open' : ''}`}
-                  key={idx}
-                  onClick={() => setActiveFaq(activeFaq === idx ? null : idx)}
-                  style={{
-                    background: "var(--bg-surface)",
-                    border: "1px solid var(--panel-border)",
-                    borderRadius: "16px",
-                    padding: "20px",
-                    cursor: "pointer",
-                    transition: "all 0.2s ease"
-                  }}
-                >
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                    <b style={{ fontSize: "16px", fontWeight: 800 }}>{faq.question}</b>
-                    <span style={{ fontSize: "20px", fontWeight: "300" }}>{activeFaq === idx ? "−" : "+"}</span>
-                  </div>
+              <div style={{ maxWidth: "820px", display: "flex", flexDirection: "column", gap: "12px" }}>
+                {displayFaqs?.map((faq: any, idx: number) => (
                   <div
+                    className={`faqq ${activeFaq === idx ? 'open' : ''}`}
+                    key={idx}
+                    onClick={() => setActiveFaq(activeFaq === idx ? null : idx)}
                     style={{
-                      maxHeight: activeFaq === idx ? "200px" : "0",
-                      overflow: "hidden",
-                      transition: "all 0.3s ease",
-                      marginTop: activeFaq === idx ? "12px" : "0",
-                      color: "var(--muted)",
-                      fontSize: "14px",
-                      lineHeight: "1.5"
+                      background: "var(--bg-surface)",
+                      border: "1px solid var(--panel-border)",
+                      borderRadius: "16px",
+                      padding: "20px",
+                      cursor: "pointer",
+                      transition: "all 0.2s ease"
                     }}
                   >
-                    {faq.answer}
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                      <b style={{ fontSize: "16px", fontWeight: 800 }}>{faq.question}</b>
+                      <span style={{ fontSize: "20px", fontWeight: "300" }}>{activeFaq === idx ? "−" : "+"}</span>
+                    </div>
+                    <div
+                      style={{
+                        maxHeight: activeFaq === idx ? "200px" : "0",
+                        overflow: "hidden",
+                        transition: "all 0.3s ease",
+                        marginTop: activeFaq === idx ? "12px" : "0",
+                        color: "var(--muted)",
+                        fontSize: "14px",
+                        lineHeight: "1.5"
+                      }}
+                    >
+                      {faq.answer}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
-      )}
+          </section>
+        )
+      }
 
       {/* 16. FINAL CTA */}
       <section className="sec ink">
@@ -881,6 +902,6 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
 
       {/* 18. USEFUL NEXT STEPS */}
       <QualificationCrosslinks sectionData={faqCms?.section_4} />
-    </div>
+    </div >
   );
 }
