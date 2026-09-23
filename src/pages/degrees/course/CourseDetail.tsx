@@ -65,19 +65,19 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
   // Helper to extract snapshot items from banner right card if they exist
   const getBannerItemValue = (query: string, index: number, fallback: string) => {
     if (!banner?.rightCard?.items) return fallback;
-    
+
     const itemByQuery = banner.rightCard.items.find((i: any) => {
       const matchText = `${i.title || ""} ${i.subtitle || ""} ${i.description || ""}`.toLowerCase();
       return matchText.includes(query);
     });
-    
+
     if (itemByQuery) {
       if (banner.rightCard.layoutType === 'grid-2x2') {
         return itemByQuery.value || itemByQuery.subtitle || itemByQuery.title || fallback;
       }
       return itemByQuery.value || itemByQuery.title || itemByQuery.subtitle || fallback;
     }
-    
+
     const itemByIndex = banner.rightCard.items[index];
     if (itemByIndex) {
       if (banner.rightCard.layoutType === 'grid-2x2') {
@@ -85,7 +85,7 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
       }
       return itemByIndex.value || itemByIndex.title || itemByIndex.subtitle || fallback;
     }
-    
+
     return fallback;
   };
 
@@ -93,7 +93,7 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
   const title = banner?.leftContent?.title || backendCourse?.title || cmsData?.title || (slug || "").replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
   const description = banner?.leftContent?.description || backendCourse?.description || backendCourse?.shortDescription || cmsData?.description || "A practical degree route designed for working adults.";
   const kicker = banner?.leftContent?.badgeText || cmsData?.kicker || "Featured Course";
-  
+
   const bannerImage = banner ? getMediaUrl(banner.background?.imageUrl, banner.fullImageUrl) : null;
   const image = bannerImage || backendCourse?.fullImageUrl || backendCourse?.image || cmsData?.image || "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=2000&q=80";
 
@@ -452,7 +452,7 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
             <div className="g4 ys-carousel-mobile">
               {sec4.cards?.map((card: any, idx: number) => (
                 <Link className="pcard" href={card.link || "/tools/salary-checker"} key={idx}>
-                  <img className="bg" src={card.image} alt={card.role} />
+                  <img className="bg" src={card.image || undefined} alt={card.role} />
                   <div className="scrim"></div>
                   <div className="pc-inner">
                     <h4>{card.role}</h4>
@@ -665,7 +665,7 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
             <div className="g3 ys-carousel-mobile">
               {sec9.cards?.map((card: any, idx: number) => (
                 <div className="pstory" key={idx}>
-                  <img className="bg" src={card.image} alt={card.name} />
+                  <img className="bg" src={card.image || undefined} alt={card.name} />
                   <div className="scrim"></div>
                   <span className="pbadge">{card.badge}</span>
                   <div className="ps-inner">
@@ -692,7 +692,7 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
                 <Link className="btn orange lg" href="/tools/eligibility-checker">Free eligibility check →</Link>
               </div>
               <div>
-                {entryRows?.map((row: any, idx: number) => (
+                {sec10.rows?.map((row: any, idx: number) => (
                   <div
                     className={row.parentClass || `entryrow ${row.label === 'Not sure?' ? 'q' : ''}`}
                     key={idx}
@@ -790,7 +790,7 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
               {sec14.cards?.map((card: any, idx: number) => (
                 <div className="ptop" key={idx}>
                   <div className="ph" style={{ position: "relative", height: "180px", overflow: "hidden", borderRadius: "16px 16px 0 0" }}>
-                    <img src={card.image} alt={card.role} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    <img src={card.image || undefined} alt={card.role} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                     <span className="badge" style={{ position: "absolute", top: "12px", left: "12px", background: "var(--b)", color: "#fff", padding: "4px 10px", borderRadius: "100px", fontSize: "11px", fontWeight: 800 }}>
                       High Match
                     </span>
