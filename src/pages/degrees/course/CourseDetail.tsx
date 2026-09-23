@@ -450,9 +450,10 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
               <p className="lead">{sec4.description}</p>
             </div>
             <div className="g4 ys-carousel-mobile">
+              {console.log(sec4.cards)}
               {sec4.cards?.map((card: any, idx: number) => (
                 <Link className="pcard" href={card.link || "/tools/salary-checker"} key={idx}>
-                  <img className="bg" src={card.image || undefined} alt={card.role} />
+                  <img className="bg" src={card.fullImageUrl || undefined} alt={card.role} />
                   <div className="scrim"></div>
                   <div className="pc-inner">
                     <h4>{card.role}</h4>
@@ -665,7 +666,7 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
             <div className="g3 ys-carousel-mobile">
               {sec9.cards?.map((card: any, idx: number) => (
                 <div className="pstory" key={idx}>
-                  <img className="bg" src={card.image || undefined} alt={card.name} />
+                  <img className="bg" src={card.fullImageUrl || undefined} alt={card.name} />
                   <div className="scrim"></div>
                   <span className="pbadge">{card.badge}</span>
                   <div className="ps-inner">
@@ -790,7 +791,7 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
               {sec14.cards?.map((card: any, idx: number) => (
                 <div className="ptop" key={idx}>
                   <div className="ph" style={{ position: "relative", height: "180px", overflow: "hidden", borderRadius: "16px 16px 0 0" }}>
-                    <img src={card.image || undefined} alt={card.role} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    <img src={card.fullImageUrl || undefined} alt={card.role} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                     <span className="badge" style={{ position: "absolute", top: "12px", left: "12px", background: "var(--b)", color: "#fff", padding: "4px 10px", borderRadius: "100px", fontSize: "11px", fontWeight: 800 }}>
                       High Match
                     </span>
