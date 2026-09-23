@@ -315,15 +315,15 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
   }
 
   // Dynamically map upcoming intakes and student stories from DB
-  const finalStories = (dbStories && dbStories.length > 0)
-    ? dbStories
-    : (backendCourse?.courseCms?.reviews?.studentStories || []);
+  const finalStories = (backendCourse?.courseCms?.reviews?.studentStories && backendCourse?.courseCms?.reviews?.studentStories.length > 0)
+    ? backendCourse?.courseCms?.reviews?.studentStories
+    : [];
 
   if (finalStories && finalStories.length > 0) {
     customSec9 = {
       ...customSec9,
       cards: finalStories.slice(0, 3).map((story: any) => ({
-        image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=700&q=80",
+        fullImageUrl: story.fullImageUrl || "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=700&q=80",
         badge: story.badge || "Student Story",
         quote: story.description,
         name: story.name,
