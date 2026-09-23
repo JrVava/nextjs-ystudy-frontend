@@ -564,8 +564,8 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
                 <div className="result" style={{ marginTop: "16px", padding: "16px", borderRadius: "12px", background: "linear-gradient(135deg, var(--b-deep), var(--b))", color: "#fff" }}>
                   <div className="lbl" style={{ fontSize: "12px", opacity: 0.8 }}>Indicative total support</div>
                   <div className="big" style={{ fontSize: "28px", fontWeight: 900 }}>{calcResult}</div>
-                  <div className="ysf-mini-note">Indicative only. Final entitlement depends on SFE assessment, household income, location, course intensity and study mode.</div>
                 </div>
+                <div className="ysf-mini-note">Indicative only. Final entitlement depends on SFE assessment, household income, location, course intensity and study mode.</div>
               </div>
             </div>
           </div>
