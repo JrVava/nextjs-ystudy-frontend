@@ -327,7 +327,7 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
         badge: story.badge || "Student Story",
         quote: story.description,
         name: story.name,
-        status: story.year && story.subject ? `${story.year} · ${story.subject}` : (story.year || story.subject || "")
+        status: story.year && story.subject ? `${story.subject} · ${story.year}` : (story.year || story.subject || "")
       })),
       status: customSec9?.status !== false
     };
