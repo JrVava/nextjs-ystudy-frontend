@@ -333,18 +333,21 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
     };
   }
 
-  const finalIntakes = (dbIntakes && dbIntakes.length > 0)
-    ? dbIntakes
-    : (backendCourse?.courseCms?.Entry?.section_2?.upcomingIntakes || []);
-
+  const finalIntakes = (backendCourse?.courseCms?.Entry?.section_2?.upcomingIntakes && backendCourse?.courseCms?.Entry?.section_2?.upcomingIntakes.length > 0)
+    ? backendCourse?.courseCms?.Entry?.section_2?.upcomingIntakes
+    : [];
   if (finalIntakes && finalIntakes.length > 0) {
     customSec11 = {
       ...customSec11,
       cards: finalIntakes.slice(0, 4).map((intake: any) => ({
         month: intake.month,
         year: intake.year,
+        status: intake.status,
+        subject: intake.subject,
+        qualification: intake.qualification,
+        linkName: intake.linkName,
         title: title || backendCourse?.title || "Degree Intake",
-        desc: "Main intake route.",
+        desc: intake?.description || "Main intake route.",
         link: intake.link || "/apply"
       })),
       status: customSec11?.status !== false
@@ -718,7 +721,6 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
           </section>
         )
       }
-
       {/* 11. INTAKES */}
       {
         sec11.status !== false && (
@@ -735,9 +737,9 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
                 {sec11.cards?.map((card: any, idx: number) => (
                   <div className="intake" key={idx}>
                     <div className="mo"><b>{card.month}</b><span>{card.year}</span></div>
-                    <h4 style={{ fontWeight: 900, fontSize: "17px", marginBottom: "4px" }}>{card.title}</h4>
+                    <h4 style={{ fontWeight: 900, fontSize: "17px", marginBottom: "4px" }}>{card.subject} {card.qualification}</h4>
                     <p style={{ color: "var(--muted)", fontWeight: 700, fontSize: "14px", marginBottom: "12px" }}>{card.desc}</p>
-                    <Link className="btn orange sm" href={card.link || "/apply"}>Apply →</Link>
+                    <Link className="btn orange sm" href={card.link || "/apply"}>{card.linkName}</Link>
                   </div>
                 ))}
               </div>
