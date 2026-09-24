@@ -47,37 +47,37 @@ export default async function Degrees() {
   // Map backend subjects or CMS data
   const subjectsData = (subjects && subjects.length > 0)
     ? subjects.map((s: any) => ({
-        title: s.title,
-        description: s.description,
-        badge: s.badge || s.title,
-        link: `/degrees/${s.slug || s.title.toLowerCase()}`,
-        image: s.fullImageUrl || s.image,
-        meta: s.tags
-      }))
+      title: s.title,
+      description: s.description,
+      badge: s.badge || s.title,
+      link: `/degrees/${s.slug || s.title.toLowerCase()}`,
+      image: s.fullImageUrl || s.image,
+      meta: s.tags
+    }))
     : (data?.section_4?.subjects || []);
 
   // Map backend qualifications or CMS data
   const qualificationsData = (qualifications && qualifications.length > 0)
     ? qualifications.map((q: any) => ({
-        title: q.title,
-        description: q.description,
-        badge: q.badge || q.title,
-        link: `/degrees/qualifications/${q.slug || q.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`,
-        image: q.fullImageUrl || q.image,
-        meta: q.tags
-      }))
+      title: q.title,
+      description: q.description,
+      badge: q.badge || q.title,
+      link: `/degrees/qualifications/${q.slug || q.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`,
+      image: q.fullImageUrl || q.image,
+      meta: q.tags
+    }))
     : (data?.section_5?.qualifications || []);
 
   // Map backend locations or CMS data
   const locationsData = (locations && locations.length > 0)
     ? locations.map((l: any) => ({
-        title: l.title?.toLowerCase().startsWith("study in") ? l.title : `Study in ${l.title}`,
-        description: l.description || l.short_description,
-        badge: l.badge || l.title,
-        link: `/degrees/locations#${l.slug || l.title.toLowerCase().replace(/\s+/g, '-')}`,
-        image: l.fullImageUrl || l.image,
-        meta: l.tags
-      }))
+      title: l.title?.toLowerCase().startsWith("study in") ? l.title : `Study in ${l.title}`,
+      description: l.description || l.short_description,
+      badge: l.badge || l.title,
+      link: `/degrees/locations#${l.slug || l.title.toLowerCase().replace(/\s+/g, '-')}`,
+      image: l.fullImageUrl || l.image,
+      meta: l.tags
+    }))
     : (data?.section_6?.locations || []);
 
   return (
@@ -116,7 +116,20 @@ export default async function Degrees() {
               description={data?.section_4?.description}
               id="courses-by-subject"
             >
-              {subjectsData.map((s: any, idx: number) => (
+              {console.log("subjectsData", subjectsData)}
+              {subjectsData
+                .filter((s: any) => {
+                  const dataCount = [
+                    s.title,
+                    s.link || s.slug,
+                    s.description,
+                    s.image,
+                    s.meta && s.meta.length > 0 ? s.meta : null,
+                    s.badge && s.badge !== s.title ? s.badge : null
+                  ].filter(Boolean).length;
+                  return dataCount >= 3;
+                })
+                .map((s: any, idx: number) => (
                 <a key={idx} className="sdx-card" href={s.link}>
                   <div className="sdx-photo">
                     <img src={s.image} alt={s.title} />
