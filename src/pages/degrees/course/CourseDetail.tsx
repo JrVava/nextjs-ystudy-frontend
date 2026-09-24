@@ -303,7 +303,8 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
       badge: socialCms.Entry?.section_5?.badge,
       title: socialCms.Entry?.section_5?.title,
       description: socialCms.Entry?.section_5?.description,
-      status: socialCms.Entry?.section_5?.status
+      status: socialCms.Entry?.section_5?.status,
+      section_5: socialCms.Entry?.section_5?.subjects
     };
 
     customSec15 = {
@@ -368,19 +369,12 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
   const sec13 = getSectionWithFallback(cmsData?.section_13, customSec13);
   const sec14 = getSectionWithFallback(cmsData?.section_14, customSec14);
   const sec15 = getSectionWithFallback(cmsData?.section_15, customSec15);
-
   const displayFaqs = faqs && faqs.length > 0 ? faqs : (backendCourse?.courseCms?.FAQ?.section_1?.faq || []).map((f: any) => ({
     question: f.question || f.title,
     answer: f.answer || f.description
   }));
   const faqCms = backendCourse?.courseType === "Social" ? backendCourse?.courseCms?.FAQ : undefined;
   const ctaSec = faqCms?.section_2 || {};
-
-  const entryRows = (backendCourse?.entryRequirement && backendCourse.entryRequirement.length > 0)
-    ? backendCourse.entryRequirement.map((req: string) => {
-      return { label: req, desc: "" };
-    })
-    : (sec10.rows || []);
 
   return (
     <div className="qualification-page course-detail-page animate-fade-in">
@@ -808,7 +802,8 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
                 <p className="lead">{sec14.description}</p>
               </div>
               <div className="g4 ys-carousel-mobile">
-                {sec14.cards?.map((card: any, idx: number) => (
+                {console.log("sec14.cards", sec14)}
+                {sec14.section_5?.map((card: any, idx: number) => (
                   <div className="ptop" key={idx}>
                     <div className="ph" style={{ position: "relative", height: "180px", overflow: "hidden", borderRadius: "16px 16px 0 0" }}>
                       <img src={card.fullImageUrl || undefined} alt={card.role} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
@@ -817,11 +812,11 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
                       </span>
                     </div>
                     <div className="pb" style={{ padding: "18px", border: "1px solid var(--panel-border)", borderTop: "none", borderRadius: "0 0 16px 16px" }}>
-                      <h4 style={{ margin: 0, fontSize: "18px", fontWeight: 900 }}>{card.role}</h4>
+                      <h4 style={{ margin: 0, fontSize: "18px", fontWeight: 900 }}>{card.title}</h4>
                       <p style={{ fontSize: "13px", color: "var(--muted)", margin: "8px 0 14px", minHeight: "38px" }}>{card.description}</p>
                       <div className="mrow" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <b>{card.pay}</b>
-                        <Link className="btn outline sm" href={card.link}>View →</Link>
+                        <b>{card.salary}</b>
+                        <Link className="btn outline sm" href={card?.slug ? `/degrees/${card.slug.split('/').pop()}` : "#"}>View →</Link>
                       </div>
                     </div>
                   </div>
