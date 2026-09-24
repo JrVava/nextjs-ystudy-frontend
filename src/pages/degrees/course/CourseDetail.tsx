@@ -249,7 +249,8 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
       badge: socialCms.study?.section_2?.badge,
       title: socialCms.study?.section_2?.title,
       description: socialCms.study?.section_2?.description,
-      status: socialCms.study?.section_2?.status
+      status: socialCms.study?.section_2?.status,
+      timeTable: socialCms.study?.section_2?.timeTable
     };
 
     customSec9 = {
@@ -314,7 +315,6 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
       status: socialCms.FAQ?.section_1?.status
     };
   }
-
   // Dynamically map upcoming intakes and student stories from DB
   const finalStories = (backendCourse?.courseCms?.reviews?.studentStories && backendCourse?.courseCms?.reviews?.studentStories.length > 0)
     ? backendCourse?.courseCms?.reviews?.studentStories
@@ -626,7 +626,6 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
           </section>
         )
       }
-
       {/* 8. STUDY MODES */}
       {
         sec8.status !== false && (
@@ -640,9 +639,9 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
                 <p className="lead">{sec8.description}</p>
               </div>
               <div className="g3 ys-carousel-mobile">
-                {sec8.cards?.map((card: any, idx: number) => (
+                {sec8.timeTable?.map((card: any, idx: number) => (
                   <div className={`modecard ${idx === 0 ? 'best' : idx === 1 ? 'warn' : 'remote'}`} key={idx}>
-                    <span className="tag">{card.tag}</span>
+                    <span className="tag">{card.badge}</span>
                     <h4>{card.title}</h4>
                     <p>{card.description}</p>
                     <div className="row"><span>Attendance</span><span>{card.attendance}</span></div>
@@ -802,13 +801,12 @@ export default function CourseDetail({ slug, cmsData, backendCourse, faqs, banne
                 <p className="lead">{sec14.description}</p>
               </div>
               <div className="g4 ys-carousel-mobile">
-                {console.log("sec14.cards", sec14)}
                 {sec14.section_5?.map((card: any, idx: number) => (
                   <div className="ptop" key={idx}>
                     <div className="ph" style={{ position: "relative", height: "180px", overflow: "hidden", borderRadius: "16px 16px 0 0" }}>
                       <img src={card.fullImageUrl || undefined} alt={card.role} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                       <span className="badge" style={{ position: "absolute", top: "12px", left: "12px", background: "var(--b)", color: "#fff", padding: "4px 10px", borderRadius: "100px", fontSize: "11px", fontWeight: 800 }}>
-                        High Match
+                        {card.badge || "High Match"}
                       </span>
                     </div>
                     <div className="pb" style={{ padding: "18px", border: "1px solid var(--panel-border)", borderTop: "none", borderRadius: "0 0 16px 16px" }}>
