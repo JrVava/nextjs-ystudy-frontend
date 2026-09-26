@@ -4,6 +4,13 @@ import { decrypt } from "@/lib/crypto";
 export interface FilterItem {
   _id: string;
   title: string;
+  slug?: string;
+  description?: string;
+  short_description?: string;
+  badge?: string;
+  image?: string;
+  fullImageUrl?: string;
+  tags?: string[];
 }
 
 async function fetchAndDecryptFilter(endpoint: string): Promise<FilterItem[]> {

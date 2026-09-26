@@ -1,9 +1,33 @@
 "use client";
 
 import React, { useState, useMemo, useEffect, createContext, useContext } from "react";
+import Link from "next/link";
 import { CourseCard } from "@/components/degrees/CourseCard";
 import { BackendCourse } from "@/types/course";
 import { getAllCourses } from "@/services/course.service";
+import { FilterItem } from "@/services/filters.service";
+
+interface CompareSectionData {
+  title?: string;
+  description?: string;
+  status?: boolean;
+  compare_tags?: string[];
+}
+
+// Course relations arrive either as plain strings or as populated objects
+type NamedRef = string | { title?: string; name?: string; label?: string; city?: string; duration?: string } | null | undefined;
+
+const refName = (ref: NamedRef, keys: Array<"title" | "name" | "label" | "city" | "duration">): string => {
+  if (typeof ref === "string") return ref;
+  if (!ref) return "";
+  for (const key of keys) {
+    if (ref[key]) return ref[key] as string;
+  }
+  return "";
+};
+
+const toRefList = (...values: unknown[]): NamedRef[] =>
+  values.flatMap((v) => (Array.isArray(v) ? v : v ? [v] : [])) as NamedRef[];
 
 interface DegreeCatalogContextType {
   viewMode: "grid" | "list";
@@ -26,13 +50,13 @@ interface DegreeCatalogContextType {
   setSortBy: (s: "match" | "title") => void;
   filteredCourses: BackendCourse[];
   courseCount: number;
-  subjects: any[];
-  qualifications: any[];
-  modes: any[];
-  durations: any[];
-  fundings: any[];
-  locations: any[];
-  section3Data?: any;
+  subjects: FilterItem[];
+  qualifications: FilterItem[];
+  modes: FilterItem[];
+  durations: FilterItem[];
+  fundings: FilterItem[];
+  locations: FilterItem[];
+  section3Data?: CompareSectionData;
 }
 
 const DegreeCatalogContext = createContext<DegreeCatalogContextType | null>(null);
@@ -49,13 +73,13 @@ export function DegreeCatalogProvider({
   children
 }: {
   initialCourses: BackendCourse[];
-  subjects: any[];
-  qualifications: any[];
-  modes: any[];
-  durations: any[];
-  fundings: any[];
-  locations: any[];
-  section3Data?: any;
+  subjects: FilterItem[];
+  qualifications: FilterItem[];
+  modes: FilterItem[];
+  durations: FilterItem[];
+  fundings: FilterItem[];
+  locations: FilterItem[];
+  section3Data?: CompareSectionData;
   children: React.ReactNode;
 }) {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
@@ -69,16 +93,19 @@ export function DegreeCatalogProvider({
   const [sortBy, setSortBy] = useState<"match" | "title">("match");
   const [apiCourses, setApiCourses] = useState<BackendCourse[]>(initialCourses);
 
-  useEffect(() => {
+  // Reset to fresh server data when the page re-renders with new initial courses
+  const [prevInitialCourses, setPrevInitialCourses] = useState(initialCourses);
+  if (prevInitialCourses !== initialCourses) {
+    setPrevInitialCourses(initialCourses);
     setApiCourses(initialCourses);
-  }, [initialCourses]);
+  }
 
   useEffect(() => {
     let isSubscribed = true;
     const fetchFilteredCourses = async () => {
       try {
         setApiCourses([]);
-        const resolveId = (collection: any[], val: string, anyText: string) => 
+        const resolveId = (collection: FilterItem[], val: string, anyText: string) =>
           val === anyText ? undefined : collection.find(item => item.title === val)?._id || val;
 
         const results = await getAllCourses({
@@ -121,8 +148,11 @@ export function DegreeCatalogProvider({
 
   React.useEffect(() => {
     if (typeof window !== "undefined") {
+      // The page is pre-rendered, so URL filters can only be read after hydration.
+      // This runs once on mount; reading them during render would cause a hydration mismatch.
       const params = new URLSearchParams(window.location.search);
       const search = params.get("search") || params.get("q");
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (search) setSearchQuery(search);
       const subject = params.get("subject");
       if (subject) setSelectedSubject(subject);
@@ -132,7 +162,7 @@ export function DegreeCatalogProvider({
   }, []);
 
   const filteredCourses = useMemo(() => {
-    const getMatchScore = (course: any, query?: string) => {
+    const getMatchScore = (course: BackendCourse, query?: string) => {
       if (course.matchScore) return course.matchScore;
       let score = 85;
       if (course._id) {
@@ -163,20 +193,10 @@ export function DegreeCatalogProvider({
 
         // 2. Subject Filter
         if (selectedSubject !== "Any subject") {
-          const subjList: any[] = [];
-          if (course.subject) {
-            if (Array.isArray(course.subject)) {
-              subjList.push(...course.subject);
-            } else {
-              subjList.push(course.subject);
-            }
-          }
-          if (course.subjects && Array.isArray(course.subjects)) {
-            subjList.push(...course.subjects);
-          }
+          const subjList = toRefList(course.subject, course.subjects);
 
           const hasSubjMatch = subjList.some((s) => {
-            const name = typeof s === "string" ? s : s?.title || s?.name || "";
+            const name = refName(s, ["title", "name"]);
             return name.toLowerCase().includes(selectedSubject.toLowerCase());
           });
 
@@ -187,20 +207,10 @@ export function DegreeCatalogProvider({
 
         // 3. Qualification Filter
         if (selectedQualification !== "Any qualification") {
-          const qualList: any[] = [];
-          if (course.qualification) {
-            if (Array.isArray(course.qualification)) {
-              qualList.push(...course.qualification);
-            } else {
-              qualList.push(course.qualification);
-            }
-          }
-          if (course.qualifications && Array.isArray(course.qualifications)) {
-            qualList.push(...course.qualifications);
-          }
+          const qualList = toRefList(course.qualification, course.qualifications);
 
           const hasQualMatch = qualList.some((q) => {
-            const name = typeof q === "string" ? q : q?.title || q?.name || "";
+            const name = refName(q, ["title", "name"]);
             return name.toLowerCase().includes(selectedQualification.toLowerCase());
           });
 
@@ -211,9 +221,9 @@ export function DegreeCatalogProvider({
 
         // 4. Location Filter
         if (selectedLocation !== "Any location") {
-          const locs = Array.isArray(course.locations) ? course.locations : [];
-          const locMatch = locs.some((l: any) => {
-            const lName = typeof l === "string" ? l : l?.name || l?.title || l?.city || "";
+          const locs = toRefList(course.locations);
+          const locMatch = locs.some((l) => {
+            const lName = refName(l, ["name", "title", "city"]);
             return lName.toLowerCase().includes(selectedLocation.toLowerCase());
           });
           if (!locMatch) {
@@ -223,12 +233,9 @@ export function DegreeCatalogProvider({
 
         // 5. Mode Filter
         if (selectedMode !== "Any mode") {
-          const modeList: any[] = [];
-          if (course.modeType && Array.isArray(course.modeType)) {
-            modeList.push(...course.modeType);
-          }
+          const modeList = Array.isArray(course.modeType) ? toRefList(course.modeType) : [];
           const hasModeMatch = modeList.some((m) => {
-            const name = typeof m === "string" ? m : m?.title || m?.name || m?.label || "";
+            const name = refName(m, ["title", "name", "label"]);
             return name.toLowerCase().includes(selectedMode.toLowerCase());
           });
           if (!hasModeMatch) {
@@ -238,19 +245,9 @@ export function DegreeCatalogProvider({
 
         // 6. Duration Filter
         if (selectedDuration !== "Any duration") {
-          const durList: any[] = [];
-          if (course.duration) {
-            if (Array.isArray(course.duration)) {
-              durList.push(...course.duration);
-            } else {
-              durList.push(course.duration);
-            }
-          }
-          if (course.durations && Array.isArray(course.durations)) {
-            durList.push(...course.durations);
-          }
+          const durList = toRefList(course.duration, course.durations);
           const hasDurMatch = durList.some((d) => {
-            const name = typeof d === "string" ? d : d?.duration || d?.label || d?.title || d?.name || "";
+            const name = refName(d, ["duration", "label", "title", "name"]);
             return name.toLowerCase().includes(selectedDuration.toLowerCase());
           });
           if (!hasDurMatch) {
@@ -260,19 +257,9 @@ export function DegreeCatalogProvider({
 
         // 7. Funding Filter
         if (selectedFunding !== "Any funding") {
-          const fundList: any[] = [];
-          if (course.funding) {
-            if (Array.isArray(course.funding)) {
-              fundList.push(...course.funding);
-            } else {
-              fundList.push(course.funding);
-            }
-          }
-          if (course.fundings && Array.isArray(course.fundings)) {
-            fundList.push(...course.fundings);
-          }
+          const fundList = toRefList(course.funding, course.fundings);
           const hasFundMatch = fundList.some((f) => {
-            const name = typeof f === "string" ? f : f?.name || f?.title || "";
+            const name = refName(f, ["name", "title"]);
             return name.toLowerCase().includes(selectedFunding.toLowerCase());
           });
           if (!hasFundMatch) {
@@ -472,12 +459,9 @@ export function DegreeResultsView() {
     selectedFunding
   } = useDegreeCatalog();
 
-  const [showAll, setShowAll] = useState(false);
-
-  // Collapse back to top 3 whenever search terms or filter constraints change
-  React.useEffect(() => {
-    setShowAll(false);
-  }, [
+  // "View all" is tied to the filter set it was clicked for, so changing any
+  // search term or filter collapses back to the top 4 without an effect.
+  const filterKey = JSON.stringify([
     searchQuery,
     selectedSubject,
     selectedQualification,
@@ -486,8 +470,10 @@ export function DegreeResultsView() {
     selectedDuration,
     selectedFunding
   ]);
+  const [showAllKey, setShowAllKey] = useState<string | null>(null);
+  const showAll = showAllKey === filterKey;
 
-  const coursesToDisplay = showAll ? filteredCourses : filteredCourses.slice(0, 3);
+  const coursesToDisplay = showAll ? filteredCourses : filteredCourses.slice(0, 4);
 
   return (
     <>
@@ -531,13 +517,13 @@ export function DegreeResultsView() {
             <main style={{ float: "none", width: "100%", padding: 0 }}>
               {viewMode === "grid" ? (
                 <div className="search-card-grid course-carousel" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "18px" }}>
-                  {coursesToDisplay.map((c: any, idx: number) => (
+                  {coursesToDisplay.map((c, idx) => (
                     <CourseCard key={c._id || idx} course={c} variant="grid" />
                   ))}
                 </div>
               ) : (
                 <div className="search-card-list">
-                  {coursesToDisplay.map((c: any, idx: number) => (
+                  {coursesToDisplay.map((c, idx) => (
                     <CourseCard key={c._id || idx} course={c} variant="list" />
                   ))}
                 </div>
@@ -550,17 +536,17 @@ export function DegreeResultsView() {
                 </div>
               )}
 
-              {filteredCourses.length > 3 && !showAll ? (
+              {filteredCourses.length > 4 && !showAll ? (
                 <div className="dsx-viewall">
                   <button
                     className="btn btn-blue"
-                    onClick={() => setShowAll(true)}
+                    onClick={() => setShowAllKey(filterKey)}
                     type="button"
                     style={{ border: "none", cursor: "pointer" }}
                   >
                     View all {courseCount} courses →
                   </button>
-                  <span>Showing top 3 matches</span>
+                  <span>Showing top 4 matches</span>
                 </div>
               ) : filteredCourses.length > 0 ? (
                 <div className="dsx-viewall">
@@ -580,7 +566,7 @@ export function DegreeResultsView() {
                       ))}
                     </div>
                   </div>
-                  <a className="btn btn-orange" href="/tools/degree-match">Run Degree Match Finder →</a>
+                  <Link className="btn btn-orange" href="/tools/degree-match">Run Degree Match Finder →</Link>
                 </div>
               )}
             </main>

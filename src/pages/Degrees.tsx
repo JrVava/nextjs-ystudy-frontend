@@ -1,25 +1,37 @@
-import { DegreesBanner } from "@/components/degrees/DegreesBanner";
-import { getCMSPageContent } from "@/services/cms.service";
-import { getAllCourses } from "@/services/course.service";
+import {
+  DegreeCatalogProvider,
+  DegreeResultsView,
+  DegreeSearchConsole
+} from "@/components/degrees/DegreeCatalogManager";
 import {
   getDurations,
   getFundings,
+  getLocations,
   getModes,
   getQualifications,
-  getSubjects,
-  getLocations
+  getSubjects
 } from "@/services/filters.service";
-import {
-  DegreeCatalogProvider,
-  DegreeSearchConsole,
-  DegreeResultsView
-} from "@/components/degrees/DegreeCatalogManager";
-import { JourneyCard } from "@/components/degrees/JourneyCard";
-import { GuideCard } from "@/components/degrees/GuideCard";
-import { BackendCourse } from "@/types/course";
-import { FloatingAdviser } from "@/components";
+
 import { AutoScrollSlider } from "@/components/ui/AutoScrollSlider";
 import { AutoScrollTrack } from "@/components/ui/AutoScrollTrack";
+import { BackendCourse } from "@/types/course";
+import { DegreesBanner } from "@/components/degrees/DegreesBanner";
+import { FloatingAdviser } from "@/components";
+import { JourneyCard } from "@/components/degrees/JourneyCard";
+import { getAllCourses } from "@/services/course.service";
+import { getCMSPageContent } from "@/services/cms.service";
+import { getGuidesList } from "@/services/guide.service";
+import { getToolsList } from "@/services/tool.service";
+
+interface DiscoveryCard {
+  title: string;
+  description?: string;
+  badge?: string;
+  link: string;
+  slug?: string;
+  image?: string;
+  meta?: string[];
+}
 
 export default async function Degrees() {
   const [
@@ -30,7 +42,9 @@ export default async function Degrees() {
     durations,
     fundings,
     locations,
-    apiCourses
+    apiCourses,
+    tools,
+    guides
   ] = await Promise.all([
     getCMSPageContent("degrees"),
     getSubjects(),
@@ -39,14 +53,22 @@ export default async function Degrees() {
     getDurations(),
     getFundings(),
     getLocations(),
-    getAllCourses()
+    getAllCourses(),
+    getToolsList(),
+    getGuidesList()
   ]);
 
   const coursesToRender: BackendCourse[] = apiCourses && apiCourses.length > 0 ? apiCourses : ([]);
 
+  const freeTools = (tools || []).filter((t) => t.mode === "free");
+  const paidTools = (tools || []).filter((t) => t.mode === "paid");
+  const guidesList = guides || [];
+  const fallbackToolImage = "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80";
+  const fallbackGuideImage = "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=800&q=80";
+
   // Map backend subjects or CMS data
-  const subjectsData = (subjects && subjects.length > 0)
-    ? subjects.map((s: any) => ({
+  const subjectsData: DiscoveryCard[] = (subjects && subjects.length > 0)
+    ? subjects.map((s) => ({
       title: s.title,
       description: s.description,
       badge: s.badge || s.title,
@@ -57,8 +79,8 @@ export default async function Degrees() {
     : (data?.section_4?.subjects || []);
 
   // Map backend qualifications or CMS data
-  const qualificationsData = (qualifications && qualifications.length > 0)
-    ? qualifications.map((q: any) => ({
+  const qualificationsData: DiscoveryCard[] = (qualifications && qualifications.length > 0)
+    ? qualifications.map((q) => ({
       title: q.title,
       description: q.description,
       badge: q.badge || q.title,
@@ -69,8 +91,8 @@ export default async function Degrees() {
     : (data?.section_5?.qualifications || []);
 
   // Map backend locations or CMS data
-  const locationsData = (locations && locations.length > 0)
-    ? locations.map((l: any) => ({
+  const locationsData: DiscoveryCard[] = (locations && locations.length > 0)
+    ? locations.map((l) => ({
       title: l.title?.toLowerCase().startsWith("study in") ? l.title : `Study in ${l.title}`,
       description: l.description || l.short_description,
       badge: l.badge || l.title,
@@ -116,9 +138,8 @@ export default async function Degrees() {
               description={data?.section_4?.description}
               id="courses-by-subject"
             >
-              {console.log("subjectsData", subjectsData)}
               {subjectsData
-                .filter((s: any) => {
+                .filter((s) => {
                   const dataCount = [
                     s.title,
                     s.link || s.slug,
@@ -129,7 +150,7 @@ export default async function Degrees() {
                   ].filter(Boolean).length;
                   return dataCount >= 3;
                 })
-                .map((s: any, idx: number) => (
+                .map((s, idx) => (
                 <a key={idx} className="sdx-card" href={s.link}>
                   <div className="sdx-photo">
                     <img src={s.image} alt={s.title} />
@@ -157,7 +178,7 @@ export default async function Degrees() {
               description={data?.section_5?.description}
               id="courses-by-qualification"
             >
-              {qualificationsData.map((q: any, idx: number) => (
+              {qualificationsData.map((q, idx) => (
                 <a key={idx} className="sdx-card" href={q.link}>
                   <div className="sdx-photo">
                     {q.image && <img src={q.image} alt={q.title} />}
@@ -187,7 +208,7 @@ export default async function Degrees() {
               description={data?.section_6?.description}
               id="courses-by-location"
             >
-              {locationsData.map((l: any, idx: number) => (
+              {locationsData.map((l, idx) => (
                 <a key={idx} className="sdx-card" href={l.link}>
                   <div className="sdx-photo">
                     <img src={l.image} alt={l.title} />
@@ -222,8 +243,8 @@ export default async function Degrees() {
               </div>
               <div className="jph">
                 <img
-                  src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&amp;fit=crop&amp;w=1200&amp;q=85"
-                  alt="Adult learner thinking through options"
+                  src={data?.section_7?.fullImageUrl || "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1200&q=85"}
+                  alt={data?.section_7?.title || "Adult learner thinking through options"}
                 />
               </div>
             </div>
@@ -239,13 +260,13 @@ export default async function Degrees() {
                     <p>{data?.section_8?.steps?.[0]?.description}</p>
                   </div>
                   <AutoScrollTrack className="jcards">
-                    {(subjects && subjects.length > 0 ? subjects : []).map((s: any, idx: number) => (
+                    {(subjects && subjects.length > 0 ? subjects : []).map((s, idx) => (
                       <JourneyCard
                         key={s._id || idx}
                         href={`/degrees/${s.slug || s.title?.toLowerCase()}`}
-                        image={s.fullImageUrl || s.image}
+                        image={s.fullImageUrl || s.image || ""}
                         title={s.title}
-                        description={s.description}
+                        description={s.description || ""}
                       />
                     ))}
                     <JourneyCard
@@ -274,6 +295,16 @@ export default async function Degrees() {
                     <p>{data?.section_8?.steps?.[1]?.description}</p>
                   </div>
                   <AutoScrollTrack className="jcards">
+                    {freeTools.length > 0 ? freeTools.map((t, idx) => (
+                      <JourneyCard
+                        key={t._id || idx}
+                        href={t.link}
+                        image={t.fullImageUrl || fallbackToolImage}
+                        title={t.title}
+                        description={t.description}
+                        ctaText="Try it free →"
+                      />
+                    )) : (<>
                     <JourneyCard
                       href="/tools/eligibility-checker"
                       image="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=80"
@@ -298,6 +329,7 @@ export default async function Degrees() {
                       ctaText="See salaries →"
                       icon="📈"
                     />
+                    </>)}
                   </AutoScrollTrack>
                 </div>
 
@@ -309,6 +341,18 @@ export default async function Degrees() {
                     <p>{data?.section_8?.steps?.[2]?.description}</p>
                   </div>
                   <AutoScrollTrack className="jcards">
+                    {guidesList.length > 0 ? guidesList.map((g, idx) => (
+                      <JourneyCard
+                        key={g._id || idx}
+                        href={g.link}
+                        image={g.fullImageUrl || fallbackGuideImage}
+                        title={g.title}
+                        description={g.subTitle || g.description}
+                        ctaText="Read guide →"
+                        icon="📖"
+                        badge="Guide"
+                      />
+                    )) : (<>
                     <JourneyCard
                       href="/funding/maintenance-loan"
                       image="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=80"
@@ -363,6 +407,7 @@ export default async function Degrees() {
                       icon="🚀"
                       badge="Routes"
                     />
+                    </>)}
                   </AutoScrollTrack>
                 </div>
 
@@ -374,6 +419,16 @@ export default async function Degrees() {
                     <p>{data?.section_8?.steps?.[3]?.description}</p>
                   </div>
                   <AutoScrollTrack className="jcards">
+                    {paidTools.length > 0 ? paidTools.map((t, idx) => (
+                      <JourneyCard
+                        key={t._id || idx}
+                        href={t.link}
+                        image={t.fullImageUrl || fallbackToolImage}
+                        title={t.title}
+                        description={t.description}
+                        ctaText="Get started →"
+                      />
+                    )) : (<>
                     <JourneyCard
                       href="/tools/cv-builder"
                       image="https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=800&q=80"
@@ -422,6 +477,7 @@ export default async function Degrees() {
                       ctaText="Book call →"
                       icon="📞"
                     />
+                    </>)}
                   </AutoScrollTrack>
                 </div>
               </>
