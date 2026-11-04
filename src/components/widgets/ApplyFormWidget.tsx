@@ -141,7 +141,7 @@ export function ApplyFormWidget() {
     try {
       const encryptedPayload = encrypt({ formData });
       const res = await api.post("/frontend/dynamic-forms/submit", { data: encryptedPayload });
-      
+
       let success = false;
       if (res.data && res.data.data) {
         const decrypted = decrypt(res.data.data);
@@ -194,44 +194,44 @@ export function ApplyFormWidget() {
 
   if (submitted) {
     return (
-      <div className="apply-success-panel" style={{ textAlign: "center", padding: "3rem", background: "var(--soft)", borderRadius: "16px", marginTop: "20px" }}>
-        <span style={{ fontSize: "4rem" }}>🎉</span>
-        <h2 style={{ fontSize: "2rem", fontWeight: 800, marginTop: "1rem", color: "var(--b)" }}>Application Received!</h2>
-        <p style={{ marginTop: "1rem", fontSize: "1.1rem", color: "var(--muted)", maxWidth: "500px", margin: "1rem auto" }}>
-          We have saved your details. A professional YStudy adviser will review your qualifications and contact you shortly.
-        </p>
-        <div style={{ marginTop: "2rem", display: "flex", gap: "12px", justifyContent: "center" }}>
-          <a href="/" className="btn btn-blue">Go to Home</a>
-          <a href="/tools/eligibility-checker" className="btn btn-orange">Check eligibility</a>
-        </div>
-      </div>
-    );
+        <div className="apply-success-panel">
+          <span style={{ fontSize: "4rem" }}>🎉</span>
+            <h2 style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", fontWeight: 800, marginTop: "1rem", color: "var(--b)" }}>
+              Application Received!
+            </h2>
+            <p style={{ marginTop: "1rem", fontSize: "1.05rem", color: "var(--muted)", maxWidth: "500px", margin: "1rem auto" }}>
+              We have saved your details. A professional YStudy adviser will review your qualifications and contact you shortly.
+            </p>
+              <div className="apply-success-actions">
+                <a href="/" className="btn btn-blue">Go to Home</a>
+                <a href="/tools/eligibility-checker" className="btn btn-orange">Check eligibility</a>
+              </div>
+            </div>
+            );
   }
 
   return (
-    <div className="apply-form-container" style={{ background: "#fff", padding: "2rem", borderRadius: "16px", border: "1px solid var(--border)", boxShadow: "0 8px 30px rgba(0,0,0,0.04)" }}>
+    <div className="apply-form-container">
       {errorMsg && (
-        <div style={{ padding: "1rem", background: "#fdf0f0", color: "#d93838", borderRadius: "8px", marginBottom: "1.5rem", fontWeight: 600 }}>
+        <div className="apply-error-banner">
           ⚠️ {errorMsg}
         </div>
       )}
-      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-        <div className="form-fields-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.25rem" }}>
-          {fields.map((f) => {
-            const isFullWidth = f.type === "textarea" || f.type === "checkbox" || f.name === "email" || f.name === "location";
-            return (
-              <div
-                key={f.name}
-                style={{
-                  gridColumn: isFullWidth ? "span 2" : "span 1",
-                  display: "flex",
-                  flexDirection: f.type === "checkbox" ? "row" : "column",
-                  alignItems: f.type === "checkbox" ? "flex-start" : "stretch",
-                  gap: f.type === "checkbox" ? "8px" : "6px"
-                }}
-              >
-                {f.type !== "checkbox" && (
-                  <label htmlFor={f.name} style={{ fontWeight: 700, fontSize: "14px", color: "var(--dark)" }}>
+      <form onSubmit={handleSubmit} className="apply-form-body">
+        <div className="apply-fields-grid">
+                            {fields.map((f) => {
+                              const isFullWidth =
+                                f.type === "textarea" ||
+                                f.type === "checkbox" ||
+                                f.name === "email" ||
+                                f.name === "location";
+                              return (
+                                <div
+                                  key={f.name}
+                                  className={`apply-field-wrapper ${isFullWidth ? "apply-field-span-2" : ""} ${f.type === "checkbox" ? "apply-field-checkbox" : ""}`}
+                                >
+                                  {f.type !== "checkbox" && (
+                  <label htmlFor={f.name} className="apply-field-label">
                     {f.label} {f.required && <span style={{ color: "#d93838" }}>*</span>}
                   </label>
                 )}
@@ -244,7 +244,7 @@ export function ApplyFormWidget() {
                     required={f.required}
                     value={formData[f.name] || ""}
                     onChange={(e) => handleInputChange(f.name, e.target.value)}
-                    style={{ padding: "12px", border: "1px solid var(--border)", borderRadius: "8px", fontSize: "15px" }}
+                    className="apply-field-input"
                   />
                 )}
 
@@ -256,7 +256,7 @@ export function ApplyFormWidget() {
                     required={f.required}
                     value={formData[f.name] || ""}
                     onChange={(e) => handleInputChange(f.name, e.target.value)}
-                    style={{ padding: "12px", border: "1px solid var(--border)", borderRadius: "8px", fontSize: "15px" }}
+                    className="apply-field-input"
                   />
                 )}
 
@@ -266,7 +266,7 @@ export function ApplyFormWidget() {
                     required={f.required}
                     value={formData[f.name] || ""}
                     onChange={(e) => handleInputChange(f.name, e.target.value)}
-                    style={{ padding: "12px", border: "1px solid var(--border)", borderRadius: "8px", fontSize: "15px", background: "#fff", cursor: "pointer" }}
+                    className="apply-field-select"
                   >
                     <option value="">Select option...</option>
                     {f.options?.map((opt) => (
@@ -285,7 +285,7 @@ export function ApplyFormWidget() {
                     value={formData[f.name] || ""}
                     onChange={(e) => handleInputChange(f.name, e.target.value)}
                     rows={4}
-                    style={{ padding: "12px", border: "1px solid var(--border)", borderRadius: "8px", fontSize: "15px", fontFamily: "inherit", resize: "vertical" }}
+                    className="apply-field-textarea"
                   />
                 )}
 
@@ -297,9 +297,9 @@ export function ApplyFormWidget() {
                       required={f.required}
                       checked={!!formData[f.name]}
                       onChange={(e) => handleInputChange(f.name, e.target.checked)}
-                      style={{ marginTop: "4px", width: "16px", height: "16px", cursor: "pointer" }}
+                      className="apply-checkbox-input"
                     />
-                    <label htmlFor={f.name} style={{ fontSize: "13.5px", color: "var(--muted)", cursor: "pointer", userSelect: "none" }}>
+                    <label htmlFor={f.name} className="apply-checkbox-label">
                       {f.label} {f.required && <span style={{ color: "#d93838" }}>*</span>}
                     </label>
                   </>
@@ -312,8 +312,7 @@ export function ApplyFormWidget() {
         <button
           type="submit"
           disabled={submitting}
-          className="btn btn-orange"
-          style={{ padding: "14px", fontSize: "16px", fontWeight: 800, width: "100%", cursor: "pointer", display: "flex", justifyContent: "center", alignItems: "center", minHeight: "50px" }}
+          className="btn btn-orange apply-submit-btn"
         >
           {submitting ? (
             <div className="loader" style={{ border: "2px solid #fff", borderTop: "2px solid transparent", borderRadius: "50%", width: "18px", height: "18px", animation: "spin 1s linear infinite" }}></div>
@@ -323,7 +322,7 @@ export function ApplyFormWidget() {
         </button>
       </form>
     </div>
-  );
+                          );
 }
 
-export default ApplyFormWidget;
+                          export default ApplyFormWidget;
