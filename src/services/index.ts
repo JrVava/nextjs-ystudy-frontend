@@ -4,3 +4,4 @@ export * from "./upcoming-intake.service";
 export * from "./student-story.service";
 export * from "./tool.service";
 export * from "./auth.service";
+export * from "./repaymentPlan.service";

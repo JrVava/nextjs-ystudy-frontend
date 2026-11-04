@@ -1,4 +1,5 @@
 import StudentLoanRepayment from "@/pages/funding/StudentLoanRepayment";
+import { getRepaymentThresholdsPlans } from "@/services";
 import { getCMSPageContent } from "@/services/cms.service";
 
 export const metadata = {
@@ -7,9 +8,10 @@ export const metadata = {
 };
 
 export default async function Page() {
-  const [data] = await Promise.all([
+  const [data, repaymentPlan] = await Promise.all([
     getCMSPageContent("student-loan-repayment"),
+    getRepaymentThresholdsPlans()
   ]);
-  return <StudentLoanRepayment data={data} />;
+  return <StudentLoanRepayment data={data} repaymentPlan={repaymentPlan} />;
 }
 

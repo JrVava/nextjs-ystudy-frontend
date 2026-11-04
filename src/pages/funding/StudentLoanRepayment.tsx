@@ -1,6 +1,7 @@
 import React from "react";
 import Banner from "@/components/ui/Banner";
 import RepaymentEstimator from "@/components/widgets/RepaymentEstimator";
+import { RepaymentThresholdsPlan } from "@/services";
 
 const fdhBtnBase: React.CSSProperties = {
     display: "inline-flex",
@@ -31,8 +32,16 @@ interface Section5 {
 }
 interface StudentLoanRepaymentProps {
     data?: any;
+    repaymentPlan?: RepaymentThresholdsPlan[] | null;
 }
-export async function StudentLoanRepayment({ data }: StudentLoanRepaymentProps) {
+export async function StudentLoanRepayment({ data, repaymentPlan }: StudentLoanRepaymentProps) {
+    const activePlan = Array.isArray(repaymentPlan)
+        ? (repaymentPlan.length > 0 ? repaymentPlan[0] : null)
+        : repaymentPlan;
+
+    const tableColumns = activePlan?.columns || [];
+    const tableRows = activePlan?.rows || [];
+
     return (<div className="qualification-page funding-sub-page">
         {/* HERO BANNER */}
         <Banner
@@ -130,54 +139,34 @@ export async function StudentLoanRepayment({ data }: StudentLoanRepaymentProps) 
                                 <p style={{ color: "#52637a", fontWeight: "600", fontSize: "13.5px", margin: "0 0 14px" }}>
                                     {data?.section_6?.description2}
                                 </p>
-                                <table className="ds-data-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Plan</th>
-                                            <th>Weekly</th>
-                                            <th>Monthly</th>
-                                            <th>Yearly</th>
-                                            <th>Who it's usually for</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Plan 1</td>
-                                            <td>£517</td>
-                                            <td>£2,241</td>
-                                            <td>£26,900</td>
-                                            <td>Started before 2012</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Plan 2</td>
-                                            <td>£565</td>
-                                            <td>£2,448</td>
-                                            <td>£29,385</td>
-                                            <td>English undergrad, 2012–2022</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Plan 4</td>
-                                            <td>£649</td>
-                                            <td>£2,816</td>
-                                            <td>£33,795</td>
-                                            <td>Scotland</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Plan 5</strong></td>
-                                            <td><strong>£480</strong></td>
-                                            <td><strong>£2,083</strong></td>
-                                            <td><strong>£25,000</strong></td>
-                                            <td>English undergrad from 2023</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Postgraduate</td>
-                                            <td>£403</td>
-                                            <td>£1,750</td>
-                                            <td>£21,000</td>
-                                            <td>Master's or Doctoral loans</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                {tableColumns.length > 0 && tableRows.length > 0 && (
+                                    <table className="ds-data-table">
+                                        <thead>
+                                            <tr>
+                                                {tableColumns.map((col, idx) => (
+                                                    <th key={col.key || col.id || idx}>{col.header}</th>
+                                                ))}
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {tableRows.map((row, rIdx) => (
+                                                <tr key={row.id || rIdx} style={{ fontWeight: row.isHighlighted ? 850 : "normal" }}>
+                                                    {tableColumns.map((col, cIdx) => {
+                                                        const val = row[col.key] ?? (Array.isArray(row.cells) ? row.cells[cIdx] : "") ?? "";
+                                                        return (
+                                                            <td
+                                                                key={col.key || cIdx}
+                                                                style={{ fontWeight: row.isHighlighted ? 850 : "normal" }}
+                                                            >
+                                                                {val}
+                                                            </td>
+                                                        );
+                                                    })}
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                )}
                                 <p style={{ marginTop: "12px", fontSize: "13px", color: "#52637a", fontWeight: "700" }}>
                                     {data?.section_6?.description3}
                                     <a
