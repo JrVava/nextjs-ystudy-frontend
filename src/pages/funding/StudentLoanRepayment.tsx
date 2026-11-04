@@ -27,14 +27,11 @@ interface InfoCard {
     linkName: string;
 }
 
-interface Section5 {
-    cards: InfoCard[];
-}
 interface StudentLoanRepaymentProps {
     data?: any;
     repaymentPlan?: RepaymentThresholdsPlan[] | null;
 }
-export async function StudentLoanRepayment({ data, repaymentPlan }: StudentLoanRepaymentProps) {
+export function StudentLoanRepayment({ data, repaymentPlan }: StudentLoanRepaymentProps) {
     const activePlan = Array.isArray(repaymentPlan)
         ? (repaymentPlan.length > 0 ? repaymentPlan[0] : null)
         : repaymentPlan;
@@ -65,7 +62,7 @@ export async function StudentLoanRepayment({ data, repaymentPlan }: StudentLoanR
             </div>
         </Banner>
         {
-            data.section_2 && data.section_2.status &&
+            data?.section_2 && data?.section_2?.status &&
             <section className="section white">
                 <div className="container">
                     <div className="info-card" >
@@ -83,7 +80,7 @@ export async function StudentLoanRepayment({ data, repaymentPlan }: StudentLoanR
         <section className="ysrep-section" id="repayment-estimator">
             <div className="ysrep-wrap">
                 {
-                    data.section_3 && data.section_3.status &&
+                    data?.section_3 && data?.section_3?.status &&
                     <div>
                         <p className="ysrep-eyebrow">{data?.section_3?.badge}</p>
                         <h2>{data?.section_3?.title}</h2>
@@ -92,10 +89,10 @@ export async function StudentLoanRepayment({ data, repaymentPlan }: StudentLoanR
                     </div>
                 }
                 {
-                    data.section_4 && data.section_4.status &&
+                    data?.section_4 && data?.section_4?.status &&
                     <div className="ysrep-disclosure">
                         <h3>{data?.section_4?.title}</h3>
-                        <p>{data?.section_4.description1}</p>
+                        <p>{data?.section_4?.description1}</p>
                         <p
                             dangerouslySetInnerHTML={{
                                 __html: data?.section_4?.description2 || "",
@@ -109,7 +106,7 @@ export async function StudentLoanRepayment({ data, repaymentPlan }: StudentLoanR
         <section className="section white" id="when-repaying">
             <div className="container">
                 {
-                    data.section_5 && data.section_5.status &&
+                    data?.section_5 && data?.section_5?.status &&
                     <div>
                         <div className="title-row">
                             <div><span className="kicker">{data?.section_5?.badge}</span>
@@ -129,7 +126,7 @@ export async function StudentLoanRepayment({ data, repaymentPlan }: StudentLoanR
                     </div>
                 }
                 {
-                    data.section_6 && data.section_6.status && (
+                    data?.section_6 && data?.section_6?.status && (
                         <>
                             <div style={{ marginTop: "26px" }}>
                                 <h3 style={{ fontWeight: "900", color: "#102033", margin: "0 0 6px", fontSize: "20px" }}>
@@ -186,7 +183,7 @@ export async function StudentLoanRepayment({ data, repaymentPlan }: StudentLoanR
                     )}
 
                 {
-                    data.section_7 && data.section_7.status &&
+                    data?.section_7 && data?.section_7?.status &&
                     <a className="gov-card" href={data?.section_7?.link} rel="noopener"
                         target="_blank">
                         <span className="crest">GOV.UK</span>
@@ -203,7 +200,7 @@ export async function StudentLoanRepayment({ data, repaymentPlan }: StudentLoanR
         <section className="section" id="how">
             <div className="container">
                 {
-                    data.section_8 && data.section_8.status &&
+                    data?.section_8 && data?.section_8?.status &&
                     <div>
                         <div className="title-row">
                             <div>
@@ -214,7 +211,7 @@ export async function StudentLoanRepayment({ data, repaymentPlan }: StudentLoanR
                         </div>
                         <div className="guide-grid guide-carousel">
                             {
-                                data?.section_8.cards.map((item: InfoCard, key: number) => (
+                                data?.section_8?.cards?.map((item: InfoCard, key: number) => (
                                     <div className="info-card" key={key}>
                                         <div className="icon">{item?.icon}</div>
                                         <h3>{item?.title}</h3>
@@ -226,7 +223,7 @@ export async function StudentLoanRepayment({ data, repaymentPlan }: StudentLoanR
                     </div>
                 }
                 {
-                    data.section_9 && data.section_9.status &&
+                    data?.section_9 && data?.section_9?.status &&
                     <a className="gov-card" href={data?.section_9?.link} rel="noopener"
                         target="_blank">
                         <span className="crest">GOV.UK</span>
@@ -247,7 +244,7 @@ export async function StudentLoanRepayment({ data, repaymentPlan }: StudentLoanR
         <section className="section white" id="obligations">
             <div className="container">
                 {
-                    data.section_10 && data.section_10.status &&
+                    data?.section_10 && data?.section_10?.status &&
                     <div>
                         <div className="title-row">
                             <div><span className="kicker">{data?.section_10?.badge}</span>
@@ -257,7 +254,7 @@ export async function StudentLoanRepayment({ data, repaymentPlan }: StudentLoanR
                         </div>
                         <div className="guide-grid guide-carousel">
                             {
-                                data?.section_10.cards.map((item: InfoCard, key: number) => (
+                                data?.section_10?.cards?.map((item: InfoCard, key: number) => (
                                     <div className="info-card" key={key}>
                                         <div className="icon">{item?.icon}</div>
                                         <h3>{item?.title}</h3>
@@ -269,7 +266,7 @@ export async function StudentLoanRepayment({ data, repaymentPlan }: StudentLoanR
                     </div>
                 }
                 {
-                    data.section_11 && data.section_11.status &&
+                    data?.section_11 && data?.section_11?.status &&
                     <a className="gov-card" href={data?.section_11?.link} rel="noopener" target="_blank">
                         <span className="crest">GOV.UK</span>
                         <span className="gt">
@@ -287,7 +284,7 @@ export async function StudentLoanRepayment({ data, repaymentPlan }: StudentLoanR
         <section className="section" id="after-grad">
             <div className="container">
                 {
-                    data.section_12 && data.section_12.status &&
+                    data?.section_12 && data?.section_12?.status &&
                     <div>
                         <div className="title-row">
                             <div><span className="kicker">{data?.section_12?.badge}</span>
@@ -297,7 +294,7 @@ export async function StudentLoanRepayment({ data, repaymentPlan }: StudentLoanR
                         </div>
                         <div className="guide-grid guide-carousel">
                             {
-                                data?.section_10.cards.map((item: InfoCard, key: number) => (
+                                data?.section_10?.cards?.map((item: InfoCard, key: number) => (
                                     <div className="info-card" key={key}>
                                         <div className="icon">{item?.icon}</div>
                                         <h3>{item?.title}</h3>
@@ -309,7 +306,7 @@ export async function StudentLoanRepayment({ data, repaymentPlan }: StudentLoanR
                     </div>
                 }
                 {
-                    data.section_13 && data.section_13.status &&
+                    data?.section_13 && data?.section_13?.status &&
                     <a className="gov-card" href={data?.section_13?.link} rel="noopener" target="_blank">
                         <span className="crest">GOV.UK</span>
                         <span className="gt">
@@ -327,14 +324,14 @@ export async function StudentLoanRepayment({ data, repaymentPlan }: StudentLoanR
         <section className="rc-additions" id="repayment-obligations-guide">
             <div className="rc-additions-inner">
                 {
-                    data.section_14 && data.section_14.status &&
+                    data?.section_14 && data?.section_14?.status &&
                     <div>
                         <p className="rc-eyebrow">{data?.section_14?.badge}</p>
                         <h2>{data?.section_14?.title}</h2>
                         <p className="rc-intro">{data?.section_14?.description}</p>
                         <div className="rc-guide-grid">
                             {
-                                data?.section_14.cards.map((item: InfoCard, key: number) => (
+                                data?.section_14?.cards?.map((item: InfoCard, key: number) => (
                                     <article className="rc-guide-card" key={key}>
                                         <span className="rc-guide-icon">{item?.badge}</span>
                                         <h3>{item?.title}</h3>
@@ -348,7 +345,7 @@ export async function StudentLoanRepayment({ data, repaymentPlan }: StudentLoanR
                     </div>
                 }
                 {
-                    data.section_15 && data.section_15.status &&
+                    data?.section_15 && data?.section_15?.status &&
                     <div className="rc-guide-bottom">
                         <div>
                             <h3>{data?.section_15?.title}</h3>
@@ -365,13 +362,13 @@ export async function StudentLoanRepayment({ data, repaymentPlan }: StudentLoanR
         <section className="ysrep-section" id="repayment-extra-guidance">
             <div className="ysrep-wrap">
                 {
-                    data.section_16 && data.section_16.status &&
+                    data?.section_16 && data?.section_16?.status &&
                     <div>
                         <p className="ysrep-eyebrow">{data?.section_16?.badge}</p>
                         <h2>{data?.section_16?.title}</h2>
                         <div className="rc-guide-grid">
                             {
-                                data?.section_16.cards.map((item: InfoCard, key: number) => (
+                                data?.section_16?.cards?.map((item: InfoCard, key: number) => (
                                     <article className="rc-guide-card" key={key}>
                                         <h3>{item?.title}</h3>
                                         <p>{item?.description}</p>
@@ -386,13 +383,13 @@ export async function StudentLoanRepayment({ data, repaymentPlan }: StudentLoanR
                 }
 
                 {
-                    data.section_17 && data.section_17.status &&
+                    data?.section_17 && data?.section_17?.status &&
                     <div className="ysrep-disclosure">
                         <h3>{data?.section_17?.title}</h3>
                         <p>{data?.section_17?.description}</p>
                         <p>
                             {
-                                data?.section_17.cards.map((item: InfoCard, key: number) => (
+                                data?.section_17?.cards?.map((item: InfoCard, key: number) => (
                                     <a href={item?.link} rel="noopener noreferrer" target="_blank" key={key}>
                                         {item?.linkName}
                                     </a>
@@ -407,7 +404,7 @@ export async function StudentLoanRepayment({ data, repaymentPlan }: StudentLoanR
         <section className="section white" id="truth">
             <div className="container">
                 {
-                    data.section_18 && data.section_18.status &&
+                    data?.section_18 && data?.section_18?.status &&
                     <div className="info-card" style={{ minHeight: "0" }}>
                         <span className="kicker">{data?.section_18?.badge}</span>
                         <h2>{data?.section_18?.title}</h2>
@@ -416,14 +413,14 @@ export async function StudentLoanRepayment({ data, repaymentPlan }: StudentLoanR
                     </div>
                 }
                 {
-                    data.section_19 && data.section_19.status &&
+                    data?.section_19 && data?.section_19?.status &&
                     <div className="rc-disc">
                         <strong>{data?.section_19?.title}</strong>
                         {data?.section_19?.description}
                     </div>
                 }
                 {
-                    data.section_20 && data.section_20.status &&
+                    data?.section_20 && data?.section_20?.status &&
                     <a className="gov-card" href={data?.section_20?.link} rel="noopener" target="_blank">
                         <span className="crest">GOV.UK</span>
                         <span className="gt">
@@ -438,7 +435,7 @@ export async function StudentLoanRepayment({ data, repaymentPlan }: StudentLoanR
                     </a>
                 }
                 {
-                    data.section_21 && data.section_21.status &&
+                    data?.section_21 && data?.section_21?.status &&
                     <p className="rc-method">
                         {data?.section_21?.description}
                     </p>
@@ -449,13 +446,13 @@ export async function StudentLoanRepayment({ data, repaymentPlan }: StudentLoanR
         <section className="rc-disclosure" id="how-estimates-work">
             <div className="rc-additions-inner">
                 {
-                    data.section_22 && data.section_22.status &&
+                    data?.section_22 && data?.section_22?.status &&
                     <div>
                         <p className="rc-eyebrow">{data?.section_22?.badge}</p>
                         <h2>{data?.section_22?.title}</h2>
                         <div className="rc-disclosure-grid">
                             {
-                                data?.section_22.cards.map((item: InfoCard, key: number) => (
+                                data?.section_22?.cards?.map((item: InfoCard, key: number) => (
                                     <div key={key}>
                                         <h3>{item?.title}</h3>
                                         <p>{item?.description}</p>
@@ -466,7 +463,7 @@ export async function StudentLoanRepayment({ data, repaymentPlan }: StudentLoanR
                     </div>
                 }
                 {
-                    data.section_23 && data.section_23.status &&
+                    data?.section_23 && data?.section_23?.status &&
                     <div>
                         <p className="rc-independent"
 
@@ -482,7 +479,7 @@ export async function StudentLoanRepayment({ data, repaymentPlan }: StudentLoanR
         </section >
 
         {
-            data.section_24 && data.section_24.status &&
+            data?.section_24 && data?.section_24?.status &&
             <section className="section">
                 <div className="container">
                     <div className="final-cta" style={{
