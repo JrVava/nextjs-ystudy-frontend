@@ -8,6 +8,8 @@ export interface ToolItem {
   description: string;
   time: string;
   link: string;
+  btnLabel?: string;
+  badge?: string;
   mode: "paid" | "free";
   status: boolean;
   fullImageUrl?: string;

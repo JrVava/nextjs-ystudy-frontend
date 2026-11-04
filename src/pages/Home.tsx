@@ -19,16 +19,17 @@ const getBadgeClass = (badge: string, code: string) => {
 };
 
 import { getStudentStoriesList } from "@/services/student-story.service";
+import { getToolsList } from "@/services";
 
 export default async function Home() {
-  const [data, allCourses, subjects, faqs, dbStories] = await Promise.all([
+  const [data, allCourses, subjects, faqs, dbStories, toolsList] = await Promise.all([
     getCMSPageContent("home"),
     getAllCourses(3),
     getSubjects(6),
     getFAQBySlug("home"),
-    getStudentStoriesList().catch(() => null)
+    getStudentStoriesList().catch(() => null),
+    getToolsList()
   ]);
-
   const renderCell = (val: string) => {
     if (val === "check" || val === "✓") return <span className="yes">✓</span>;
     if (val === "cross" || val === "✕") return <span className="no">✕</span>;
@@ -56,7 +57,7 @@ export default async function Home() {
       </Banner>
 
       {/* SECTION 2: FUNDING ELIGIBILITY CHECK */}
-      {data?.section_2?.status !== false && (
+      {data?.section_2 && data?.section_2?.status !== false && (
         <section className="sec soft">
           <div className="wrap">
             <div className="g2" style={{ alignItems: "center", gap: "clamp(30px,4vw,60px)" }}>
@@ -75,7 +76,7 @@ export default async function Home() {
       <TrustBar dotPoints={data?.section_2?.dot_points} status={data?.section_2?.status} />
 
       {/* SECTION 3: IMPACT & STATISTICS */}
-      {data?.section_3?.status !== false && (
+      {data?.section_3 && data?.section_3?.status !== false && (
         <PhotoOverlayBand bgImage="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=2000&q=85" scrimColor="blue">
           <div className="inner wide">
             <span className="eyebrow glass" style={{ marginBottom: "18px" }}>{data?.section_3?.badge}</span>
@@ -99,7 +100,7 @@ export default async function Home() {
       )}
 
       {/* SECTION 4: POPULAR DEGREES */}
-      {data?.section_4?.status !== false && (
+      {data?.section_4 && data?.section_4?.status !== false && (
         <section className="sec">
           <div className="wrap">
             <div className="shead row">
@@ -124,7 +125,7 @@ export default async function Home() {
       )}
 
       {/* SECTION 5: QUIZ WIDGET */}
-      {data?.section_5?.status !== false && (
+      {data?.section_5 && data?.section_5?.status !== false && (
         <section className="sec soft">
           <div className="wrap">
             <div className="g2" style={{ alignItems: "center", gap: "clamp(30px,4vw,60px)" }}>
@@ -162,7 +163,7 @@ export default async function Home() {
       )}
 
       {/* SECTION 6: SUBJECT LIST */}
-      {data?.section_6?.status !== false && (
+      {data?.section_6 && data?.section_6?.status !== false && (
         <section className="sec">
           <div className="wrap">
             <div className="shead row">
@@ -209,7 +210,7 @@ export default async function Home() {
       )}
 
       {/* SECTION 7: FREE TOOLS SYSTEM */}
-      {data?.section_7?.status !== false && (
+      {data?.section_7 && data?.section_7?.status !== false && (
         <section className="sec soft">
           <div className="wrap">
             <div className="shead row">
@@ -220,42 +221,58 @@ export default async function Home() {
               <a className="btn outline" href="/tools">All tools →</a>
             </div>
             <div className="g4 ys-carousel-mobile">
-              {(data?.section_7?.tools || [
-                {
-                  title: "Degree Match",
-                  description: "Answer a few questions, get one recommended route.",
-                  link: "/tools/degree-match",
-                  btnLabel: "Start quiz →",
-                  image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=700&q=80",
-                  tag: "Quiz"
-                },
-                {
-                  title: "Finance Calculator",
-                  description: "Estimate tuition and maintenance support fast.",
-                  link: "/tools/finance-calculator",
-                  btnLabel: "Calculate →",
-                  image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=700&q=80",
-                  tag: "Calculator"
-                },
-                {
-                  title: "Salary Checker",
-                  description: "Compare salary ranges by subject and stage.",
-                  link: "/tools/salary-checker",
-                  btnLabel: "Check →",
-                  image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=700&q=80",
-                  tag: "Checker"
-                },
-                {
-                  title: "English Checker",
-                  description: "Check your English level before you apply.",
-                  link: "/tools/english-level-checker",
-                  btnLabel: "Start test →",
-                  image: "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?auto=format&fit=crop&w=700&q=80",
-                  tag: "English"
-                }
-              ]).map((t: any, idx: number) => (
+              {(toolsList?.length
+                ? toolsList.map((t) => ({
+                  title: t.title,
+                  badge: t.badge || "",
+                  description: t.description,
+                  link: t.link,
+                  btnLabel: t.btnLabel || "Explore →",
+                  image: t.fullImageUrl || t.image,
+                  tag: t.mode === "paid" ? "Premium" : "Free"
+                }))
+                : data?.section_7?.tools || [
+                  {
+                    title: "Degree Match",
+                    description: "Answer a few questions, get one recommended route.",
+                    link: "/tools/degree-match",
+                    btnLabel: "Start quiz →",
+                    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=700&q=80",
+                    tag: "Quiz"
+                  },
+                  {
+                    title: "Finance Calculator",
+                    description: "Estimate tuition and maintenance support fast.",
+                    link: "/tools/finance-calculator",
+                    btnLabel: "Calculate →",
+                    image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=700&q=80",
+                    tag: "Calculator"
+                  },
+                  {
+                    title: "Salary Checker",
+                    description: "Compare salary ranges by subject and stage.",
+                    link: "/tools/salary-checker",
+                    btnLabel: "Check →",
+                    image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=700&q=80",
+                    tag: "Checker"
+                  },
+                  {
+                    title: "English Checker",
+                    description: "Check your English level before you apply.",
+                    link: "/tools/english-level-checker",
+                    btnLabel: "Start test →",
+                    image: "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?auto=format&fit=crop&w=700&q=80",
+                    tag: "English"
+                  }
+                ]
+              ).map((t: any, idx: number) => (
                 <article key={idx} className="c-wrap tool">
-                  <div className="img"><img src={t.image} alt="" /><span className="tag">{t.tag}</span></div>
+                  <div className="img"><img src={t.image} alt="" />
+                    {
+                      t.badge !== "" &&
+                      <span className="tag">{t.badge}</span>
+                    }
+                  </div>
                   <div className="body">
                     <h3 className="h3">{t.title}</h3>
                     <p className="desc">{t.description}</p>
@@ -269,7 +286,7 @@ export default async function Home() {
       )}
 
       {/* SECTION 8: COMPARISON TABLE */}
-      {data?.section_8?.status !== false && (
+      {data?.section_8 && data?.section_8?.status !== false && (
         <section className="sec">
           <div className="wrap">
             <div className="shead row">
@@ -301,7 +318,7 @@ export default async function Home() {
       )}
 
       {/* SECTION 9: STUDENT FINANCE BANNER & CALCULATOR */}
-      {data?.section_9?.status !== false && (
+      {data?.section_9 && data?.section_9?.status !== false && (
         <section className="sec soft">
           <div className="wrap">
             <div className="povl bleed">
@@ -333,7 +350,7 @@ export default async function Home() {
       )}
 
       {/* SECTION 10: IMMIGRATION STATUS CHECK */}
-      {data?.section_10?.status !== false && (
+      {data?.section_10 && data?.section_10?.status !== false && (
         <section className="sec ink">
           <div className="wrap">
             <div className="g2" style={{ alignItems: "start", gap: "clamp(28px,3.5vw,56px)" }}>
@@ -383,7 +400,7 @@ export default async function Home() {
       )}
 
       {/* SECTION 11: SALARY PROJECTION */}
-      {data?.section_11?.status !== false && (
+      {data?.section_11 && data?.section_11?.status !== false && (
         <section className="sec">
           <div className="wrap">
             <div className="shead row">
@@ -426,7 +443,7 @@ export default async function Home() {
       )}
 
       {/* SECTION 12: HONEST TRUTH ABOUT STUDENT FINANCE */}
-      {data?.section_12?.status !== false && (
+      {data?.section_12 && data?.section_12?.status !== false && (
         <section className="sec ink">
           <div className="wrap">
             <div className="g2" style={{ alignItems: "center", gap: "clamp(28px,3.5vw,56px)" }}>
@@ -458,7 +475,7 @@ export default async function Home() {
       )}
 
       {/* INTAKE STRIP */}
-      {data?.section_12?.next_intake && (
+      {data?.section_12 && data?.section_12?.next_intake && (
         <section className="sec tight">
           <div className="wrap">
             <div style={{ background: "linear-gradient(135deg,var(--b-deep),var(--b))", color: "#fff", borderRadius: "20px", padding: "22px 28px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "18px", flexWrap: "wrap" }}>
@@ -473,7 +490,7 @@ export default async function Home() {
       )}
 
       {/* SECTION 13: SUCCESS STORIES */}
-      {data?.section_13?.status !== false && (
+      {data?.section_13 && data?.section_13?.status !== false && (
         <section className="sec">
           <div className="wrap">
             <div className="shead row">
@@ -487,11 +504,11 @@ export default async function Home() {
               {(() => {
                 const stories = (dbStories && dbStories.length > 0)
                   ? dbStories.map((s: any) => ({
-                      image: "",
-                      title: s.description,
-                      name: s.name,
-                      year: s.year && s.subject ? `${s.year} · ${s.subject}` : (s.year || s.subject || "")
-                    }))
+                    image: "",
+                    title: s.description,
+                    name: s.name,
+                    year: s.year && s.subject ? `${s.year} · ${s.subject}` : (s.year || s.subject || "")
+                  }))
                   : data?.section_13?.card;
 
                 if (!stories) return null;
@@ -522,7 +539,7 @@ export default async function Home() {
       )}
 
       {/* SECTION 14: GUIDES & NEWS */}
-      {data?.section_14?.status !== false && (
+      {data?.section_14 && data?.section_14?.status !== false && (
         <section className="sec soft">
           <div className="wrap">
             <div className="shead row">
@@ -597,7 +614,7 @@ export default async function Home() {
       )}
 
       {/* SECTION 15: STUDENT JOURNEY / ORBIT DECO */}
-      {data?.section_15?.status !== false && (
+      {data?.section_15 && data?.section_15?.status !== false && (
         <section className="sec ink">
           <div className="wrap">
             <div className="g2" style={{ alignItems: "center", gap: "clamp(28px,3.5vw,56px)" }}>
@@ -646,7 +663,7 @@ export default async function Home() {
       )}
 
       {/* SECTION 16: BREAKER (QUOTE BAND) */}
-      {data?.section_16?.status !== false && (
+      {data?.section_16 && data?.section_16?.status !== false && (
         <section className="sec">
           <div className="wrap">
             <div className="breaker">
@@ -659,7 +676,7 @@ export default async function Home() {
       )}
 
       {/* SECTION 17: HOW IT WORKS (FOUR STEPS) */}
-      {data?.section_17?.status !== false && (
+      {/* {data?.section_17?.status !== false && (
         <section className="sec">
           <div className="wrap">
             <div className="shead">
@@ -674,10 +691,10 @@ export default async function Home() {
             </div>
           </div>
         </section>
-      )}
+      )} */}
 
       {/* SECTION 18: FAQ */}
-      {data?.section_17?.status !== false && (
+      {data?.section_17 && data?.section_17?.status !== false && (
         <section className="sec soft">
           <div className="wrap">
             <div className="shead" style={{ textAlign: "center" }}>
@@ -706,7 +723,7 @@ export default async function Home() {
       )}
 
       {/* SECTION 19: REFER A FRIEND */}
-      {data?.section_18?.status !== false && (
+      {data?.section_18 && data?.section_18?.status !== false && (
         <section className="sec soft">
           <div className="wrap">
             <div className="g2" style={{ alignItems: "center", gap: "clamp(28px,3.5vw,56px)" }}>
@@ -755,7 +772,7 @@ export default async function Home() {
       )}
 
       {/* SECTION 20: ADVISER CALL BANNER */}
-      {data?.section_19?.status !== false && (
+      {data?.section_19 && data?.section_19?.status !== false && (
         <PhotoOverlayBand bgImage="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=2000&q=85" scrimColor="blue" minHeight="clamp(360px,32vw,460px)">
           <div className="inner">
             <span className="eyebrow gold" style={{ marginBottom: "16px" }}>{data?.section_19?.badge || "Free adviser support"}</span>
