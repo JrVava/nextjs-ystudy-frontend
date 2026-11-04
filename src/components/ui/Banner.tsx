@@ -182,11 +182,10 @@ export async function Banner({
                         ))}
                       </div>
                     )}
-
                     {fallbackRightCard.layoutType === 'stats-highlight' && (
                       <div className="layout-stats-highlight">
                         {
-                          fallbackRightCard?.mainValue !== '' &&
+                          (fallbackRightCard?.mainValue !== '' && fallbackRightCard?.mainValue !== undefined) &&
                           <div>
                             <div className="stats-label">{fallbackRightCard.mainValue ? "Highlights" : "0"}</div>
                             <div className="stats-value">{fallbackRightCard.mainValue || ''}</div>
@@ -345,8 +344,13 @@ export async function Banner({
 
                     {rightCard.layoutType === 'stats-highlight' && (
                       <div className="layout-stats-highlight">
-                        <div className="stats-label">{rightCard.mainValue ? "Highlights" : ""}</div>
-                        <div className="stats-value">{rightCard.mainValue || '~£0'}</div>
+                        {
+                          (fallbackRightCard?.mainValue !== '' && fallbackRightCard?.mainValue !== undefined) &&
+                          <div>
+                            <div className="stats-label">{rightCard.mainValue ? "Highlights" : ""}</div>
+                            <div className="stats-value">{rightCard.mainValue || '~£0'}</div>
+                          </div>
+                        }
                         {rightCard.items && (
                           <div className="stats-subgrid">
                             {rightCard.items.map((item, idx) => (
