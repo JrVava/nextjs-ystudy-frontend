@@ -47,11 +47,11 @@ export async function Banner({
     const title = banner?.leftContent?.title || fallbackTitle;
     const kicker = banner?.leftContent?.badgeText || fallbackBadgeText;
     const description = banner?.leftContent?.description || fallbackDescription;
-    
+
     const rightCard = (banner?.rightCard || fallbackRightCard || {}) as { title?: string; items?: any[] };
     const snapshotTitle = rightCard.title || "Snapshot";
     const snapshotItems = rightCard.items || [];
-    
+
     return (
       <section className="section">
         <div className="yds-hero yds-guide-hero">
@@ -185,8 +185,13 @@ export async function Banner({
 
                     {fallbackRightCard.layoutType === 'stats-highlight' && (
                       <div className="layout-stats-highlight">
-                        <div className="stats-label">{fallbackRightCard.mainValue ? "Highlights" : ""}</div>
-                        <div className="stats-value">{fallbackRightCard.mainValue || '~£0'}</div>
+                        {
+                          fallbackRightCard.mainValue !== '' &&
+                          <div>
+                            <div className="stats-label">{fallbackRightCard.mainValue ? "Highlights" : "0"}</div>
+                            <div className="stats-value">{fallbackRightCard.mainValue || ''}</div>
+                          </div>
+                        }
                         {fallbackRightCard.items && (
                           <div className="stats-subgrid">
                             {fallbackRightCard.items.map((item, idx) => (
