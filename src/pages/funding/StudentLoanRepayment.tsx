@@ -493,8 +493,8 @@ export function StudentLoanRepayment({ data, repaymentPlan }: StudentLoanRepayme
                         <p>
                             {data?.section_24?.description}
                         </p>
-                        <div className="btnrow"><a className="btn btn-orange" href="../lead/adviser-call.html">Book free adviser call →</a><a
-                            className="btn btn-white" href="../tools/eligibility-checker.html">Check eligibility</a></div>
+                        <div className="btnrow"><a className="btn btn-orange" href="/lead/adviser-call">Book free adviser call →</a><a
+                            className="btn btn-white" href="/tools/eligibility-checker">Check eligibility</a></div>
                     </div>
                 </div>
             </section>
