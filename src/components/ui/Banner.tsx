@@ -186,7 +186,7 @@ export async function Banner({
                     {fallbackRightCard.layoutType === 'stats-highlight' && (
                       <div className="layout-stats-highlight">
                         {
-                          fallbackRightCard.mainValue !== '' &&
+                          fallbackRightCard?.mainValue !== '' &&
                           <div>
                             <div className="stats-label">{fallbackRightCard.mainValue ? "Highlights" : "0"}</div>
                             <div className="stats-value">{fallbackRightCard.mainValue || ''}</div>
