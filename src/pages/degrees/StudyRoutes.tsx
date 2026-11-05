@@ -10,8 +10,7 @@ import {
   PromoBand,
   TrustTestimonials,
   FinanceHubStrip,
-  FinanceWarningBanner,
-  FloatingAdviser
+  FinanceWarningBanner
 } from "@/components/sections";
 
 export default async function StudyRoutes() {
@@ -485,9 +484,6 @@ export default async function StudyRoutes() {
 
       {/* FOOTER CTA */}
       <FooterCta badge={s15?.badge} title={s15?.title} description={s15?.description} status={s15?.status} />
-
-      {/* FLOATING ADVISER */}
-      <FloatingAdviser />
     </div>
   );
 }

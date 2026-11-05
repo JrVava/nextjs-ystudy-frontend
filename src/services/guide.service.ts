@@ -4,10 +4,15 @@ import api from "@/lib/api";
 export interface GuideItem {
   _id?: string;
   title: string;
-  subTitle: string;
+  subTitle?: string;
   description: string;
   link: string;
+  badge?: string;
+  time?: string;
+  image?: string;
   fullImageUrl?: string;
+  createdAt?: string;
+  [key: string]: any;
 }
 
 export async function getGuidesList(): Promise<GuideItem[] | null> {

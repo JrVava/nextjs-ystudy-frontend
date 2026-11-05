@@ -16,7 +16,6 @@ import { AutoScrollSlider } from "@/components/ui/AutoScrollSlider";
 import { AutoScrollTrack } from "@/components/ui/AutoScrollTrack";
 import { BackendCourse } from "@/types/course";
 import { DegreesBanner } from "@/components/degrees/DegreesBanner";
-import { FloatingAdviser } from "@/components";
 import { JourneyCard } from "@/components/degrees/JourneyCard";
 import { getAllCourses } from "@/services/course.service";
 import { getCMSPageContent } from "@/services/cms.service";
@@ -151,23 +150,23 @@ export default async function Degrees() {
                   return dataCount >= 3;
                 })
                 .map((s, idx) => (
-                <a key={idx} className="sdx-card" href={s.link}>
-                  <div className="sdx-photo">
-                    <img src={s.image} alt={s.title} />
-                    <span className="sdx-badge">{s.badge}</span>
-                  </div>
-                  <div className="sdx-body">
-                    <h3>{s.title}</h3>
-                    <p>{s.description}</p>
-                    <div className="sdx-meta">
-                      {s.meta?.map((m: string, mIdx: number) => (
-                        <span key={mIdx}>{m}</span>
-                      ))}
+                  <a key={idx} className="sdx-card" href={s.link}>
+                    <div className="sdx-photo">
+                      <img src={s.image} alt={s.title} />
+                      <span className="sdx-badge">{s.badge}</span>
                     </div>
-                    <span className="sdx-link">View courses →</span>
-                  </div>
-                </a>
-              ))}
+                    <div className="sdx-body">
+                      <h3>{s.title}</h3>
+                      <p>{s.description}</p>
+                      <div className="sdx-meta">
+                        {s.meta?.map((m: string, mIdx: number) => (
+                          <span key={mIdx}>{m}</span>
+                        ))}
+                      </div>
+                      <span className="sdx-link">View courses →</span>
+                    </div>
+                  </a>
+                ))}
             </AutoScrollSlider>
           )}
 
@@ -305,30 +304,30 @@ export default async function Degrees() {
                         ctaText="Try it free →"
                       />
                     )) : (<>
-                    <JourneyCard
-                      href="/tools/eligibility-checker"
-                      image="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=80"
-                      title="Eligibility checker"
-                      description="Confirm your Student Finance entitlement in 2 minutes."
-                      ctaText="Check now →"
-                      icon="✓"
-                    />
-                    <JourneyCard
-                      href="/tools/finance-calculator"
-                      image="https://images.unsplash.com/photo-1579621970795-87facc2f976d?auto=format&fit=crop&w=800&q=80"
-                      title="Funding calculator"
-                      description="Estimate your tuition and maintenance support."
-                      ctaText="Calculate →"
-                      icon="💷"
-                    />
-                    <JourneyCard
-                      href="/tools/salary-checker"
-                      image="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80"
-                      title="Salary checker"
-                      description="See realistic salary ranges for each career route."
-                      ctaText="See salaries →"
-                      icon="📈"
-                    />
+                      <JourneyCard
+                        href="/tools/eligibility-checker"
+                        image="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=80"
+                        title="Eligibility checker"
+                        description="Confirm your Student Finance entitlement in 2 minutes."
+                        ctaText="Check now →"
+                        icon="✓"
+                      />
+                      <JourneyCard
+                        href="/tools/finance-calculator"
+                        image="https://images.unsplash.com/photo-1579621970795-87facc2f976d?auto=format&fit=crop&w=800&q=80"
+                        title="Funding calculator"
+                        description="Estimate your tuition and maintenance support."
+                        ctaText="Calculate →"
+                        icon="💷"
+                      />
+                      <JourneyCard
+                        href="/tools/salary-checker"
+                        image="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80"
+                        title="Salary checker"
+                        description="See realistic salary ranges for each career route."
+                        ctaText="See salaries →"
+                        icon="📈"
+                      />
                     </>)}
                   </AutoScrollTrack>
                 </div>
@@ -353,60 +352,60 @@ export default async function Degrees() {
                         badge="Guide"
                       />
                     )) : (<>
-                    <JourneyCard
-                      href="/funding/maintenance-loan"
-                      image="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=80"
-                      title="Maintenance Loan explained"
-                      description="Plain-English guide to living-cost support."
-                      ctaText="5 min read →"
-                      icon="📖"
-                      badge="Funding"
-                    />
-                    <JourneyCard
-                      href="/tools/personal-statement-calculator"
-                      image="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&q=80"
-                      title="Personal statement structure"
-                      description="Four sections that admissions teams expect."
-                      ctaText="7 min read →"
-                      icon="✍️"
-                      badge="Applying"
-                    />
-                    <JourneyCard
-                      href="/guides/careers-salaries"
-                      image="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80"
-                      title="Finance career routes"
-                      description="Roles, salaries and the degrees behind them."
-                      ctaText="6 min read →"
-                      icon="💼"
-                      badge="Careers"
-                    />
-                    <JourneyCard
-                      href="/guides/student-finance"
-                      image="https://images.unsplash.com/photo-1579621970795-87facc2f976d?auto=format&fit=crop&w=800&q=80"
-                      title="Student Finance, step by step"
-                      description="How tuition and maintenance loans actually work."
-                      ctaText="8 min read →"
-                      icon="💷"
-                      badge="Funding"
-                    />
-                    <JourneyCard
-                      href="/guides/career-change"
-                      image="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=800&q=80"
-                      title="Going back to study as an adult"
-                      description="Balancing work, family and a degree."
-                      ctaText="6 min read →"
-                      icon="🎓"
-                      badge="Career change"
-                    />
-                    <JourneyCard
-                      href="/guides/university-routes"
-                      image="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=800&q=80"
-                      title="Foundation, HND &amp; top-up routes"
-                      description="No A-levels? Here's how adults get in."
-                      ctaText="7 min read →"
-                      icon="🚀"
-                      badge="Routes"
-                    />
+                      <JourneyCard
+                        href="/funding/maintenance-loan"
+                        image="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=80"
+                        title="Maintenance Loan explained"
+                        description="Plain-English guide to living-cost support."
+                        ctaText="5 min read →"
+                        icon="📖"
+                        badge="Funding"
+                      />
+                      <JourneyCard
+                        href="/tools/personal-statement-calculator"
+                        image="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&q=80"
+                        title="Personal statement structure"
+                        description="Four sections that admissions teams expect."
+                        ctaText="7 min read →"
+                        icon="✍️"
+                        badge="Applying"
+                      />
+                      <JourneyCard
+                        href="/guides/careers-salaries"
+                        image="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80"
+                        title="Finance career routes"
+                        description="Roles, salaries and the degrees behind them."
+                        ctaText="6 min read →"
+                        icon="💼"
+                        badge="Careers"
+                      />
+                      <JourneyCard
+                        href="/guides/student-finance"
+                        image="https://images.unsplash.com/photo-1579621970795-87facc2f976d?auto=format&fit=crop&w=800&q=80"
+                        title="Student Finance, step by step"
+                        description="How tuition and maintenance loans actually work."
+                        ctaText="8 min read →"
+                        icon="💷"
+                        badge="Funding"
+                      />
+                      <JourneyCard
+                        href="/guides/career-change"
+                        image="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=800&q=80"
+                        title="Going back to study as an adult"
+                        description="Balancing work, family and a degree."
+                        ctaText="6 min read →"
+                        icon="🎓"
+                        badge="Career change"
+                      />
+                      <JourneyCard
+                        href="/guides/university-routes"
+                        image="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=800&q=80"
+                        title="Foundation, HND &amp; top-up routes"
+                        description="No A-levels? Here's how adults get in."
+                        ctaText="7 min read →"
+                        icon="🚀"
+                        badge="Routes"
+                      />
                     </>)}
                   </AutoScrollTrack>
                 </div>
@@ -429,54 +428,54 @@ export default async function Degrees() {
                         ctaText="Get started →"
                       />
                     )) : (<>
-                    <JourneyCard
-                      href="/tools/cv-builder"
-                      image="https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=800&q=80"
-                      title="CV builder"
-                      description="A university-ready CV for mature students."
-                      ctaText="Build CV →"
-                      icon="📄"
-                    />
-                    <JourneyCard
-                      href="/tools/personal-statement-calculator"
-                      image="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&q=80"
-                      title="Personal statement"
-                      description="Guided writing that admissions teams understand."
-                      ctaText="Start draft →"
-                      icon="✍️"
-                    />
-                    <JourneyCard
-                      href="/dashboard"
-                      image="https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80"
-                      title="Student dashboard"
-                      description="Save courses and message your adviser in one place."
-                      ctaText="Open dashboard →"
-                      icon="📊"
-                    />
-                    <JourneyCard
-                      href="/dashboard/applications"
-                      image="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80"
-                      title="Application tracker"
-                      description="Track deadlines and progress across applications."
-                      ctaText="Track now →"
-                      icon="🗂️"
-                    />
-                    <JourneyCard
-                      href="/lead/adviser-call"
-                      image="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=800&q=80"
-                      title="Free academic review"
-                      description="An adviser checks your documents before you submit."
-                      ctaText="Request review →"
-                      icon="🤝"
-                    />
-                    <JourneyCard
-                      href="/lead/adviser-call"
-                      image="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80"
-                      title="Speak to an adviser"
-                      description="Free call for course choice, funding and applying."
-                      ctaText="Book call →"
-                      icon="📞"
-                    />
+                      <JourneyCard
+                        href="/tools/cv-builder"
+                        image="https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=800&q=80"
+                        title="CV builder"
+                        description="A university-ready CV for mature students."
+                        ctaText="Build CV →"
+                        icon="📄"
+                      />
+                      <JourneyCard
+                        href="/tools/personal-statement-calculator"
+                        image="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&q=80"
+                        title="Personal statement"
+                        description="Guided writing that admissions teams understand."
+                        ctaText="Start draft →"
+                        icon="✍️"
+                      />
+                      <JourneyCard
+                        href="/dashboard"
+                        image="https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80"
+                        title="Student dashboard"
+                        description="Save courses and message your adviser in one place."
+                        ctaText="Open dashboard →"
+                        icon="📊"
+                      />
+                      <JourneyCard
+                        href="/dashboard/applications"
+                        image="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80"
+                        title="Application tracker"
+                        description="Track deadlines and progress across applications."
+                        ctaText="Track now →"
+                        icon="🗂️"
+                      />
+                      <JourneyCard
+                        href="/lead/adviser-call"
+                        image="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=800&q=80"
+                        title="Free academic review"
+                        description="An adviser checks your documents before you submit."
+                        ctaText="Request review →"
+                        icon="🤝"
+                      />
+                      <JourneyCard
+                        href="/lead/adviser-call"
+                        image="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80"
+                        title="Speak to an adviser"
+                        description="Free call for course choice, funding and applying."
+                        ctaText="Book call →"
+                        icon="📞"
+                      />
                     </>)}
                   </AutoScrollTrack>
                 </div>
@@ -521,9 +520,6 @@ export default async function Degrees() {
           </div>
         </div>
       )}
-
-      {/* FLOATING ADVISER */}
-      <FloatingAdviser />
     </div>
   );
 }

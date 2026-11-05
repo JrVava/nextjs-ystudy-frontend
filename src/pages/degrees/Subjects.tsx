@@ -10,8 +10,7 @@ import {
   PromoBand,
   TrustTestimonials,
   FinanceHubStrip,
-  FinanceWarningBanner,
-  FloatingAdviser
+  FinanceWarningBanner
 } from "@/components/sections";
 
 export default async function Subjects() {
@@ -486,9 +485,6 @@ export default async function Subjects() {
 
       {/* FOOTER CTA */}
       <FooterCta badge={s16?.badge} title={s16?.title} description={s16?.description} status={s16?.status} />
-
-      {/* FLOATING ADVISER */}
-      <FloatingAdviser />
     </div>
   );
 }

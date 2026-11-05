@@ -19,16 +19,17 @@ const getBadgeClass = (badge: string, code: string) => {
 };
 
 import { getStudentStoriesList } from "@/services/student-story.service";
-import { getToolsList } from "@/services";
+import { getToolsList, getGuidesList } from "@/services";
 
 export default async function Home() {
-  const [data, allCourses, subjects, faqs, dbStories, toolsList] = await Promise.all([
+  const [data, allCourses, subjects, faqs, dbStories, toolsList, guidesList] = await Promise.all([
     getCMSPageContent("home"),
     getAllCourses(3),
     getSubjects(6),
     getFAQBySlug("home"),
     getStudentStoriesList().catch(() => null),
-    getToolsList()
+    getToolsList(),
+    getGuidesList().catch(() => null)
   ]);
   const renderCell = (val: string) => {
     if (val === "check" || val === "✓") return <span className="yes">✓</span>;
@@ -504,7 +505,8 @@ export default async function Home() {
               {(() => {
                 const stories = (dbStories && dbStories.length > 0)
                   ? dbStories.map((s: any) => ({
-                    image: "",
+                    fullImageUrl: s.fullImageUrl,
+                    image: s.fullImageUrl || s.image || "",
                     title: s.description,
                     name: s.name,
                     year: s.year && s.subject ? `${s.year} · ${s.subject}` : (s.year || s.subject || "")
@@ -520,9 +522,30 @@ export default async function Home() {
                     "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=700&q=80"
                   ];
                   return (
-                    <article key={idx} className="c-full" style={{ minHeight: "clamp(340px,30vw,420px)" }}>
-                      <img src={c.fullImageUrl || c.image || fallbackImages[idx % 3]} alt="" />
-                      <div className="sc"></div>
+                    <article
+                      key={idx}
+                      className="c-full"
+                      style={{
+                        minHeight: "clamp(420px, 34vw, 500px)",
+                        aspectRatio: "3 / 4"
+                      }}
+                    >
+                      <img
+                        src={c.fullImageUrl || c.image || fallbackImages[idx % 3]}
+                        alt={c.name || "Student"}
+                        style={{
+                          objectFit: "cover",
+                          objectPosition: "top center",
+                          width: "100%",
+                          height: "100%"
+                        }}
+                      />
+                      <div
+                        className="sc"
+                        style={{
+                          background: "linear-gradient(to top, rgba(5, 17, 38, 0.95) 0%, rgba(5, 17, 38, 0.7) 40%, rgba(5, 17, 38, 0.1) 65%, transparent 80%)"
+                        }}
+                      ></div>
                       <div className="inner">
                         <div style={{ color: "var(--o-gold)", fontWeight: 900, letterSpacing: "2px", marginBottom: "8px" }}>★★★★★</div>
                         <h3 className="h3" style={{ marginBottom: "14px", color: "#fff" }}>"{c.title}"</h3>
@@ -550,64 +573,66 @@ export default async function Home() {
               <a className="btn outline" href="/guides">All guides →</a>
             </div>
             <div className="g3 ys-carousel-mobile">
-              {data?.section_14?.card ? (
-                data?.section_14.card.map((c: any, idx: number) => {
-                  const fallbackImages = [
-                    "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=80",
-                    "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80",
-                    "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=800&q=80"
-                  ];
-                  return (
-                    <article key={idx} className="c-wrap">
-                      <div className="img" style={{ height: "170px" }}>
-                        <img src={c.fullImageUrl || c.image || fallbackImages[idx % 3]} alt="" />
-                        <span className="tag">{c.badge}</span>
+              {(() => {
+                const latestGuides = (guidesList && guidesList.length > 0)
+                  ? (guidesList[0]?.createdAt
+                    ? [...guidesList].sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
+                    : guidesList
+                  ).slice(0, 3)
+                  : null;
+
+                const guidesToRender = latestGuides || data?.section_14?.card || [
+                  {
+                    title: "Maintenance Loan explained",
+                    description: "What affects your amount and how it's paid termly.",
+                    badge: "Funding",
+                    time: "5 min read",
+                    link: "/funding/maintenance-loan",
+                    image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=80"
+                  },
+                  {
+                    title: "Personal statement structure",
+                    description: "The four sections admissions teams expect.",
+                    badge: "Applying",
+                    time: "7 min read",
+                    link: "/tools/personal-statement-calculator",
+                    image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80"
+                  },
+                  {
+                    title: "Which degree pays off?",
+                    description: "Salary outcomes by subject and route.",
+                    badge: "Careers",
+                    time: "8 min read",
+                    link: "/guides/careers-salaries",
+                    image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=800&q=80"
+                  }
+                ];
+
+                const fallbackImages = [
+                  "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=80",
+                  "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80",
+                  "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=800&q=80"
+                ];
+
+                return guidesToRender.map((c: any, idx: number) => (
+                  <article key={c._id || idx} className="c-wrap">
+                    <div className="img" style={{ height: "170px" }}>
+                      <img src={c.fullImageUrl || c.image || fallbackImages[idx % 3]} alt={c.title || "Guide"} />
+                      <span className="tag">{c.badge || "Guide"}</span>
+                    </div>
+                    <div className="body">
+                      <h3 className="h3">{c.title}</h3>
+                      <p className="desc">{c.description || c.subTitle}</p>
+                      <div className="metric">
+                        <span>{c.read_time || "5 min read"}</span>
+                        <a href={c.link || "/guides"} style={{ textDecoration: "none" }}>
+                          <b style={{ color: "var(--b)", fontSize: "15px" }}>Read →</b>
+                        </a>
                       </div>
-                      <div className="body">
-                        <h3 className="h3">{c.title}</h3>
-                        <p className="desc">{c.description}</p>
-                        <div className="metric"><span>{c.time}</span><b style={{ color: "var(--b)", fontSize: "15px" }}>Read →</b></div>
-                      </div>
-                    </article>
-                  );
-                })
-              ) : (
-                <>
-                  <article className="c-wrap">
-                    <div className="img" style={{ height: "170px" }}>
-                      <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=80" alt="" />
-                      <span className="tag">Funding</span>
-                    </div>
-                    <div className="body">
-                      <h3 className="h3">Maintenance Loan explained</h3>
-                      <p className="desc">What affects your amount and how it's paid termly.</p>
-                      <div className="metric"><span>5 min read</span><b style={{ color: "var(--b)", fontSize: "15px" }}>Read →</b></div>
                     </div>
                   </article>
-                  <article className="c-wrap">
-                    <div className="img" style={{ height: "170px" }}>
-                      <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80" alt="" />
-                      <span className="tag">Applying</span>
-                    </div>
-                    <div className="body">
-                      <h3 className="h3">Personal statement structure</h3>
-                      <p className="desc">The four sections admissions teams expect.</p>
-                      <div className="metric"><span>7 min read</span><b style={{ color: "var(--b)", fontSize: "15px" }}>Read →</b></div>
-                    </div>
-                  </article>
-                  <article className="c-wrap">
-                    <div className="img" style={{ height: "170px" }}>
-                      <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=800&q=80" alt="" />
-                      <span className="tag">Careers</span>
-                    </div>
-                    <div className="body">
-                      <h3 className="h3">Which degree pays off?</h3>
-                      <p className="desc">Salary outcomes by subject and route.</p>
-                      <div className="metric"><span>8 min read</span><b style={{ color: "var(--b)", fontSize: "15px" }}>Read →</b></div>
-                    </div>
-                  </article>
-                </>
-              )}
+                ));
+              })()}
             </div>
           </div>
         </section>
@@ -674,24 +699,6 @@ export default async function Home() {
           </div>
         </section>
       )}
-
-      {/* SECTION 17: HOW IT WORKS (FOUR STEPS) */}
-      {/* {data?.section_17?.status !== false && (
-        <section className="sec">
-          <div className="wrap">
-            <div className="shead">
-              <span className="eyebrow b">{data?.section_17?.badge || "How it works"}</span>
-              <h2 className="h1" style={{ marginTop: "16px" }}>{data?.section_17?.title || "From unsure to enrolled, in four steps."}</h2>
-            </div>
-            <div className="steps">
-              <div className="step"><div className="n">1</div><h3 className="h3">Find your route</h3><p className="desc">Use the match finder or search to shortlist degrees that fit your life.</p></div>
-              <div className="step"><div className="n">2</div><h3 className="h3">Check funding</h3><p className="desc">See your Student Finance support with the free calculator.</p></div>
-              <div className="step"><div className="n">3</div><h3 className="h3">Apply with support</h3><p className="desc">A free adviser helps with documents, choices and your application.</p></div>
-              <div className="step"><div className="n">4</div><h3 className="h3">Start studying</h3><p className="desc">Begin a flexible degree built around work and family.</p></div>
-            </div>
-          </div>
-        </section>
-      )} */}
 
       {/* SECTION 18: FAQ */}
       {data?.section_17 && data?.section_17?.status !== false && (

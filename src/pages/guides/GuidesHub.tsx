@@ -1,10 +1,14 @@
 import React from "react";
 import { getCMSPageContent } from "@/services/cms.service";
+import { getGuidesList } from "@/services/guide.service";
 import { QualificationConversionCards, QualificationCrosslinks } from "@/components/ui";
 import fallbackData from "@/content/fallbacks/guides/hub.json";
 
 export default async function GuidesHub() {
-  const data = await getCMSPageContent("resources-hub");
+  const [data, apiGuides] = await Promise.all([
+    getCMSPageContent("resources-hub"),
+    getGuidesList().catch(() => null)
+  ]);
 
   if (!data) {
     return (
@@ -23,8 +27,27 @@ export default async function GuidesHub() {
   const s5 = data?.section_5 || {};
   const s6 = data?.section_6 && Object.keys(data?.section_6).length > 0 ? data?.section_6 : fallbackData.section_4 || {};
 
-  const s2Cards = s2.cards || fallbackData.section_2?.cards || [];
-  
+  const defaultCards = s2.cards || fallbackData.section_2?.cards || [];
+  const sortedApiGuides = (apiGuides && apiGuides.length > 0)
+    ? (apiGuides[0]?.createdAt
+      ? [...apiGuides].sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
+      : apiGuides)
+    : null;
+
+  const s2Cards = (sortedApiGuides && sortedApiGuides.length > 0)
+    ? sortedApiGuides.map((g: any, idx: number) => {
+      const fallback = defaultCards[idx % (defaultCards.length || 1)];
+      return {
+        title: g.title,
+        description: g.description || g.subTitle || "",
+        link: g.link || (g.slug ? `/guides/${g.slug}` : (fallback?.link || "/guides")),
+        category: g.category || g.badge || fallback?.category || "Guide",
+        read_time: g.read_time || g.time || fallback?.read_time || "5 min read",
+        image: g.fullImageUrl || g.image || fallback?.image || "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=80"
+      };
+    })
+    : defaultCards;
+
   const s3BtnText = s3.btnText || fallbackData.section_3?.btnText || "Talk to an adviser";
   const s3BtnHref = s3.btnHref || fallbackData.section_3?.btnHref || "/lead/adviser-call";
 
@@ -80,18 +103,18 @@ export default async function GuidesHub() {
             </div>
             <div className="ghub-grid">
               {s2Cards.map((card: any, idx: number) => (
-                <a className="gcard" href={card.link} key={idx}>
+                <a className="gcard" href={card.link || "/guides"} key={idx}>
                   <div className="gph">
-                    <span className="gchip">{card.category}</span>
+                    <span className="gchip">{card.category || card.badge || "Guide"}</span>
                     <img
-                      src={card.image || "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=80"}
-                      alt={card.title}
+                      src={card.fullImageUrl || card.image || "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=80"}
+                      alt={card.title || "Guide"}
                     />
                   </div>
                   <b className="gtitle">{card.title}</b>
                   <p className="gdesc">{card.description}</p>
                   <div className="gfoot">
-                    <span className="gmin">{card.readTime || "5 min read"}</span>
+                    <span className="gmin">{card.read_time || card.read_time || "5 min read"}</span>
                     <span className="gread">Read →</span>
                   </div>
                 </a>

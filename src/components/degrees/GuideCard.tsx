@@ -8,7 +8,7 @@ export interface GuideCardProps {
   image: string;
   title: string;
   description: string;
-  readTime: string;
+  read_time: string;
   ctaText?: string;
 }
 
@@ -18,7 +18,7 @@ export function GuideCard({
   image,
   title,
   description,
-  readTime,
+  read_time,
   ctaText = "Read →"
 }: GuideCardProps) {
   return (
@@ -30,7 +30,7 @@ export function GuideCard({
       <b className="gtitle">{title}</b>
       <p className="gdesc">{description}</p>
       <div className="gfoot">
-        <span className="gmin">{readTime}</span>
+        <span className="gmin">{read_time}</span>
         <span className="gread">{ctaText}</span>
       </div>
     </a>

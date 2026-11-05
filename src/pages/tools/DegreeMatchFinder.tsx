@@ -40,16 +40,28 @@ export default async function DegreeMatchFinder() {
       </Banner>
 
       {/* DEGREE MATCH INTERACTIVE WIDGET */}
-      <DegreeMatchWidget sectionData={data?.section_2} />
+      {
+        data?.section_2 !== undefined &&
+        <DegreeMatchWidget sectionData={data?.section_2} />
+      }
 
       {/* ADVISER BAND */}
-      <DegreeMatchAdviserBand sectionData={data?.section_3} />
+      {
+        data?.section_3 !== undefined &&
+        <DegreeMatchAdviserBand sectionData={data?.section_3} />
+      }
 
       {/* THREE LINK CARDS CONVERSION SYSTEM */}
-      <QualificationConversionCards sectionData={data?.section_4} />
+      {
+        data?.section_4 !== undefined &&
+        <QualificationConversionCards sectionData={data?.section_4} />
+      }
 
       {/* CROSSLINKS SECTION */}
-      <QualificationCrosslinks sectionData={data?.section_5} />
+      {
+        data?.section_5 !== undefined &&
+        <QualificationCrosslinks sectionData={data?.section_5} />
+      }
     </div>
   );
 }
