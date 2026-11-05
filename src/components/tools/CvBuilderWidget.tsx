@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import "./tools.css";
 
@@ -192,6 +192,24 @@ export function CvBuilderWidget({ section2Data, section3Data }: CvBuilderWidgetP
   const [modalTitle, setModalTitle] = useState<string>("Save your CV before downloading.");
   const [toastMsg, setToastMsg] = useState<string | null>(null);
 
+  const [currentUser, setCurrentUser] = useState<{ id?: string; _id?: string; name?: string; email?: string; role?: string } | null>(null);
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem("ystudy_user");
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (parsed && (parsed.id || parsed._id)) {
+          setCurrentUser(parsed);
+        }
+      }
+    } catch (e) {
+      console.error("Error reading ystudy_user from localStorage:", e);
+    }
+  }, []);
+
+  const isLoggedIn = !!(currentUser?.id || currentUser?._id);
+
   const triggerToast = (msg: string) => {
     setToastMsg(msg);
     setTimeout(() => setToastMsg(null), 1800);
@@ -288,6 +306,229 @@ export function CvBuilderWidget({ section2Data, section3Data }: CvBuilderWidgetP
   const handleOpenModal = (titleStr: string) => {
     setModalTitle(titleStr);
     setShowModal(true);
+  };
+
+  const handleDownloadPdf = () => {
+    setShowModal(false);
+    if (typeof window === "undefined") return;
+
+    const previewEl = document.getElementById("cvPreview");
+    if (!previewEl) {
+      window.print();
+      return;
+    }
+
+    const iframe = document.createElement("iframe");
+    iframe.style.position = "fixed";
+    iframe.style.right = "0";
+    iframe.style.bottom = "0";
+    iframe.style.width = "0";
+    iframe.style.height = "0";
+    iframe.style.border = "0";
+    iframe.title = "Print CV";
+    document.body.appendChild(iframe);
+
+    const doc = iframe.contentWindow?.document;
+    if (!doc) {
+      window.print();
+      return;
+    }
+
+    doc.open();
+    doc.write(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="utf-8" />
+          <title>${name ? `${name} - CV` : "CV - YStudy"}</title>
+          <link rel="preconnect" href="https://fonts.googleapis.com">
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+          <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+          <style>
+            @page {
+              size: A4 portrait;
+              margin: 0;
+            }
+            * {
+              box-sizing: border-box;
+              -webkit-print-color-adjust: exact !important;
+              print-color-adjust: exact !important;
+            }
+            html, body {
+              margin: 0;
+              padding: 0;
+              background: #ffffff;
+              font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+              color: #152033;
+              font-size: 13.5px;
+              line-height: 1.55;
+              width: 100%;
+            }
+            .cv-paper {
+              background: #ffffff;
+              width: 100%;
+              max-width: 100%;
+              margin: 0;
+              border: none !important;
+              border-radius: 0 !important;
+              box-shadow: none !important;
+              overflow: visible;
+              color: #152033;
+            }
+            .cv-top {
+              background: #07142f !important;
+              color: #ffffff !important;
+              padding: 36px 48px 30px !important;
+              border-radius: 0 !important;
+              width: 100%;
+            }
+            .cv-top h2 {
+              color: #ffffff !important;
+              margin: 0 0 6px 0;
+              font-size: 32px;
+              font-weight: 800;
+              letter-spacing: -0.02em;
+              line-height: 1.2;
+            }
+            .cv-title {
+              color: #8ec3ff !important;
+              font-weight: 800;
+              font-size: 16.5px;
+              margin-top: 4px;
+              letter-spacing: 0.01em;
+            }
+            .cv-contact {
+              color: #cbd7e5 !important;
+              font-size: 13px;
+              font-weight: 500;
+              margin-top: 12px;
+              line-height: 1.4;
+            }
+            .cv-body {
+              padding: 32px 48px 48px !important;
+              width: 100%;
+            }
+            .cv-section {
+              border-top: 1.5px solid #e2e8f0;
+              padding-top: 18px;
+              margin-top: 20px;
+              break-inside: avoid;
+              page-break-inside: avoid;
+            }
+            .cv-section:first-child {
+              border-top: 0;
+              margin-top: 0;
+              padding-top: 0;
+            }
+            .cv-section h3 {
+              font-size: 13px;
+              font-weight: 800;
+              text-transform: uppercase;
+              letter-spacing: 0.12em;
+              color: #0b2d57 !important;
+              margin: 0 0 10px;
+            }
+            .cv-section p {
+              margin: 0;
+              color: #334155;
+              line-height: 1.65;
+            }
+            .cv-item {
+              margin-bottom: 16px;
+              break-inside: avoid;
+              page-break-inside: avoid;
+            }
+            .cv-item:last-child {
+              margin-bottom: 0;
+            }
+            .cv-item strong {
+              display: block;
+              color: #0d1a32 !important;
+              font-size: 15px;
+              font-weight: 700;
+            }
+            .cv-date {
+              color: #64758b !important;
+              font-size: 12.5px;
+              font-weight: 700;
+              margin: 3px 0 8px;
+            }
+            .cv-item ul {
+              margin: 6px 0 0;
+              padding-left: 20px;
+              color: #334155;
+            }
+            .cv-item li {
+              margin-bottom: 5px;
+              line-height: 1.55;
+            }
+            .cv-item li b {
+              color: #0b2d57;
+            }
+            .phase-muted {
+              color: #94a3b8 !important;
+              font-style: italic;
+            }
+          </style>
+        </head>
+        <body>
+          ${previewEl.outerHTML}
+        </body>
+      </html>
+    `);
+    doc.close();
+
+    const triggerPrint = () => {
+      try {
+        iframe.contentWindow?.focus();
+        iframe.contentWindow?.print();
+      } catch (e) {
+        console.error("Print error:", e);
+      } finally {
+        setTimeout(() => {
+          if (document.body.contains(iframe)) {
+            document.body.removeChild(iframe);
+          }
+        }, 1500);
+      }
+    };
+
+    if (iframe.contentWindow) {
+      setTimeout(triggerPrint, 250);
+    }
+  };
+
+  const handleSaveCv = () => {
+    if (typeof window !== "undefined") {
+      const cvPayload = {
+        userId: currentUser?.id || currentUser?._id,
+        name,
+        title,
+        email,
+        phone,
+        city,
+        country,
+        summary,
+        experiences,
+        educations,
+        selectedSkills,
+        extraSkills,
+        score: scoreData.score,
+        savedAt: new Date().toISOString()
+      };
+      localStorage.setItem("ystudy_saved_cv", JSON.stringify(cvPayload));
+      triggerToast("CV saved successfully");
+    }
+  };
+
+  const handleCopyCvText = () => {
+    if (typeof window !== "undefined") {
+      const area = document.getElementById("cvPreview");
+      if (area && navigator.clipboard) {
+        navigator.clipboard.writeText(area.innerText || area.textContent || "");
+        triggerToast("CV copied to clipboard");
+      }
+    }
   };
 
   const handlePrepareAdviser = () => {
@@ -630,13 +871,43 @@ export function CvBuilderWidget({ section2Data, section3Data }: CvBuilderWidgetP
 
                 <div className="divider"></div>
                 <div className="btnrow">
-                  <button className="ys-btn orange" onClick={() => handleOpenModal("Save your CV")} type="button">
+                  <button
+                    className="ys-btn orange"
+                    onClick={() => {
+                      if (isLoggedIn) {
+                        handleSaveCv();
+                      } else {
+                        handleOpenModal("Save your CV");
+                      }
+                    }}
+                    type="button"
+                  >
                     Save CV
                   </button>
-                  <button className="ys-btn blue" onClick={() => handleOpenModal("Download your CV")} type="button">
+                  <button
+                    className="ys-btn blue"
+                    onClick={() => {
+                      if (isLoggedIn) {
+                        handleDownloadPdf();
+                      } else {
+                        handleOpenModal("Download your CV");
+                      }
+                    }}
+                    type="button"
+                  >
                     Print / Download PDF
                   </button>
-                  <button className="ys-btn white" onClick={() => handleOpenModal("Copy your CV text")} type="button">
+                  <button
+                    className="ys-btn white"
+                    onClick={() => {
+                      if (isLoggedIn) {
+                        handleCopyCvText();
+                      } else {
+                        handleOpenModal("Copy your CV text");
+                      }
+                    }}
+                    type="button"
+                  >
                     Copy CV text
                   </button>
                 </div>
@@ -806,13 +1077,25 @@ export function CvBuilderWidget({ section2Data, section3Data }: CvBuilderWidgetP
       {/* ACCOUNT MODAL */}
       <div className={`account-modal ${showModal ? "open" : ""}`} id="accountModal">
         <div className="account-card">
-          <span className="phase-eyebrow">Free YStudy account</span>
+          <span className="phase-eyebrow">
+            {isLoggedIn ? `Logged in: ${currentUser?.name || currentUser?.email || "Student"}` : "Free YStudy account"}
+          </span>
           <h2 id="modalTitle">{modalTitle}</h2>
-          <p>Create a free account to save, download, copy or send your CV to an adviser. You can continue editing without an account.</p>
+          <p>
+            {isLoggedIn
+              ? "Your account is active. Click below to download your CV as a PDF or continue editing."
+              : "Create a free account to save, download, copy or send your CV to an adviser. You can continue editing without an account."}
+          </p>
           <div className="btnrow" style={{ marginTop: "20px" }}>
-            <Link className="ys-btn orange" href="/login">
-              Create free account
-            </Link>
+            {isLoggedIn ? (
+              <button className="ys-btn orange" onClick={handleDownloadPdf} type="button">
+                Download PDF
+              </button>
+            ) : (
+              <Link className="ys-btn orange" href="/login">
+                Create free account
+              </Link>
+            )}
             <button className="ys-btn white" onClick={() => setShowModal(false)} type="button">
               Continue editing
             </button>
