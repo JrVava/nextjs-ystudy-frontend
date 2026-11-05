@@ -73,23 +73,66 @@ export default async function BecomeAnAdviser() {
               <p>{s2.description || "If people already ask you for education, career or funding advice, this could fit you."}</p>
             </div>
             <div className="conv-grid three">
-              {(s2.cards || []).map((card: any, idx: number) => (
-                <a className="persona-card" href="#enquiry-form" key={idx}>
-                  <img alt={card.title} src={card.fullImageUrl || "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=600&q=80"} />
-                  <div className="body">
-                    <span className="tag">{card.badge}</span>
-                    <h3>{card.title}</h3>
-                    <p>{card.description}</p>
-                  </div>
-                </a>
-              ))}
+              {(() => {
+                const fallbackImages = [
+                  "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80",
+                  "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=80",
+                  "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80",
+                  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80",
+                  "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=800&q=80",
+                  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80"
+                ];
+
+                return (s2.cards || []).map((card: any, idx: number) => (
+                  <a
+                    className="persona-card"
+                    href="#enquiry-form"
+                    key={idx}
+                    style={{
+                      aspectRatio: "3 / 4",
+                      minHeight: "clamp(420px, 34vw, 500px)",
+                      borderRadius: "28px",
+                      position: "relative",
+                      overflow: "hidden",
+                      display: "flex",
+                      alignItems: "flex-end"
+                    }}
+                  >
+                    <img
+                      alt={card.title}
+                      src={card.fullImageUrl || card.image || fallbackImages[idx % fallbackImages.length]}
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        objectFit: "cover",
+                        objectPosition: "top center",
+                        width: "100%",
+                        height: "100%"
+                      }}
+                    />
+                    <div
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        background: "linear-gradient(to top, rgba(5, 17, 38, 0.95) 0%, rgba(5, 17, 38, 0.72) 42%, rgba(5, 17, 38, 0.12) 68%, transparent 82%)",
+                        zIndex: 1
+                      }}
+                    />
+                    <div className="body" style={{ position: "relative", zIndex: 2, padding: "24px" }}>
+                      <span className="tag">{card.badge}</span>
+                      <h3 style={{ fontSize: "26px", lineHeight: "1.1", margin: "0 0 6px", color: "#fff" }}>{card.title}</h3>
+                      <p style={{ fontSize: "14.5px", lineHeight: "1.45", color: "#dbeafe" }}>{card.description}</p>
+                    </div>
+                  </a>
+                ));
+              })()}
             </div>
           </div>
         </section>
       )}
 
       {/* HOW IT WORKS */}
-      {s3.status !== false && (
+      {s3 && Object.keys(s3).length > 0 && s3.status !== false && (
         <section className="conv-section soft" id="how">
           <div className="container">
             <div className="conv-head">

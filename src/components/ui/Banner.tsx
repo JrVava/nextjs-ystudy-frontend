@@ -137,7 +137,7 @@ export async function Banner({
                   <div className="loc-glass tlpanel">
                     <div className="tph">{fallbackRightCard.title || 'Sample result'}</div>
                     {fallbackRightCard.mainValue && <div className="big">{fallbackRightCard.mainValue}</div>}
-                    <div className="sub">{fallbackRightCard.description || 'BA Business Management · SFE eligible'}</div>
+                    <div className="sub">{fallbackRightCard.description || ''}</div>
                     <div className="tlgrid loc-mini-list">
                       {fallbackRightCard.items.map((item, idx) => (
                         <div className="c loc-mini" key={idx}>
@@ -296,7 +296,7 @@ export async function Banner({
                   <div className="loc-glass tlpanel">
                     <div className="tph">{rightCard.title || 'Sample result'}</div>
                     {rightCard.mainValue && <div className="big">{rightCard.mainValue}</div>}
-                    <div className="sub">{rightCard.description || 'BA Business Management · SFE eligible'}</div>
+                    <div className="sub">{rightCard.description || ''}</div>
                     <div className="tlgrid loc-mini-list">
                       {rightCard.items.map((item, idx) => (
                         <div className="c loc-mini" key={idx}>
