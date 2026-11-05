@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import "./tools.css";
 
@@ -37,9 +37,126 @@ export function PersonalStatementWidget({ section2Data }: PersonalStatementWidge
   const [modalTitle, setModalTitle] = useState<string>("Create an account first.");
   const [toastMsg, setToastMsg] = useState<string | null>(null);
 
+  const [currentUser, setCurrentUser] = useState<{ id?: string; _id?: string; name?: string; email?: string; role?: string } | null>(null);
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem("ystudy_user");
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (parsed && (parsed.id || parsed._id)) {
+          setCurrentUser(parsed);
+        }
+      }
+    } catch (e) {
+      console.error("Error reading ystudy_user from localStorage:", e);
+    }
+  }, []);
+
+  const isLoggedIn = !!(currentUser?.id || currentUser?._id);
+
   const triggerToast = (msg: string) => {
     setToastMsg(msg);
     setTimeout(() => setToastMsg(null), 1800);
+  };
+
+  const handleDownloadPdf = () => {
+    setShowModal(false);
+    if (typeof window === "undefined") return;
+
+    const previewEl = document.getElementById("psPreview");
+    if (!previewEl) {
+      window.print();
+      return;
+    }
+
+    const iframe = document.createElement("iframe");
+    iframe.style.position = "fixed";
+    iframe.style.right = "0";
+    iframe.style.bottom = "0";
+    iframe.style.width = "0";
+    iframe.style.height = "0";
+    iframe.style.border = "0";
+    iframe.title = "Print Statement";
+    document.body.appendChild(iframe);
+
+    const doc = iframe.contentWindow?.document;
+    if (!doc) {
+      window.print();
+      return;
+    }
+
+    doc.open();
+    doc.write(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="utf-8" />
+          <title>${course ? `${course} - Personal Statement` : "Personal Statement - YStudy"}</title>
+          <link rel="preconnect" href="https://fonts.googleapis.com">
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+          <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+          <style>
+            @page {
+              size: A4 portrait;
+              margin: 20mm;
+            }
+            * {
+              box-sizing: border-box;
+              -webkit-print-color-adjust: exact !important;
+              print-color-adjust: exact !important;
+            }
+            html, body {
+              margin: 0;
+              padding: 0;
+              background: #ffffff;
+              font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+              color: #152033;
+              font-size: 14px;
+              line-height: 1.7;
+              width: 100%;
+            }
+            .ps-paper {
+              background: #ffffff;
+              width: 100%;
+              max-width: 100%;
+              margin: 0;
+              padding: 0;
+              border: none !important;
+              border-radius: 0 !important;
+              box-shadow: none !important;
+              color: #152033;
+            }
+            .ps-paper h2 {
+              color: #0b2d57;
+              font-size: 26px;
+              font-weight: 800;
+              margin: 0 0 18px 0;
+            }
+            .ps-paper p {
+              margin: 0 0 16px 0;
+              font-size: 14px;
+              line-height: 1.7;
+              color: #152033;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="ps-paper">
+            ${previewEl.innerHTML}
+          </div>
+        </body>
+      </html>
+    `);
+    doc.close();
+
+    setTimeout(() => {
+      iframe.contentWindow?.focus();
+      iframe.contentWindow?.print();
+      setTimeout(() => {
+        document.body.removeChild(iframe);
+      }, 1000);
+    }, 350);
   };
 
   const handleOpenTab = (tab: "course" | "experience" | "motivation" | "finish") => {
@@ -343,10 +460,30 @@ export function PersonalStatementWidget({ section2Data }: PersonalStatementWidge
 
                 <div className="divider"></div>
                 <div className="btnrow">
-                  <button className="ys-btn orange" onClick={() => handleOpenModal("Save your statement")} type="button">
+                  <button
+                    className="ys-btn orange"
+                    onClick={() => {
+                      if (isLoggedIn) {
+                        triggerToast("Statement saved successfully!");
+                      } else {
+                        handleOpenModal("Save your statement");
+                      }
+                    }}
+                    type="button"
+                  >
                     Save statement
                   </button>
-                  <button className="ys-btn blue" onClick={() => handleOpenModal("Download your statement")} type="button">
+                  <button
+                    className="ys-btn blue"
+                    onClick={() => {
+                      if (isLoggedIn) {
+                        handleDownloadPdf();
+                      } else {
+                        handleOpenModal("Download your statement");
+                      }
+                    }}
+                    type="button"
+                  >
                     Print / Download PDF
                   </button>
                   <button className="ys-btn white" onClick={handleCopyText} type="button">
@@ -438,13 +575,25 @@ export function PersonalStatementWidget({ section2Data }: PersonalStatementWidge
       {/* ACCOUNT MODAL */}
       <div className={`account-modal ${showModal ? "open" : ""}`} id="accountModal">
         <div className="account-card">
-          <span className="phase-eyebrow">Free YStudy account</span>
+          <span className="phase-eyebrow">
+            {isLoggedIn ? `Logged in: ${currentUser?.name || currentUser?.email || "Student"}` : "Free YStudy account"}
+          </span>
           <h2 id="modalTitle">{modalTitle}</h2>
-          <p>Create a free account to save, download, copy or send your statement to an adviser. You can keep editing without an account.</p>
+          <p>
+            {isLoggedIn
+              ? "Your account is active. Click below to download your statement as a PDF or continue editing."
+              : "Create a free account to save, download, copy or send your statement to an adviser. You can keep editing without an account."}
+          </p>
           <div className="btnrow" style={{ marginTop: "20px" }}>
-            <Link className="ys-btn orange" href="/login">
-              Create free account
-            </Link>
+            {isLoggedIn ? (
+              <button className="ys-btn orange" onClick={handleDownloadPdf} type="button">
+                Download PDF
+              </button>
+            ) : (
+              <Link className="ys-btn orange" href="/login">
+                Create free account
+              </Link>
+            )}
             <button className="ys-btn white" onClick={() => setShowModal(false)} type="button">
               Continue editing
             </button>
