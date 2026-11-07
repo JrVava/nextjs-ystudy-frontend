@@ -28,14 +28,14 @@ export default async function FinanceCalculator() {
           ],
         }}
       >
-        <div className="tlhrow" style={{ display: "flex", gap: "12px", marginTop: "16px" }}>
-          <a className="hubbtn white" href="#calculator">
-            Open calculator →
-          </a>
-          <Link className="hubbtn ghost" href="/lead/adviser-call">
-            Talk to an adviser
-          </Link>
-        </div>
+          <div className="tlhrow" style={{ display: "flex", flexWrap: "wrap", gap: "12px", marginTop: "16px" }}>
+            <a className="hubbtn white" href="#calculator">
+              Open calculator →
+            </a>
+            <Link className="hubbtn ghost" href="/lead/adviser-call">
+              Talk to an adviser
+            </Link>
+          </div>
       </Banner>
       <aside aria-label="Important funding information" className="ys92-context-note"><strong>Illustrative funding
         information.</strong> Figures, examples and calculations are estimates, not an SFE award or eligibility

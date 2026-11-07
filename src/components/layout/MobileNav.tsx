@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { MOBILE_NAV, MOBILE_QUICK_ACTIONS } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
@@ -119,6 +120,15 @@ export function MobileNav({
 }: MobileNavProps) {
   const navGroups = getUnifiedMobileNav(navigation);
 
+  const [openGroup, setOpenGroup] = useState<string | null>(() => {
+    const defaultGroup = navGroups.find((g) => g.defaultOpen || g.slug === "degrees");
+    return defaultGroup ? (defaultGroup.slug || defaultGroup._id || "degrees") : "degrees";
+  });
+
+  const handleToggleGroup = (groupId: string) => {
+    setOpenGroup((prev) => (prev === groupId ? null : groupId));
+  };
+
   return (
     <div
       id="mobileNav"
@@ -150,16 +160,33 @@ export function MobileNav({
         </div>
 
         {navGroups.map((group, gIdx) => {
-          const defaultOpen = group.defaultOpen || group.slug === "degrees";
+          const groupId = group.slug || group.id || group._id || `group-${gIdx}`;
+          const isGroupOpen = openGroup === groupId || openGroup === group.slug;
+
           return (
             <div
-              key={group._id || group.slug || `group-${gIdx}`}
+              key={groupId}
               className={cn(
                 "mobile-nav-group",
-                defaultOpen && "mobile-nav-open"
+                isGroupOpen && "mobile-nav-open"
               )}
             >
-              <div className="mobile-nav-title">{group.pageName}</div>
+              <div
+                className="mobile-nav-title"
+                role="button"
+                tabIndex={0}
+                aria-expanded={isGroupOpen}
+                style={{ cursor: "pointer", userSelect: "none" }}
+                onClick={() => handleToggleGroup(group.slug || groupId)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    handleToggleGroup(group.slug || groupId);
+                  }
+                }}
+              >
+                {group.pageName}
+              </div>
               <div className="mobile-nav-links">
                 {group.children && group.children
                   .sort((a: any, b: any) => (a.position || 0) - (b.position || 0))

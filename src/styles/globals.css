@@ -3566,7 +3566,8 @@ a {
 
 .ys92-context-note {
   max-width: 1500px;
-  margin: 20px 0 0;
+  width: min(1500px, calc(100% - 32px));
+  margin: 20px auto 0;
   padding: 13px 17px;
   border-left: 3px solid #2164c8;
   border-radius: 8px;
@@ -3648,6 +3649,24 @@ a {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 22px;
+}
+
+@media (max-width: 1024px) {
+  .ys114-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 20px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .ys114-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  .ys114-section {
+    padding: 40px 16px !important;
+  }
 }
 
 .ys114-card {
