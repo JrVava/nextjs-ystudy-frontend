@@ -61,7 +61,19 @@ export default async function FinanceCalculator() {
               {data?.section_4?.cards?.map((item: any, index: number) => (
                 <article className="ys114-card" key={index}>
                   <a aria-label={item?.title} className="ys114-photo" href={item?.link}>
-                    <img alt={item?.title} loading="lazy" src={item?.fullImageUrl} />
+                    <img
+                      alt={item?.title}
+                      loading="lazy"
+                      src={item?.fullImageUrl}
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        display: "block",
+                      }}
+                    />
                     <span className="ys114-photo-tag">{item.badge}</span>
                   </a>
                   <div className="ys114-card-body">

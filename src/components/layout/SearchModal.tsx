@@ -24,41 +24,75 @@ const formatSearchHref = (link?: string) => {
 
 const getModuleLabel = (module?: string) => {
   if (!module) return "Degrees";
-  const lower = module.toUpperCase();
-  // if (lower === "course" || lower === "subject") {
-  //   return "Degrees";
-  // }
-  return lower;
+  const m = module.toLowerCase().trim();
+  return m.charAt(0).toUpperCase() + m.slice(1);
 };
 
 export function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const [query, setQuery] = useState("");
+  const [hasSearched, setHasSearched] = useState(false);
+  const [submittedQuery, setSubmittedQuery] = useState("");
+  const [defaultCourses, setDefaultCourses] = useState<SearchResultItem[]>([]);
+  const [defaultLoading, setDefaultLoading] = useState(false);
   const [results, setResults] = useState<SearchResultItem[]>([]);
   const [loading, setLoading] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const trimmedQuery = query.trim();
-
-  const handleClear = () => {
-    setQuery("");
-    inputRef.current?.focus();
-  };
-
+  // Load default courses on modal open if not yet loaded
   useEffect(() => {
     if (!isOpen) {
       setQuery("");
+      setHasSearched(false);
+      setSubmittedQuery("");
       setResults([]);
       setLoading(false);
       return;
     }
+
     const timer = setTimeout(() => {
       inputRef.current?.focus();
     }, 50);
-    return () => clearTimeout(timer);
-  }, [isOpen]);
 
-  useEffect(() => {
+    if (defaultCourses.length === 0) {
+      setDefaultLoading(true);
+      searchFrontend("")
+        .then((data) => {
+          setDefaultCourses(data);
+        })
+        .catch((err) => {
+          console.error("Failed to load default courses", err);
+        })
+        .finally(() => {
+          setDefaultLoading(false);
+        });
+    }
+
+    return () => clearTimeout(timer);
+  }, [isOpen, defaultCourses.length]);
+
+  const handleClear = () => {
+    setQuery("");
+    setHasSearched(false);
+    setSubmittedQuery("");
+    setResults([]);
+    setLoading(false);
+    inputRef.current?.focus();
+  };
+
+  const handleSearchSubmit = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     const trimmed = query.trim();
+    if (!trimmed) {
+      setHasSearched(false);
+      setSubmittedQuery("");
+      setResults([]);
+      setLoading(false);
+      return;
+    }
+
+    setHasSearched(true);
+    setSubmittedQuery(trimmed);
+
     if (trimmed.length < 3) {
       setResults([]);
       setLoading(false);
@@ -66,28 +100,15 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
     }
 
     setLoading(true);
-    let active = true;
-
-    const timer = setTimeout(async () => {
-      try {
-        const data = await searchFrontend(trimmed);
-        if (active) {
-          setResults(data);
-          setLoading(false);
-        }
-      } catch (err) {
-        if (active) {
-          setResults([]);
-          setLoading(false);
-        }
-      }
-    }, 300);
-
-    return () => {
-      active = false;
-      clearTimeout(timer);
-    };
-  }, [query]);
+    try {
+      const data = await searchFrontend(trimmed);
+      setResults(data);
+    } catch (err) {
+      setResults([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -120,8 +141,9 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
           </button>
         </div>
 
-        <div
+        <form
           className="simple-search-box"
+          onSubmit={handleSearchSubmit}
           onClick={(e) => {
             if ((e.target as HTMLElement).tagName !== "BUTTON") {
               inputRef.current?.focus();
@@ -148,14 +170,36 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
               ×
             </button>
           ) : null}
-        </div>
+          <button type="submit" className="simple-search-submit">
+            Search
+          </button>
+        </form>
 
         <div id="ysSmartSearchResults" className="ys-search-results">
-          {!trimmedQuery ? (
-            <p style={{ margin: "14px 0", color: "#52637a" }}>
-              Type to search the YStudy site index.
-            </p>
-          ) : trimmedQuery.length < 3 ? (
+          {!hasSearched ? (
+            defaultLoading ? (
+              <p style={{ margin: "14px 0", color: "#52637a" }}>
+                Loading courses...
+              </p>
+            ) : defaultCourses.length === 0 ? (
+              <p style={{ margin: "14px 0", color: "#52637a" }}>
+                No courses available.
+              </p>
+            ) : (
+              defaultCourses.map((item, index) => (
+                <Link
+                  key={`${item.link}-${index}`}
+                  className="ys-search-result"
+                  href={formatSearchHref(item.link)}
+                  onClick={onClose}
+                >
+                  <span>{getModuleLabel(item.module)}</span>
+                  <strong>{item.title}</strong>
+                  {item.description ? <small>{item.description}</small> : null}
+                </Link>
+              ))
+            )
+          ) : submittedQuery.length < 3 ? (
             <p style={{ margin: "14px 0", color: "#52637a" }}>
               Please type at least 3 letters to search.
             </p>
@@ -165,7 +209,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
             </p>
           ) : results.length === 0 ? (
             <p style={{ margin: "14px 0", color: "#52637a" }}>
-              No results found for &ldquo;{query}&rdquo;.
+              No results found for &ldquo;{submittedQuery}&rdquo;.
             </p>
           ) : (
             results.map((item, index) => (

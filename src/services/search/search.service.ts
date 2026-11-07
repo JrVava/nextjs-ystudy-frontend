@@ -9,11 +9,11 @@ export interface SearchResultItem {
 }
 
 export async function searchFrontend(
-  query: string,
+  query: string = "",
   type: string = "all"
 ): Promise<SearchResultItem[]> {
   const trimmed = query.trim();
-  if (trimmed.length < 3) return [];
+  if (trimmed.length > 0 && trimmed.length < 3) return [];
 
   try {
     const encryptedBody = encrypt({ search: trimmed, type });
