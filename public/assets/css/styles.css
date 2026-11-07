@@ -1537,9 +1537,6 @@ body:has(.hero-copy .kicker:first-child) .hero img {
 }
 
 .compare-bar {
-  position: sticky;
-  bottom: 16px;
-  z-index: 30;
   background: #061126;
   color: #fff;
   border-radius: 30px;

@@ -4011,3 +4011,55 @@ a {
     grid-template-columns: 1fr;
   }
 }
+
+/* Custom search box clear button */
+.simple-search-box .ystudy-search-input::-webkit-search-cancel-button,
+.simple-search-box .ystudy-search-input::-webkit-search-decoration {
+  -webkit-appearance: none;
+  display: none;
+}
+
+.simple-search-clear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 50%;
+  border: 0;
+  background: #e2eaf5;
+  color: #4a5c75;
+  font-size: 20px;
+  line-height: 1;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+  margin-left: auto;
+}
+
+.simple-search-clear:hover {
+  background: #cbdcf2;
+  color: #071126;
+  transform: scale(1.05);
+}
+
+/* Enhanced search box focus and caret visibility */
+.simple-search-box {
+  cursor: text;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.simple-search-box:focus-within {
+  border-color: #1263ff !important;
+  box-shadow: 0 0 0 3px rgba(18, 99, 255, 0.18) !important;
+  background-color: #ffffff !important;
+}
+
+.simple-search-box .ystudy-search-input {
+  caret-color: #1263ff !important;
+  height: 100% !important;
+  min-height: 48px !important;
+  line-height: 1.4 !important;
+}
