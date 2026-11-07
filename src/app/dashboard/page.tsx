@@ -40,7 +40,7 @@ export default function DashboardPage() {
   };
 
   return (
-    <SiteLayout showBottomNav={true}>
+    <SiteLayout >
       <main className="dash-shell">
         <div className="wrap">
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
