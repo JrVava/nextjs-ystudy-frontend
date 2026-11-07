@@ -103,7 +103,7 @@ export default async function FinanceCalculator() {
           <div className="container">
             <div className="risk-grid">
               {data?.section_6?.cards?.map((item: any, index: number) => (
-                <div className="risk-card"><b>{item?.title}</b>
+                <div className="risk-card" key={index}><b>{item?.title}</b>
                   <p>{item?.description}</p>
                 </div>
               ))}
