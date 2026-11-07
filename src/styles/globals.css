@@ -3710,6 +3710,14 @@ a {
   transform: scale(1.04);
 }
 
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .ys114-card:hover {
+    transform: translateY(-7px) !important;
+    box-shadow: 0 24px 48px rgba(11, 37, 75, .18), 0 9px 18px rgba(11, 37, 75, .10) !important;
+    border-color: #a8c7e9 !important;
+  }
+}
+
 .ys114-photo-tag {
   position: absolute;
   left: 16px;
