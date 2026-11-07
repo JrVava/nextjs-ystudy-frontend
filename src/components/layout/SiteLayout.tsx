@@ -8,7 +8,6 @@ import { cn, getThemeClass } from "@/lib/utils";
 import type { SiteTheme } from "@/types";
 import { decrypt } from "@/lib/crypto";
 import api from "@/lib/api";
-import { MobileBottomNav } from "./MobileBottomNav";
 import { MobileNav } from "./MobileNav";
 import { SearchModal } from "./SearchModal";
 import Footer from "./Footer";
@@ -16,16 +15,12 @@ import Header from "./Header";
 
 type SiteLayoutProps = PropsWithChildren<{
   theme?: SiteTheme;
-  showBottomNav?: boolean;
-  minimalFooter?: boolean;
   className?: string;
 }>;
 
 export function SiteLayout({
   children,
   theme = "default",
-  showBottomNav = true,
-  minimalFooter = false,
   className,
 }: SiteLayoutProps) {
   const pathname = usePathname();
@@ -49,7 +44,7 @@ export function SiteLayout({
         console.error("[SiteLayout] Error loading navigation menu:", error);
       }
     };
-    
+
     fetchNavigation();
   }, []);
 
@@ -140,7 +135,7 @@ export function SiteLayout({
       let list = [];
       try {
         list = JSON.parse(localStorage.getItem("ystudy_saved_tools") || "[]");
-      } catch (e) {}
+      } catch (e) { }
       const item = {
         type: type || "tool",
         title: title || document.title.replace(/^YStudy\s*[—|-]\s*/, "") || "YStudy tool",
@@ -235,7 +230,6 @@ export function SiteLayout({
       <MobileNav isOpen={mobileNav.isOpen} onClose={mobileNav.close} navigation={navigation} />
       <main>{children}</main>
       <Footer />
-      {showBottomNav ? <MobileBottomNav /> : null}
     </div>
   );
 }

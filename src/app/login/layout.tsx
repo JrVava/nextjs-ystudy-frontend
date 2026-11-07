@@ -1,4 +1,4 @@
-import { MinimalLayout, MobileBottomNav } from "@/components/layout";
+import { MinimalLayout } from "@/components/layout";
 
 export default function LoginLayout({
   children,
@@ -8,7 +8,6 @@ export default function LoginLayout({
   return (
     <MinimalLayout>
       {children}
-      <MobileBottomNav />
     </MinimalLayout>
   );
 }
