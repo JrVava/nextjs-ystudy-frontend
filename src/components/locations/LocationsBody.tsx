@@ -6,16 +6,35 @@ import Link from "next/link";
 import { LocationResultsCarousel } from "@/components/locations/LocationResultsCarousel";
 import { getAllCourses } from "@/services/course.service";
 import { getSubjects } from "@/services/filters.service";
+import { getStudentStoriesList, type StudentStoryItem } from "@/services/student-story.service";
 import { BackendCourse } from "@/types/course";
 
 interface LocationsBodyProps {
   data: any;
+  initialStories?: StudentStoryItem[] | null;
 }
 
-export default function LocationsBody({ data }: LocationsBodyProps) {
+export default function LocationsBody({ data, initialStories }: LocationsBodyProps) {
   const [activeTab, setActiveTab] = useState<string>("london");
   const [apiCourses, setApiCourses] = useState<BackendCourse[]>([]);
   const [dynamicSubjects, setDynamicSubjects] = useState<any[]>([]);
+  const [stories, setStories] = useState<StudentStoryItem[]>(initialStories || []);
+
+  useEffect(() => {
+    if (!initialStories || initialStories.length === 0) {
+      async function fetchStories() {
+        try {
+          const res = await getStudentStoriesList();
+          if (res && res.length > 0) {
+            setStories(res);
+          }
+        } catch (error) {
+          console.error("Error loading student stories:", error);
+        }
+      }
+      fetchStories();
+    }
+  }, [initialStories]);
 
   useEffect(() => {
     async function fetchCourses() {
@@ -62,7 +81,7 @@ export default function LocationsBody({ data }: LocationsBodyProps) {
     if (data?.cities && data.cities.length > 0) {
       return data.cities;
     }
-    
+
     // Default hardcoded fallbacks
     const defaultCities = [
       {
@@ -195,7 +214,7 @@ export default function LocationsBody({ data }: LocationsBodyProps) {
       </section>
 
       {/* CITIES EXPANSION CARDS */}
-      {data?.section_2?.status !== false && (
+      {data?.section_2 !== undefined && data?.section_2?.status !== false && (
         <section className="loc-section" id="cities">
           <div className="wrap">
             <div className="loc-head">
@@ -236,7 +255,7 @@ export default function LocationsBody({ data }: LocationsBodyProps) {
       )}
 
       {/* CHOOSE SUBJECT ENTRY POINTS */}
-      {data?.section_3?.status !== false && (
+      {data?.section_3 !== undefined && data?.section_3?.status !== false && (
         <section className="loc-section soft" id="subjects">
           <div className="wrap">
             <div className="loc-head">
@@ -246,7 +265,7 @@ export default function LocationsBody({ data }: LocationsBodyProps) {
               </div>
               <p>{data?.section_3?.description || "Use these subject groups as simple entry points into course results. No extra submenu, no duplicated pathways — just city, subject and relevant courses."}</p>
             </div>
-            <div className="subject-grid ys-carousel-mobile">
+            <div className="subject-grid">
               {subjectsToRender.map((s: any, idx: number) => (
                 <a key={idx} className="subject-card" href="#courses" onClick={(e) => {
                   e.preventDefault();
@@ -265,7 +284,7 @@ export default function LocationsBody({ data }: LocationsBodyProps) {
       )}
 
       {/* RESULTS TABS & CAROUSEL */}
-      {data?.section_4?.status !== false && (
+      {data?.section_4 !== undefined && data?.section_4?.status !== false && (
         <section className="loc-section" id="courses">
           <div className="wrap">
             <div className="loc-head">
@@ -275,7 +294,7 @@ export default function LocationsBody({ data }: LocationsBodyProps) {
               </div>
               <p>{data?.section_4?.description || "Use these as quick entry points into the full Search Degrees page. Each card uses the same course-card logic: photo, location, timetable, funding, value and clear action buttons."}</p>
             </div>
-            
+
             <LocationResultsCarousel
               cities={cities}
               coursesData={formattedCoursesData}
@@ -286,7 +305,7 @@ export default function LocationsBody({ data }: LocationsBodyProps) {
       )}
 
       {/* QUICK LOCATION COMPARISON MATRIX */}
-      {data?.section_5?.status !== false && (
+      {data?.section_5 !== undefined && data?.section_5?.status !== false && (
         <section className="loc-section soft" id="compare-locations">
           <div className="wrap">
             <div className="loc-head">
@@ -346,7 +365,7 @@ export default function LocationsBody({ data }: LocationsBodyProps) {
       )}
 
       {/* SFE ENTITLEMENT DETAILS BAND */}
-      {data?.section_6?.status !== false && (
+      {data?.section_6 !== undefined && data?.section_6?.status !== false && (
         <section className="loc-section" id="funding">
           <div className="wrap">
             <div className="funding-band" style={{ textAlign: "left" }}>
@@ -379,7 +398,7 @@ export default function LocationsBody({ data }: LocationsBodyProps) {
       )}
 
       {/* STUDENT STORIES */}
-      {data?.section_7?.status !== false && (
+      {data?.section_7 !== undefined && data?.section_7?.status !== false && (
         <section className="loc-section soft" id="stories">
           <div className="wrap">
             <div className="loc-head">
@@ -389,39 +408,56 @@ export default function LocationsBody({ data }: LocationsBodyProps) {
               </div>
               <p>{data?.section_7?.description || "Short, location-based stories help students imagine how study could fit around work, family and travel."}</p>
             </div>
-            <div className="story-grid story-carousel">
-              {(data?.section_7?.stories || [
-                { author: "Maria", location: "London", text: "Chose Health & Social Care because the location and timetable fitted around childcare and part-time work.", image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=80" },
-                { author: "Ahmed", location: "Birmingham", text: "Used practical construction experience as a starting point for a more management-focused direction.", image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=80" },
-                { author: "David", location: "Manchester", text: "Started with Business Management after looking for a location and schedule he could realistically attend.", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=900&q=80" }
-              ]).map((s: any, idx: number) => (
-                <article key={idx} className="story-card" style={{ textAlign: "left" }}>
-                  <img src={s.image} alt={s.author || s.name} />
-                  <div className="body">
-                    {s.quote ? (
-                      <>
-                        <h3>&ldquo;{s.quote}&rdquo;</h3>
-                        <p>&ldquo;{s.text || s.description}&rdquo;</p>
-                        <b style={{ display: "block", marginTop: "12px", fontSize: "13.5px" }}>
-                          — {s.author || s.name}, {s.location || s.year}
-                        </b>
-                      </>
-                    ) : (
-                      <>
-                        <h3>{s.author || s.name}, {s.location || s.year}</h3>
-                        <p>{s.text || s.description}</p>
-                      </>
+            <div className="story-grid">
+              {(stories || []).map((s: any, idx: number) => {
+                const authorName = s.name || "";
+                const subtitle = s.location || (s.subject && s.year ? `${s.subject} · ${s.year}` : (s.subject || s.year || (s.age ? `${s.age} yrs` : "")));
+                const storyText = s.description || "";
+                const imageUrl = s.fullImageUrl || s.image || "";
+
+                return (
+                  <article
+                    key={s._id || idx}
+                    className="story-card"
+                    style={{
+                      position: "relative",
+                      overflow: "hidden",
+                      textAlign: "left",
+                      aspectRatio: "3 / 4",
+                      minHeight: "480px",
+                      display: "flex",
+                      alignItems: "flex-end",
+                      width: "100%",
+                    }}
+                  >
+                    {imageUrl && (
+                      <img
+                        src={imageUrl}
+                        alt={authorName}
+                        style={{
+                          position: "absolute",
+                          inset: 0,
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                          display: "block",
+                        }}
+                      />
                     )}
-                  </div>
-                </article>
-              ))}
+                    <div className="body" style={{ position: "relative", zIndex: 2, width: "100%" }}>
+                      <h3>{authorName}{subtitle ? `, ${subtitle}` : ""}</h3>
+                      <p>{storyText}</p>
+                    </div>
+                  </article>
+                );
+              })}
             </div>
           </div>
         </section>
       )}
 
       {/* FINAL CALL TO ACTION */}
-      {data?.section_8?.status !== false && (
+      {data?.section_8 !== undefined && data?.section_8?.status !== false && (
         <section className="loc-section">
           <div className="wrap">
             <div className="final-cta" style={{ textAlign: "left" }}>

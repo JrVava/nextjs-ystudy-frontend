@@ -389,10 +389,39 @@
   color: #fff;
 }
 
+#subjects .subject-grid,
 .subject-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr) !important;
-  gap: 14px !important;
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 20px !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+}
+
+#subjects .subject-grid > *,
+#subjects .subject-card,
+.subject-card {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+}
+
+@media (max-width: 900px) {
+  #subjects .subject-grid,
+  .subject-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 16px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  #subjects .subject-grid,
+  .subject-grid {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
 }
 
 .subject-card {
@@ -551,42 +580,121 @@
   color: #fff;
 }
 
+#stories .story-grid,
 .story-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px !important;
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 20px !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
 }
 
+#stories .story-grid > *,
+.story-grid > * {
+  flex: 1 1 0 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+}
+
+@media (max-width: 900px) {
+  #stories .story-grid,
+  .story-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 16px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  #stories .story-grid,
+  .story-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+}
+
+#stories .story-card,
 .story-card {
-  background: #fff;
-  border: 1px solid #dbe8f7;
-  border-radius: 22px !important;
-  overflow: hidden;
+  position: relative !important;
+  aspect-ratio: 3 / 4 !important;
+  min-height: 480px !important;
+  background: #061126 !important;
+  border: 1px solid rgba(255, 255, 255, .12) !important;
+  border-radius: 24px !important;
+  overflow: hidden !important;
   box-shadow: 0 12px 34px rgba(15, 23, 42, .08) !important;
+  display: flex !important;
+  align-items: flex-end !important;
+  text-decoration: none !important;
 }
 
+@media (max-width: 640px) {
+  #stories .story-card,
+  .story-card {
+    aspect-ratio: 4 / 5 !important;
+    min-height: 380px !important;
+  }
+}
+
+#stories .story-card:before,
+.story-card:before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: linear-gradient(180deg, rgba(6, 17, 38, .08) 0%, rgba(6, 17, 38, .45) 50%, rgba(6, 17, 38, .92) 100%) !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+}
+
+#stories .story-card img,
 .story-card img {
-  width: 100%;
-  height: 190px !important;
-  object-fit: cover;
+  position: absolute !important;
+  inset: 0 !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: cover !important;
+  display: block !important;
+  transition: transform .55s ease !important;
+  z-index: 0 !important;
 }
 
+#stories .story-card:hover img,
+.story-card:hover img {
+  transform: scale(1.06) !important;
+}
+
+#stories .story-card .body,
 .story-card .body {
-  padding: 18px !important;
+  position: relative !important;
+  z-index: 2 !important;
+  padding: 22px !important;
+  width: 100% !important;
 }
 
+#stories .story-card h3,
 .story-card h3 {
   font-family: var(--display-font, "Montserrat", Inter, sans-serif) !important;
-  font-size: 20px !important;
+  font-size: 22px !important;
+  font-weight: 800 !important;
   letter-spacing: -.02em !important;
-  margin: 0 0 10px;
+  color: #fff !important;
+  margin: 0 0 8px !important;
 }
 
+#stories .story-card p,
 .story-card p {
-  color: #46566f;
-  margin: 0;
+  color: #dbeafe !important;
+  margin: 0 !important;
   line-height: 1.45 !important;
   font-size: 14px !important;
+  font-weight: 600 !important;
 }
 
 .final-cta {
@@ -954,8 +1062,9 @@
     grid-template-columns: 1fr !important;
   }
 
+  #subjects .subject-grid,
   .subject-grid {
-    grid-template-columns: 1fr 1fr !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   }
 
   .loc-section {

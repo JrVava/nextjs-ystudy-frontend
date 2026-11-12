@@ -4,13 +4,15 @@ import api from "@/lib/api";
 export interface StudentStoryItem {
   _id: string;
   badge?: string;
-  star: number;
+  star?: number;
   description: string;
   name: string;
   age?: number;
   subject?: string;
   year?: string;
-  status: boolean;
+  status?: boolean;
+  image?: string;
+  fullImageUrl?: string;
 }
 
 export async function getStudentStoriesList(): Promise<StudentStoryItem[] | null> {

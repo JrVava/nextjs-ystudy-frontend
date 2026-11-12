@@ -1,11 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getCMSPageContent } from "@/services/cms.service";
+import { getStudentStoriesList } from "@/services/student-story.service";
 import { Banner } from "@/components/ui/Banner";
 import LocationsBody from "@/components/locations/LocationsBody";
 import Link from "next/link";
 
 export default async function Locations() {
-  const data = await getCMSPageContent("study-locations");
+  const [data, studentStories] = await Promise.all([
+    getCMSPageContent("study-locations"),
+    getStudentStoriesList().catch(() => null),
+  ]);
 
   // Define the fallback right card matching the old loc-glass sidebar
   const fallbackRightCard = {
@@ -39,7 +43,7 @@ export default async function Locations() {
         </div>
       </Banner>
 
-      <LocationsBody data={data} />
+      <LocationsBody data={data} initialStories={studentStories} />
     </main>
   );
 }

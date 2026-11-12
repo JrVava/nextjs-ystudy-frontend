@@ -280,26 +280,7 @@
     "badge": "Student stories",
     "title": "Adult learners choose locations for real-life reasons.",
     "description": "Short, location-based stories help students imagine how study could fit around work, family and travel.",
-    "stories": [
-      {
-        "author": "Maria",
-        "location": "London",
-        "text": "Chose Health & Social Care because the location and timetable fitted around childcare and part-time work.",
-        "image": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=80"
-      },
-      {
-        "author": "Ahmed",
-        "location": "Birmingham",
-        "text": "Used practical construction experience as a starting point for a more management-focused direction.",
-        "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=80"
-      },
-      {
-        "author": "David",
-        "location": "Manchester",
-        "text": "Started with Business Management after looking for a location and schedule he could realistically attend.",
-        "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=900&q=80"
-      }
-    ],
+    "stories": [],
     "status": true
   },
   "section_8": {

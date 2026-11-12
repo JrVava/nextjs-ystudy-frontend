@@ -39,6 +39,19 @@ export default function ReferAFriend({ data }: ReferAFriendProps) {
           <a className="btn btn-white" href="#how">Check the details</a>
         </div>
       </Banner>
+      <PartnershipFormWidget
+        workflow="referral-form"
+        kicker={formCard.badge || "Referral form"}
+        title={formCard.title || "Refer a friend to YStudy."}
+        description={formCard.description || "Share your details and your friend’s contact information so the team can follow up."}
+        submitText="Start referral"
+        sideKicker={reviewCard.badge || "What we review"}
+        sideTitle={reviewCard.title || "Simple, practical partnership checks."}
+        sideItems={(reviewCard.cards || []).map((c: any) => ({
+          title: c.title,
+          description: c.description
+        }))}
+      />
 
       {/* HOW IT WORKS */}
       {s2.status !== false && (
@@ -106,19 +119,7 @@ export default function ReferAFriend({ data }: ReferAFriendProps) {
       <QualificationCrosslinks sectionData={s6} />
 
       {/* WORKFLOW FORM */}
-      <PartnershipFormWidget
-        workflow="referral-form"
-        kicker={formCard.badge || "Referral form"}
-        title={formCard.title || "Refer a friend to YStudy."}
-        description={formCard.description || "Share your details and your friend’s contact information so the team can follow up."}
-        submitText="Start referral"
-        sideKicker={reviewCard.badge || "What we review"}
-        sideTitle={reviewCard.title || "Simple, practical partnership checks."}
-        sideItems={(reviewCard.cards || []).map((c: any) => ({
-          title: c.title,
-          description: c.description
-        }))}
-      />
+
     </div>
   );
 }
