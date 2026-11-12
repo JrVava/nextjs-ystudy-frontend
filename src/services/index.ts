@@ -6,3 +6,4 @@ export * from "./tool.service";
 export * from "./auth.service";
 export * from "./repaymentPlan.service";
 export * from "./guide.service";
+export * from "./location.service";

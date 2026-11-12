@@ -7,6 +7,7 @@ import { LocationResultsCarousel } from "@/components/locations/LocationResultsC
 import { getAllCourses } from "@/services/course.service";
 import { getSubjects } from "@/services/filters.service";
 import { getStudentStoriesList, type StudentStoryItem } from "@/services/student-story.service";
+import { getFrontendLocations, type LocationItem } from "@/services/location.service";
 import { BackendCourse } from "@/types/course";
 
 interface LocationsBodyProps {
@@ -19,6 +20,21 @@ export default function LocationsBody({ data, initialStories }: LocationsBodyPro
   const [apiCourses, setApiCourses] = useState<BackendCourse[]>([]);
   const [dynamicSubjects, setDynamicSubjects] = useState<any[]>([]);
   const [stories, setStories] = useState<StudentStoryItem[]>(initialStories || []);
+  const [dbLocations, setDbLocations] = useState<LocationItem[]>([]);
+
+  useEffect(() => {
+    async function fetchLocations() {
+      try {
+        const locs = await getFrontendLocations();
+        if (locs && locs.length > 0) {
+          setDbLocations(locs);
+        }
+      } catch (error) {
+        console.error("Error loading locations:", error);
+      }
+    }
+    fetchLocations();
+  }, []);
 
   useEffect(() => {
     if (!initialStories || initialStories.length === 0) {
@@ -130,6 +146,27 @@ export default function LocationsBody({ data, initialStories }: LocationsBodyPro
       }
     ];
 
+    if (dbLocations.length > 0) {
+      return dbLocations.map((loc) => {
+        const nameVal = loc.title || "";
+        const idVal = loc.slug || loc._id?.toString() || nameVal.toLowerCase();
+        const fallbackCity = defaultCities.find((c: any) => c.id === idVal || c.id === nameVal.toLowerCase());
+        return {
+          id: idVal,
+          _id: loc._id,
+          slug: loc.slug,
+          name: nameVal,
+          floatDescription: loc.short_description || fallbackCity?.floatDescription || "Flexible routes · mature student friendly",
+          gridDescription: loc.long_description || fallbackCity?.gridDescription || `Explore flexible course opportunities in ${nameVal}.`,
+          carouselDescription: loc.long_description || loc.short_description || fallbackCity?.carouselDescription || `Popular routes for mature students in ${nameVal}.`,
+          badges: loc.tags && loc.tags.length > 0 ? loc.tags : (fallbackCity?.badges || ["Foundation routes", "Funding available"]),
+          image: loc.fullImageUrl || loc.image || fallbackCity?.image || "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=900&q=80",
+          gridImage: loc.fullImageUrl || loc.image || fallbackCity?.gridImage || "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1100&q=82",
+          buttonText: fallbackCity?.buttonText || `Explore ${nameVal} courses`
+        };
+      });
+    }
+
     if (extractedLocations.length > 0) {
       return extractedLocations.map((loc: any) => {
         const nameVal = loc.title || loc.name || "";
@@ -137,6 +174,8 @@ export default function LocationsBody({ data, initialStories }: LocationsBodyPro
         const fallbackCity = defaultCities.find((c: any) => c.id === idVal || c.id === nameVal.toLowerCase());
         return {
           id: idVal,
+          _id: loc._id,
+          slug: loc.slug,
           name: nameVal,
           floatDescription: loc.short_description || fallbackCity?.floatDescription || "Flexible routes · mature student friendly",
           gridDescription: loc.long_description || loc.description || fallbackCity?.gridDescription || `Explore flexible course opportunities in ${nameVal}.`,
@@ -150,7 +189,7 @@ export default function LocationsBody({ data, initialStories }: LocationsBodyPro
     }
 
     return defaultCities;
-  }, [extractedLocations, data]);
+  }, [dbLocations, extractedLocations, data]);
 
   useEffect(() => {
     if (cities && cities.length > 0 && !cities.some((c: any) => c.id === activeTab)) {
@@ -298,7 +337,8 @@ export default function LocationsBody({ data, initialStories }: LocationsBodyPro
             <LocationResultsCarousel
               cities={cities}
               coursesData={formattedCoursesData}
-              initialTab={activeTab}
+              activeTab={activeTab}
+              onTabChange={setActiveTab}
             />
           </div>
         </section>

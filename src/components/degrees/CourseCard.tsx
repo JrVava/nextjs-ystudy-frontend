@@ -7,6 +7,7 @@ import { BackendCourse } from "@/types/course";
 export interface CourseCardProps {
   course: BackendCourse | any;
   variant?: "grid" | "mini" | "list";
+  showPills?: boolean;
   onSave?: (courseId: string) => void;
 }
 
@@ -33,7 +34,7 @@ export function formatSalaryRange(salaryInput: any, fallback = "£24k–£55k+")
   return fallback;
 }
 
-export function CourseCard({ course, variant = "grid", onSave }: CourseCardProps) {
+export function CourseCard({ course, variant = "grid", showPills = true, onSave }: CourseCardProps) {
   if (!course) return null;
 
   const title = typeof course.title === "string" ? course.title : "Degree Course";
@@ -74,8 +75,19 @@ export function CourseCard({ course, variant = "grid", onSave }: CourseCardProps
   }
 
   // Extract location names
-  let locationText = "London & UK";
-  if (Array.isArray(course.locations) && course.locations.length > 0) {
+  let locationText = "";
+  if (typeof course.location === "string" && course.location.trim()) {
+    locationText = course.location.trim();
+  } else if (course.location && typeof course.location === "object") {
+    const lName = course.location.title || course.location.name || course.location.city;
+    if (typeof lName === "string" && lName.trim()) {
+      locationText = lName.trim();
+    }
+  } else if (typeof course.locationName === "string" && course.locationName.trim()) {
+    locationText = course.locationName.trim();
+  }
+
+  if (!locationText && Array.isArray(course.locations) && course.locations.length > 0) {
     const locNames = course.locations
       .map((l: any) => (typeof l === "string" ? l : (typeof l === "object" && l ? l.name || l.title || l.city : null)))
       .filter((l: any): l is string => Boolean(l) && typeof l === "string");
@@ -83,6 +95,43 @@ export function CourseCard({ course, variant = "grid", onSave }: CourseCardProps
       locationText = locNames.join(", ");
     }
   }
+
+  if (!locationText) {
+    locationText = "London & UK";
+  }
+
+  // Extract entry requirements for info boxes
+  const entryReqsList: string[] = [];
+  const reqSource = course.entryRequirement || course.entryRequirements;
+  if (Array.isArray(reqSource)) {
+    reqSource.forEach((r: any) => {
+      if (typeof r === "string" && r.trim()) entryReqsList.push(r.trim());
+      else if (r && typeof r === "object") {
+        const val = r.title || r.name || r.text || r.label;
+        if (typeof val === "string" && val.trim()) entryReqsList.push(val.trim());
+      }
+    });
+  } else if (typeof reqSource === "string" && reqSource.trim()) {
+    entryReqsList.push(reqSource.trim());
+  }
+
+  const reqItem1 = entryReqsList[0] || "SFE eligible";
+  const reqItem2 = entryReqsList[1] || "Flexible timetable";
+
+  const getReqIcon = (text: string, fallback: string) => {
+    const lower = text.toLowerCase();
+    if (lower.includes("sfe") || lower.includes("fund") || lower.includes("loan") || lower.includes("£")) {
+      return "💷";
+    }
+    if (lower.includes("time") || lower.includes("day") || lower.includes("weekend") || lower.includes("evening") || lower.includes("flexible")) {
+      return "📅";
+    }
+    return fallback;
+  };
+
+  const hasEmoji = (str: string) => /^[\p{Emoji}\u2000-\u3300]/u.test(str);
+  const req1Display = hasEmoji(reqItem1) ? reqItem1 : `${getReqIcon(reqItem1, "🎓")} ${reqItem1}`;
+  const req2Display = hasEmoji(reqItem2) ? reqItem2 : `${getReqIcon(reqItem2, "📋")} ${reqItem2}`;
 
   // Extract badges for grid-label
   const badgesList: string[] = [];
@@ -192,11 +241,11 @@ export function CourseCard({ course, variant = "grid", onSave }: CourseCardProps
           <p>{description}</p>
           <div className="mini-course-info">
             <span>📍 {locationText}</span>
-            <span>💷 SFE eligible</span>
-            <span>📅 Flexible timetable</span>
+            <span>{req1Display}</span>
+            <span>{req2Display}</span>
             <span>💰 {salary}</span>
           </div>
-          {tags.length > 0 && (
+          {showPills && tags.length > 0 && (
             <div className="pills" style={{ marginTop: "8px", marginBottom: "12px", display: "flex", flexWrap: "wrap", gap: "6px" }}>
               {tags.map((tag, i) => (
                 <span className="pill" key={i} style={{ background: "#f4f8ff", border: "1px solid #e2ecfa", color: "#344054", borderRadius: "999px", padding: "4px 8px", fontSize: "11px", fontWeight: 700 }}>

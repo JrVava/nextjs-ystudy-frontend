@@ -113,6 +113,7 @@ export interface BackendCourse {
   shortDescription?: string;
   image?: string;
   fullImageUrl?: string;
+  location?: string;
   locations?: CourseLocation[] | any[];
   subject?: CourseSubject | CourseSubject[] | any;
   subjects?: CourseSubject[];
