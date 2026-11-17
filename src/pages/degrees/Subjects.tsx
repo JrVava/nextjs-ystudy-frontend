@@ -7,30 +7,35 @@ import {
   ComparisonTable,
   FooterCta,
   PromoBand,
-  TrustTestimonials,
   FinanceHubStrip,
-  FinanceWarningBanner
+  FinanceWarningBanner,
+  WhatSubject
 } from "@/components/sections";
+import { getStudentStoriesList } from "@/services";
+import LocationStories from "@/components/locations/LocationStories";
 
 export default async function Subjects() {
-  const data = await getCMSPageContent("study-subjects");
+  const [data, stories] = await Promise.all([
+    getCMSPageContent("study-subjects"),
+    getStudentStoriesList().catch(() => null),
+  ]);
 
-  const s1 = data?.secion_1;
-  const s2 = data?.secion_2;
-  const s3 = data?.section_3;
-  const s4 = data?.section_4;
-  const s5 = data?.section_5;
-  const s6 = data?.section_6;
-  const s7 = data?.section_7;
-  const s8 = data?.section_8;
-  const s9 = data?.section_9;
-  const s10 = data?.section_10;
-  const s11 = data?.section_11;
-  const s12 = data?.section_12;
-  const s13 = data?.section_13;
-  const s14 = data?.section_14;
-  const s15 = data?.section_15;
-  const s16 = data?.section_16;
+  const s1 = data?.section_1 ?? data?.secion_1;
+  const s2 = data?.section_2 ?? data?.secion_2;
+  const s3 = data?.section_3 ?? data?.secion_3;
+  const s4 = data?.section_4 ?? data?.secion_4;
+  const s5 = data?.section_5 ?? data?.secion_5;
+  const s6 = data?.section_6 ?? data?.secion_6;
+  const s7 = data?.section_7 ?? data?.secion_7;
+  const s8 = data?.section_8 ?? data?.secion_8;
+  const s9 = data?.section_9 ?? data?.secion_9;
+  const s10 = data?.section_10 ?? data?.secion_10;
+  const s11 = data?.section_11 ?? data?.secion_11;
+  const s12 = data?.section_12 ?? data?.secion_12;
+  const s13 = data?.section_13 ?? data?.secion_13;
+  const s14 = data?.section_14 ?? data?.secion_14;
+  const s15 = data?.section_15 ?? data?.secion_15;
+  const s16 = data?.section_16 ?? data?.secion_16;
 
   return (
     <div className="qualification-page study-routes-index-page">
@@ -79,7 +84,7 @@ export default async function Subjects() {
       )}
 
       {/* HERO SECTION WITH HERO BANNER */}
-      {s2?.status !== false && (
+      {s2 !== undefined && s2?.status !== false && (
         <section className="section search-degree-focus">
           <div className="container">
             <div className="degree-search-hero">
@@ -125,6 +130,7 @@ export default async function Subjects() {
       )}
 
       {/* SEARCH SHELL: ADVANCED FILTERS & RESULTS */}
+
       <section className="section white" id="results">
         <div className="container">
           <StudySearchShell
@@ -139,7 +145,7 @@ export default async function Subjects() {
       </section>
 
       {/* RECOMMENDED ROUTES SECTION (COMP-TABLE) */}
-      {s8?.status !== false && (
+      {s8 !== undefined && s8?.status !== false && (
         <section className="section">
           <div className="container">
             <div className="title-row">
@@ -161,19 +167,14 @@ export default async function Subjects() {
                 s8?.headers?.salary_header || "Salary potential",
                 s8?.headers?.verdict_header || "Verdict"
               ]}
-              rows={s8?.rows || [
-                { degree: "Business Management", best: "Career changers", funding: "✓", flexible: "✓", salary: "Medium–High", verdict: "Best overall" },
-                { degree: "Cybersecurity", best: "Digital careers", funding: "✓", flexible: "✓", salary: "High", verdict: "Highest salary" },
-                { degree: "Psychology", best: "People-focused careers", funding: "✓", flexible: "×", salary: "Medium", verdict: "Popular route" },
-                { degree: "Online MSc", best: "Working adults", funding: "✓", flexible: "✓", salary: "Medium–High", verdict: "Most flexible" }
-              ]}
+              rows={s8?.rows || []}
             />
           </div>
         </section>
       )}
 
       {/* TOP FLEXIBLE DEGREES RANKING LIST */}
-      {s9?.status !== false && (
+      {s8 !== undefined && s9?.status !== false && (
         <section className="section">
           <div className="container">
             <div className="title-row">
@@ -186,12 +187,7 @@ export default async function Subjects() {
               </p>
             </div>
             <div className="rank-list">
-              {(s9?.cards || [
-                { position_number: "1", title: "Business Management", description: "Most flexible route for adults", top_number: "92" },
-                { position_number: "2", title: "Computing & Cybersecurity", description: "Strong salary and demand", top_number: "88" },
-                { position_number: "3", title: "Health & Social Care", description: "Good for community careers", top_number: "84" },
-                { position_number: "4", title: "Psychology", description: "Popular career-changing subject", top_number: "82" }
-              ]).map((card: any, idx: number) => (
+              {(s9?.cards || []).map((card: any, idx: number) => (
                 <div className="rank-row" key={idx}>
                   <div className="rank-num">{card.position_number}</div>
                   <div style={{ textAlign: "left" }}>
@@ -207,64 +203,38 @@ export default async function Subjects() {
       )}
 
       {/* SUBJECTS SECTION */}
-      {s10?.status !== false && (
-        <section className="section white ds-added-subjects">
-          <div className="container">
-            <div className="title-row">
-              <div style={{ textAlign: "left" }}>
-                <span className="kicker">{s10?.badge || "Subjects"}</span>
-                <h2>{s10?.title || "What do you want to study?"}</h2>
-              </div>
-              <p style={{ textAlign: "left" }}>
-                {s10?.description || "Explore the strongest subject routes for adult learners and check funding, salary and study mode before applying."}
-              </p>
-            </div>
-            <div className="ds-subject-cards">
-              {(s10?.cards || [
-                { title: "Business", image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=85", link: "/degrees/business" },
-                { title: "Computing", image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=85", link: "/degrees/#results" },
-                { title: "Health & Social Care", image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=85", link: "/degrees/#results" },
-                { title: "Psychology", image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1200&q=85", link: "/degrees/#results" },
-                { title: "Law", image: "https://images.unsplash.com/photo-1589391886645-d51941baf7fb?auto=format&fit=crop&w=1200&q=85", link: "/degrees/#results" },
-                { title: "Construction", image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=85", link: "/degrees/#results" },
-                { title: "Marketing", image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1200&q=85", link: "/degrees/#results" },
-                { title: "Not sure?", image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=85", link: "/tools/degree-match" }
-              ]).map((card: any, idx: number) => (
-                <Link className="ds-subject-card" href={card.link || "/degrees/"} key={idx}>
-                  <img src={card.image} alt={card.title} />
-                  <h3>{card.title}</h3>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
+      {s10 !== undefined && s10?.status !== false && (
+        <WhatSubject data={s10} />
       )}
 
       {/* PROMO BAND SECTION */}
-      <PromoBand
-        badge={s11?.badge}
-        title={s11?.title}
-        description={s11?.description}
-        fullImageUrl={s11?.fullImageUrl}
-        status={s11?.status}
-      />
+      {s11 && s11.status !== false && (
+        <PromoBand
+          badge={s11?.badge}
+          title={s11?.title}
+          description={s11?.description}
+          fullImageUrl={s11?.fullImageUrl}
+          status={s11?.status}
+        />
+      )}
 
       {/* TRUST & TESTIMONIALS SECTION */}
-      <TrustTestimonials
-        badge={s12?.badge}
-        title={s12?.title}
-        description={s12?.description}
-        status={s12?.status}
-      />
+      {s12 !== undefined && s12.status !== false && (
+        <LocationStories data={s11} stories={stories || []} />
+      )}
 
       {/* FINANCE INTEGRATED SECTION 1: HUBS STRIP */}
-      <FinanceHubStrip badge={s13?.badge} title={s13?.title} description={s13?.description} status={s13?.status} />
+      {s13 !== undefined && s13.status !== false && (
+        <FinanceHubStrip badge={s13?.badge} title={s13?.title} description={s13?.description} status={s13?.status} />
+      )}
 
       {/* FINANCE INTEGRATED SECTION 2: WARNING BANNER */}
-      <FinanceWarningBanner badge={s14?.badge} title={s14?.title} description={s14?.description} status={s14?.status} />
+      {s14 !== undefined && s14.status !== false && (
+        <FinanceWarningBanner badge={s14?.badge} title={s14?.title} description={s14?.description} status={s14?.status} />
+      )}
 
       {/* FINANCE INTEGRATED SECTION 3: COMPARISON TABLE */}
-      {s15?.status !== false && (
+      {s15 !== undefined && s15?.status !== false && (
         <section className="section white ds-finance-integrated">
           <div className="container">
             <div className="title-row">
@@ -285,19 +255,16 @@ export default async function Subjects() {
                 s15?.headers?.best_header || "Best for",
                 s15?.headers?.verdict_header || "Verdict"
               ]}
-              rows={s15?.rows || [
-                { route: "Campus / blended undergraduate", funding: "Tuition + maintenance", maintenance: "Usually stronger", best: "Students needing living-cost support", verdict: "Best overall route" },
-                { route: "Weekend-only", funding: "Needs careful check", maintenance: "Risk area", best: "Working adults with limited time", verdict: "Ask adviser first" },
-                { route: "Online / distance learning", funding: "Tuition may apply", maintenance: "Usually no maintenance", best: "Remote learners", verdict: "Good flexibility, less living-cost support" },
-                { route: "Postgraduate Master’s", funding: "Postgraduate Loan", maintenance: "Different system", best: "Graduates and career changers", verdict: "Check loan cap and tuition" }
-              ]}
+              rows={s15?.rows || []}
             />
           </div>
         </section>
       )}
 
       {/* FOOTER CTA */}
-      <FooterCta badge={s16?.badge} title={s16?.title} description={s16?.description} status={s16?.status} />
+      {s16 && s16.status !== false && (
+        <FooterCta badge={s16?.badge} title={s16?.title} description={s16?.description} status={s16?.status} />
+      )}
     </div>
   );
 }

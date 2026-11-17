@@ -4,6 +4,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { LocationResultsCarousel } from "@/components/locations/LocationResultsCarousel";
+import { LocationStories } from "@/components/locations/LocationStories";
 import { getAllCourses } from "@/services/course.service";
 import { getSubjects } from "@/services/filters.service";
 import { getStudentStoriesList, type StudentStoryItem } from "@/services/student-story.service";
@@ -439,61 +440,7 @@ export default function LocationsBody({ data, initialStories }: LocationsBodyPro
 
       {/* STUDENT STORIES */}
       {data?.section_7 !== undefined && data?.section_7?.status !== false && (
-        <section className="loc-section soft" id="stories">
-          <div className="wrap">
-            <div className="loc-head">
-              <div>
-                <span className="eyebrow">{data?.section_7?.badge || "Student stories"}</span>
-                <h2>{data?.section_7?.title || "Adult learners choose locations for real-life reasons."}</h2>
-              </div>
-              <p>{data?.section_7?.description || "Short, location-based stories help students imagine how study could fit around work, family and travel."}</p>
-            </div>
-            <div className="story-grid">
-              {(stories || []).map((s: any, idx: number) => {
-                const authorName = s.name || "";
-                const subtitle = s.location || (s.subject && s.year ? `${s.subject} · ${s.year}` : (s.subject || s.year || (s.age ? `${s.age} yrs` : "")));
-                const storyText = s.description || "";
-                const imageUrl = s.fullImageUrl || s.image || "";
-
-                return (
-                  <article
-                    key={s._id || idx}
-                    className="story-card"
-                    style={{
-                      position: "relative",
-                      overflow: "hidden",
-                      textAlign: "left",
-                      aspectRatio: "3 / 4",
-                      minHeight: "480px",
-                      display: "flex",
-                      alignItems: "flex-end",
-                      width: "100%",
-                    }}
-                  >
-                    {imageUrl && (
-                      <img
-                        src={imageUrl}
-                        alt={authorName}
-                        style={{
-                          position: "absolute",
-                          inset: 0,
-                          width: "100%",
-                          height: "100%",
-                          objectFit: "cover",
-                          display: "block",
-                        }}
-                      />
-                    )}
-                    <div className="body" style={{ position: "relative", zIndex: 2, width: "100%" }}>
-                      <h3>{authorName}{subtitle ? `, ${subtitle}` : ""}</h3>
-                      <p>{storyText}</p>
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
-          </div>
-        </section>
+        <LocationStories data={data?.section_7} stories={stories} />
       )}
 
       {/* FINAL CALL TO ACTION */}

@@ -6,30 +6,35 @@ import {
   ComparisonTable,
   FooterCta,
   PromoBand,
-  TrustTestimonials,
   FinanceHubStrip,
-  FinanceWarningBanner
+  FinanceWarningBanner,
+  WhatSubject
 } from "@/components/sections";
 import StudySearchShell from "@/components/degrees/StudySearchShell";
+import LocationStories from "@/components/locations/LocationStories";
+import { getStudentStoriesList } from "@/services/student-story.service";
 
 export default async function StudyRoutes() {
-  const data = await getCMSPageContent("study-routes");
+  const [data, stories] = await Promise.all([
+    getCMSPageContent("study-routes"),
+    getStudentStoriesList().catch(() => null),
+  ]);
 
-  const s1 = data?.secion_1;
-  const s2 = data?.secion_2;
-  const s3 = data?.section_3;
-  const s4 = data?.section_4;
-  const s5 = data?.section_5;
-  const s6 = data?.section_6;
-  const s7 = data?.section_7;
-  const s8 = data?.section_8;
-  const s9 = data?.section_9;
-  const s10 = data?.section_10;
-  const s11 = data?.section_11;
-  const s12 = data?.section_12;
-  const s13 = data?.section_13;
-  const s14 = data?.section_14;
-  const s15 = data?.section_15;
+  const s1 = data?.section_1 ?? data?.secion_1;
+  const s2 = data?.section_2 ?? data?.secion_2;
+  const s3 = data?.section_3 ?? data?.secion_3;
+  const s4 = data?.section_4 ?? data?.secion_4;
+  const s5 = data?.section_5 ?? data?.secion_5;
+  const s6 = data?.section_6 ?? data?.secion_6;
+  const s7 = data?.section_7 ?? data?.secion_7;
+  const s8 = data?.section_8 ?? data?.secion_8;
+  const s9 = data?.section_9 ?? data?.secion_9;
+  const s10 = data?.section_10 ?? data?.secion_10;
+  const s11 = data?.section_11 ?? data?.secion_11;
+  const s12 = data?.section_12 ?? data?.secion_12;
+  const s13 = data?.section_13 ?? data?.secion_13;
+  const s14 = data?.section_14 ?? data?.secion_14;
+  const s15 = data?.section_15 ?? data?.secion_15;
 
   return (
     <div className="qualification-page study-routes-index-page">
@@ -51,7 +56,7 @@ export default async function StudyRoutes() {
         }
       `}} />
       {/* PAGE NAVIGATION HEADER */}
-      {s1?.status !== false && (
+      {s1 !== undefined && s1?.status !== false && (
         <div className="page-nav-wrap">
           <div className="page-nav-head">
             <div style={{ textAlign: "left" }}>
@@ -78,7 +83,7 @@ export default async function StudyRoutes() {
       )}
 
       {/* HERO SECTION WITH HERO BANNER */}
-      {s2?.status !== false && (
+      {s2 !== undefined && s2?.status !== false && (
         <section className="section search-degree-focus">
           <div className="container">
             <div className="degree-search-hero">
@@ -138,7 +143,7 @@ export default async function StudyRoutes() {
       </section>
 
       {/* RECOMMENDED ROUTES SECTION (COMP-TABLE) */}
-      {s7?.status !== false && (
+      {s7 !== undefined && s7?.status !== false && (
         <section className="section">
           <div className="container">
             <div className="title-row">
@@ -160,19 +165,14 @@ export default async function StudyRoutes() {
                 s7?.headers?.salary_header || "Salary potential",
                 s7?.headers?.verdict_header || "Verdict"
               ]}
-              rows={s7?.rows || [
-                { degree: "Business Management", best: "Career changers", funding: "✓", flexible: "✓", salary: "Medium–High", verdict: "Best overall" },
-                { degree: "Cybersecurity", best: "Digital careers", funding: "✓", flexible: "✓", salary: "High", verdict: "Highest salary" },
-                { degree: "Psychology", best: "People-focused careers", funding: "✓", flexible: "×", salary: "Medium", verdict: "Popular route" },
-                { degree: "Online MSc", best: "Working adults", funding: "✓", flexible: "✓", salary: "Medium–High", verdict: "Most flexible" }
-              ]}
+              rows={s7?.rows || []}
             />
           </div>
         </section>
       )}
 
       {/* TOP FLEXIBLE DEGREES RANKING LIST */}
-      {s8?.status !== false && (
+      {s8 !== undefined && s8?.status !== false && (
         <section className="section">
           <div className="container">
             <div className="title-row">
@@ -185,12 +185,7 @@ export default async function StudyRoutes() {
               </p>
             </div>
             <div className="rank-list">
-              {(s8?.cards || [
-                { position_number: "1", title: "Business Management", description: "Most flexible route for adults", top_number: "92" },
-                { position_number: "2", title: "Computing & Cybersecurity", description: "Strong salary and demand", top_number: "88" },
-                { position_number: "3", title: "Health & Social Care", description: "Good for community careers", top_number: "84" },
-                { position_number: "4", title: "Psychology", description: "Popular career-changing subject", top_number: "82" }
-              ]).map((card: any, idx: number) => (
+              {(s8?.cards || []).map((card: any, idx: number) => (
                 <div className="rank-row" key={idx}>
                   <div className="rank-num">{card.position_number}</div>
                   <div style={{ textAlign: "left" }}>
@@ -206,81 +201,38 @@ export default async function StudyRoutes() {
       )}
 
       {/* SUBJECTS SECTION */}
-      {s9?.status !== false && (
-        <section className="section white ds-added-subjects">
-          <div className="container">
-            <div className="title-row">
-              <div style={{ textAlign: "left" }}>
-                <span className="kicker">{s9?.badge || "Subjects"}</span>
-                <h2>{s9?.title || "What do you want to study?"}</h2>
-              </div>
-              <p style={{ textAlign: "left" }}>
-                {s9?.description || "Explore the strongest subject routes for adult learners and check funding, salary and study mode before applying."}
-              </p>
-            </div>
-            <div className="ds-subject-cards">
-              <Link className="ds-subject-card" href="/degrees/business">
-                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=85" alt="Business" />
-                <h3>Business</h3>
-              </Link>
-              <Link className="ds-subject-card" href="/degrees/#results">
-                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=85" alt="Computing" />
-                <h3>Computing</h3>
-              </Link>
-              <Link className="ds-subject-card" href="/degrees/#results">
-                <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=85" alt="Health & Social Care" />
-                <h3>Health &amp; Social Care</h3>
-              </Link>
-              <Link className="ds-subject-card" href="/degrees/#results">
-                <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1200&q=85" alt="Psychology" />
-                <h3>Psychology</h3>
-              </Link>
-              <Link className="ds-subject-card" href="/degrees/#results">
-                <img src="https://images.unsplash.com/photo-1589391886645-d51941baf7fb?auto=format&fit=crop&w=1200&q=85" alt="Law" />
-                <h3>Law</h3>
-              </Link>
-              <Link className="ds-subject-card" href="/degrees/#results">
-                <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=85" alt="Construction" />
-                <h3>Construction</h3>
-              </Link>
-              <Link className="ds-subject-card" href="/degrees/#results">
-                <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1200&q=85" alt="Marketing" />
-                <h3>Marketing</h3>
-              </Link>
-              <Link className="ds-subject-card" href="/tools/degree-match">
-                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=85" alt="Not sure?" />
-                <h3>Not sure?</h3>
-              </Link>
-            </div>
-          </div>
-        </section>
+      {s9 !== undefined && s9?.status !== false && (
+        <WhatSubject data={s9} />
       )}
 
       {/* PROMO BAND SECTION */}
-      <PromoBand
-        badge={s10?.badge}
-        title={s10?.title}
-        description={s10?.description}
-        fullImageUrl={s10?.fullImageUrl}
-        status={s10?.status}
-      />
-
+      {s10 && s10.status !== false && (
+        <PromoBand
+          badge={s10?.badge}
+          title={s10?.title}
+          description={s10?.description}
+          fullImageUrl={s10?.fullImageUrl}
+          status={s10?.status}
+        />
+      )}
       {/* TRUST & TESTIMONIALS SECTION */}
-      <TrustTestimonials
-        badge={s11?.badge}
-        title={s11?.title}
-        description={s11?.description}
-        status={s11?.status}
-      />
+
+      {s11 !== undefined && s11.status !== false && (
+        <LocationStories data={s11} stories={stories || []} />
+      )}
 
       {/* FINANCE INTEGRATED SECTION 1: HUBS STRIP */}
-      <FinanceHubStrip badge={s12?.badge} title={s12?.title} description={s12?.description} status={s12?.status} />
+      {s12 && s12.status !== false && (
+        <FinanceHubStrip badge={s12?.badge} title={s12?.title} description={s12?.description} status={s12?.status} />
+      )}
 
       {/* FINANCE INTEGRATED SECTION 2: WARNING BANNER */}
-      <FinanceWarningBanner badge={s13?.badge} title={s13?.title} description={s13?.description} status={s13?.status} />
+      {s13 && s13.status !== false && (
+        <FinanceWarningBanner badge={s13?.badge} title={s13?.title} description={s13?.description} status={s13?.status} />
+      )}
 
       {/* FINANCE INTEGRATED SECTION 3: COMPARISON TABLE */}
-      {s14?.status !== false && (
+      {s14 !== undefined && s14?.status !== false && (
         <section className="section white ds-finance-integrated">
           <div className="container">
             <div className="title-row">
@@ -301,19 +253,16 @@ export default async function StudyRoutes() {
                 s14?.headers?.best_header || "Best for",
                 s14?.headers?.verdict_header || "Verdict"
               ]}
-              rows={s14?.rows || [
-                { route: "Campus / blended undergraduate", funding: "Tuition + maintenance", maintenance: "Usually stronger", best: "Students needing living-cost support", verdict: "Best overall route" },
-                { route: "Weekend-only", funding: "Needs careful check", maintenance: "Risk area", best: "Working adults with limited time", verdict: "Ask adviser first" },
-                { route: "Online / distance learning", funding: "Tuition may apply", maintenance: "Usually no maintenance", best: "Remote learners", verdict: "Good flexibility, less living-cost support" },
-                { route: "Postgraduate Master’s", funding: "Postgraduate Loan", maintenance: "Different system", best: "Graduates and career changers", verdict: "Check loan cap and tuition" }
-              ]}
+              rows={s14?.rows || []}
             />
           </div>
         </section>
       )}
 
       {/* FOOTER CTA */}
-      <FooterCta badge={s15?.badge} title={s15?.title} description={s15?.description} status={s15?.status} />
+      {s15 && s15.status !== false && (
+        <FooterCta badge={s15?.badge} title={s15?.title} description={s15?.description} status={s15?.status} />
+      )}
     </div>
   );
 }

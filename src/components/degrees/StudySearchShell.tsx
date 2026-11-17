@@ -49,6 +49,10 @@ export function StudySearchShell({
   s7,
 }: StudySearchShellProps) {
   const isRoutes = requireCollection === "routes" || requireCollection === "route";
+  const isSubjects = requireCollection === "subjects" || requireCollection === "subject";
+
+  const conversionSection = isRoutes ? s5 : s6;
+  const crossLinksSection = isRoutes ? s6 : s7;
 
   const [subjects, setSubjects] = useState<FilterItem[]>(initialSubjects);
   const [qualifications, setQualifications] = useState<FilterItem[]>(initialQualifications);
@@ -220,318 +224,322 @@ export function StudySearchShell({
       );
     }
   };
-
   return (
     <div className="search-shell">
       {/* ASIDE: ADVANCED FILTERS */}
-      <aside className="advanced-filter-card">
-        <div className="advanced-filter-head">
-          <h2>Advanced filters</h2>
+      {
+        s3 !== undefined &&
+
+        <aside className="advanced-filter-card">
+          <div className="advanced-filter-head">
+            <h2>Advanced filters</h2>
+            <button
+              type="button"
+              className="clear-link"
+              onClick={handleClearAll}
+              style={{ background: "none", border: "none", cursor: "pointer", padding: 0 }}
+            >
+              Clear all
+            </button>
+          </div>
+
+          {/* 1. SUBJECT AREA */}
+          <div className="field-block">
+            <label>Subject area</label>
+            <select
+              className="filter-select"
+              value={selectedSubject}
+              onChange={(e) => setSelectedSubject(e.target.value)}
+            >
+              <option value="Any subject">Any subject</option>
+              {subjects && subjects.length > 0 ? (
+                subjects.map((sub: any) => {
+                  const title = sub.title || sub.name || "";
+                  const id = sub._id?.toString() || sub.id?.toString() || "";
+                  return (
+                    <option key={id || title} value={id}>
+                      {title}
+                    </option>
+                  );
+                })
+              ) : (
+                <option value="" disabled>
+                  No subjects available
+                </option>
+              )}
+            </select>
+          </div>
+
+          {/* 2. QUALIFICATION */}
+          <div className="field-block">
+            <label>Qualification</label>
+            <select
+              className="filter-select"
+              value={selectedQualification}
+              onChange={(e) => setSelectedQualification(e.target.value)}
+            >
+              <option value="Any qualification">Any qualification</option>
+              {qualifications && qualifications.length > 0 ? (
+                qualifications.map((qual: any) => {
+                  const title = qual.title || qual.name || "";
+                  const id = qual._id?.toString() || qual.id?.toString() || "";
+                  return (
+                    <option key={id || title} value={id}>
+                      {title}
+                    </option>
+                  );
+                })
+              ) : (
+                <option value="" disabled>
+                  No qualifications available
+                </option>
+              )}
+            </select>
+          </div>
+
+          {/* 3. STUDY MODE */}
+          <div className="field-block">
+            <label>Study mode</label>
+            <select
+              className="filter-select"
+              value={selectedMode}
+              onChange={(e) => setSelectedMode(e.target.value)}
+            >
+              <option value="Any mode">Any mode</option>
+              {modes && modes.length > 0 ? (
+                modes.map((m: any) => {
+                  const title = m.title || m.name || "";
+                  const id = m._id?.toString() || m.id?.toString() || "";
+                  return (
+                    <option key={id || title} value={id}>
+                      {title}
+                    </option>
+                  );
+                })
+              ) : (
+                <option value="" disabled>
+                  No study modes available
+                </option>
+              )}
+            </select>
+          </div>
+
+          {/* 4. LOCATION */}
+          <div className="field-block">
+            <label>Location</label>
+            <select
+              className="filter-select"
+              value={selectedLocation}
+              onChange={(e) => setSelectedLocation(e.target.value)}
+            >
+              <option value="Any location">Any location</option>
+              {locations && locations.length > 0 ? (
+                locations.map((loc: any) => {
+                  const title = loc.title || loc.name || "";
+                  const id = loc._id?.toString() || loc.id?.toString() || "";
+                  return (
+                    <option key={id || title} value={id}>
+                      {title}
+                    </option>
+                  );
+                })
+              ) : (
+                <option value="" disabled>
+                  No locations available
+                </option>
+              )}
+            </select>
+          </div>
+
+          {/* 5. DURATION */}
+          <div className="field-block">
+            <label>Duration</label>
+            <select
+              className="filter-select"
+              value={selectedDuration}
+              onChange={(e) => setSelectedDuration(e.target.value)}
+            >
+              <option value="Any duration">Any duration</option>
+              {durations && durations.length > 0 ? (
+                durations.map((dur: any) => {
+                  const title = dur.title || dur.name || "";
+                  const id = dur._id?.toString() || dur.id?.toString() || "";
+                  return (
+                    <option key={id || title} value={id}>
+                      {title}
+                    </option>
+                  );
+                })
+              ) : (
+                <option value="" disabled>
+                  No durations available
+                </option>
+              )}
+            </select>
+          </div>
+
+          {/* 6. ENTRY ROUTE */}
+          <div className="field-block">
+            <label>Entry route</label>
+            <select
+              className="filter-select"
+              value={selectedRoute}
+              onChange={(e) => setSelectedRoute(e.target.value)}
+            >
+              <option value="Any route">Any route</option>
+              {studyRoutes && studyRoutes.length > 0 ? (
+                studyRoutes.map((rt: any) => {
+                  const title = rt.title || rt.name || "";
+                  const id = rt._id?.toString() || rt.id?.toString() || "";
+                  return (
+                    <option key={id || title} value={id}>
+                      {title}
+                    </option>
+                  );
+                })
+              ) : (
+                <option value="" disabled>
+                  No entry routes available
+                </option>
+              )}
+            </select>
+          </div>
+
+          {/* 7. FUNDING */}
+          <div className="field-block">
+            <label>Funding</label>
+            <select
+              className="filter-select"
+              value={selectedFunding}
+              onChange={(e) => setSelectedFunding(e.target.value)}
+            >
+              <option value="Any">Any</option>
+              {fundings && fundings.length > 0 ? (
+                fundings.map((f: any) => {
+                  const title = f.title || f.name || "";
+                  const id = f._id?.toString() || f.id?.toString() || "";
+                  return (
+                    <option key={id || title} value={id}>
+                      {title}
+                    </option>
+                  );
+                })
+              ) : (
+                <option value="" disabled>
+                  No funding options available
+                </option>
+              )}
+            </select>
+          </div>
+
+          {/* KEYWORD SEARCH */}
+          <div className="field-block">
+            <label>Keyword search</label>
+            <input
+              type="text"
+              className="filter-input"
+              placeholder="management, tech, care..."
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  handleApplyFilters();
+                }
+              }}
+            />
+          </div>
+
           <button
             type="button"
-            className="clear-link"
-            onClick={handleClearAll}
-            style={{ background: "none", border: "none", cursor: "pointer", padding: 0 }}
+            className="btn btn-blue apply-filters-btn"
+            onClick={handleApplyFilters}
+            disabled={loading}
+            style={{ width: "100%", cursor: loading ? "wait" : "pointer" }}
           >
-            Clear all
+            {loading ? "Filtering..." : "Apply filters"}
           </button>
-        </div>
 
-        {/* 1. SUBJECT AREA */}
-        <div className="field-block">
-          <label>Subject area</label>
-          <select
-            className="filter-select"
-            value={selectedSubject}
-            onChange={(e) => setSelectedSubject(e.target.value)}
-          >
-            <option value="Any subject">Any subject</option>
-            {subjects && subjects.length > 0 ? (
-              subjects.map((sub: any) => {
-                const title = sub.title || sub.name || "";
-                const id = sub._id?.toString() || sub.id?.toString() || "";
-                return (
-                  <option key={id || title} value={id}>
-                    {title}
-                  </option>
-                );
-              })
-            ) : (
-              <option value="" disabled>
-                No subjects available
-              </option>
-            )}
-          </select>
-        </div>
-
-        {/* 2. QUALIFICATION */}
-        <div className="field-block">
-          <label>Qualification</label>
-          <select
-            className="filter-select"
-            value={selectedQualification}
-            onChange={(e) => setSelectedQualification(e.target.value)}
-          >
-            <option value="Any qualification">Any qualification</option>
-            {qualifications && qualifications.length > 0 ? (
-              qualifications.map((qual: any) => {
-                const title = qual.title || qual.name || "";
-                const id = qual._id?.toString() || qual.id?.toString() || "";
-                return (
-                  <option key={id || title} value={id}>
-                    {title}
-                  </option>
-                );
-              })
-            ) : (
-              <option value="" disabled>
-                No qualifications available
-              </option>
-            )}
-          </select>
-        </div>
-
-        {/* 3. STUDY MODE */}
-        <div className="field-block">
-          <label>Study mode</label>
-          <select
-            className="filter-select"
-            value={selectedMode}
-            onChange={(e) => setSelectedMode(e.target.value)}
-          >
-            <option value="Any mode">Any mode</option>
-            {modes && modes.length > 0 ? (
-              modes.map((m: any) => {
-                const title = m.title || m.name || "";
-                const id = m._id?.toString() || m.id?.toString() || "";
-                return (
-                  <option key={id || title} value={id}>
-                    {title}
-                  </option>
-                );
-              })
-            ) : (
-              <option value="" disabled>
-                No study modes available
-              </option>
-            )}
-          </select>
-        </div>
-
-        {/* 4. LOCATION */}
-        <div className="field-block">
-          <label>Location</label>
-          <select
-            className="filter-select"
-            value={selectedLocation}
-            onChange={(e) => setSelectedLocation(e.target.value)}
-          >
-            <option value="Any location">Any location</option>
-            {locations && locations.length > 0 ? (
-              locations.map((loc: any) => {
-                const title = loc.title || loc.name || "";
-                const id = loc._id?.toString() || loc.id?.toString() || "";
-                return (
-                  <option key={id || title} value={id}>
-                    {title}
-                  </option>
-                );
-              })
-            ) : (
-              <option value="" disabled>
-                No locations available
-              </option>
-            )}
-          </select>
-        </div>
-
-        {/* 5. DURATION */}
-        <div className="field-block">
-          <label>Duration</label>
-          <select
-            className="filter-select"
-            value={selectedDuration}
-            onChange={(e) => setSelectedDuration(e.target.value)}
-          >
-            <option value="Any duration">Any duration</option>
-            {durations && durations.length > 0 ? (
-              durations.map((dur: any) => {
-                const title = dur.title || dur.name || "";
-                const id = dur._id?.toString() || dur.id?.toString() || "";
-                return (
-                  <option key={id || title} value={id}>
-                    {title}
-                  </option>
-                );
-              })
-            ) : (
-              <option value="" disabled>
-                No durations available
-              </option>
-            )}
-          </select>
-        </div>
-
-        {/* 6. ENTRY ROUTE */}
-        <div className="field-block">
-          <label>Entry route</label>
-          <select
-            className="filter-select"
-            value={selectedRoute}
-            onChange={(e) => setSelectedRoute(e.target.value)}
-          >
-            <option value="Any route">Any route</option>
-            {studyRoutes && studyRoutes.length > 0 ? (
-              studyRoutes.map((rt: any) => {
-                const title = rt.title || rt.name || "";
-                const id = rt._id?.toString() || rt.id?.toString() || "";
-                return (
-                  <option key={id || title} value={id}>
-                    {title}
-                  </option>
-                );
-              })
-            ) : (
-              <option value="" disabled>
-                No entry routes available
-              </option>
-            )}
-          </select>
-        </div>
-
-        {/* 7. FUNDING */}
-        <div className="field-block">
-          <label>Funding</label>
-          <select
-            className="filter-select"
-            value={selectedFunding}
-            onChange={(e) => setSelectedFunding(e.target.value)}
-          >
-            <option value="Any">Any</option>
-            {fundings && fundings.length > 0 ? (
-              fundings.map((f: any) => {
-                const title = f.title || f.name || "";
-                const id = f._id?.toString() || f.id?.toString() || "";
-                return (
-                  <option key={id || title} value={id}>
-                    {title}
-                  </option>
-                );
-              })
-            ) : (
-              <option value="" disabled>
-                No funding options available
-              </option>
-            )}
-          </select>
-        </div>
-
-        {/* KEYWORD SEARCH */}
-        <div className="field-block">
-          <label>Keyword search</label>
-          <input
-            type="text"
-            className="filter-input"
-            placeholder="management, tech, care..."
-            value={keyword}
-            onChange={(e) => setKeyword(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-                handleApplyFilters();
-              }
-            }}
-          />
-        </div>
-
-        <button
-          type="button"
-          className="btn btn-blue apply-filters-btn"
-          onClick={handleApplyFilters}
-          disabled={loading}
-          style={{ width: "100%", cursor: loading ? "wait" : "pointer" }}
-        >
-          {loading ? "Filtering..." : "Apply filters"}
-        </button>
-
-        <div className="notice" style={{ marginTop: "18px", display: "block", padding: "18px", borderRadius: "22px" }}>
-          <h3 style={{ fontSize: "20px" }}>Funding warning</h3>
-          <p style={{ fontSize: "14px" }}>
-            Online, distance-learning and weekend-only routes may affect Maintenance Loan eligibility. Ask adviser before applying.
-          </p>
-        </div>
-      </aside>
-
+          <div className="notice" style={{ marginTop: "18px", display: "block", padding: "18px", borderRadius: "22px" }}>
+            <h3 style={{ fontSize: "20px" }}>Funding warning</h3>
+            <p style={{ fontSize: "14px" }}>
+              Online, distance-learning and weekend-only routes may affect Maintenance Loan eligibility. Ask adviser before applying.
+            </p>
+          </div>
+        </aside>
+      }
       {/* MAIN CONTENT COLUMN */}
       <main>
-        {s3?.status !== false && (
-          <section className="section">
-            <div className="container">
-              <div className="section-head">
-                <span className="eyebrow">{s3?.badge || "YStudy resource"}</span>
-                <h1>{s3?.title || "Study Subjects"}</h1>
-                <p>
-                  {s3?.description ||
-                    "Explore popular subjects for adult learners, including business, computing, psychology, law, construction and health."}
-                </p>
+        <section className="section">
+          <div className="container">
+            {s3 !== undefined && s3?.status !== false && (
+              <div>
+                <div className="section-head">
+                  <span className="eyebrow">{s3?.badge || "YStudy resource"}</span>
+                  <h1>{s3?.title || "Study Subjects"}</h1>
+                  <p>
+                    {s3?.description ||
+                      "Explore popular subjects for adult learners, including business, computing, psychology, law, construction and health."}
+                  </p>
+                </div>
+
+                {loading ? (
+                  <div style={{ textAlign: "center", padding: "48px 0", color: "#475467" }}>
+                    <p style={{ fontSize: "16px", fontWeight: 600 }}>
+                      {isRoutes ? "Filtering study routes..." : "Filtering subjects..."}
+                    </p>
+                  </div>
+                ) : filteredCards.length > 0 ? (
+                  <div className="card-grid three">
+                    {filteredCards.map((card: any, idx: number) => (
+                      <article className="card" key={card._id || idx}>
+                        <h3>{card.title}</h3>
+                        <p>{card.description}</p>
+                        <Link className="link" href={card.link || "/degrees/"}>
+                          Open →
+                        </Link>
+                      </article>
+                    ))}
+                  </div>
+                ) : (
+                  <div style={{ textAlign: "center", padding: "48px 0", color: "#475467" }}>
+                    <p style={{ fontSize: "16px", fontWeight: 600, marginBottom: "12px" }}>
+                      {isRoutes
+                        ? "No study routes found matching your selected filters."
+                        : "No subjects found matching your selected filters."}
+                    </p>
+                    <button
+                      type="button"
+                      className="btn btn-blue"
+                      onClick={() => handleClearAll()}
+                      style={{ display: "inline-block" }}
+                    >
+                      Clear all filters
+                    </button>
+                  </div>
+                )}
               </div>
 
-              {loading ? (
-                <div style={{ textAlign: "center", padding: "48px 0", color: "#475467" }}>
-                  <p style={{ fontSize: "16px", fontWeight: 600 }}>
-                    {isRoutes ? "Filtering study routes..." : "Filtering subjects..."}
-                  </p>
+            )}
+            {s4 !== undefined && s4?.status !== false && (
+              <div className="cta-panel" style={{ marginTop: "28px" }}>
+                <h2>{s4?.title || "Need help choosing the right route?"}</h2>
+                <p>{s4?.description || "Use Degree Match Finder or speak to a YStudy adviser before applying."}</p>
+                <div className="btnrow">
+                  <Link className="btn btn-blue" href="/tools/degree-match">
+                    Find my degree
+                  </Link>
+                  <Link className="btn btn-orange" href="/apply">
+                    Apply with YStudy
+                  </Link>
                 </div>
-              ) : filteredCards.length > 0 ? (
-                <div className="card-grid three">
-                  {filteredCards.map((card: any, idx: number) => (
-                    <article className="card" key={card._id || idx}>
-                      <h3>{card.title}</h3>
-                      <p>{card.description}</p>
-                      <Link className="link" href={card.link || "/degrees/"}>
-                        Open →
-                      </Link>
-                    </article>
-                  ))}
-                </div>
-              ) : (
-                <div style={{ textAlign: "center", padding: "48px 0", color: "#475467" }}>
-                  <p style={{ fontSize: "16px", fontWeight: 600, marginBottom: "12px" }}>
-                    {isRoutes
-                      ? "No study routes found matching your selected filters."
-                      : "No subjects found matching your selected filters."}
-                  </p>
-                  <button
-                    type="button"
-                    className="btn btn-blue"
-                    onClick={() => handleClearAll()}
-                    style={{ display: "inline-block" }}
-                  >
-                    Clear all filters
-                  </button>
-                </div>
-              )}
-
-              {s4?.status !== false && (
-                <div className="cta-panel" style={{ marginTop: "28px" }}>
-                  <h2>{s4?.title || "Need help choosing the right route?"}</h2>
-                  <p>{s4?.description || "Use Degree Match Finder or speak to a YStudy adviser before applying."}</p>
-                  <div className="btnrow">
-                    <Link className="btn btn-blue" href="/tools/degree-match">
-                      Find my degree
-                    </Link>
-                    <Link className="btn btn-orange" href="/apply">
-                      Apply with YStudy
-                    </Link>
-                  </div>
-                </div>
-              )}
-            </div>
-          </section>
-        )}
+              </div>
+            )}
+          </div>
+        </section>
 
         {/* MAIN SUBJECT GUIDES */}
-        {!isRoutes && s5?.status !== false && (
+        {isSubjects && s5 && s5.status !== false && Object.keys(s5).length > 0 && (
           <section className="v705-sec">
             <div className="v705-wrap">
               <div className="v705-head">
@@ -563,18 +571,22 @@ export function StudySearchShell({
         )}
 
         {/* CONVERSION SYSTEM */}
-        <ConversionStrip
-          cards={isRoutes ? s5?.cards : s6?.cards}
-          status={isRoutes ? s5?.status : s6?.status}
-        />
+        {conversionSection && conversionSection.status !== false && Object.keys(conversionSection).length > 0 && (
+          <ConversionStrip
+            cards={conversionSection.cards}
+            status={conversionSection.status}
+          />
+        )}
 
         {/* CROSSLINKS */}
-        <CrossLinks
-          title={isRoutes ? s6?.title : s7?.title}
-          description={isRoutes ? s6?.description : s7?.description}
-          cards={isRoutes ? s6?.cards : s7?.cards}
-          status={isRoutes ? s6?.status : s7?.status}
-        />
+        {crossLinksSection && crossLinksSection.status !== false && Object.keys(crossLinksSection).length > 0 && (
+          <CrossLinks
+            title={crossLinksSection.title}
+            description={crossLinksSection.description}
+            cards={crossLinksSection.cards}
+            status={crossLinksSection.status}
+          />
+        )}
       </main>
     </div>
   );

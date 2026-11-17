@@ -578,3 +578,7 @@ export function CtaPanel({
     </div>
   );
 }
+
+export { WhatSubject } from "@/components/degrees/WhatSubject";
+export type { WhatSubjectProps, WhatSubjectCard } from "@/components/degrees/WhatSubject";
+
