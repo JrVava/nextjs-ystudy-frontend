@@ -3,8 +3,6 @@ import "@/app/degrees/v735.css";
 import Link from "next/link";
 import React from "react";
 import {
-  ConversionStrip,
-  CrossLinks,
   ComparisonTable,
   FooterCta,
   PromoBand,
@@ -12,6 +10,7 @@ import {
   FinanceHubStrip,
   FinanceWarningBanner
 } from "@/components/sections";
+import StudySearchShell from "@/components/degrees/StudySearchShell";
 
 export default async function StudyRoutes() {
   const data = await getCMSPageContent("study-routes");
@@ -127,183 +126,14 @@ export default async function StudyRoutes() {
       {/* SEARCH SHELL: ADVANCED FILTERS & RESULTS */}
       <section className="section white" id="results">
         <div className="container">
-          <div className="search-shell">
-            {/* ASIDE: ADVANCED FILTERS */}
-            <aside className="advanced-filter-card">
-              <div className="advanced-filter-head">
-                <h2>Advanced filters</h2>
-                <Link className="clear-link" href="/degrees/">
-                  Clear all
-                </Link>
-              </div>
-              <div className="field-block">
-                <label>Subject area</label>
-                <select className="filter-select" defaultValue="Any subject">
-                  <option>Any subject</option>
-                  <option>Business</option>
-                  <option>Computing</option>
-                  <option>Health &amp; Social Care</option>
-                  <option>Psychology</option>
-                  <option>Construction</option>
-                  <option>Law</option>
-                  <option>Marketing</option>
-                  <option>Project Management</option>
-                </select>
-              </div>
-              <div className="field-block">
-                <label>Qualification</label>
-                <select className="filter-select" defaultValue="Any qualification">
-                  <option>Any qualification</option>
-                  <option>BA</option>
-                  <option>BSc</option>
-                  <option>HND</option>
-                  <option>HNC</option>
-                  <option>CertHE</option>
-                  <option>Foundation Year</option>
-                  <option>Top-Up</option>
-                  <option>MBA</option>
-                  <option>MSc</option>
-                </select>
-              </div>
-              <div className="field-block">
-                <label>Study mode</label>
-                <select className="filter-select" defaultValue="Any mode">
-                  <option>Any mode</option>
-                  <option>Blended</option>
-                  <option>Campus</option>
-                  <option>2 days/week</option>
-                  <option>Part-time</option>
-                  <option>Weekend — funding check needed</option>
-                  <option>Online — no maintenance loan</option>
-                  <option>Distance learning — no maintenance loan</option>
-                </select>
-              </div>
-              <div className="field-block">
-                <label>Location</label>
-                <select className="filter-select" defaultValue="Any location">
-                  <option>Any location</option>
-                  <option>London</option>
-                  <option>Birmingham</option>
-                  <option>Manchester</option>
-                  <option>Online</option>
-                  <option>Multiple locations</option>
-                </select>
-              </div>
-              <div className="field-block">
-                <label>Duration</label>
-                <select className="filter-select" defaultValue="Any duration">
-                  <option>Any duration</option>
-                  <option>1 year</option>
-                  <option>1–2 years</option>
-                  <option>2 years</option>
-                  <option>3 years</option>
-                  <option>4 years with foundation</option>
-                </select>
-              </div>
-              <div className="field-block">
-                <label>Entry route</label>
-                <select className="filter-select" defaultValue="Any route">
-                  <option>Any route</option>
-                  <option>Foundation / no A-levels</option>
-                  <option>Top-Up</option>
-                  <option>HND route</option>
-                  <option>HNC route</option>
-                  <option>Postgraduate</option>
-                  <option>Not sure — ask adviser</option>
-                </select>
-              </div>
-              <div className="field-block">
-                <label>Funding</label>
-                <select className="filter-select" defaultValue="Any">
-                  <option>Any</option>
-                  <option>SFE eligible</option>
-                  <option>Maintenance Loan likely</option>
-                  <option>Tuition Fee Loan</option>
-                  <option>Funding check needed</option>
-                  <option>No maintenance loan risk</option>
-                </select>
-              </div>
-              <div className="field-block">
-                <label>Career keyword</label>
-                <input className="filter-input" placeholder="management, tech, care..." />
-              </div>
-              <Link className="btn btn-blue apply-filters-btn" href="#results">
-                Apply filters
-              </Link>
-              <div className="notice" style={{ marginTop: "18px", display: "block", padding: "18px", borderRadius: "22px" }}>
-                <h3 style={{ fontSize: "20px" }}>Funding warning</h3>
-                <p style={{ fontSize: "14px" }}>
-                  Online, distance-learning and weekend-only routes may affect Maintenance Loan eligibility. Ask adviser before applying.
-                </p>
-              </div>
-            </aside>
-
-            {/* MAIN CONTENT COLUMN */}
-            <main>
-              {s3?.status !== false && (
-                <section className="section">
-                  <div className="container">
-                    <div className="section-head">
-                      <span className="eyebrow">{s3?.badge || "YStudy resource"}</span>
-                      <h1>{s3?.title || "Study Routes"}</h1>
-                      <p>{s3?.description || "Understand the route that fits your qualifications: foundation year, HND, top-up or master’s."}</p>
-                    </div>
-                    <div className="card-grid three">
-                      <article className="card">
-                        <h3>Foundation Year</h3>
-                        <p>A supported start before degree-level study.</p>
-                        <Link className="link" href="/degrees/qualifications/foundation-year">
-                          Open →
-                        </Link>
-                      </article>
-                      <article className="card">
-                        <h3>HND</h3>
-                        <p>Practical higher national route.</p>
-                        <Link className="link" href="/degrees/qualifications/hnd">
-                          Open →
-                        </Link>
-                      </article>
-                      <article className="card">
-                        <h3>Top-Up Degree</h3>
-                        <p>Convert previous study into a full degree.</p>
-                        <Link className="link" href="/degrees/qualifications/top-up-degree">
-                          Open →
-                        </Link>
-                      </article>
-                      <article className="card">
-                        <h3>Master’s Degree</h3>
-                        <p>Postgraduate routes for progression.</p>
-                        <Link className="link" href="/degrees/qualifications/masters">
-                          Open →
-                        </Link>
-                      </article>
-                    </div>
-
-                    {s4?.status !== false && (
-                      <div className="cta-panel" style={{ marginTop: "28px" }}>
-                        <h2>{s4?.title || "Need help choosing the right route?"}</h2>
-                        <p>{s4?.description || "Use Degree Match Finder or speak to a YStudy adviser before applying."}</p>
-                        <div className="btnrow">
-                          <Link className="btn btn-blue" href="/tools/degree-match">
-                            Find my degree
-                          </Link>
-                          <Link className="btn btn-orange" href="/apply">
-                            Apply with YStudy
-                          </Link>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </section>
-              )}
-
-              {/* CONVERSION SYSTEM */}
-              <ConversionStrip cards={s5?.cards} status={s5?.status} />
-
-              {/* CROSSLINKS */}
-              <CrossLinks title={s6?.title} description={s6?.description} cards={s6?.cards} status={s6?.status} />
-            </main>
-          </div>
+          <StudySearchShell
+            requireCollection="routes"
+            s3={s3}
+            s4={s4}
+            s5={s5}
+            s6={s6}
+            s7={s7}
+          />
         </div>
       </section>
 

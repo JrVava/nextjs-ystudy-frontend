@@ -7,3 +7,5 @@ export * from "./auth.service";
 export * from "./repaymentPlan.service";
 export * from "./guide.service";
 export * from "./location.service";
+export * from "./filters.service";
+export * from "./subject.service";

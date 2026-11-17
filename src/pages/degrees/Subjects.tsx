@@ -1,10 +1,9 @@
 import { getCMSPageContent } from "@/services/cms.service";
+import { StudySearchShell } from "@/components/degrees/StudySearchShell";
 import "@/app/degrees/v735.css";
 import Link from "next/link";
 import React from "react";
 import {
-  ConversionStrip,
-  CrossLinks,
   ComparisonTable,
   FooterCta,
   PromoBand,
@@ -128,200 +127,14 @@ export default async function Subjects() {
       {/* SEARCH SHELL: ADVANCED FILTERS & RESULTS */}
       <section className="section white" id="results">
         <div className="container">
-          <div className="search-shell">
-            {/* ASIDE: ADVANCED FILTERS */}
-            <aside className="advanced-filter-card">
-              <div className="advanced-filter-head">
-                <h2>Advanced filters</h2>
-                <Link className="clear-link" href="/degrees/">
-                  Clear all
-                </Link>
-              </div>
-              <div className="field-block">
-                <label>Subject area</label>
-                <select className="filter-select" defaultValue="Any subject">
-                  <option>Any subject</option>
-                  <option>Business</option>
-                  <option>Computing</option>
-                  <option>Health &amp; Social Care</option>
-                  <option>Psychology</option>
-                  <option>Construction</option>
-                  <option>Law</option>
-                  <option>Marketing</option>
-                  <option>Project Management</option>
-                </select>
-              </div>
-              <div className="field-block">
-                <label>Qualification</label>
-                <select className="filter-select" defaultValue="Any qualification">
-                  <option>Any qualification</option>
-                  <option>BA</option>
-                  <option>BSc</option>
-                  <option>HND</option>
-                  <option>HNC</option>
-                  <option>CertHE</option>
-                  <option>Foundation Year</option>
-                  <option>Top-Up</option>
-                  <option>MBA</option>
-                  <option>MSc</option>
-                </select>
-              </div>
-              <div className="field-block">
-                <label>Study mode</label>
-                <select className="filter-select" defaultValue="Any mode">
-                  <option>Any mode</option>
-                  <option>Blended</option>
-                  <option>Campus</option>
-                  <option>2 days/week</option>
-                  <option>Part-time</option>
-                  <option>Weekend — funding check needed</option>
-                  <option>Online — no maintenance loan</option>
-                  <option>Distance learning — no maintenance loan</option>
-                </select>
-              </div>
-              <div className="field-block">
-                <label>Location</label>
-                <select className="filter-select" defaultValue="Any location">
-                  <option>Any location</option>
-                  <option>London</option>
-                  <option>Birmingham</option>
-                  <option>Manchester</option>
-                  <option>Online</option>
-                  <option>Multiple locations</option>
-                </select>
-              </div>
-              <div className="field-block">
-                <label>Duration</label>
-                <select className="filter-select" defaultValue="Any duration">
-                  <option>Any duration</option>
-                  <option>1 year</option>
-                  <option>1–2 years</option>
-                  <option>2 years</option>
-                  <option>3 years</option>
-                  <option>4 years with foundation</option>
-                </select>
-              </div>
-              <div className="field-block">
-                <label>Entry route</label>
-                <select className="filter-select" defaultValue="Any route">
-                  <option>Any route</option>
-                  <option>Foundation / no A-levels</option>
-                  <option>Top-Up</option>
-                  <option>HND route</option>
-                  <option>HNC route</option>
-                  <option>Postgraduate</option>
-                  <option>Not sure — ask adviser</option>
-                </select>
-              </div>
-              <div className="field-block">
-                <label>Funding</label>
-                <select className="filter-select" defaultValue="Any">
-                  <option>Any</option>
-                  <option>SFE eligible</option>
-                  <option>Maintenance Loan likely</option>
-                  <option>Tuition Fee Loan</option>
-                  <option>Funding check needed</option>
-                  <option>No maintenance loan risk</option>
-                </select>
-              </div>
-              <div className="field-block">
-                <label>Career keyword</label>
-                <input className="filter-input" placeholder="management, tech, care..." />
-              </div>
-              <Link className="btn btn-blue apply-filters-btn" href="#results">
-                Apply filters
-              </Link>
-              <div className="notice" style={{ marginTop: "18px", display: "block", padding: "18px", borderRadius: "22px" }}>
-                <h3 style={{ fontSize: "20px" }}>Funding warning</h3>
-                <p style={{ fontSize: "14px" }}>
-                  Online, distance-learning and weekend-only routes may affect Maintenance Loan eligibility. Ask adviser before applying.
-                </p>
-              </div>
-            </aside>
-
-            {/* MAIN CONTENT COLUMN */}
-            <main>
-              {s3?.status !== false && (
-                <section className="section">
-                  <div className="container">
-                    <div className="section-head">
-                      <span className="eyebrow">{s3?.badge || "YStudy resource"}</span>
-                      <h1>{s3?.title || "Study Subjects"}</h1>
-                      <p>{s3?.description || "Explore popular subjects for adult learners, including business, computing, psychology, law, construction and health."}</p>
-                    </div>
-                    <div className="card-grid three">
-                      {(s3?.cards || [
-                        { title: "Business", description: "Management, marketing, HR and operations.", link: "/degrees/business" },
-                        { title: "Computing", description: "Digital, software, cybersecurity and data routes.", link: "/degrees/" },
-                        { title: "Psychology", description: "People, behaviour, research and support roles.", link: "/degrees/" },
-                        { title: "Construction", description: "Construction management, surveying and project routes.", link: "/degrees/" },
-                        { title: "Health & Social Care", description: "Care, leadership and public health routes.", link: "/degrees/" },
-                        { title: "Law", description: "Legal knowledge and professional pathways.", link: "/degrees/" }
-                      ]).map((card: any, idx: number) => (
-                        <article className="card" key={idx}>
-                          <h3>{card.title}</h3>
-                          <p>{card.description}</p>
-                          <Link className="link" href={card.link || "/degrees/"}>
-                            Open →
-                          </Link>
-                        </article>
-                      ))}
-                    </div>
-
-                    {s4?.status !== false && (
-                      <div className="cta-panel" style={{ marginTop: "28px" }}>
-                        <h2>{s4?.title || "Need help choosing the right route?"}</h2>
-                        <p>{s4?.description || "Use Degree Match Finder or speak to a YStudy adviser before applying."}</p>
-                        <div className="btnrow">
-                          <Link className="btn btn-blue" href="/tools/degree-match">
-                            Find my degree
-                          </Link>
-                          <Link className="btn btn-orange" href="/apply">
-                            Apply with YStudy
-                          </Link>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </section>
-              )}
-
-              {/* MAIN SUBJECT GUIDES */}
-              {s5?.status !== false && (
-                <section className="v705-sec">
-                  <div className="v705-wrap">
-                    <div className="v705-head">
-                      <div style={{ textAlign: "left" }}>
-                        <span className="kicker">{s5?.badge || "Main subject guides"}</span>
-                        <h2>{s5?.title || "Explore the subjects students ask about most."}</h2>
-                      </div>
-                    </div>
-                    <div className="v705-grid">
-                      {(s5?.cards || [
-                        { title: "Business", description: "Management, marketing, operations and enterprise.", link: "/degrees/business" },
-                        { title: "Computing", description: "IT, cyber security, software and data.", link: "/degrees/computing" },
-                        { title: "Health & Social Care", description: "Care, wellbeing, public health and service leadership.", link: "/degrees/health" },
-                        { title: "Construction", description: "Site management, project delivery and built environment.", link: "/degrees/construction" },
-                        { title: "Psychology", description: "People, behaviour, wellbeing and support roles.", link: "/degrees/psychology" },
-                        { title: "Law", description: "Legal knowledge, compliance and professional routes.", link: "/degrees/law" }
-                      ]).map((card: any, idx: number) => (
-                        <Link key={idx} className="v705-card" href={card.link || "/degrees/"}>
-                          <h3>{card.title}</h3>
-                          <p>{card.description}</p>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                </section>
-              )}
-
-              {/* CONVERSION SYSTEM */}
-              <ConversionStrip cards={s6?.cards} status={s6?.status} />
-
-              {/* CROSSLINKS */}
-              <CrossLinks title={s7?.title} description={s7?.description} cards={s7?.cards} status={s7?.status} />
-            </main>
-          </div>
+          <StudySearchShell
+            requireCollection="subjects"
+            s3={s3}
+            s4={s4}
+            s5={s5}
+            s6={s6}
+            s7={s7}
+          />
         </div>
       </section>
 

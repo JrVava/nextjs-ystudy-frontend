@@ -1,5 +1,5 @@
 import api from "@/lib/api";
-import { decrypt } from "@/lib/crypto";
+import { decrypt, encrypt } from "@/lib/crypto";
 
 export interface FilterItem {
   _id: string;
@@ -53,4 +53,48 @@ export function getFundings(): Promise<FilterItem[]> {
 
 export function getLocations(): Promise<FilterItem[]> {
   return fetchAndDecryptFilter("/frontend/locations");
+}
+
+export function getStudyRoutes(): Promise<FilterItem[]> {
+  return fetchAndDecryptFilter("/frontend/study-routes");
+}
+
+export interface StudyFilterPayload {
+  requireCollection?: "subjects" | "routes" | string;
+  subject?: string;
+  qualification?: string;
+  mode?: string;
+  location?: string;
+  duration?: string;
+  route?: string;
+  funding?: string;
+  keyword?: string;
+  keyword_search?: string;
+}
+
+export interface FilteredStudyItem {
+  _id?: string;
+  id?: string;
+  title: string;
+  description: string;
+  link: string;
+}
+
+export async function filterStudyItems(payload: StudyFilterPayload): Promise<FilteredStudyItem[]> {
+  try {
+    const res = await api.post("/frontend/study-filter", {
+      data: encrypt(payload)
+    });
+    const json = res?.data;
+    if (json && json.data) {
+      const decrypted = decrypt(json.data);
+      if (decrypted && decrypted.success && Array.isArray(decrypted.data)) {
+        return decrypted.data;
+      }
+    }
+    return [];
+  } catch (error) {
+    console.error("[filters.service] Failed to filter study items:", error);
+    return [];
+  }
 }
