@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import "./tools.css";
+import { submitEligibilityChecker, EligibilityCheckerPayload } from "@/services/tool.service";
 
 interface Option {
   title: string;
@@ -97,13 +98,14 @@ export function EligibilityCheckerWidget({ sectionData }: EligibilityCheckerWidg
 
   const [step, setStep] = useState<number>(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
-  
+
   // Lead info
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [callTime, setCallTime] = useState("Anytime");
   const [agree, setAgree] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   const [showResult, setShowResult] = useState<boolean>(false);
 
@@ -143,14 +145,36 @@ export function EligibilityCheckerWidget({ sectionData }: EligibilityCheckerWidg
     }
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (step === stepsList.length) {
       // Final form validation
       if (!firstName.trim() || !email.trim() || !agree) {
         alert("Please complete the required fields and accept the terms.");
         return;
       }
-      
+
+      setSubmitting(true);
+
+      const payload: EligibilityCheckerPayload = {
+        residencyStatus: answers.status || undefined,
+        studiedBefore: answers.previous || undefined,
+        study: answers.mode || undefined,
+        household: answers.income || undefined,
+        firstName: firstName.trim() || undefined,
+        email: email.trim() || undefined,
+        phone: phone.trim() || undefined,
+        bestTimeToCall: callTime || undefined,
+        is_agree: agree,
+      };
+
+      try {
+        await submitEligibilityChecker(payload);
+      } catch (err: any) {
+        console.error("[EligibilityCheckerWidget] Submission error:", err);
+      } finally {
+        setSubmitting(false);
+      }
+
       const fullAnswers = {
         ...answers,
         firstName,
@@ -203,7 +227,7 @@ export function EligibilityCheckerWidget({ sectionData }: EligibilityCheckerWidg
     <section className="section" id="checker">
       <div className="container funnel-shell">
         <div className="wizard-wrap" id="eligibilityWizard" style={{ textAlign: "left" }}>
-          
+
           {/* Progress bar */}
           <div className="wizard-progress">
             <span style={{ width: `${((step) / (stepsList.length + 1)) * 100}%` }}></span>
@@ -217,7 +241,7 @@ export function EligibilityCheckerWidget({ sectionData }: EligibilityCheckerWidg
                   <div className="wizard-kicker">{stepsList[step].badge}</div>
                   <h2>{stepsList[step].title}</h2>
                   <p>{stepsList[step].description}</p>
-                  
+
                   <div className="option-list" data-name={stepsList[step].name}>
                     {stepsList[step].options.map((opt, oIdx) => {
                       const isSelected = answers[stepsList[step].name] === opt.title;
@@ -246,7 +270,7 @@ export function EligibilityCheckerWidget({ sectionData }: EligibilityCheckerWidg
                   <div className="wizard-kicker">Final step</div>
                   <h2>Where should we send your report?</h2>
                   <p>Your funding snapshot is ready. Enter your details to see it, save it and share it with an adviser.</p>
-                  
+
                   <form className="lead-mini-form" onSubmit={(e) => e.preventDefault()}>
                     <label>
                       First name
@@ -318,15 +342,19 @@ export function EligibilityCheckerWidget({ sectionData }: EligibilityCheckerWidg
                 </button>
                 <button
                   className="btn btn-blue wizard-next"
-                  disabled={isNextDisabled}
+                  disabled={isNextDisabled || submitting}
                   onClick={handleNext}
                 >
-                  {step === stepsList.length ? "See my result →" : "Continue →"}
+                  {submitting
+                    ? "Submitting..."
+                    : step === stepsList.length
+                    ? "See my result →"
+                    : "Continue →"}
                 </button>
               </div>
             </>
           ) : (
-            
+
             /* RESULTS SCREEN */
             <div className="result-screen show">
               <span className="kicker">Your funding snapshot</span>
@@ -336,7 +364,7 @@ export function EligibilityCheckerWidget({ sectionData }: EligibilityCheckerWidg
               <p>
                 Based on <strong>{answers.status || "your status"}</strong>, <strong>{answers.mode || "your study mode"}</strong> and <strong>{answers.previous || "previous study"}</strong>.
               </p>
-              
+
               <div className="result-card-big">
                 <h3 id="eligResultTitle">
                   {riskType === "Likely" ? "Likely standard funding route" : "Funding route needs adviser review"}
@@ -346,7 +374,7 @@ export function EligibilityCheckerWidget({ sectionData }: EligibilityCheckerWidg
                     ? "Your answers suggest tuition and maintenance funding may be possible, but an adviser should check the details."
                     : "Student Finance depends on detailed residency, course and previous study rules. Use this as a guide, not a guarantee."}
                 </p>
-                
+
                 <div className="result-grid">
                   <div className="result-mini">
                     <strong>£9,535</strong>
@@ -376,7 +404,9 @@ export function EligibilityCheckerWidget({ sectionData }: EligibilityCheckerWidg
                     setFirstName("");
                     setEmail("");
                     setPhone("");
+                    setCallTime("Anytime");
                     setAgree(false);
+                    setSubmitting(false);
                   }}>
                     Start over
                   </button>

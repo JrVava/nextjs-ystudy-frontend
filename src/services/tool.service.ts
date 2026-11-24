@@ -34,6 +34,18 @@ export interface DegreeMatchPayload {
   is_agree?: boolean;
 }
 
+export interface EligibilityCheckerPayload {
+  residencyStatus?: string;
+  studiedBefore?: string;
+  study?: string;
+  household?: string;
+  firstName?: string;
+  email?: string;
+  phone?: string;
+  bestTimeToCall?: string;
+  is_agree?: boolean;
+}
+
 export async function getToolsList(): Promise<ToolItem[] | null> {
   try {
     const res = await api.get("/frontend/tools");
@@ -75,6 +87,30 @@ export async function submitDegreeMatch(
     return decrypted || null;
   } catch (error: any) {
     console.error(`[tool.service] Error submitting degree match:`, error.message || error);
+    throw error;
+  }
+}
+
+export async function submitEligibilityChecker(
+  payload: EligibilityCheckerPayload
+): Promise<{ success: boolean; message?: string; id?: string } | null> {
+  try {
+    const encryptedBody = encrypt(payload);
+    const res = await api.post("/frontend/eligibility-checker", { data: encryptedBody });
+
+    const json = res.data;
+    if (!json || !json.data) {
+      return null;
+    }
+
+    const decrypted = decrypt(json.data);
+    if (decrypted && decrypted.success) {
+      return decrypted;
+    }
+
+    return decrypted || null;
+  } catch (error: any) {
+    console.error(`[tool.service] Error submitting eligibility checker:`, error.message || error);
     throw error;
   }
 }
