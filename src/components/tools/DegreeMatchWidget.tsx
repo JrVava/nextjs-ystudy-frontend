@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import "./tools.css";
+import { submitDegreeMatch, DegreeMatchPayload } from "@/services/tool.service";
 
 interface Option {
   emoji: string;
@@ -229,6 +230,7 @@ export function DegreeMatchWidget({ sectionData }: DegreeMatchWidgetProps) {
   const [phone, setPhone] = useState("");
   const [callTime, setCallTime] = useState("Anytime");
   const [agreeContact, setAgreeContact] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   // Result display state
   const [showResult, setShowResult] = useState(false);
@@ -313,7 +315,7 @@ export function DegreeMatchWidget({ sectionData }: DegreeMatchWidgetProps) {
     return ["Business Management Degree", "Flexible route for management, operations and career progression"];
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Check validity of the form (handled by standard HTML5 validation on submit click)
@@ -321,6 +323,8 @@ export function DegreeMatchWidget({ sectionData }: DegreeMatchWidgetProps) {
     if (!form.checkValidity()) {
       return;
     }
+
+    setSubmitting(true);
 
     // Determine results
     const d = pickDegree(subject);
@@ -338,6 +342,34 @@ export function DegreeMatchWidget({ sectionData }: DegreeMatchWidgetProps) {
     setDegreeResultText(finalDesc);
     setRouteText(finalRouteText);
     setFundingText(finalFunding);
+
+    // Send data to backend API (/frontend/degree-match)
+    const payload: DegreeMatchPayload = {
+      residencyStatus: status || undefined,
+      highestQualification: qualification || undefined,
+      subjectsInterest: subject || undefined,
+      study: mode || undefined,
+      salaryLevel: salary || undefined,
+      situation: work || undefined,
+      ageRange: age || undefined,
+      languageConfident: english || undefined,
+      HouseholdIncome: income || undefined,
+      career: careerchange || undefined,
+      responsibilities: children || undefined,
+      firstName: firstName || undefined,
+      email: email || undefined,
+      phone: phone || undefined,
+      bestTimeToCall: callTime || undefined,
+      is_agree: agreeContact,
+    };
+
+    try {
+      await submitDegreeMatch(payload);
+    } catch (err: any) {
+      console.error("[DegreeMatchWidget] Submission error:", err);
+    } finally {
+      setSubmitting(false);
+    }
 
     // Save to local storage matching prototype schema
     const answersObj = {
@@ -497,8 +529,9 @@ export function DegreeMatchWidget({ sectionData }: DegreeMatchWidgetProps) {
                     type="submit"
                     form="leadCaptureForm"
                     className="btn btn-blue wizard-next"
+                    disabled={submitting}
                   >
-                    See my result →
+                    {submitting ? "Submitting..." : "See my result →"}
                   </button>
                 ) : (
                   <button
