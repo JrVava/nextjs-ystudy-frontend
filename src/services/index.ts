@@ -9,3 +9,4 @@ export * from "./guide.service";
 export * from "./location.service";
 export * from "./filters.service";
 export * from "./subject.service";
+export * from "./partner.service";

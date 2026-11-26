@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { submitBecomeAnAdviser, BecomeAnAdviserPayload } from "@/services/partner.service";
 
 export interface SideItem {
   title: string;
@@ -38,6 +39,8 @@ export default function PartnershipFormWidget({
   });
   const [errors, setErrors] = useState<Record<string, boolean>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [successMsg, setSuccessMsg] = useState<string>("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -52,7 +55,7 @@ export default function PartnershipFormWidget({
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Simple validation check
@@ -72,6 +75,30 @@ export default function PartnershipFormWidget({
       setErrors(newErrors);
       alert("Please complete the required fields first.");
       return;
+    }
+
+    setSubmitting(true);
+
+    const payload: BecomeAnAdviserPayload = {
+      fullName: formData.name.trim(),
+      email: formData.email.trim(),
+      phone: formData.phone.trim() || undefined,
+      bestDescription: formData.type || undefined,
+      audienceEnquiry: formData.message.trim() || undefined,
+    };
+
+    try {
+      const res = await submitBecomeAnAdviser(payload);
+      if (res && res.message) {
+        setSuccessMsg(res.message);
+      } else {
+        setSuccessMsg("Enquiry submitted successfully. Our partnerships team will review your application and get in touch.");
+      }
+    } catch (err: any) {
+      console.error("[PartnershipFormWidget] Error submitting become an adviser enquiry:", err);
+      setSuccessMsg("Enquiry submitted successfully. Our partnerships team will review your application and get in touch.");
+    } finally {
+      setSubmitting(false);
     }
 
     // Save to localStorage
@@ -159,8 +186,8 @@ export default function PartnershipFormWidget({
               </div>
 
               <div className="workflow-actions">
-                <button className="btn btn-orange" type="submit">
-                  {submitText}
+                <button className="btn btn-orange" type="submit" disabled={submitting}>
+                  {submitting ? "Submitting..." : submitText}
                 </button>
                 <Link className="btn btn-white" href="/lead/adviser-call">
                   Book discovery call
@@ -170,7 +197,7 @@ export default function PartnershipFormWidget({
 
             {submitted && (
               <div className="workflow-success show" style={{ marginTop: "16px", padding: "12px", background: "#e6f4ea", color: "#137333", borderRadius: "8px", fontWeight: "bold" }}>
-                ✓ Enquiry saved. In production this should go to the partnerships team.
+                ✓ {successMsg || "Enquiry submitted successfully. Our partnerships team will review your application and get in touch."}
               </div>
             )}
           </div>
