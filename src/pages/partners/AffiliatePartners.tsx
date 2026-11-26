@@ -169,6 +169,7 @@ export default function AffiliatePartners({ data }: AffiliatePartnersProps) {
 
       {/* WORKFLOW FORM */}
       <PartnershipFormWidget
+        moduleName="affiliatePartners"
         workflow="affiliate-enquiry"
         kicker={formCard.badge || "Affiliate enquiry"}
         title={formCard.title || "Join the YStudy affiliate programme."}

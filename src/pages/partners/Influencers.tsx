@@ -133,6 +133,7 @@ export default async function Influencers() {
 
       {/* WORKFLOW FORM */}
       <PartnershipFormWidget
+        moduleName="influencers"
         workflow="creator-enquiry"
         kicker={formCard.badge || "Creator enquiry"}
         title={formCard.title || "Apply as a Creator & Influencer Partner."}

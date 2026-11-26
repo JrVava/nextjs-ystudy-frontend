@@ -40,6 +40,7 @@ export default function ReferAFriend({ data }: ReferAFriendProps) {
         </div>
       </Banner>
       <PartnershipFormWidget
+        moduleName="referAFriend"
         workflow="referral-form"
         kicker={formCard.badge || "Referral form"}
         title={formCard.title || "Refer a friend to YStudy."}

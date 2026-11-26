@@ -2,7 +2,11 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { submitBecomeAnAdviser, BecomeAnAdviserPayload } from "@/services/partner.service";
+import {
+  submitPartnerForm,
+  PartnerFormPayload,
+  PartnerFormModule,
+} from "@/services/partner.service";
 
 export interface SideItem {
   title: string;
@@ -10,6 +14,7 @@ export interface SideItem {
 }
 
 export interface PartnershipFormWidgetProps {
+  moduleName?: PartnerFormModule;
   workflow: string;
   kicker: string;
   title: string;
@@ -21,6 +26,7 @@ export interface PartnershipFormWidgetProps {
 }
 
 export default function PartnershipFormWidget({
+  moduleName,
   workflow,
   kicker,
   title,
@@ -79,7 +85,17 @@ export default function PartnershipFormWidget({
 
     setSubmitting(true);
 
-    const payload: BecomeAnAdviserPayload = {
+    const resolvedModule: PartnerFormModule = moduleName || (
+      workflow === "adviser-application" ? "becomeAnAdviser" :
+      workflow === "creator-enquiry" ? "influencers" :
+      workflow === "affiliate-enquiry" ? "affiliatePartners" :
+      workflow === "business-partnership" ? "business" :
+      workflow === "referral-form" ? "referAFriend" :
+      "becomeAnAdviser"
+    );
+
+    const payload: PartnerFormPayload = {
+      module: resolvedModule,
       fullName: formData.name.trim(),
       email: formData.email.trim(),
       phone: formData.phone.trim() || undefined,
@@ -88,14 +104,14 @@ export default function PartnershipFormWidget({
     };
 
     try {
-      const res = await submitBecomeAnAdviser(payload);
+      const res = await submitPartnerForm(payload);
       if (res && res.message) {
         setSuccessMsg(res.message);
       } else {
         setSuccessMsg("Enquiry submitted successfully. Our partnerships team will review your application and get in touch.");
       }
     } catch (err: any) {
-      console.error("[PartnershipFormWidget] Error submitting become an adviser enquiry:", err);
+      console.error("[PartnershipFormWidget] Error submitting partner form:", err);
       setSuccessMsg("Enquiry submitted successfully. Our partnerships team will review your application and get in touch.");
     } finally {
       setSubmitting(false);
@@ -122,6 +138,14 @@ export default function PartnershipFormWidget({
       console.error("Failed to save submission to localStorage", err);
     }
 
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      type: "Student adviser",
+      message: ""
+    });
+    setErrors({});
     setSubmitted(true);
   };
 

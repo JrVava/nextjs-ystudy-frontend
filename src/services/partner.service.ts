@@ -1,7 +1,18 @@
 import { encrypt, decrypt } from "@/lib/crypto";
 import api from "@/lib/api";
 
-export interface BecomeAnAdviserPayload {
+export type PartnerFormModule =
+  | 'becomeAnAdviser'
+  | 'influencers'
+  | 'affiliatePartners'
+  | 'business'
+  | 'referAFriend'
+  | string;
+
+export type BecomeAnAdviserModule = PartnerFormModule;
+
+export interface PartnerFormPayload {
+  module?: PartnerFormModule;
   fullName: string;
   email: string;
   phone?: string;
@@ -9,12 +20,14 @@ export interface BecomeAnAdviserPayload {
   audienceEnquiry?: string;
 }
 
-export async function submitBecomeAnAdviser(
-  payload: BecomeAnAdviserPayload
+export type BecomeAnAdviserPayload = PartnerFormPayload;
+
+export async function submitPartnerForm(
+  payload: PartnerFormPayload
 ): Promise<{ success: boolean; message?: string; id?: string } | null> {
   try {
     const encryptedBody = encrypt(payload);
-    const res = await api.post("/frontend/become-an-adviser", { data: encryptedBody });
+    const res = await api.post("/frontend/partner-form", { data: encryptedBody });
 
     const json = res.data;
     if (!json || !json.data) {
@@ -28,7 +41,10 @@ export async function submitBecomeAnAdviser(
 
     return decrypted || null;
   } catch (error: any) {
-    console.error(`[partner.service] Error submitting become an adviser enquiry:`, error.message || error);
+    console.error(`[partner.service] Error submitting partner form:`, error.message || error);
     throw error;
   }
 }
+
+// Backwards compatibility alias
+export const submitBecomeAnAdviser = submitPartnerForm;

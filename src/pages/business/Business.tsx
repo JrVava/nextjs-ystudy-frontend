@@ -140,6 +140,7 @@ export default async function Business() {
 
       {/* WORKFLOW FORM */}
       <PartnershipFormWidget
+        moduleName="business"
         workflow="business-partnership"
         kicker={formCard.badge || "Business partnership"}
         title={formCard.title || "Talk to us about reaching adult learners."}

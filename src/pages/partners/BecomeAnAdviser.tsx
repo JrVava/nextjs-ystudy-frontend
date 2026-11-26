@@ -225,6 +225,7 @@ export default async function BecomeAnAdviser() {
 
       {/* WORKFLOW FORM */}
       <PartnershipFormWidget
+        moduleName="becomeAnAdviser"
         workflow="adviser-application"
         kicker={formCard.badge || "Adviser application"}
         title={formCard.title || "Apply to become a YStudy Student Adviser."}
