@@ -10,3 +10,4 @@ export * from "./location.service";
 export * from "./filters.service";
 export * from "./subject.service";
 export * from "./partner.service";
+export * from "./adviser.service";
